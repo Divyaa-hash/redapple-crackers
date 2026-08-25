@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Tracking - RedApple Fireworks Store{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .tracking-hero {
+        background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+        padding: 6rem 0;
+        text-align: center;
+    }
+    
+    .tracking-timeline {
+        position: relative;
+        padding-left: 2rem;
+    }
+    
+    .tracking-timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #ef4444, #10b981);
+    }
+    
+    .timeline-item {
+        position: relative;
+        padding-bottom: 2rem;
+    }
+    
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -2rem;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #10b981;
+        border: 3px solid #10b981;
+    }
+    
+    .timeline-item.pending::before {
+        background: #374151;
+        border-color: #374151;
+    }
+    
+    .timeline-item.current::before {
+        background: #ef4444;
+        border-color: #ef4444;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+        50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    }
+    
+    .order-info-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+    }
+    
+    .status-badge {
+        display: inline-block;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-weight: bold;
+    }
+    
+    .status-badge.in-transit {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        border: 2px solid #ef4444;
+    }
+    
+    .status-badge.delivered {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+        border: 2px solid #10b981;
+    }
+</style>
+{% endblock %}
+
+<!-- Tracking Hero -->
+<section class="tracking-hero">
+    <div class="max-w-4xl mx-auto px-4">
+        <h1 class="text-4xl font-display font-bold mb-4">
+            <span class="text-gradient">Track Your Order</span>
+        </h1>
+        <p class="text-gray-400 text-lg mb-8">Enter your order number to track your shipment</p>
+        
+        <div class="max-w-md mx-auto flex gap-4">
+            <input type="text" id="order-number" class="input-premium flex-1 px-6 py-4 rounded-xl" placeholder="Order Number (e.g., RED-2025-001234)">
+            <button onclick="trackOrder()" class="btn-gold px-8">Track</button>
+        </div>
+    </div>
+</section>
+
+<!-- Tracking Results -->
+<section id="tracking-results" class="py-12 bg-black-100 hidden">
+    <div class="max-w-4xl mx-auto px-4">
+        <!-- Order Info -->
+        <div class="order-info-card mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Order #RED-2025-001234</h2>
+                    <p class="text-gray-400">Placed on August 4, 2025</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="status-badge in-transit">In Transit</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Estimated Delivery</p>
+                    <p class="text-xl font-bold text-white">August 8-10, 2025</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Shipping Address</p>
+                    <p class="text-white">Chennai, Tamil Nadu</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Total Amount</p>
+                    <p class="text-xl font-bold text-red-500">₹1,299</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tracking Timeline -->
+        <div class="order-info-card">
+            <h3 class="text-xl font-bold text-white mb-6">Shipping Progress</h3>
+            
+            <div class="tracking-timeline">
+                <div class="timeline-item">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-white">Order Placed</h4>
+                            <p class="text-gray-400 text-sm">Your order has been successfully placed</p>
+                        </div>
+                        <span class="text-gray-400 text-sm">Aug 4, 10:30 AM</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-white">Order Confirmed</h4>
+                            <p class="text-gray-400 text-sm">Payment received and order confirmed</p>
+                        </div>
+                        <span class="text-gray-400 text-sm">Aug 4, 10:35 AM</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-white">Order Packed</h4>
+                            <p class="text-gray-400 text-sm">Your items have been packed and ready for shipment</p>
+                        </div>
+                        <span class="text-gray-400 text-sm">Aug 4, 2:00 PM</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-item current">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-white">Shipped</h4>
+                            <p class="text-gray-400 text-sm">Order picked up by courier partner</p>
+                            <p class="text-red-500 text-sm mt-1">Tracking ID: BLUEDART-123456789</p>
+                        </div>
+                        <span class="text-gray-400 text-sm">Aug 5, 9:00 AM</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-item pending">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-gray-400">Out for Delivery</h4>
+                            <p class="text-gray-500 text-sm">Package is out for delivery</p>
+                        </div>
+                        <span class="text-gray-500 text-sm">Expected: Aug 8</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-item pending">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-gray-400">Delivered</h4>
+                            <p class="text-gray-500 text-sm">Package delivered successfully</p>
+                        </div>
+                        <span class="text-gray-500 text-sm">Expected: Aug 8-10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Support -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-400 mb-4">Need help with your order?</p>
+            <a href="/contact/" class="btn-outline inline-block px-8 py-3 rounded-full">Contact Support</a>
+        </div>
+    </div>
+</section>
+
+<script>
+function trackOrder() {
+    const orderNumber = document.getElementById('order-number').value;
+    if (orderNumber) {
+        document.getElementById('tracking-results').classList.remove('hidden');
+        document.getElementById('tracking-results').scrollIntoView({ behavior: 'smooth' });
+    } else {
+        alert('Please enter an order number');
+    }
+}
+
+// Auto-track if order number is in URL
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const order = urlParams.get('order');
+    if (order) {
+        document.getElementById('order-number').value = order;
+        trackOrder();
+    }
+};
+</script>
+
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmation - RedApple Fireworks Store{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .confirmation-hero {
+        background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+        padding: 6rem 0;
+        text-align: center;
+    }
+    
+    .success-icon {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        animation: scaleIn 0.5s ease;
+    }
+    
+    @keyframes scaleIn {
+        from { transform: scale(0); }
+        to { transform: scale(1); }
+    }
+    
+    .order-details {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+    }
+    
+    .payment-success {
+        background: rgba(16, 185, 129, 0.1);
+        border: 2px solid #10b981;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+</style>
+{% endblock %}
+
+<!-- Confirmation Hero -->
+<section class="confirmation-hero">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="success-icon">
+            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+            </svg>
+        </div>
+        <h1 class="text-4xl font-display font-bold mb-4 text-white">Order Confirmed!</h1>
+        <p class="text-gray-400 text-lg">Thank you for your purchase. Your order has been successfully placed.</p>
+    </div>
+</section>
+
+<!-- Order Details -->
+<section class="py-12 bg-black-100">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="payment-success">
+            <div class="flex items-center">
+                <svg class="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>
+                    <h3 class="text-xl font-bold text-green-500">Payment Successful</h3>
+                    <p class="text-gray-400">Your payment of ₹1,299 has been processed successfully</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="order-details">
+            <h2 class="text-2xl font-bold text-white mb-6">Order Details</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Order Number</p>
+                    <p class="text-xl font-bold text-red-500">#RED-2025-001234</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Order Date</p>
+                    <p class="text-xl font-bold text-white">August 4, 2025</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Estimated Delivery</p>
+                    <p class="text-xl font-bold text-white">August 8-10, 2025</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Payment Method</p>
+                    <p class="text-xl font-bold text-white">UPI Payment</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6">
+                <h3 class="text-lg font-bold text-white mb-4">Shipping Address</h3>
+                <div class="text-gray-300">
+                    <p class="font-semibold">Rahul Sharma</p>
+                    <p>123, Main Street</p>
+                    <p>Anna Nagar, Chennai</p>
+                    <p>Tamil Nadu - 600040</p>
+                    <p class="mt-2">Phone: +91 98765 43210</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order Items -->
+        <div class="order-details mt-6">
+            <h3 class="text-lg font-bold text-white mb-4">Order Items</h3>
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-700">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-700 rounded-lg mr-4"></div>
+                        <div>
+                            <p class="font-semibold text-white">Premium Sky Rocket Pack</p>
+                            <p class="text-gray-400 text-sm">Quantity: 2</p>
+                        </div>
+                    </div>
+                    <p class="text-red-500 font-bold">₹799</p>
+                </div>
+                
+                <div class="flex items-center justify-between pb-4 border-b border-gray-700">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-700 rounded-lg mr-4"></div>
+                        <div>
+                            <p class="font-semibold text-white">Golden Sparkler Set</p>
+                            <p class="text-gray-400 text-sm">Quantity: 1</p>
+                        </div>
+                    </div>
+                    <p class="text-red-500 font-bold">₹299</p>
+                </div>
+                
+                <div class="flex items-center justify-between pb-4 border-b border-gray-700">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-700 rounded-lg mr-4"></div>
+                        <div>
+                            <p class="font-semibold text-white">Color Fountain Pack</p>
+                            <p class="text-gray-400 text-sm">Quantity: 1</p>
+                        </div>
+                    </div>
+                    <p class="text-red-500 font-bold">₹199</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-gray-700">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Subtotal</span>
+                    <span class="text-white">₹1,297</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Shipping</span>
+                    <span class="text-green-500">FREE</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Discount</span>
+                    <span class="text-red-500">-₹0</span>
+                </div>
+                <div class="flex justify-between text-xl font-bold mt-4 pt-4 border-t border-gray-700">
+                    <span class="text-white">Total</span>
+                    <span class="text-red-500">₹1,299</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-8">
+            <a href="/order-tracking/" class="btn-gold text-center py-3 rounded-lg">Track Order</a>
+            <a href="/shop/" class="btn-outline text-center py-3 rounded-lg">Continue Shopping</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

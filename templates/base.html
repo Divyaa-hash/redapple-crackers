@@ -1,0 +1,494 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RedApple crackers - Premium crackers for all celebrations. Shop the best quality crackers at unbeatable prices.">
+    <meta name="keywords" content="crackers, premium crackers, diwali crackers, festival crackers, redapplecrackers">
+    <title>{% block title %}RedApple crackers Store{% endblock %}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        black: {
+                            50: '#0a0a0a',
+                            100: '#141414',
+                            200: '#1f1f1f',
+                            300: '#2a2a2a',
+                            400: '#363636',
+                            500: '#424242',
+                            600: '#4f4f4f',
+                            700: '#5c5c5c',
+                            800: '#6a6a6a',
+                            900: '#787878',
+                        },
+                        gold: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                            950: '#451a03',
+                        },
+                        red: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                            950: '#450a0a',
+                        },
+                        charcoal: {
+                            50: '#f5f5f5',
+                            100: '#e5e5e5',
+                            200: '#d4d4d4',
+                            300: '#a3a3a3',
+                            400: '#737373',
+                            500: '#525252',
+                            600: '#404040',
+                            700: '#262626',
+                            800: '#171717',
+                            900: '#0d0d0d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        display: ['Montserrat', 'system-ui', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                        'gold-gradient': 'linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)',
+                        'red-gradient': 'linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 100%)',
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'glow': '0 0 20px rgba(245, 158, 11, 0.5)',
+                        'glow-red': '0 0 20px rgba(239, 68, 68, 0.5)',
+                        'premium': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-black-100 text-gray-100 antialiased">
+    {% csrf_token %}
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="text-center">
+            <div class="loader mx-auto mb-4"></div>
+            <p class="text-gold-500 font-display text-xl">Loading Premium Experience...</p>
+        </div>
+    </div>
+    
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+    
+    <!-- Navbar -->
+    {% include 'includes/navbar.html' %}
+    
+    <!-- Cart Drawer -->
+    {% include 'includes/cart_drawer.html' %}
+    
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    {% include 'includes/footer.html' %}
+    
+    <!-- JavaScript -->
+    <script>
+        // Basic JavaScript functions that work immediately
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+        
+        function toggleSearch() {
+            const searchModal = document.getElementById('search-modal');
+            if (searchModal) {
+                searchModal.classList.toggle('hidden');
+                if (!searchModal.classList.contains('hidden')) {
+                    document.getElementById('search-input').focus();
+                }
+            }
+        }
+        
+        function toggleCart() {
+            const cartDrawer = document.querySelector('.cart-drawer');
+            const cartOverlay = document.querySelector('.cart-overlay');
+            
+            if (cartDrawer && cartOverlay) {
+                cartDrawer.classList.toggle('open');
+                cartOverlay.classList.toggle('open');
+                
+                if (cartDrawer.classList.contains('open')) {
+                    document.body.style.overflow = 'hidden';
+                    // Load cart items when drawer opens
+                    loadCartItems();
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+        
+        function loadCartItems() {
+            fetch('/cart/summary/')
+                .then(response => response.json())
+                .then(data => {
+                    const count = data.total_items || data.cart_count || 0;
+                    updateCartCount(count);
+                    
+                    // Update cart drawer
+                    const emptyCartMessage = document.getElementById('empty-cart-message');
+                    const cartItemsList = document.getElementById('cart-items-list');
+                    const cartSubtotal = document.getElementById('cart-subtotal');
+                    const cartShipping = document.getElementById('cart-shipping');
+                    const cartGst = document.getElementById('cart-gst');
+                    const cartTotal = document.getElementById('cart-total');
+                    
+                    if (data.items && data.items.length > 0) {
+                        // Hide empty cart message
+                        if (emptyCartMessage) {
+                            emptyCartMessage.style.display = 'none';
+                        }
+                        
+                        // Show cart items
+                        if (cartItemsList) {
+                            cartItemsList.innerHTML = data.items.map(item => `
+                                <div class="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
+                                    <img src="${item.product_image}" alt="${item.product_name}" class="w-16 h-16 object-cover rounded-lg">
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-white">${item.product_name}</h4>
+                                        <p class="text-sm text-gray-400">₹${item.unit_price} x ${item.quantity}</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-gold-500">₹${item.total_price}</p>
+                                        <button onclick="removeFromCart(${item.id})" class="text-xs text-red-400 hover:text-red-300 mt-1">Remove</button>
+                                    </div>
+                                </div>
+                            `).join('');
+                        }
+                        
+                        // Calculate totals
+                        const subtotal = parseFloat(data.cart_total);
+                        const shipping = 99;
+                        const gst = subtotal * 0.18;
+                        const total = subtotal + shipping + gst;
+                        
+                        if (cartSubtotal) cartSubtotal.textContent = '₹' + subtotal.toFixed(2);
+                        if (cartShipping) cartShipping.textContent = '₹' + shipping.toFixed(2);
+                        if (cartGst) cartGst.textContent = '₹' + gst.toFixed(2);
+                        if (cartTotal) cartTotal.textContent = '₹' + total.toFixed(2);
+                    } else {
+                        // Show empty cart message
+                        if (emptyCartMessage) {
+                            emptyCartMessage.style.display = 'block';
+                        }
+                        if (cartItemsList) {
+                            cartItemsList.innerHTML = '';
+                        }
+                        if (cartSubtotal) cartSubtotal.textContent = '₹0.00';
+                        if (cartGst) cartGst.textContent = '₹0.00';
+                        if (cartTotal) cartTotal.textContent = '₹0.00';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading cart:', error);
+                });
+        }
+        
+        // Initialize counts on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            loadWishlistCount();
+        });
+        
+        function updateCartCount(count) {
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = count;
+            });
+        }
+        
+        function updateWishlistCount(count) {
+            const wishlistCountElements = document.querySelectorAll('.wishlist-count');
+            wishlistCountElements.forEach(element => {
+                element.textContent = count;
+            });
+        }
+        
+        function removeFromCart(itemId) {
+            fetch('/cart/remove/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+                },
+                body: `item_id=${itemId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    loadCartItems();
+                    alert('Item removed from cart');
+                } else {
+                    alert('Error removing item from cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while removing item');
+            });
+        }
+        
+        function loadWishlistCount() {
+            fetch('/wishlist/summary/')
+                .then(response => response.json())
+                .then(data => {
+                    const count = data.total_items || data.wishlist_count || 0;
+                    updateWishlistCount(count);
+                })
+                .catch(error => {
+                    console.error('Error loading wishlist count:', error);
+                });
+        }
+        
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                border-radius: 10px;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                color: white;
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Add event listeners for cart buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove loading screen
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 1000);
+            }
+            
+            // Cart toggle buttons
+            const cartButtons = document.querySelectorAll('[onclick="toggleCart()"]');
+            cartButtons.forEach(btn => {
+                btn.addEventListener('click', toggleCart);
+            });
+            
+            // Add to cart buttons
+            const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const productId = this.dataset.productId || 1;
+                    
+                    fetch('/cart/add/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+                        },
+                        body: `product_id=${productId}&quantity=1`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Product added to cart!', 'success');
+                            updateCartCount(data.cart_count || 1);
+                            // Load cart items to refresh cart drawer
+                            loadCartItems();
+                            toggleCart();
+                        } else {
+                            showToast(data.message || 'Error adding to cart', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        showToast('Error adding to cart', 'error');
+                    });
+                });
+            });
+            
+            // Wishlist buttons
+            const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+            wishlistBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showToast('Product added to wishlist!', 'success');
+                    this.classList.add('active');
+                });
+            });
+            
+            // Quick view buttons
+            const quickViewBtns = document.querySelectorAll('.quick-view-btn');
+            quickViewBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showToast('Quick view coming soon!', 'success');
+                });
+            });
+            
+            // Cart close button
+            const cartClose = document.querySelector('.cart-close');
+            if (cartClose) {
+                cartClose.addEventListener('click', toggleCart);
+            }
+            
+            // Cart overlay
+            const cartOverlay = document.querySelector('.cart-overlay');
+            if (cartOverlay) {
+                cartOverlay.addEventListener('click', toggleCart);
+            }
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('[onclick="toggleMobileMenu()"]');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            
+            // Scroll progress
+            window.addEventListener('scroll', function() {
+                const scrollProgress = document.getElementById('scroll-progress');
+                if (scrollProgress) {
+                    const scrollTop = document.documentElement.scrollTop;
+                    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const progress = (scrollTop / scrollHeight) * 100;
+                    scrollProgress.style.width = progress + '%';
+                }
+            });
+            
+            // Simple countdown timer
+            const countdownElements = document.querySelectorAll('.countdown-timer');
+            countdownElements.forEach(countdown => {
+                const targetDate = countdown.dataset.date;
+                if (targetDate) {
+                    const target = new Date(targetDate).getTime();
+                    
+                    function updateCountdown() {
+                        const now = new Date().getTime();
+                        const distance = target - now;
+                        
+                        if (distance < 0) {
+                            countdown.innerHTML = '<div class="text-2xl font-bold text-gold-500">Sale Coming Soon!</div>';
+                            return;
+                        }
+                        
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                        countdown.innerHTML = `
+                            <div class="countdown-item">
+                                <div class="countdown-number">${days}</div>
+                                <div class="countdown-label">Days</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number">${hours}</div>
+                                <div class="countdown-label">Hours</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number">${minutes}</div>
+                                <div class="countdown-label">Minutes</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number">${seconds}</div>
+                                <div class="countdown-label">Seconds</div>
+                            </div>
+                        `;
+                    }
+                    
+                    updateCountdown();
+                    setInterval(updateCountdown, 1000);
+                }
+            });
+        });
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

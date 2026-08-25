@@ -1,0 +1,68 @@
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+<!-- Cart Drawer -->
+<div class="cart-drawer" id="cart-drawer">
+    <div class="flex flex-col h-full">
+        <!-- Cart Header -->
+        <div class="flex items-center justify-between p-6 border-b border-white/10">
+            <h2 class="text-2xl font-display font-bold text-gradient">Your Cart</h2>
+            <button onclick="toggleCart()" class="p-2 text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Cart Items -->
+        <div class="flex-1 overflow-y-auto p-6" id="cart-items-container">
+            <!-- Empty Cart State -->
+            <div class="text-center py-12" id="empty-cart-message">
+                <svg class="w-24 h-24 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <p class="text-gray-400 text-lg">Your cart is empty</p>
+                <p class="text-gray-500 text-sm mt-2">Add some premium fireworks to get started!</p>
+                <button onclick="toggleCart(); window.location.href='/shop/'" class="btn-gold mt-6">Continue Shopping</button>
+            </div>
+            
+            <!-- Cart items will be dynamically loaded here -->
+            <div id="cart-items-list"></div>
+        </div>
+        
+        <!-- Cart Footer -->
+        <div class="border-t border-white/10 p-6" id="cart-footer">
+            <!-- Price Breakdown -->
+            <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-gray-400">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">₹0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>Shipping</span>
+                    <span id="cart-shipping">₹99.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>GST (18%)</span>
+                    <span id="cart-gst">₹0.00</span>
+                </div>
+                <hr class="border-white/10">
+                <div class="flex justify-between text-xl font-bold">
+                    <span class="text-gradient">Total</span>
+                    <span id="cart-total" class="text-gold-500">₹0.00</span>
+                </div>
+            </div>
+            
+            <!-- Checkout Button -->
+            <a href="/checkout/" class="btn-gold w-full text-center block py-4 rounded-lg text-lg font-bold">Proceed to Checkout</a>
+            
+            <!-- Security Badge -->
+            <div class="flex items-center justify-center mt-4 text-gray-500 text-sm">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                Secure checkout powered by SSL
+            </div>
+        </div>
+    </div>
+</div>

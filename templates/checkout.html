@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout - RedApple Fireworks Store{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .checkout-steps {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    
+    .step {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+    }
+    
+    .step.active .step-number {
+        background: #ef4444;
+        border-color: #ef4444;
+    }
+    
+    .step.completed .step-number {
+        background: #10b981;
+        border-color: #10b981;
+    }
+    
+    .payment-method {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .payment-method:hover, .payment-method.selected {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+    }
+    
+    .cart-summary {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+    }
+</style>
+{% endblock %}
+
+<!-- Checkout Header -->
+<section class="py-8 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-4xl font-display font-bold text-center">
+            <span class="text-gradient">Checkout</span>
+        </h1>
+        
+        <div class="checkout-steps mt-8">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <span class="text-white">Shipping</span>
+            </div>
+            <div class="text-gray-600 mx-4">→</div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <span class="text-gray-400">Payment</span>
+            </div>
+            <div class="text-gray-600 mx-4">→</div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <span class="text-gray-400">Confirmation</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Checkout Content -->
+<section class="py-12 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Payment Form -->
+            <div class="lg:col-span-2">
+                <div class="glass-card p-8 rounded-2xl mb-6">
+                    <h2 class="text-2xl font-bold text-white mb-6">Shipping Address</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-gray-300 mb-2">Full Name *</label>
+                            <input type="text" id="shipping_name" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Enter your full name" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-2">Phone Number *</label>
+                            <input type="tel" id="shipping_phone" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Enter phone number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-300 mb-2">Address Line 1 *</label>
+                        <input type="text" id="shipping_address_line1" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Street address" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-300 mb-2">Address Line 2</label>
+                        <input type="text" id="shipping_address_line2" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Apartment, suite, etc.">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-300 mb-2">City *</label>
+                            <input type="text" id="shipping_city" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="City" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-2">State *</label>
+                            <input type="text" id="shipping_state" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="State" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-2">Postal Code *</label>
+                            <input type="text" id="shipping_postal_code" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="PIN code" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold text-white mb-6">Payment Method</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="payment-method selected" onclick="selectPayment(this)">
+                            <div class="flex items-center mb-2">
+                                <svg class="w-8 h-8 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                </svg>
+                                <h3 class="font-bold text-white">UPI Payment</h3>
+                            </div>
+                            <p class="text-gray-400 text-sm">Pay using any UPI app</p>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPayment(this)">
+                            <div class="flex items-center mb-2">
+                                <svg class="w-8 h-8 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                </svg>
+                                <h3 class="font-bold text-white">Credit/Debit Card</h3>
+                            </div>
+                            <p class="text-gray-400 text-sm">Visa, Mastercard, RuPay</p>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPayment(this)">
+                            <div class="flex items-center mb-2">
+                                <svg class="w-8 h-8 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <h3 class="font-bold text-white">Net Banking</h3>
+                            </div>
+                            <p class="text-gray-400 text-sm">All major banks supported</p>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPayment(this)">
+                            <div class="flex items-center mb-2">
+                                <svg class="w-8 h-8 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <h3 class="font-bold text-white">Cash on Delivery</h3>
+                            </div>
+                            <p class="text-gray-400 text-sm">Pay when you receive</p>
+                        </div>
+                    </div>
+                    
+                    <!-- UPI Payment Form -->
+                    <div id="upi-form">
+                        <h3 class="text-lg font-bold text-white mb-4">Enter UPI ID</h3>
+                        <div class="mb-6">
+                            <input type="text" id="upi-id" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="yourname@upi">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-gray-300 mb-2">Or scan QR code</label>
+                            <div class="bg-white p-4 rounded-lg w-48 h-48 flex items-center justify-center mx-auto">
+                                <div class="text-center">
+                                    <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-2">
+                                        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+                                        </svg>
+                                    </div>
+                                    <p class="text-gray-500 text-xs">Scan with UPI app</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Payment Form (Hidden by default) -->
+                    <div id="card-form" class="hidden">
+                        <h3 class="text-lg font-bold text-white mb-4">Card Details</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-300 mb-2">Card Number</label>
+                            <input type="text" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-gray-300 mb-2">Expiry Date</label>
+                                <input type="text" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="MM/YY">
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 mb-2">CVV</label>
+                                <input type="text" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="123">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-300 mb-2">Name on Card</label>
+                            <input type="text" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Cardholder Name">
+                        </div>
+                    </div>
+                    
+                    <button onclick="processPayment()" class="btn-gold w-full py-4 rounded-lg text-lg font-bold">
+                        Pay ₹{{ total }}
+                    </button>
+                    
+                    <p class="text-center text-gray-400 text-sm mt-4">
+                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        Your payment is secured with SSL encryption
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="cart-summary">
+                    <h2 class="text-2xl font-bold text-white mb-6">Order Summary</h2>
+                    
+                    <div class="space-y-4 mb-6">
+                        {% for item in cart_items %}
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gray-700 rounded-lg mr-3 overflow-hidden">
+                                    {% if item.product.main_image %}
+                                    <img src="{{ item.product.main_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                                    {% else %}
+                                    <div class="w-full h-full bg-gray-600 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-white text-sm">{{ item.product.name }}</p>
+                                    <p class="text-gray-400 text-xs">Qty: {{ item.quantity }}</p>
+                                </div>
+                            </div>
+                            <p class="text-red-500 font-bold">₹{{ item.get_total_price }}</p>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-400 text-center py-4">Your cart is empty</p>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="border-t border-gray-700 pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Subtotal</span>
+                            <span class="text-white">₹{{ subtotal }}</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Shipping</span>
+                            <span class="text-green-500">₹{{ shipping_charge }}</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Tax (GST)</span>
+                            <span class="text-white">₹{{ gst }}</span>
+                        </div>
+                        <div class="flex justify-between text-xl font-bold mt-4 pt-4 border-t border-gray-700">
+                            <span class="text-white">Total</span>
+                            <span class="text-red-500">₹{{ total }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="flex gap-2">
+                            <input type="text" class="input-premium flex-1 px-4 py-2 rounded-lg" placeholder="Coupon code">
+                            <button class="btn-outline px-4 py-2 rounded-lg">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function selectPayment(element) {
+    document.querySelectorAll('.payment-method').forEach(el => {
+        el.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    
+    const method = element.querySelector('h3').textContent;
+    document.getElementById('upi-form').classList.add('hidden');
+    document.getElementById('card-form').classList.add('hidden');
+    
+    if (method === 'UPI Payment') {
+        document.getElementById('upi-form').classList.remove('hidden');
+    } else if (method === 'Credit/Debit Card') {
+        document.getElementById('card-form').classList.remove('hidden');
+    }
+}
+
+function processPayment() {
+    // Collect form data
+    const shippingName = document.getElementById('shipping_name').value;
+    const shippingPhone = document.getElementById('shipping_phone').value;
+    const shippingAddressLine1 = document.getElementById('shipping_address_line1').value;
+    const shippingAddressLine2 = document.getElementById('shipping_address_line2').value;
+    const shippingCity = document.getElementById('shipping_city').value;
+    const shippingState = document.getElementById('shipping_state').value;
+    const shippingPostalCode = document.getElementById('shipping_postal_code').value;
+    
+    // Validate required fields
+    if (!shippingName || !shippingPhone || !shippingAddressLine1 || !shippingCity || !shippingState || !shippingPostalCode) {
+        alert('Please fill in all required shipping address fields');
+        return;
+    }
+    
+    // Simulate payment processing
+    const btn = event.target;
+    btn.innerHTML = '<span class="animate-pulse">Processing...</span>';
+    btn.disabled = true;
+    
+    // Submit checkout data
+    const formData = new FormData();
+    formData.append('shipping_name', shippingName);
+    formData.append('shipping_phone', shippingPhone);
+    formData.append('shipping_address_line1', shippingAddressLine1);
+    formData.append('shipping_address_line2', shippingAddressLine2);
+    formData.append('shipping_city', shippingCity);
+    formData.append('shipping_state', shippingState);
+    formData.append('shipping_postal_code', shippingPostalCode);
+    formData.append('shipping_country', 'India');
+    formData.append('payment_method', 'cod');
+    
+    fetch('/checkout/process/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = `/order/${data.order_number}/`;
+        } else {
+            alert(data.message || 'Error processing order');
+            btn.innerHTML = 'Pay ₹{{ total }}';
+            btn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while processing your order');
+        btn.innerHTML = 'Pay ₹{{ total }}';
+        btn.disabled = false;
+    });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+{% endblock %}

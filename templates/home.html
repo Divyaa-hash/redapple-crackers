@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}RedApple crackers Store - Celebrate with Style{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .hero-section {
+        position: relative;
+        height: 90vh;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        text-align: center;
+    }
+    
+    .text-gradient {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .btn-gold {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+    }
+    .btn-gold:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(239, 68, 68, 0.5);
+    }
+    .btn-outline {
+        border: 2px solid #ef4444;
+        color: #ef4444;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+        background: rgba(239, 68, 68, 0.1);
+        transform: translateY(-3px);
+    }
+    .section-title {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+    }
+    .product-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .product-card:hover {
+        border-color: rgba(239, 68, 68, 0.3);
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    }
+</style>
+{% endblock %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="absolute inset-0 bg-gradient-to-br from-black-100 via-black-200 to-black-300">
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-red-500 rounded-full filter blur-3xl animate-float"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-red-600 rounded-full filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        </div>
+    </div>
+    
+    <div class="relative z-10 w-full h-full flex items-center justify-center px-4">
+        <div class="text-center max-w-5xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6">
+                <span class="text-gradient">Ignite Your</span>
+                <br>
+                <span class="text-white">Celebrations</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Experience the magic of premium fireworks. India's finest collection for every special moment.
+            </p>
+            <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="/shop/" class="btn-premium btn-gold text-lg">Shop Now</a>
+                <a href="/categories/" class="btn-premium btn-outline text-lg">Explore Collections</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="py-16 bg-black-200">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="glass-card p-8 rounded-2xl">
+            <h2 class="text-2xl font-display font-bold text-center mb-6">Search for fireworks, crackers, sparklers...</h2>
+            <div class="flex gap-4">
+                <input type="text" placeholder="Search for fireworks, crackers, sparklers..." class="flex-1 input-premium px-6 py-4 rounded-xl">
+                <button class="btn-gold px-8">Search</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center">Shop by Category</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Explore our premium collection</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <a href="/shop/" class="glass-card p-6 text-center group hover:border-red-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200 group-hover:text-red-500 transition-colors">Sparklers</h3>
+            </a>
+            
+            <a href="/shop/" class="glass-card p-6 text-center group hover:border-red-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200 group-hover:text-red-500 transition-colors">Rockets</h3>
+            </a>
+            
+            <a href="/shop/" class="glass-card p-6 text-center group hover:border-red-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200 group-hover:text-red-500 transition-colors">Fountains</h3>
+            </a>
+            
+            <a href="/shop/" class="glass-card p-6 text-center group hover:border-red-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200 group-hover:text-red-500 transition-colors">Crackers</h3>
+            </a>
+            
+            <a href="/shop/" class="glass-card p-6 text-center group hover:border-red-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200 group-hover:text-red-500 transition-colors">Gift Boxes</h3>
+            </a>
+            
+            <a href="/shop/" class="glass-card p-6 text-center group hover:border-red-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200 group-hover:text-red-500 transition-colors">Combos</h3>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Trending Products -->
+<section class="py-20 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center">Trending Now</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Hot picks for this season</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in trending_products %}
+            <div class="product-card p-4 group">
+                <div class="relative mb-4 overflow-hidden rounded-lg">
+                    <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                        <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'images/crackers/placeholder.jpg' %}{% endif %}" alt="{{ product.name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='{% static 'images/crackers/placeholder.jpg' %}';">
+                    </a>
+                    
+                    <div class="absolute top-2 left-2 flex gap-2">
+                        {% if product.is_new %}
+                        <span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">New</span>
+                        {% endif %}
+                        {% if product.is_featured %}
+                        <span class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full">Featured</span>
+                        {% endif %}
+                        {% if product.is_bestseller %}
+                        <span class="px-3 py-1 bg-red-700 text-white text-xs font-bold rounded-full">Bestseller</span>
+                        {% endif %}
+                        {% if product.sale_price %}
+                        <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Sale</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button class="wishlist-btn w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors" data-product-id="{{ product.id }}">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
+                    <h3 class="font-semibold text-gray-200">{{ product.name }}</h3>
+                    
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-red-500">₹{{ product.sale_price|default:product.regular_price }}</span>
+                        {% if product.sale_price %}
+                        <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <span class="text-xs {% if product.stock > 10 %}text-green-400{% elif product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                        {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                    </span>
+                    
+                    <button class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-400 col-span-4">No trending products available.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="/shop/" class="btn-outline inline-block px-8 py-3 rounded-full">View All</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

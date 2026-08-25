@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Offers - RedApple crackers Store{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .offers-hero {
+        background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+        padding: 6rem 0;
+        text-align: center;
+    }
+    
+    .offer-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(239, 68, 68, 0.3);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .offer-card:hover {
+        border-color: rgba(239, 68, 68, 0.6);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(239, 68, 68, 0.2);
+    }
+    
+    .coupon-code {
+        background: rgba(239, 68, 68, 0.2);
+        border: 2px dashed #ef4444;
+        padding: 0.5rem 1rem;
+        font-family: monospace;
+        font-size: 1.25rem;
+        color: #ef4444;
+        letter-spacing: 2px;
+    }
+</style>
+{% endblock %}
+
+<!-- Offers Hero -->
+<section class="offers-hero">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-5xl font-display font-bold mb-4">
+            <span class="text-gradient">Special Offers & Deals</span>
+        </h1>
+        <p class="text-gray-400 text-lg mb-8">Exclusive discounts and promotions for our valued customers</p>
+    </div>
+</section>
+
+<!-- Active Offers -->
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center mb-4">Active Offers</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Limited time deals you don't want to miss</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Offer 1 -->
+            <div class="offer-card">
+                <div class="bg-gradient-to-r from-red-600 to-red-700 p-6">
+                    <span class="text-white font-bold text-sm">LIMITED TIME</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Festival Special</h3>
+                    <p class="text-white/80">Save up to 30% on all products</p>
+                </div>
+                <div class="p-6">
+                    <div class="coupon-code text-center mb-4">FESTIVAL30</div>
+                    <p class="text-gray-400 text-sm mb-4">Valid until: Nov 15, 2025</p>
+                    <p class="text-gray-300 text-sm mb-4">Minimum order: ₹500</p>
+                    <button class="btn-gold w-full py-3 rounded-lg">Apply Code</button>
+                </div>
+            </div>
+            
+            <!-- Offer 2 -->
+            <div class="offer-card">
+                <div class="bg-gradient-to-r from-red-500 to-red-600 p-6">
+                    <span class="text-white font-bold text-sm">NEW CUSTOMERS</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Welcome Bonus</h3>
+                    <p class="text-white/80">₹500 off your first order</p>
+                </div>
+                <div class="p-6">
+                    <div class="coupon-code text-center mb-4">WELCOME500</div>
+                    <p class="text-gray-400 text-sm mb-4">Valid for first-time customers</p>
+                    <p class="text-gray-300 text-sm mb-4">Minimum order: ₹1000</p>
+                    <button class="btn-gold w-full py-3 rounded-lg">Apply Code</button>
+                </div>
+            </div>
+            
+            <!-- Offer 3 -->
+            <div class="offer-card">
+                <div class="bg-gradient-to-r from-red-700 to-red-800 p-6">
+                    <span class="text-white font-bold text-sm">FLASH SALE</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Weekend Special</h3>
+                    <p class="text-white/80">Flat 15% off everything</p>
+                </div>
+                <div class="p-6">
+                    <div class="coupon-code text-center mb-4">WEEKEND15</div>
+                    <p class="text-gray-400 text-sm mb-4">Valid on weekends only</p>
+                    <p class="text-gray-300 text-sm mb-4">No minimum order</p>
+                    <button class="btn-gold w-full py-3 rounded-lg">Apply Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Category Offers -->
+<section class="py-20 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center mb-4">Category-Specific Deals</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Special discounts on your favorite categories</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card p-6 group hover:border-red-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Rockets Bonanza</h3>
+                        <p class="text-red-500 font-semibold">20% OFF</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4">Get 20% off on all rockets and sky fireworks</p>
+                <div class="coupon-code text-center">ROCKETS20</div>
+            </div>
+            
+            <div class="glass-card p-6 group hover:border-red-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Sparkler Special</h3>
+                        <p class="text-red-500 font-semibold">Buy 2 Get 1 Free</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4">Buy 2 sparkler packs and get 1 absolutely free</p>
+                <div class="coupon-code text-center">SPARKLERB2G1</div>
+            </div>
+            
+            <div class="glass-card p-6 group hover:border-red-500/30 transition-all duration-300">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Fountain Fiesta</h3>
+                        <p class="text-red-500 font-semibold">25% OFF</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4">Amazing discounts on all fountain fireworks</p>
+                <div class="coupon-code text-center">FOUNTAIN25</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Loyalty Program -->
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center mb-4">Loyalty Rewards</h2>
+        <p class="text gray-400 text-center text-lg mb-12">Earn points on every purchase and redeem for discounts</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="glass-card p-6 text-center">
+                <div class="text-4xl font-bold text-red-500 mb-2">100</div>
+                <p class="text-gray-400">Points per ₹100 spent</p>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-4xl font-bold text-red-500 mb-2">₹50</div>
+                <p class="text-gray-400">Redeem for 500 points</p>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-4xl font-bold text-red-500 mb-2">5%</div>
+                <p class="text-gray-400">Extra discount for members</p>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-4xl font-bold text-red-500 mb-2">Free</div>
+                <p class="text-gray-400">Shipping for 1000+ points</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

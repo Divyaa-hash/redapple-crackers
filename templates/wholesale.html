@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wholesale - RedApple Fireworks Store{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .wholesale-hero {
+        background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+        padding: 6rem 0;
+        text-align: center;
+    }
+    
+    .tier-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(239, 68, 68, 0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .tier-card:hover {
+        border-color: rgba(239, 68, 68, 0.6);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(239, 68, 68, 0.2);
+    }
+    
+    .tier-card.premium {
+        border-color: #f59e0b;
+    }
+    
+    .tier-card.premium:hover {
+        box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
+    }
+</style>
+{% endblock %}
+
+<!-- Wholesale Hero -->
+<section class="wholesale-hero">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-5xl font-display font-bold mb-4">
+            <span class="text-gradient">Wholesale & Bulk Orders</span>
+        </h1>
+        <p class="text-gray-400 text-lg mb-8">Premium fireworks at wholesale prices for retailers and bulk buyers</p>
+        <a href="#contact-form" class="btn-gold text-lg">Get Quote</a>
+    </div>
+</section>
+
+<!-- Wholesale Tiers -->
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center mb-4">Wholesale Tiers</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Choose the perfect plan for your business</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Basic Tier -->
+            <div class="tier-card">
+                <h3 class="text-2xl font-bold text-white mb-2">Basic</h3>
+                <p class="text-gray-400 mb-4">For small retailers</p>
+                <div class="text-4xl font-bold text-red-500 mb-6">₹50,000</div>
+                <p class="text-gray-500 mb-6">Minimum order value</p>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        10% discount on all products
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Free shipping on orders over ₹25,000
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Email support
+                    </li>
+                </ul>
+                
+                <button class="btn-outline w-full py-3 rounded-lg">Choose Plan</button>
+            </div>
+            
+            <!-- Professional Tier -->
+            <div class="tier-card premium">
+                <div class="text-center mb-4">
+                    <span class="inline-block px-4 py-1 bg-red-500 text-white font-bold rounded-full text-sm">Most Popular</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Professional</h3>
+                <p class="text-gray-400 mb-4">For growing businesses</p>
+                <div class="text-4xl font-bold text-red-500 mb-6">₹1,00,000</div>
+                <p class="text-gray-500 mb-6">Minimum order value</p>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        15% discount on all products
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Free shipping on all orders
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Priority support
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Custom product packaging
+                    </li>
+                </ul>
+                
+                <button class="btn-gold w-full py-3 rounded-lg">Choose Plan</button>
+            </div>
+            
+            <!-- Enterprise Tier -->
+            <div class="tier-card">
+                <h3 class="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                <p class="text-gray-400 mb-4">For large distributors</p>
+                <div class="text-4xl font-bold text-red-500 mb-6">₹5,00,000</div>
+                <p class="text-gray-500 mb-6">Minimum order value</p>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        25% discount on all products
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Free shipping & priority delivery
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Dedicated account manager
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Custom product development
+                    </li>
+                    <li class="flex items-center text-gray-300">
+                        <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Exclusive product launches
+                    </li>
+                </ul>
+                
+                <button class="btn-outline w-full py-3 rounded-lg">Choose Plan</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section id="contact-form" class="py-20 bg-black-200">
+    <div class="max-w-4xl mx-auto px-4">
+        <h2 class="section-title text-center mb-4">Get Wholesale Quote</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Fill out the form below and our team will contact you within 24 hours</p>
+        
+        <div class="glass-card p-8 rounded-2xl">
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Business Name</label>
+                        <input type="text" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Your business name">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Contact Person</label>
+                        <input type="text" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="Your name">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Email</label>
+                        <input type="email" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Phone</label>
+                        <input type="tel" class="input-premium w-full px-4 py-3 rounded-lg" placeholder="+91 XXXXX XXXXX">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 mb-2">Business Type</label>
+                    <select class="input-premium w-full px-4 py-3 rounded-lg">
+                        <option>Select business type</option>
+                        <option>Retailer</option>
+                        <option>Distributor</option>
+                        <option>Event Organizer</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 mb-2">Estimated Monthly Order Value</label>
+                    <select class="input-premium w-full px-4 py-3 rounded-lg">
+                        <option>Select range</option>
+                        <option>₹50,000 - ₹1,00,000</option>
+                        <option>₹1,00,000 - ₹5,00,000</option>
+                        <option>₹5,00,000 - ₹10,00,000</option>
+                        <option>₹10,00,000+</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 mb-2">Message</label>
+                    <textarea class="input-premium w-full px-4 py-3 rounded-lg h-32" placeholder="Tell us about your requirements..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-gold w-full py-3 rounded-lg">Submit Request</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

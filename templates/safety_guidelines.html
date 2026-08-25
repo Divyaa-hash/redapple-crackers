@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% block title %}Safety Guidelines - Premium Fireworks Store{% endblock %}
+
+{% block content %}
+<!-- Safety Header -->
+<section class="py-16 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <h1 class="text-4xl font-display font-bold text-gradient mb-4">Safety Guidelines</h1>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">Important safety instructions for handling and using fireworks</p>
+    </div>
+</section>
+
+<!-- Important Warning -->
+<section class="py-8 bg-red-500/10 border-y border-red-500/20">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-center space-x-4">
+            <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <p class="text-red-500 font-semibold text-lg">Fireworks can be dangerous. Always follow safety instructions and adult supervision is mandatory.</p>
+        </div>
+    </div>
+</section>
+
+<!-- General Safety Rules -->
+<section class="py-16 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl font-display font-bold text-gradient mb-8 text-center">General Safety Rules</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-card p-6 border-l-4 border-red-500">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-red-500 font-bold">1</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-200 mb-2">Adult Supervision Required</h3>
+                        <p class="text-gray-400 text-sm">Children should never handle fireworks. Always have a responsible adult supervise all fireworks activities.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-red-500">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-red-500 font-bold">2</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-200 mb-2">Use in Open Areas</h3>
+                        <p class="text-gray-400 text-sm">Only use fireworks in open, outdoor spaces away from buildings, trees, dry grass, and flammable materials.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-red-500">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-red-500 font-bold">3</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-200 mb-2">Keep Water Ready</h3>
+                        <p class="text-gray-400 text-sm">Always have a bucket of water, hose, or fire extinguisher nearby before lighting any fireworks.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-600 border-l-4 border-red-500">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-red-500 font-bold">4</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-200 mb-2">Wear Protective Gear</h3>
+                        <p class="text-gray-400 text-sm">Wear safety glasses and protective clothing. Never wear loose-fitting clothes that could catch fire.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-red-500">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-red-500 font-bold">5</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-200 mb-2">Light One at a Time</h3>
+                        <p class="text-gray-400 text-sm">Never light multiple fireworks simultaneously. Light one firework at a time and move away quickly.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-red-500">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-red-500 font-bold">6</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-200 mb-2">Never Relight Duds</h3>
+                        <p class="text-gray-400 text-sm">If a firework doesn't light, wait at least 20 minutes before approaching. Soak it in water and dispose properly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product-Specific Guidelines -->
+<section class="py-16 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl font-display font-bold text-gradient mb-8 text-center">Product-Specific Guidelines</h2>
+        
+        <div class="space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold text-gold-500 mb-4">Sparklers</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Hold sparklers at arm's length away from body
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Never give sparklers to children under 12
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Dispose in water after complete cooling
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold text-gold-500 mb-4">Rockets</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Place in a stable, upright position
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Never aim at people, buildings, or vehicles
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Maintain minimum 30 feet distance
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold text-gold-500 mb-4">Fountains</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Place on flat, non-flammable surface
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Keep at least 20 feet away from audience
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Do not touch until completely cool
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold text-gold-500 mb-4">Crackers</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Never hold crackers in hand while lighting
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Use long-handled lighters or safety fuses
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Wear ear protection for loud crackers
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Information -->
+<section class="py-16 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl font-display font-bold text-gradient mb-8 text-center">Emergency Information</h2>
+        
+        <div class="glass-card p-8 border-2 border-red-500">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-red-500 mb-4">In Case of Fire</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Call emergency services immediately: 101
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Evacuate the area immediately
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Do not attempt to fight large fires yourself
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-red-500 mb-4">In Case of Injury</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Call ambulance: 102
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Cool burns with running water for 20 minutes
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Seek immediate medical attention
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Legal Disclaimer -->
+<section class="py-16 bg-black-200">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="glass-card p-8">
+            <h2 class="text-2xl font-display font-bold text-gradient mb-4 text-center">Legal Disclaimer</h2>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Premium Fireworks Store is not responsible for any injuries, damages, or losses resulting from the use or misuse of fireworks. By purchasing fireworks from our store, you agree to use them responsibly and in accordance with all local laws and regulations. Fireworks should only be used in areas where they are legally permitted. Customers must be at least 18 years old to purchase fireworks. We reserve the right to refuse sale to anyone who appears intoxicated or unable to handle fireworks safely.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block title %}Festival Offers - Premium Fireworks Store{% endblock %}
+
+{% block content %}
+<!-- Festival Offers Header -->
+<section class="py-12 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-4xl font-display font-bold text-gradient mb-2">Festival Offers</h1>
+        <p class="text-gray-400">Special discounts for every celebration</p>
+    </div>
+</section>
+
+<!-- Active Festivals -->
+<section class="py-8 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-2xl font-display font-bold text-gradient mb-6">Active Festival Offers</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Diwali Offer -->
+            <div class="glass-card overflow-hidden group">
+                <div class="relative h-48 bg-gradient-to-br from-gold-500/20 to-gold-600/20 flex items-center justify-center">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-display font-bold text-gold-500 mb-2">Diwali</h3>
+                        <p class="text-gray-400">Festival of Lights</p>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-full font-bold">
+                        30% OFF
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400 text-sm">Valid till Nov 15, 2026</span>
+                        <span class="text-gold-500 font-semibold">Active</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Get up to 30% off on all Diwali special crackers and gift boxes</p>
+                    <a href="#" class="btn-gold w-full text-center block">Shop Now</a>
+                </div>
+            </div>
+            
+            <!-- New Year Offer -->
+            <div class="glass-card overflow-hidden group">
+                <div class="relative h-48 bg-gradient-to-br from-red-500/20 to-red-600/20 flex items-center justify-center">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-display font-bold text-red-500 mb-2">New Year</h3>
+                        <p class="text-gray-400">Welcome 2027</p>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-gold-500 text-black px-4 py-2 rounded-full font-bold">
+                        25% OFF
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400 text-sm">Valid till Jan 5, 2027</span>
+                        <span class="text-gray-500 font-semibold">Upcoming</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Celebrate New Year with premium fireworks at special prices</p>
+                    <a href="#" class="btn-outline w-full text-center block">Coming Soon</a>
+                </div>
+            </div>
+            
+            <!-- Wedding Special -->
+            <div class="glass-card overflow-hidden group">
+                <div class="relative h-48 bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-display font-bold text-purple-500 mb-2">Wedding</h3>
+                        <p class="text-gray-400">Special Occasions</p>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-gold-500 text-black px-4 py-2 rounded-full font-bold">
+                        20% OFF
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400 text-sm">Always Available</span>
+                        <span class="text-gold-500 font-semibold">Active</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Make your special day memorable with our wedding collection</p>
+                    <a href="#" class="btn-gold w-full text-center block">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Combo Packs -->
+<section class="py-16 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-2xl font-display font-bold text-gradient mb-6">Combo Packs</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Combo Pack 1 -->
+            <div class="product-card tilt-card">
+                <div class="relative overflow-hidden">
+                    <div class="absolute top-4 left-4 bg-gold-500 text-black px-3 py-1 rounded-full text-sm font-semibold">BESTSELLER</div>
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop" alt="Combo Pack" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg text-gray-200 mb-2">Ultimate Celebration Pack</h3>
+                    <p class="text-gray-400 text-sm mb-4">50 items • Complete set for grand celebration</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-gold-500 font-bold text-xl">₹4,999</span>
+                            <span class="text-gray-500 line-through ml-2">₹6,999</span>
+                        </div>
+                        <span class="text-green-500 text-sm">Save ₹2,000</span>
+                    </div>
+                    <button class="btn-gold w-full">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Combo Pack 2 -->
+            <div class="product-card tilt-card">
+                <div class="relative overflow-hidden">
+                    <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">POPULAR</div>
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&h=300&fit=crop" alt="Combo Pack" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg text-gray-200 mb-2">Family Fun Pack</h3>
+                    <p class="text-gray-400 text-sm mb-4">30 items • Safe for family celebrations</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-gold-500 font-bold text-xl">₹2,499</span>
+                            <span class="text-gray-500 line-through ml-2">₹3,499</span>
+                        </div>
+                        <span class="text-green-500 text-sm">Save ₹1,000</span>
+                    </div>
+                    <button class="btn-gold w-full">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Combo Pack 3 -->
+            <div class="product-card tilt-card">
+                <div class="relative overflow-hidden">
+                    <div class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">NEW</div>
+                    <img src="https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=400&h=300&fit=crop" alt="Combo Pack" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg text-gray-200 mb-2">Premium Gift Box</h3>
+                    <p class="text-gray-400 text-sm mb-4">20 items • Premium quality selection</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-gold-500 font-bold text-xl">₹1,999</span>
+                            <span class="text-gray-500 line-through ml-2">₹2,499</span>
+                        </div>
+                        <span class="text-green-500 text-sm">Save ₹500</span>
+                    </div>
+                    <button class="btn-gold w-full">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Combo Pack 4 -->
+            <div class="product-card tilt-card">
+                <div class="relative overflow-hidden">
+                    <div class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">VALUE</div>
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Combo Pack" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg text-gray-200 mb-2">Starter Pack</h3>
+                    <p class="text-gray-400 text-sm mb-4">10 items • Perfect for beginners</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-gold-500 font-bold text-xl">₹999</span>
+                            <span class="text-gray-500 line-through ml-2">₹1,299</span>
+                        </div>
+                        <span class="text-green-500 text-sm">Save ₹300</span>
+                    </div>
+                    <button class="btn-gold w-full">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Coupon Codes -->
+<section class="py-16 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-2xl font-display font-bold text-gradient mb-6">Exclusive Coupon Codes</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card p-6 border-l-4 border-gold-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gold-500">DIWALI30</h3>
+                    <span class="bg-gold-500/20 text-gold-500 px-3 py-1 rounded-full text-sm">30% OFF</span>
+                </div>
+                <p class="text-gray-400 mb-4">Flat 30% discount on all Diwali products</p>
+                <p class="text-gray-500 text-sm">Min order: ₹1,000 • Valid till Nov 15</p>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-red-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-red-500">NEWYEAR25</h3>
+                    <span class="bg-red-500/20 text-red-500 px-3 py-1 rounded-full text-sm">25% OFF</span>
+                </div>
+                <p class="text-gray-400 mb-4">25% off on New Year celebration items</p>
+                <p class="text-gray-500 text-sm">Min order: ₹2,000 • Valid till Jan 5</p>
+            </div>
+            
+            <div class="glass-card p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-green-500">FIRST500</h3>
+                    <span class="bg-green-500/20 text-green-500 px-3 py-1 rounded-full text-sm">₹500 OFF</span>
+                </div>
+                <p class="text-gray-400 mb-4">₹500 discount on first order</p>
+                <p class="text-gray-500 text-sm">Min order: ₹3,000 • New users only</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop - RedApple crackers Store{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<style>
+    .shop-hero {
+        background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+        padding: 4rem 0;
+        text-align: center;
+    }
+    
+    .filter-sidebar {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+    }
+    
+    .filter-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+        cursor: pointer;
+    }
+    
+    .filter-checkbox input {
+        accent-color: #ef4444;
+    }
+    
+    .price-range {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .price-range input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+<!-- Shop Hero -->
+<section class="shop-hero">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-5xl font-display font-bold mb-4">
+            <span class="text-gradient">Shop All Products</span>
+        </h1>
+        <p class="text-gray-400 text-lg">Explore our complete collection of premium fireworks</p>
+    </div>
+</section>
+
+<!-- Shop Content -->
+<section class="py-12 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Filters Sidebar -->
+            <aside class="lg:w-64 flex-shrink-0">
+                <div class="filter-sidebar">
+                    <h3 class="text-xl font-bold mb-6 text-red-500">Filters</h3>
+                    
+                    <form method="GET" action="/shop/">
+                        <!-- Categories -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">Categories</h4>
+                            {% for category in categories %}
+                            <label class="filter-checkbox">
+                                <input type="radio" name="category" value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}checked{% endif %}>
+                                <span class="text-gray-300">{{ category.name }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Price Range -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">Price Range</h4>
+                            <div class="price-range">
+                                <input type="number" name="min_price" placeholder="Min Price" min="0" value="{{ request.GET.min_price }}">
+                            </div>
+                        </div>
+                        
+                        <!-- Stock Status -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">Availability</h4>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" name="in_stock" {% if request.GET.in_stock %}checked{% endif %}>
+                                <span class="text-gray-300">In Stock</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" name="on_sale" {% if request.GET.on_sale %}checked{% endif %}>
+                                <span class="text-gray-300">On Sale</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-gold w-full py-3 rounded-lg">Apply Filters</button>
+                    </form>
+                </div>
+            </aside>
+            
+            <!-- Products Grid -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-gray-400">{{ products.count }} products</p>
+                    <form method="GET" action="/shop/" class="flex gap-2">
+                        <input type="hidden" name="category" value="{{ request.GET.category }}">
+                        <input type="hidden" name="min_price" value="{{ request.GET.min_price }}">
+                        <input type="hidden" name="in_stock" value="{{ request.GET.in_stock }}">
+                        <input type="hidden" name="on_sale" value="{{ request.GET.on_sale }}">
+                        <select name="sort_by" class="input-premium px-4 py-2 rounded-lg" onchange="this.form.submit()">
+                            <option value="-created_at" {% if request.GET.sort_by == '-created_at' or not request.GET.sort_by %}selected{% endif %}>Sort by: Newest</option>
+                            <option value="price_low" {% if request.GET.sort_by == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+                            <option value="price_high" {% if request.GET.sort_by == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+                            <option value="name" {% if request.GET.sort_by == 'name' %}selected{% endif %}>Name: A-Z</option>
+                        </select>
+                    </form>
+                </div>
+                
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card h-100 product-card">
+                            <div class="position-relative">
+                                <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                                    <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'images/crackers/placeholder.jpg' %}{% endif %}" 
+                                         alt="{{ product.name }}" 
+                                         class="card-img-top" 
+                                         style="height: 200px; object-fit: cover;"
+                                         onerror="this.onerror=null;this.src='{% static 'images/crackers/placeholder.jpg' %}';">
+                                </a>
+                                
+                                <div class="position-absolute top-0 start-0 p-2">
+                                    {% if product.is_new %}
+                                    <span class="badge bg-danger">New</span>
+                                    {% endif %}
+                                    {% if product.is_featured %}
+                                    <span class="badge bg-primary">Featured</span>
+                                    {% endif %}
+                                    {% if product.sale_price %}
+                                    <span class="badge bg-success">Sale</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    <button class="btn btn-sm btn-outline-light wishlist-btn" data-product-id="{{ product.id }}">
+                                        ❤
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
+                                <a href="/products/{{ product.id }}/" class="text-decoration-none text-white">
+                                    <small class="text-danger fw-bold">{{ product.category.name }}</small>
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                </a>
+                                
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="h4 text-danger mb-0">₹{{ product.sale_price|default:product.regular_price }}</span>
+                                    {% if product.sale_price %}
+                                    <span class="text-decoration-line-through text-muted">₹{{ product.regular_price }}</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <p class="small mb-3 {% if product.stock > 10 %}text-success{% elif product.stock > 0 %}text-warning{% else %}text-danger{% endif %}">
+                                    {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                                </p>
+                                
+                                <div class="d-flex gap-2">
+                                    <a href="/products/{{ product.id }}/" class="btn btn-outline-danger flex-1">View Details</a>
+                                    <button class="add-to-cart-btn btn btn-danger flex-1" data-product-id="{{ product.id }}">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <p class="text-center text-muted">No products available.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if paginator.num_pages > 1 %}
+                <nav aria-label="Page navigation" class="mt-8">
+                    <ul class="pagination justify-content-center">
+                        {% if current_page.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ current_page.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}" tabindex="-1">Previous</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        {% endif %}
+                        
+                        {% for page_num in paginator.page_range %}
+                        {% if page_num == current_page.number %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">{{ page_num }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        
+                        {% if current_page.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ current_page.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">Next</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+    addToCartBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.dataset.productId;
+            
+            if (!productId) {
+                alert('Product ID not found');
+                return;
+            }
+            
+            fetch('/cart/add/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+                },
+                body: `product_id=${productId}&quantity=1`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Product added to cart successfully!');
+                    // Update cart count
+                    const cartCountElements = document.querySelectorAll('.cart-count');
+                    cartCountElements.forEach(element => {
+                        element.textContent = data.cart_count || 1;
+                    });
+                    // Load cart items to refresh cart drawer
+                    if (typeof loadCartItems === 'function') {
+                        loadCartItems();
+                    }
+                    // Open cart drawer
+                    const cartDrawer = document.querySelector('.cart-drawer');
+                    const cartOverlay = document.querySelector('.cart-overlay');
+                    if (cartDrawer && cartOverlay) {
+                        cartDrawer.classList.add('open');
+                        cartOverlay.classList.add('open');
+                        document.body.style.overflow = 'hidden';
+                    }
+                } else {
+                    alert(data.message || 'Error adding to cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding to cart');
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories - RedApple crackers Store{% endblock %}
+
+{% block content %}
+<div class="particles-container"></div>
+
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="section-title text-center mb-8">Shop by Category</h1>
+        <p class="text-gray-400 text-center text-lg mb-12">Find the perfect fireworks for your celebration</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <a href="/" class="glass-card p-6 text-center group hover:border-gold-500/50 transition-all duration-300">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center">
+                    <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-200">Sparklers</h3>
+            </a>
+            <!-- More categories would be added here -->
+        </div>
+    </div>
+</section>
+{% endblock %}
