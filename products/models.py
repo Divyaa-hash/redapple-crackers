@@ -108,7 +108,7 @@ class Product(models.Model):
     low_stock_threshold = models.IntegerField(default=10)
     
     # Images
-    main_image = models.ImageField(upload_to='products/')
+    main_image = models.ImageField(upload_to='products/', blank=True, null=True)
     additional_images = models.JSONField(default=list, blank=True)
     video_url = models.URLField(blank=True)
     image_360 = models.ImageField(upload_to='products/360/', blank=True, null=True)

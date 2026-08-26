@@ -125,6 +125,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'is_trending': True,
                 'is_bestseller': True,
+                'main_image': None,
             },
             {
                 'name': 'Colorful Sky Rocket',
@@ -143,6 +144,7 @@ class Command(BaseCommand):
                 'height': '100 meters',
                 'is_featured': True,
                 'is_trending': True,
+                'main_image': None,
             },
             {
                 'name': 'Rainbow Fountain',
@@ -160,6 +162,7 @@ class Command(BaseCommand):
                 'duration': '120 seconds',
                 'is_featured': True,
                 'is_new': True,
+                'main_image': None,
             },
             {
                 'name': 'Loud Crackers Box (50 pcs)',
@@ -177,6 +180,7 @@ class Command(BaseCommand):
                 'pieces': 50,
                 'is_bestseller': True,
                 'is_trending': True,
+                'main_image': None,
             },
             {
                 'name': 'Spinning Chakkar',
@@ -193,6 +197,7 @@ class Command(BaseCommand):
                 'pieces': 1,
                 'duration': '45 seconds',
                 'is_new': True,
+                'main_image': None,
             },
             {
                 'name': 'Atom Bomb',
@@ -208,6 +213,7 @@ class Command(BaseCommand):
                 'stock': 80,
                 'pieces': 1,
                 'is_bestseller': True,
+                'main_image': None,
             },
             {
                 'name': 'Red Flower Pot',
@@ -225,6 +231,7 @@ class Command(BaseCommand):
                 'pieces': 1,
                 'duration': '90 seconds',
                 'is_featured': True,
+                'main_image': None,
             },
             {
                 'name': 'Sky Lantern (Pack of 5)',
@@ -241,6 +248,7 @@ class Command(BaseCommand):
                 'pieces': 5,
                 'is_new': True,
                 'is_featured': True,
+                'main_image': None,
             },
             {
                 'name': 'Silver Sparklers (Pack of 20)',
@@ -258,6 +266,7 @@ class Command(BaseCommand):
                 'pieces': 20,
                 'duration': '90 seconds',
                 'is_trending': True,
+                'main_image': None,
             },
             {
                 'name': 'Multi-Color Rocket Set',
@@ -275,6 +284,7 @@ class Command(BaseCommand):
                 'pieces': 5,
                 'is_featured': True,
                 'is_limited_edition': True,
+                'main_image': None,
             },
         ]
         
