@@ -130,11 +130,11 @@
                         <div class="card h-100 product-card">
                             <div class="position-relative">
                                 <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                                    <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}{% endif %}" 
+                                    <img src="{% static product.get_catalog_image %}" 
                                          alt="{{ product.name }}" 
                                          class="card-img-top" 
                                          style="height: 200px; object-fit: cover;"
-                                         onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text=No+Image';">
+                                         onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
                                 </a>
                                 
                                 <div class="position-absolute top-0 start-0 p-2">

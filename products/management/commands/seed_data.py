@@ -129,6 +129,7 @@ class Command(BaseCommand):
                 'is_trending': True,
                 'is_bestseller': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/golden-sparklers-pack.jpg'],
             },
             {
                 'name': 'Colorful Sky Rocket',
@@ -148,6 +149,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'is_trending': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/multicolor-rocket.jpg'],
             },
             {
                 'name': 'Rainbow Fountain',
@@ -166,6 +168,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'is_new': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/multi-color-fountain.jpg'],
             },
             {
                 'name': 'Loud Crackers Box (50 pcs)',
@@ -184,6 +187,7 @@ class Command(BaseCommand):
                 'is_bestseller': True,
                 'is_trending': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/atom-bomb.jpg'],
             },
             {
                 'name': 'Spinning Chakkar',
@@ -201,6 +205,7 @@ class Command(BaseCommand):
                 'duration': '45 seconds',
                 'is_new': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/ground-chakkar.jpg'],
             },
             {
                 'name': 'Atom Bomb',
@@ -217,6 +222,7 @@ class Command(BaseCommand):
                 'pieces': 1,
                 'is_bestseller': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/atom-bomb.jpg'],
             },
             {
                 'name': 'Red Flower Pot',
@@ -235,6 +241,7 @@ class Command(BaseCommand):
                 'duration': '90 seconds',
                 'is_featured': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/flower-pot.jpg'],
             },
             {
                 'name': 'Sky Lantern (Pack of 5)',
@@ -252,6 +259,7 @@ class Command(BaseCommand):
                 'is_new': True,
                 'is_featured': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/fancy-fountain.jpg'],
             },
             {
                 'name': 'Silver Sparklers (Pack of 20)',
@@ -270,6 +278,7 @@ class Command(BaseCommand):
                 'duration': '90 seconds',
                 'is_trending': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/color-sparklers-pack.jpg'],
             },
             {
                 'name': 'Multi-Color Rocket Set',
@@ -288,6 +297,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'is_limited_edition': True,
                 'main_image': None,
+                'additional_images': ['images/crackers/sky-rocket-5-shot.jpg'],
             },
         ]
         
@@ -295,6 +305,30 @@ class Command(BaseCommand):
         products_data.extend(product_templates)
         
         # Generate additional products to reach 171 total
+        # Available static images
+        available_images = [
+            'images/crackers/golden-sparklers.jpg',
+            'images/crackers/color-sparklers.jpg',
+            'images/crackers/flower-pot-small.jpg',
+            'images/crackers/flower-pot-medium.jpg',
+            'images/crackers/flower-pot-large.jpg',
+            'images/crackers/multi-color-fountain.jpg',
+            'images/crackers/fancy-fountain.jpg',
+            'images/crackers/golden-shower-fountain.jpg',
+            'images/crackers/ground-chakkar.jpg',
+            'images/crackers/chakkar-ground.jpg',
+            'images/crackers/sky-rocket.jpg',
+            'images/crackers/sky-rocket-5-shot.jpg',
+            'images/crackers/sky-rocket-10-shot.jpg',
+            'images/crackers/whistling-rocket.jpg',
+            'images/crackers/multicolor-rocket.jpg',
+            'images/crackers/atom-bomb.jpg',
+            'images/crackers/shot-gun.jpg',
+            'images/crackers/larva-cracker.jpg',
+            'images/crackers/family-pack-combo.jpg',
+            'images/crackers/premium-gift-box.jpg',
+        ]
+        
         for i in range(11, 172):
             category = categories[i % len(categories)]
             brand = brands[i % len(brands)]
@@ -304,6 +338,9 @@ class Command(BaseCommand):
             base_price = random.randint(50, 2000)
             has_sale = random.random() > 0.5
             sale_price = Decimal(str(base_price * 0.8)) if has_sale else None
+            
+            # Assign a random image from available images
+            image_path = available_images[i % len(available_images)]
             
             products_data.append({
                 'name': f'Premium {category.name} #{i}',
@@ -324,6 +361,7 @@ class Command(BaseCommand):
                 'is_bestseller': random.random() > 0.8,
                 'is_trending': random.random() > 0.8,
                 'main_image': None,
+                'additional_images': [image_path],
             })
         
         for prod_data in products_data:
