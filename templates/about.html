@@ -3,207 +3,257 @@
 {% block title %}About Us - Premium crackers Store{% endblock %}
 
 {% block content %}
-<!-- About Header -->
-<section class="py-16 bg-black-200">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <h1 class="text-4xl font-display font-bold text-gradient mb-4">About Premium crackers Store</h1>
-        <p class="text-gray-400 text-lg max-w-2xl mx-auto">Your trusted partner for premium quality crackers since 2010</p>
+{% block extra_css %}
+<style>
+    /* About Page Styles */
+    .about-hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+        overflow: hidden;
+        padding-top: 80px; /* Space for fixed navbar */
+    }
+    
+    .about-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80') center/cover no-repeat;
+        opacity: 0.3;
+    }
+    
+    .about-hero::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%);
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ef4444;
+        letter-spacing: 0.3em;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-weight: 900;
+        color: white;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+    
+    .hero-title-line {
+        display: block;
+    }
+    
+    .hero-title-accent {
+        color: #ef4444;
+    }
+    
+    .introduction-section {
+        background: white;
+        padding: 5rem 2rem;
+    }
+    
+    .intro-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .intro-title {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+    }
+    
+    .intro-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #4a4a4a;
+        margin-bottom: 1rem;
+    }
+    
+    .section-heading {
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 900;
+        color: #1a1a1a;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+    }
+    
+    .section-heading-line {
+        display: block;
+    }
+    
+    .section-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #4a4a4a;
+        margin-bottom: 2rem;
+    }
+    
+    .section-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 20px;
+        margin-top: 2rem;
+    }
+    
+    .hustle-section, .creativity-section {
+        padding: 5rem 2rem;
+        background: #f8f8f8;
+    }
+    
+    .content-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+    
+    @media (min-width: 768px) {
+        .content-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .content-grid.reverse {
+            direction: rtl;
+        }
+        
+        .content-grid.reverse > * {
+            direction: ltr;
+        }
+    }
+    
+    /* Mobile specific adjustments */
+    @media (max-width: 767px) {
+        .about-hero {
+            padding-top: 80px;
+            min-height: auto;
+            padding-bottom: 4rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .introduction-section {
+            padding: 3rem 1.5rem;
+        }
+        
+        .hustle-section, .creativity-section {
+            padding: 3rem 1.5rem;
+        }
+        
+        .section-image {
+            height: 250px;
+        }
+    }
+</style>
+{% endblock %}
+
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="hero-content">
+        <p class="hero-subtitle">About Us</p>
+        <h1 class="hero-title">
+            <span class="hero-title-line">Bringing</span>
+            <span class="hero-title-line">The <span class="hero-title-accent">Red</span></span>
+            <span class="hero-title-line"><span class="hero-title-accent">Apple</span> Vibe</span>
+        </h1>
     </div>
 </section>
 
-<!-- Our Story -->
-<section class="py-16 bg-black-100">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-3xl font-display font-bold text-gradient mb-6">Our Story</h2>
-                <p class="text-gray-300 mb-4">
-                    Founded in 2010, Premium Fireworks Store has been at the forefront of bringing joy and celebration to millions of homes across India. What started as a small family business has grown into one of the most trusted names in the fireworks industry.
-                </p>
-                <p class="text-gray-300 mb-4">
-                    Our commitment to quality, safety, and customer satisfaction has made us the preferred choice for fireworks during Diwali, New Year, weddings, and other special occasions. We work directly with manufacturers to ensure every product meets our stringent quality standards.
-                </p>
-                <p class="text-gray-300">
-                    Today, we serve customers across India with a wide range of premium fireworks, from traditional sparklers to modern aerial displays. Our team of experts is dedicated to helping you find the perfect fireworks for every celebration.
-                </p>
-            </div>
-            <div class="glass-card p-8">
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold-500 mb-2">15+</div>
-                        <p class="text-gray-400">Years of Experience</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold-500 mb-2">1M+</div>
-                        <p class="text-gray-400">Happy Customers</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold-500 mb-2">500+</div>
-                        <p class="text-gray-400">Products</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold-500 mb-2">50+</div>
-                        <p class="text-gray-400">Brands</p>
-                    </div>
-                </div>
-            </div>
+<!-- Introduction Section -->
+<section class="introduction-section">
+    <div class="intro-content">
+        <h2 class="intro-title">Welcome to RedApple crackers</h2>
+        <p class="intro-text">
+            At RedApple crackers, we're passionate about bringing joy and celebration to every moment. Founded with a vision to revolutionize the fireworks industry, we've grown from a small family business to one of India's most trusted names in premium crackers.
+        </p>
+        <p class="intro-text">
+            Our commitment to quality, safety, and innovation drives everything we do. We believe that every celebration deserves the perfect spark, and we're dedicated to making that happen for our customers across the country.
+        </p>
+    </div>
+</section>
+
+<!-- Hands-On Hustle Section -->
+<section class="hustle-section">
+    <div class="content-grid">
+        <div class="content-text">
+            <h2 class="section-heading">
+                <span class="section-heading-line">Hands-On</span>
+                <span class="section-heading-line">Hustle 🧑‍🔬👩‍🔬</span>
+            </h2>
+            <p class="section-content">
+                Our team is deeply involved in every aspect of cracker production. From sourcing the finest raw materials to rigorous quality testing, we ensure that every product meets our exacting standards.
+            </p>
+            <p class="section-content">
+                We take pride in our hands-on approach to product selection and packaging. Our experts personally test each item to guarantee safety, performance, and the unforgettable experience our customers expect.
+            </p>
+            <p class="section-content">
+                Through teamwork and dedication, we're constantly improving our processes and creating a better fireworks experience for everyone. Every cracker that leaves our facility represents our commitment to excellence.
+            </p>
+        </div>
+        <div class="content-image">
+            <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c 3?w=800&q=80" alt="Team working on fireworks" class="section-image">
         </div>
     </div>
 </section>
 
-<!-- Our Mission -->
-<section class="py-16 bg-black-200">
-    <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-display font-bold text-gradient mb-8 text-center">Our Mission & Values</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-card p-6 text-center">
-                <div class="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                    </svg>
-                </div>
-                <h3 class="font-semibold text-gray-200 mb-2">Safety First</h3>
-                <p class="text-gray-400 text-sm">We prioritize safety in every product we sell, ensuring compliance with all safety standards</p>
-            </div>
-            
-            <div class="glass-card p-6 text-center">
-                <div class="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <h3 class="font-semibold text-gray-200 mb-2">Quality Assured</h3>
-                <p class="text-gray-400 text-sm">Every product undergoes rigorous quality checks before reaching our customers</p>
-            </div>
-            
-            <div class="glass-card p-6 text-center">
-                <div class="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                    </svg>
-                </div>
-                <h3 class="font-semibold text-gray-200 mb-2">Customer Satisfaction</h3>
-                <p class="text-gray-400 text-sm">Our customers are at the heart of everything we do, ensuring their happiness</p>
-            </div>
+<!-- Sparking Creativity Section -->
+<section class="creativity-section">
+    <div class="content-grid reverse">
+        <div class="content-text">
+            <h2 class="section-heading">
+                <span class="section-heading-line">Sparking</span>
+                <span class="section-heading-line">Creativity ✨</span>
+            </h2>
+            <p class="section-content">
+                Creativity is at the heart of everything we do. We're constantly exploring new product ideas and innovative ways to make celebrations more exciting and memorable.
+            </p>
+            <p class="section-content">
+                Our team brings different perspectives and fresh ideas to product development. We believe in pushing boundaries and creating fireworks products that surprise and delight our customers.
+            </p>
+            <p class="section-content">
+                From traditional favorites to modern innovations, we're committed to creating exciting fireworks products that light up the sky and bring joy to every celebration. Your celebrations inspire our creativity.
+            </p>
         </div>
-    </div>
-</section>
-
-<!-- Why Choose Us -->
-<section class="py-16 bg-black-100">
-    <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-display font-bold text-gradient mb-8 text-center">Why Choose Us?</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="glass-card p-6 flex items-start space-x-4">
-                <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-200 mb-2">Premium Quality Products</h3>
-                    <p class="text-gray-400 text-sm">We source only the finest fireworks from trusted manufacturers</p>
-                </div>
-            </div>
-            
-            <div class="glass-card p-6 flex items-start space-x-4">
-                <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-200 mb-2">Competitive Pricing</h3>
-                    <p class="text-gray-400 text-sm">Best prices guaranteed with regular discounts and offers</p>
-                </div>
-            </div>
-            
-            <div class="glass-card p-6 flex items-start space-x-4">
-                <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-200 mb-2">Fast Delivery</h3>
-                    <p class="text-gray-400 text-sm">Quick and reliable delivery across India</p>
-                </div>
-            </div>
-            
-            <div class="glass-card p-6 flex items-start space-x-4">
-                <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-200 mb-2">Expert Support</h3>
-                    <p class="text-gray-400 text-sm">Our team is here to help you choose the right products</p>
-                </div>
-            </div>
-            
-            <div class="glass-card p-6 flex items-start space-x-4">
-                <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-200 mb-2">Safe & Secure</h3>
-                    <p class="text-gray-400 text-sm">All products meet safety standards and regulations</p>
-                </div>
-            </div>
-            
-            <div class="glass-card p-6 flex items-start space-x-4">
-                <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-200 mb-2">Easy Returns</h3>
-                    <p class="text-gray-400 text-sm">Hassle-free return policy for your peace of mind</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Team Section -->
-<section class="py-16 bg-black-200">
-    <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-display font-bold text-gradient mb-8 text-center">Our Leadership Team</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-card p-6 text-center">
-                <div class="w-24 h-24 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span class="text-3xl font-bold text-black">RS</span>
-                </div>
-                <h3 class="font-semibold text-gray-200 mb-1">Rajesh Sharma</h3>
-                <p class="text-gold-500 text-sm mb-2">Founder & CEO</p>
-                <p class="text-gray-400 text-sm">15+ years in fireworks industry</p>
-            </div>
-            
-            <div class="glass-card p-6 text-center">
-                <div class="w-24 h-24 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span class="text-3xl font-bold text-black">PK</span>
-                </div>
-                <h3 class="font-semibold text-gray-200 mb-1">Priya Kumar</h3>
-                <p class="text-gold-500 text-sm mb-2">COO</p>
-                <p class="text-gray-400 text-sm">Operations & Supply Chain Expert</p>
-            </div>
-            
-            <div class="glass-card p-6 text-center">
-                <div class="w-24 h-24 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span class="text-3xl font-bold text-black">AV</span>
-                </div>
-                <h3 class="font-semibold text-gray-200 mb-1">Amit Verma</h3>
-                <p class="text-gold-500 text-sm mb-2">Head of Quality</p>
-                <p class="text-gray-400 text-sm">Safety & Quality Assurance Lead</p>
-            </div>
+        <div class="content-image">
+            <img src="https://images.unsplash.com/photo-1514533212735-5df32d8b8a6e?w=800&q=80" alt="Creative fireworks display" class="section-image">
         </div>
     </div>
 </section>
 {% endblock %}
+
