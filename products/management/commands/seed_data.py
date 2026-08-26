@@ -105,8 +105,11 @@ class Command(BaseCommand):
         if created:
             self.stdout.write(f'Created festival: {festival.name}')
         
-        # Create products
-        products_data = [
+        # Create products - generate 171 products
+        products_data = []
+        
+        # Base product templates
+        product_templates = [
             {
                 'name': 'Golden Sparklers (Pack of 10)',
                 'slug': 'golden-sparklers-pack-10',
@@ -287,6 +290,41 @@ class Command(BaseCommand):
                 'main_image': None,
             },
         ]
+        
+        # Add base products
+        products_data.extend(product_templates)
+        
+        # Generate additional products to reach 171 total
+        for i in range(11, 172):
+            category = categories[i % len(categories)]
+            brand = brands[i % len(brands)]
+            product_type = random.choice(['single', 'box', 'combo', 'gift_box'])
+            safety_level = random.choice(['low', 'medium', 'high'])
+            
+            base_price = random.randint(50, 2000)
+            has_sale = random.random() > 0.5
+            sale_price = Decimal(str(base_price * 0.8)) if has_sale else None
+            
+            products_data.append({
+                'name': f'Premium {category.name} #{i}',
+                'slug': f'premium-{category.slug}-{i}',
+                'sku': f'PRD-{i:03d}',
+                'category': category,
+                'brand': brand,
+                'product_type': product_type,
+                'safety_level': safety_level,
+                'short_description': f'High-quality {category.name} for celebrations',
+                'description': f'Premium {category.name} from {brand.name}. Perfect for festivals and special occasions. Safe and reliable.',
+                'regular_price': Decimal(str(base_price)),
+                'sale_price': sale_price,
+                'stock': random.randint(10, 200),
+                'pieces': random.randint(1, 50),
+                'is_featured': random.random() > 0.8,
+                'is_new': random.random() > 0.7,
+                'is_bestseller': random.random() > 0.8,
+                'is_trending': random.random() > 0.8,
+                'main_image': None,
+            })
         
         for prod_data in products_data:
             product, created = Product.objects.get_or_create(

@@ -130,11 +130,11 @@
                         <div class="card h-100 product-card">
                             <div class="position-relative">
                                 <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                                    <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'images/crackers/placeholder.jpg' %}{% endif %}" 
+                                    <img src="{% static product.get_catalog_image %}" 
                                          alt="{{ product.name }}" 
                                          class="card-img-top" 
                                          style="height: 200px; object-fit: cover;"
-                                         onerror="this.onerror=null;this.src='{% static 'images/crackers/placeholder.jpg' %}';">
+                                         onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200?text=No+Image';">
                                 </a>
                                 
                                 <div class="position-absolute top-0 start-0 p-2">
