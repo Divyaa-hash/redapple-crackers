@@ -126,7 +126,7 @@
             </p>
             <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="/shop/" class="btn-premium btn-gold text-lg">Shop Now</a>
-                <a href="/categories/" class="btn-premium btn-outline text-lg">Explore Collections</a>
+                <a href="/shop/" class="btn-premium btn-outline text-lg">Explore Collections</a>
             </div>
         </div>
     </div>
@@ -220,7 +220,7 @@
             <div class="product-card p-4 group">
                 <div class="relative mb-4 overflow-hidden rounded-lg">
                     <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                        <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'images/crackers/placeholder.jpg' %}{% endif %}" alt="{{ product.name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='{% static 'images/crackers/placeholder.jpg' %}';">
+                        <img src="{% static product.get_catalog_image %}" alt="{{ product.name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
                     </a>
                     
                     <div class="absolute top-2 left-2 flex gap-2">
