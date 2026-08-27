@@ -227,7 +227,9 @@
                         </div>
                         
                         <div class="space-y-2">
+                            {% if product.category %}
                             <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
+                            {% endif %}
                             <h3 class="font-semibold text-gray-200 text-sm sm:text-base line-clamp-2">{{ product.name }}</h3>
                             
                             <div class="flex items-center gap-2 flex-wrap">
