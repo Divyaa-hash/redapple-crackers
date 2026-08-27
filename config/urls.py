@@ -24,7 +24,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
 from products.views import shop_view
-import pandas as pd
+import openpyxl
 import os
 
 def home_view(request):
@@ -53,16 +53,24 @@ def update_prices_view(request):
         if not os.path.exists(excel_file):
             return JsonResponse({'success': False, 'message': f'Excel file not found: {excel_file}'})
         
-        # Read Excel file
-        df = pd.read_excel(excel_file)
+        # Read Excel file using openpyxl
+        wb = openpyxl.load_workbook(excel_file)
+        ws = wb.active
         
         updated_count = 0
         created_count = 0
         
-        for index, row in df.iterrows():
-            product_name = str(row['Product Name']).strip()
-            category_name = str(row['Category']).strip()
-            original_price = float(row['Original Price'])
+        # Skip header row, start from row 2
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if not row or len(row) < 3:
+                continue
+                
+            product_name = str(row[0]).strip() if row[0] else ''
+            category_name = str(row[1]).strip() if row[1] else ''
+            original_price = float(row[2]) if row[2] else 0
+            
+            if not product_name or not category_name or original_price == 0:
+                continue
             
             # Apply 10% markup
             new_price = original_price * 1.1
