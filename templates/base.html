@@ -209,7 +209,7 @@
                         if (cartItemsList) {
                             cartItemsList.innerHTML = data.items.map(item => `
                                 <div class="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
-                                    <img src="${item.product_image}" alt="${item.product_name}" class="w-16 h-16 object-cover rounded-lg">
+                                    <img src="/static/${item.product_image}" alt="${item.product_name}" class="w-16 h-16 object-cover rounded-lg">
                                     <div class="flex-1">
                                         <h4 class="font-semibold text-white">${item.product_name}</h4>
                                         <p class="text-sm text-gray-400">₹${item.unit_price} x ${item.quantity}</p>

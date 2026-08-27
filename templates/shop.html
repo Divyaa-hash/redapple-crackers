@@ -19,12 +19,67 @@
         }
     }
     
-    .filter-sidebar {
+    /* Mobile horizontal filter bar */
+    .mobile-filter-bar {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding: 0.75rem 1rem;
         background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .mobile-filter-bar::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .filter-btn {
+        flex-shrink: 0;
+        padding: 0.5rem 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
-        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: #d1d5db;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .filter-btn:hover {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: #ef4444;
+        color: #ef4444;
+    }
+    
+    .filter-btn.active {
+        background: #ef4444;
+        border-color: #ef4444;
+        color: white;
+    }
+    
+    /* Hide vertical filter on mobile */
+    @media (max-width: 1023px) {
+        .filter-sidebar {
+            display: none;
+        }
+    }
+    
+    /* Show vertical filter on desktop */
+    @media (min-width: 1024px) {
+        .mobile-filter-bar {
+            display: none;
+        }
+        .filter-sidebar {
+            display: block;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+        }
     }
     
     .filter-checkbox {
@@ -65,6 +120,14 @@
         <p class="text-gray-400 text-lg">Explore our complete collection of premium fireworks</p>
     </div>
 </section>
+
+<!-- Mobile Horizontal Filter Bar -->
+<div class="mobile-filter-bar">
+    <button class="filter-btn" onclick="toggleMobileFilter('sort')">Sort ▼</button>
+    <button class="filter-btn" onclick="toggleMobileFilter('category')">Type ▼</button>
+    <button class="filter-btn" onclick="toggleMobileFilter('price')">Price ▼</button>
+    <button class="filter-btn" onclick="toggleMobileFilter('stock')">Stock ▼</button>
+</div>
 
 <!-- Shop Content -->
 <section class="py-12 bg-black-100">
@@ -131,7 +194,7 @@
                     </form>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                     {% for product in products %}
                     <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden">
                         <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
@@ -239,6 +302,15 @@
 
 {% block extra_js %}
 <script>
+function toggleMobileFilter(filterType) {
+    // For now, just scroll to the filter section on desktop
+    // On mobile, this could open a modal/bottom sheet
+    const filterSidebar = document.querySelector('.filter-sidebar');
+    if (filterSidebar && window.innerWidth >= 1024) {
+        filterSidebar.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
     addToCartBtns.forEach(btn => {

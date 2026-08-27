@@ -132,7 +132,7 @@ def cart_summary(request):
             'id': item.id,
             'product_id': item.product.id,
             'product_name': item.product.name,
-            'product_image': item.product.main_image.url if item.product.main_image else '/static/images/crackers/placeholder.jpg',
+            'product_image': item.product.get_display_image(),
             'quantity': item.quantity,
             'unit_price': str(item.unit_price),
             'total_price': str(item.get_total_price())
