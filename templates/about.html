@@ -14,7 +14,12 @@
         justify-content: center;
         background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
         overflow: hidden;
-        padding-top: 80px; /* Space for fixed navbar */
+        padding-top: 80px;
+    }
+    @media (min-width: 640px) {
+        .about-hero {
+            padding-top: 96px;
+        }
     }
     
     .about-hero::before {
