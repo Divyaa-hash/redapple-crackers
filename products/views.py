@@ -247,18 +247,39 @@ def update_cloudinary_urls_view(request):
             if '|' in line and not line.startswith('Product'):
                 parts = line.split('|')
                 if len(parts) == 2:
-                    slug = parts[0].strip()
+                    filename = parts[0].strip()
                     url = parts[1].strip()
-                    mappings[slug] = url
+                    mappings[filename] = url
     
-    # Update products
+    # Update products by matching main_image filename
     updated_count = 0
     not_found_count = 0
     errors = []
     
-    for slug, cloudinary_url in mappings.items():
+    for filename, cloudinary_url in mappings.items():
         try:
-            product = Product.objects.filter(slug=slug).first()
+            # Try to find product by main_image filename
+            # Extract just the filename without extension for matching
+            base_filename = filename.split('_')[0] if '_' in filename else filename
+            
+            # Try multiple matching strategies
+            product = None
+            
+            # Strategy 1: Match by main_image name (if it's stored as filename)
+            if hasattr(Product, 'main_image'):
+                products = Product.objects.filter(main_image__icontains=base_filename)
+                if products.exists():
+                    product = products.first()
+            
+            # Strategy 2: Match by slug (for products with descriptive slugs)
+            if not product:
+                product = Product.objects.filter(slug__icontains=base_filename).first()
+            
+            # Strategy 3: Match by name (case-insensitive partial match)
+            if not product:
+                # Try to find products that might have this as part of their name
+                product = Product.objects.filter(name__icontains=base_filename).first()
+            
             if product:
                 product.main_image = cloudinary_url
                 product.save(update_fields=['main_image'])
@@ -266,7 +287,7 @@ def update_cloudinary_urls_view(request):
             else:
                 not_found_count += 1
         except Exception as e:
-            errors.append(f'{slug}: {str(e)}')
+            errors.append(f'{filename}: {str(e)}')
     
     return JsonResponse({
         'status': 'success',
