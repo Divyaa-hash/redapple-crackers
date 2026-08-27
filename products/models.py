@@ -180,14 +180,33 @@ class Product(models.Model):
         """Get the actual image to display, with fallback to placeholder"""
         # First try main_image if it exists and has a value
         if self.main_image:
-            # If main_image is a URL (Cloudinary or external), return it
-            if self.main_image.startswith('http'):
-                return self.main_image
-            # If main_image is a media path, try to use it
+            image_path = str(self.main_image)
+            
+            # If it's a URL (Cloudinary or external), return it
+            if image_path.startswith('http'):
+                return image_path
+            
+            # If main_image is a media path, convert to static path
+            # media/products/filename.jpg -> images/crackers/filename.jpg
+            if 'media/products/' in image_path:
+                filename = image_path.replace('media/products/', '')
+                return f'images/crackers/{filename}'
+            
+            # If main_image is just products/filename.jpg
+            if image_path.startswith('products/'):
+                filename = image_path.replace('products/', '')
+                return f'images/crackers/{filename}'
+            
+            # If main_image has .url attribute (ImageField)
             if hasattr(self.main_image, 'url'):
-                return self.main_image.url
-            # Otherwise use the string value
-            return str(self.main_image)
+                url = self.main_image.url
+                if 'media/products/' in url:
+                    filename = url.replace('media/products/', '')
+                    return f'images/crackers/{filename}'
+                return url
+            
+            # Otherwise use the string value as-is
+            return image_path
         
         # Fall back to catalog image (static files)
         image = self.get_catalog_image()
