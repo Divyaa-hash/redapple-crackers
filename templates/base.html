@@ -155,6 +155,29 @@
             }
         }
         
+        function toggleUserDropdown() {
+            const userDropdown = document.getElementById('user-dropdown');
+            if (userDropdown) {
+                userDropdown.classList.toggle('opacity-0');
+                userDropdown.classList.toggle('invisible');
+                userDropdown.classList.toggle('opacity-100');
+                userDropdown.classList.toggle('visible');
+            }
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const userDropdownContainer = document.getElementById('user-dropdown-container');
+            const userDropdown = document.getElementById('user-dropdown');
+            
+            if (userDropdownContainer && userDropdown) {
+                if (!userDropdownContainer.contains(event.target)) {
+                    userDropdown.classList.add('opacity-0', 'invisible');
+                    userDropdown.classList.remove('opacity-100', 'visible');
+                }
+            }
+        });
+        
         function toggleSearch() {
             const searchModal = document.getElementById('search-modal');
             if (searchModal) {
