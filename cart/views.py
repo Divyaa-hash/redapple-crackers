@@ -43,20 +43,13 @@ def add_to_cart(request):
             product_id = request.POST.get('product_id')
             quantity = int(request.POST.get('quantity', 1))
         
-        # For demo purposes, use product_id=1 if no products exist
         if not product_id:
             return JsonResponse({'success': False, 'message': 'No product ID provided'})
         
         try:
             product = Product.objects.get(id=product_id, is_active=True)
         except Product.DoesNotExist:
-            # For demo, return success even if product doesn't exist
-            return JsonResponse({
-                'success': True,
-                'message': 'Product added to cart (demo mode)',
-                'cart_count': 1,
-                'cart_total': 299
-            })
+            return JsonResponse({'success': False, 'message': 'Product not found'})
         
         if not product.is_in_stock():
             return JsonResponse({'success': False, 'message': 'Product is out of stock'})
@@ -75,6 +68,7 @@ def add_to_cart(request):
         
         if not created:
             cart_item.quantity += quantity
+            cart_item.unit_price = product.get_current_price()
             cart_item.save()
         
         return JsonResponse({

@@ -23,7 +23,7 @@
                     {% for item in cart_items %}
                     <div class="cart-item flex items-center gap-6 py-6 border-b border-white/10 last:border-0">
                         <div class="w-20 sm:w-24 h-20 sm:h-24 bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src="{% static item.product.get_catalog_image %}" alt="{{ item.product.name }}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
+                            <img src="{% static item.product.get_display_image %}" alt="{{ item.product.name }}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
                         </div>
                         
                         <div class="flex-1">
@@ -112,10 +112,6 @@ function getCookie(name) {
 }
 
 function removeCartItem(itemId) {
-    if (!confirm('Are you sure you want to remove this item?')) {
-        return;
-    }
-    
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
     
     fetch('/cart/remove/', {
@@ -130,6 +126,12 @@ function removeCartItem(itemId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Update cart count in navbar
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = data.cart_count || 0;
+            });
+            // Reload page to show updated cart
             location.reload();
         } else {
             alert(data.message || 'Error removing item');

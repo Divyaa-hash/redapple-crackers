@@ -115,7 +115,7 @@
     </div>
     
     <div class="relative z-10 w-full h-full flex items-center justify-center px-4">
-        <div class="text-center max-w-5xl mx-auto">
+        <div class="text-center max-w-5xl mx-auto w-full">
             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-display font-bold mb-6">
                 <span class="text-gradient">Ignite Your</span>
                 <br>
@@ -124,7 +124,7 @@
             <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
                 Experience the magic of premium fireworks. India's finest collection for every special moment.
             </p>
-            <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
                 <a href="/shop/" class="btn-premium btn-gold text-lg">Shop Now</a>
                 <a href="/shop/" class="btn-premium btn-outline text-lg">Explore Collections</a>
             </div>
@@ -220,7 +220,7 @@
             <div class="product-card p-4 group">
                 <div class="relative mb-4 overflow-hidden rounded-lg">
                     <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                        <img src="{% static product.get_catalog_image %}" alt="{{ product.name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                        <img src="{% static product.get_display_image %}" alt="{{ product.name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
                     </a>
                     
                     <div class="absolute top-2 left-2 flex gap-2">

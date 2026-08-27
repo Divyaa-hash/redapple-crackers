@@ -176,6 +176,13 @@ class Product(models.Model):
                 return first
         return f'images/crackers/{self.slug}.jpg'
     
+    def get_display_image(self):
+        """Get the actual image to display, with fallback to placeholder"""
+        image = self.get_catalog_image()
+        if image and not image.endswith('placeholder.jpg'):
+            return image
+        return 'images/crackers/placeholder.jpg'
+    
     def get_current_price(self):
         return self.sale_price if self.sale_price else self.regular_price
     
