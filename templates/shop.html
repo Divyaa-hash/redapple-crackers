@@ -262,7 +262,7 @@
                     <ul class="flex justify-center gap-2 flex-wrap items-center">
                         {% if current_page.has_previous %}
                         <li>
-                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">Previous</a>
+                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.previous_page_number }}">Previous</a>
                         </li>
                         {% else %}
                         <li>
@@ -275,20 +275,16 @@
                         <li>
                             <span class="px-4 py-2 bg-red-500 text-white rounded-lg">{{ page_num }}</span>
                         </li>
-                        {% elif paginator.num_pages > 7 and (page_num == 1 or page_num == paginator.num_pages or abs(page_num - current_page.number) <= 1) %}
+                        {% else %}
                         <li>
-                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ page_num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">{{ page_num }}</a>
-                        </li>
-                        {% elif paginator.num_pages > 7 and (page_num == 2 or page_num == paginator.num_pages - 1) and abs(page_num - current_page.number) > 1 %}
-                        <li>
-                            <span class="px-4 py-2 bg-gray-900 text-gray-500 rounded-lg">...</span>
+                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ page_num }}">{{ page_num }}</a>
                         </li>
                         {% endif %}
                         {% endfor %}
                         
                         {% if current_page.has_next %}
                         <li>
-                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">Next</a>
+                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.next_page_number }}">Next</a>
                         </li>
                         {% else %}
                         <li>
