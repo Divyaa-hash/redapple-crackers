@@ -8,13 +8,14 @@
 <style>
     .shop-hero {
         background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
-        padding: 4rem 0;
+        padding: 4rem 1rem;
         padding-top: 6rem;
         text-align: center;
     }
     @media (min-width: 640px) {
         .shop-hero {
             padding-top: 7rem;
+            padding: 4rem 2rem;
         }
     }
     
@@ -130,67 +131,64 @@
                     </form>
                 </div>
                 
-                <div class="row">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                     {% for product in products %}
-                    <div class="col-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                                    <img src="{% static product.get_catalog_image %}" 
-                                         alt="{{ product.name }}" 
-                                         class="card-img-top" 
-                                         style="height: 200px; object-fit: cover;"
-                                         onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
-                                </a>
-                                
-                                <div class="position-absolute top-0 start-0 p-2">
-                                    {% if product.is_new %}
-                                    <span class="badge bg-danger">New</span>
-                                    {% endif %}
-                                    {% if product.is_featured %}
-                                    <span class="badge bg-primary">Featured</span>
-                                    {% endif %}
-                                    {% if product.sale_price %}
-                                    <span class="badge bg-success">Sale</span>
-                                    {% endif %}
-                                </div>
-                                
-                                <div class="position-absolute top-0 end-0 p-2">
-                                    <button class="btn btn-sm btn-outline-light wishlist-btn" data-product-id="{{ product.id }}">
-                                        ❤
-                                    </button>
-                                </div>
+                    <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden">
+                        <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
+                            <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                                <img src="{% static product.get_catalog_image %}" 
+                                     alt="{{ product.name }}" 
+                                     class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                                     onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                            </a>
+                            
+                            <div class="absolute top-2 left-2 flex flex-wrap gap-1">
+                                {% if product.is_new %}
+                                <span class="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">New</span>
+                                {% endif %}
+                                {% if product.is_featured %}
+                                <span class="px-2 py-1 bg-blue-500 text-white text-xs font-bold rounded-full">Featured</span>
+                                {% endif %}
+                                {% if product.sale_price %}
+                                <span class="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Sale</span>
+                                {% endif %}
                             </div>
                             
-                            <div class="card-body">
-                                <a href="/products/{{ product.id }}/" class="text-decoration-none text-white">
-                                    <small class="text-danger fw-bold">{{ product.category.name }}</small>
-                                    <h5 class="card-title">{{ product.name }}</h5>
-                                </a>
-                                
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="h4 text-danger mb-0">₹{{ product.sale_price|default:product.regular_price }}</span>
-                                    {% if product.sale_price %}
-                                    <span class="text-decoration-line-through text-muted">₹{{ product.regular_price }}</span>
-                                    {% endif %}
-                                </div>
-                                
-                                <p class="small mb-3 {% if product.stock > 10 %}text-success{% elif product.stock > 0 %}text-warning{% else %}text-danger{% endif %}">
-                                    {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
-                                </p>
-                                
-                                <div class="d-flex gap-2">
-                                    <a href="/products/{{ product.id }}/" class="btn btn-outline-danger flex-1">View Details</a>
-                                    <button class="add-to-cart-btn btn btn-danger flex-1" data-product-id="{{ product.id }}">
-                                        Add to Cart
-                                    </button>
-                                </div>
+                            <div class="absolute top-2 right-2">
+                                <button class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors wishlist-btn" data-product-id="{{ product.id }}">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
+                            <h3 class="font-semibold text-gray-200 text-sm sm:text-base line-clamp-2">{{ product.name }}</h3>
+                            
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-lg sm:text-xl font-bold text-red-500">₹{{ product.sale_price|default:product.regular_price }}</span>
+                                {% if product.sale_price %}
+                                <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
+                                {% endif %}
+                            </div>
+                            
+                            <span class="text-xs {% if product.stock > 10 %}text-green-400{% elif product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                                {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                            </span>
+                            
+                            <div class="flex gap-2 pt-2">
+                                <a href="/products/{{ product.id }}/" class="flex-1 text-center px-3 py-2 border border-red-500 text-red-500 rounded-lg text-sm hover:bg-red-500 hover:text-white transition-colors">View</a>
+                                <button class="add-to-cart-btn flex-1 px-3 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 transition-colors" data-product-id="{{ product.id }}">
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                     </div>
                     {% empty %}
-                    <div class="col-12">
-                        <p class="text-center text-muted">No products available.</p>
+                    <div class="col-span-full text-center py-8">
+                        <p class="text-gray-400">No products available.</p>
                     </div>
                     {% endfor %}
                 </div>
@@ -198,36 +196,36 @@
                 <!-- Pagination -->
                 {% if paginator.num_pages > 1 %}
                 <nav aria-label="Page navigation" class="mt-8">
-                    <ul class="pagination justify-content-center">
+                    <ul class="flex justify-center gap-2 flex-wrap">
                         {% if current_page.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ current_page.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}" tabindex="-1">Previous</a>
+                        <li>
+                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">Previous</a>
                         </li>
                         {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
+                        <li>
+                            <span class="px-4 py-2 bg-gray-900 text-gray-500 rounded-lg cursor-not-allowed">Previous</span>
                         </li>
                         {% endif %}
                         
                         {% for page_num in paginator.page_range %}
                         {% if page_num == current_page.number %}
-                        <li class="page-item active">
-                            <span class="page-link">{{ page_num }}</span>
+                        <li>
+                            <span class="px-4 py-2 bg-red-500 text-white rounded-lg">{{ page_num }}</span>
                         </li>
                         {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">{{ page_num }}</a>
+                        <li>
+                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ page_num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">{{ page_num }}</a>
                         </li>
                         {% endif %}
                         {% endfor %}
                         
                         {% if current_page.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ current_page.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">Next</a>
+                        <li>
+                            <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.in_stock %}&in_stock={{ request.GET.in_stock }}{% endif %}{% if request.GET.on_sale %}&on_sale={{ request.GET.on_sale }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">Next</a>
                         </li>
                         {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">Next</span>
+                        <li>
+                            <span class="px-4 py-2 bg-gray-900 text-gray-500 rounded-lg cursor-not-allowed">Next</span>
                         </li>
                         {% endif %}
                     </ul>

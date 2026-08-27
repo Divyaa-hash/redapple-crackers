@@ -20,7 +20,7 @@
             {% for item in wishlist_items %}
             <div class="product-card tilt-card">
                 <div class="relative overflow-hidden">
-                    <img src="{% static item.product.get_catalog_image %}" alt="{{ item.product.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    <img src="{% static item.product.get_catalog_image %}" alt="{{ item.product.name }}" class="w-full h-48 sm:h-64 object-cover transition-transform duration-500 hover:scale-110" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
                     <div class="absolute top-4 right-4 space-y-2">
                         <button onclick="removeFromWishlist({{ item.id }})" class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

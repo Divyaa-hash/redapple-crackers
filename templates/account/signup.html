@@ -2,42 +2,55 @@
 
 {% block title %}Sign Up - Premium Fireworks Store{% endblock %}
 
+{% block extra_css %}
+<style>
+    .signup-section {
+        padding-top: 80px;
+    }
+    @media (min-width: 640px) {
+        .signup-section {
+            padding-top: 96px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Signup Section -->
-<section class="min-h-screen py-16 bg-black-100 flex items-center">
+<section class="min-h-screen py-16 bg-black-100 flex items-center signup-section">
     <div class="max-w-6xl mx-auto px-4 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             <!-- Signup Form -->
-            <div class="glass-card p-8">
-                <h1 class="text-3xl font-display font-bold text-gradient mb-2">Create Account</h1>
-                <p class="text-gray-400 mb-8">Join us and start shopping premium fireworks</p>
+            <div class="glass-card p-6 sm:p-8">
+                <h1 class="text-2xl sm:text-3xl font-display font-bold text-gradient mb-2">Create Account</h1>
+                <p class="text-gray-400 mb-6 sm:mb-8">Join us and start shopping premium fireworks</p>
                 
                 <form method="post" action="{% url 'account_signup' %}" class="space-y-6">
                     {% csrf_token %}
                     
                     <div>
                         <label class="block text-gray-300 mb-2">Full Name</label>
-                        <input type="text" name="username" required class="input-premium" placeholder="Enter your full name">
+                        <input type="text" name="username" required class="input-premium w-full" placeholder="Enter your full name">
                     </div>
                     
                     <div>
                         <label class="block text-gray-300 mb-2">Email Address</label>
-                        <input type="email" name="email" required class="input-premium" placeholder="Enter your email">
+                        <input type="email" name="email" required class="input-premium w-full" placeholder="Enter your email">
                     </div>
                     
                     <div>
                         <label class="block text-gray-300 mb-2">Phone Number</label>
-                        <input type="tel" name="phone" class="input-premium" placeholder="Enter your phone number">
+                        <input type="tel" name="phone" class="input-premium w-full" placeholder="Enter your phone number">
                     </div>
                     
                     <div>
                         <label class="block text-gray-300 mb-2">Password</label>
-                        <input type="password" name="password" required class="input-premium" placeholder="Create a password">
+                        <input type="password" name="password" required class="input-premium w-full" placeholder="Create a password">
                     </div>
                     
                     <div>
                         <label class="block text-gray-300 mb-2">Confirm Password</label>
-                        <input type="password" name="password_confirm" required class="input-premium" placeholder="Confirm your password">
+                        <input type="password" name="password_confirm" required class="input-premium w-full" placeholder="Confirm your password">
                     </div>
                     
                     <div class="flex items-start space-x-2">
