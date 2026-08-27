@@ -20,8 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
 from products.views import shop_view
+import pandas as pd
+import os
 
 def home_view(request):
     active = Product.objects.filter(is_active=True)
@@ -39,6 +43,76 @@ def home_view(request):
         'featured_products': featured_products,
         'new_products': new_products
     })
+
+@csrf_exempt
+def update_prices_view(request):
+    """Update product names and prices from Excel file with 10% markup"""
+    try:
+        excel_file = 'Vamsi_Crackers 2026 diwali.xlsx'
+        
+        if not os.path.exists(excel_file):
+            return JsonResponse({'success': False, 'message': f'Excel file not found: {excel_file}'})
+        
+        # Read Excel file
+        df = pd.read_excel(excel_file)
+        
+        updated_count = 0
+        created_count = 0
+        
+        for index, row in df.iterrows():
+            product_name = str(row['Product Name']).strip()
+            category_name = str(row['Category']).strip()
+            original_price = float(row['Original Price'])
+            
+            # Apply 10% markup
+            new_price = original_price * 1.1
+            
+            # Try to find existing product by name (case-insensitive)
+            product = Product.objects.filter(name__icontains=product_name).first()
+            
+            if product:
+                # Update existing product
+                product.name = product_name
+                product.regular_price = new_price
+                product.save()
+                updated_count += 1
+            else:
+                # Try to find or create category
+                category = Category.objects.filter(name__icontains=category_name).first()
+                if not category:
+                    category = Category.objects.create(
+                        name=category_name,
+                        slug=category_name.lower().replace(' ', '-'),
+                        is_active=True
+                    )
+                
+                # Create new product
+                slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('(', '').replace(')', '').replace('"', '')
+                sku = slug[:50]
+                
+                product = Product.objects.create(
+                    name=product_name,
+                    slug=slug,
+                    sku=sku,
+                    category=category,
+                    regular_price=new_price,
+                    short_description=f'{product_name} - Premium quality crackers',
+                    description=f'{product_name} from {category_name}. Premium quality fireworks for your celebrations.',
+                    stock=100,
+                    is_active=True,
+                    is_new=True
+                )
+                created_count += 1
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Price update completed successfully',
+            'updated': updated_count,
+            'created': created_count,
+            'total': updated_count + created_count
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -59,6 +133,7 @@ urlpatterns = [
     path('safety/', TemplateView.as_view(template_name='safety_guidelines.html')),
     path('order-confirmation/', TemplateView.as_view(template_name='order_confirmation.html'), name='order_confirmation'),
     path('order-tracking/', TemplateView.as_view(template_name='order_tracking.html'), name='order_tracking'),
+    path('update-prices/', update_prices_view, name='update_prices'),
     # Auth URLs
     path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
     path('register/', TemplateView.as_view(template_name='register.html'), name='register'),
