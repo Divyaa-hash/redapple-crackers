@@ -178,8 +178,14 @@
             
             <!-- Products Grid -->
             <div class="flex-1">
+                {% if error %}
+                <div class="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded-lg mb-6">
+                    Error loading products: {{ error }}
+                </div>
+                {% endif %}
+                
                 <div class="flex justify-between items-center mb-6">
-                    <p class="text-gray-400">{{ paginator.count }} products</p>
+                    <p class="text-gray-400">{% if paginator %}{{ paginator.count }} products{% else %}0 products{% endif %}</p>
                     <form method="GET" action="/shop/" class="flex gap-2">
                         <input type="hidden" name="category" value="{{ request.GET.category }}">
                         <input type="hidden" name="min_price" value="{{ request.GET.min_price }}">
@@ -259,10 +265,10 @@
                 </div>
                 
                 <!-- Pagination -->
-                {% if paginator.num_pages > 1 %}
+                {% if paginator and paginator.num_pages > 1 %}
                 <nav aria-label="Page navigation" class="mt-8">
                     <ul class="flex justify-center gap-2 flex-wrap items-center">
-                        {% if current_page.has_previous %}
+                        {% if current_page and current_page.has_previous %}
                         <li>
                             <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.previous_page_number }}">Previous</a>
                         </li>
@@ -272,8 +278,9 @@
                         </li>
                         {% endif %}
                         
+                        {% if paginator %}
                         {% for page_num in paginator.page_range %}
-                        {% if page_num == current_page.number %}
+                        {% if current_page and page_num == current_page.number %}
                         <li>
                             <span class="px-4 py-2 bg-red-500 text-white rounded-lg">{{ page_num }}</span>
                         </li>
@@ -283,8 +290,9 @@
                         </li>
                         {% endif %}
                         {% endfor %}
+                        {% endif %}
                         
-                        {% if current_page.has_next %}
+                        {% if current_page and current_page.has_next %}
                         <li>
                             <a class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors" href="?page={{ current_page.next_page_number }}">Next</a>
                         </li>
