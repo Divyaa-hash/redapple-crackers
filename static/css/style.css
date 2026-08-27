@@ -41,6 +41,35 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     overflow-x: hidden;
 }
 
+/* Mobile menu visibility fix */
+#mobile-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 49;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-y: auto;
+}
+
+#mobile-menu.hidden {
+    display: none;
+}
+
+#mobile-menu:not(.hidden) {
+    display: block;
+}
+
+/* Ensure hamburger button is visible on mobile */
+@media (max-width: 1023px) {
+    .glass-navbar button[onclick="toggleMobileMenu()"] {
+        display: block !important;
+    }
+}
+
 /* Fix product cards on mobile */
 .product-card {
     max-width: 100%;
