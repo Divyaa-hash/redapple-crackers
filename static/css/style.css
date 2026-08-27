@@ -649,21 +649,31 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
 }
 
 /* ===== CUSTOM SCROLLBAR ===== */
-::-webkit-scrollbar {
-    width: 10px;
+@media (min-width: 1024px) {
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #f59e0b, #d97706);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #d97706, #b45309);
+    }
 }
 
-::-webkit-scrollbar-track {
-    background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #f59e0b, #d97706);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #d97706, #b45309);
+/* Hide custom scrollbar on mobile */
+@media (max-width: 1023px) {
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
 }
 
 /* ===== SKELETON LOADING ===== */

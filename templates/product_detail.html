@@ -4,6 +4,39 @@
 {% block title %}{{ product.name }} - Premium crackers Store{% endblock %}
 
 {% block content %}
+{% block extra_css %}
+<style>
+    /* Mobile-first Product Details fixes */
+    @media (max-width: 640px) {
+        .product-detail-buttons {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .product-detail-buttons .btn-outline,
+        .product-detail-buttons .btn-gold {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+        }
+        
+        .product-detail-buttons button:last-child {
+            width: 100%;
+            padding: 0.875rem;
+        }
+        
+        .quantity-selector {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .specifications-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+{% endblock %}
+
 <!-- Breadcrumb -->
 <section class="py-4 bg-black-200">
     <div class="max-w-7xl mx-auto px-4">
@@ -69,7 +102,7 @@
                         {% endif %}
                     </div>
                     
-                    <div class="flex items-center space-x-4 mb-6">
+                    <div class="flex items-center space-x-4 mb-6 quantity-selector">
                         <div class="flex items-center space-x-2">
                             <button class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-gold-500 transition-colors" onclick="decrementQuantity()">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,10 +116,9 @@
                                 </svg>
                             </button>
                         </div>
-                        <span class="text-gray-400">Available: {% if product.stock > 0 %}{{ product.stock }}{% else %}0{% endif %} pieces</span>
                     </div>
                     
-                    <div class="flex space-x-4">
+                    <div class="flex space-x-4 product-detail-buttons">
                         <a href="/shop/" class="btn-outline flex-1 text-lg text-center py-3">Back to Products</a>
                         <button onclick="addToCart({{ product.id }})" class="btn-gold flex-1 text-lg">Add to Cart</button>
                         <button onclick="buyNow({{ product.id }})" class="btn-outline flex-1 text-lg">Buy Now</button>
@@ -101,7 +133,7 @@
                 <!-- Specifications -->
                 <div class="glass-card p-6">
                     <h3 class="text-xl font-semibold text-gold-500 mb-4">Specifications</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 specifications-grid">
                         <div>
                             <p class="text-gray-400 text-sm">Weight</p>
                             <p class="text-gray-200">{{ product.weight }}g</p>
