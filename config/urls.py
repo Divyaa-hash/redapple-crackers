@@ -23,7 +23,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
-from products.views import shop_view
+from products.views import shop_view, update_cloudinary_urls_view
 import openpyxl
 import os
 
@@ -142,6 +142,7 @@ urlpatterns = [
     path('order-confirmation/', TemplateView.as_view(template_name='order_confirmation.html'), name='order_confirmation'),
     path('order-tracking/', TemplateView.as_view(template_name='order_tracking.html'), name='order_tracking'),
     path('update-prices/', update_prices_view, name='update_prices'),
+    path('update-cloudinary-urls/', update_cloudinary_urls_view, name='update_cloudinary_urls'),
     # Auth URLs
     path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
     path('register/', TemplateView.as_view(template_name='register.html'), name='register'),
