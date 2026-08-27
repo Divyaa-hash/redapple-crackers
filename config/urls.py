@@ -24,6 +24,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
 from products.views import shop_view
+from users.views import login_view, signup_view, logout_view, account_view
 import openpyxl
 import os
 
@@ -143,10 +144,11 @@ urlpatterns = [
     path('order-tracking/', TemplateView.as_view(template_name='order_tracking.html'), name='order_tracking'),
     path('update-prices/', update_prices_view, name='update_prices'),
     # Auth URLs
-    path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
-    path('register/', TemplateView.as_view(template_name='register.html'), name='register'),
-    path('logout/', TemplateView.as_view(template_name='logout.html'), name='logout'),
-    path('account/', TemplateView.as_view(template_name='account.html'), name='account'),
+    path('login/', login_view, name='login'),
+    path('register/', signup_view, name='register'),
+    path('signup/', signup_view, name='signup'),
+    path('logout/', logout_view, name='logout'),
+    path('account/', account_view, name='account'),
 ]
 
 # Serve media files in both development and production
