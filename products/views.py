@@ -18,58 +18,69 @@ def product_detail_view(request, product_id):
 
 def shop_view(request):
     """Shop page view displaying all products with filters"""
-    products = Product.objects.filter(is_active=True)
-    categories = Category.objects.filter(is_active=True)
-    
-    # Get filter parameters
-    category_id = request.GET.get('category')
-    min_price = request.GET.get('min_price')
-    max_price = request.GET.get('max_price')
-    in_stock = request.GET.get('in_stock')
-    on_sale = request.GET.get('on_sale')
-    sort_by = request.GET.get('sort_by', '-created_at')
-    page = request.GET.get('page', 1)
-    
-    # Apply filters
-    if category_id:
-        products = products.filter(category_id=category_id)
-    if min_price:
-        products = products.filter(regular_price__gte=min_price)
-    if max_price:
-        products = products.filter(regular_price__lte=max_price)
-    if in_stock:
-        products = products.filter(stock__gt=0)
-    if on_sale:
-        products = products.filter(sale_price__isnull=False)
-    
-    # Apply sorting
-    if sort_by == 'price_low':
-        products = products.order_by('regular_price')
-    elif sort_by == 'price_high':
-        products = products.order_by('-regular_price')
-    elif sort_by == 'newest':
-        products = products.order_by('-created_at')
-    elif sort_by == 'name':
-        products = products.order_by('name')
-    else:
-        products = products.order_by('-created_at')
-    
-    # Pagination - 24 products per page
-    paginator = Paginator(products, 24)
-    
     try:
-        products_page = paginator.page(page)
-    except PageNotAnInteger:
-        products_page = paginator.page(1)
-    except EmptyPage:
-        products_page = paginator.page(paginator.num_pages)
-    
-    return render(request, 'shop.html', {
-        'products': products_page,
-        'categories': categories,
-        'paginator': paginator,
-        'current_page': products_page
-    })
+        products = Product.objects.filter(is_active=True)
+        categories = Category.objects.filter(is_active=True)
+        
+        # Get filter parameters
+        category_id = request.GET.get('category')
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        in_stock = request.GET.get('in_stock')
+        on_sale = request.GET.get('on_sale')
+        sort_by = request.GET.get('sort_by', '-created_at')
+        page = request.GET.get('page', 1)
+        
+        # Apply filters
+        if category_id:
+            products = products.filter(category_id=category_id)
+        if min_price:
+            products = products.filter(regular_price__gte=min_price)
+        if max_price:
+            products = products.filter(regular_price__lte=max_price)
+        if in_stock:
+            products = products.filter(stock__gt=0)
+        if on_sale:
+            products = products.filter(sale_price__isnull=False)
+        
+        # Apply sorting
+        if sort_by == 'price_low':
+            products = products.order_by('regular_price')
+        elif sort_by == 'price_high':
+            products = products.order_by('-regular_price')
+        elif sort_by == 'newest':
+            products = products.order_by('-created_at')
+        elif sort_by == 'name':
+            products = products.order_by('name')
+        else:
+            products = products.order_by('-created_at')
+        
+        # Pagination - 24 products per page
+        paginator = Paginator(products, 24)
+        
+        try:
+            products_page = paginator.page(page)
+        except PageNotAnInteger:
+            products_page = paginator.page(1)
+        except EmptyPage:
+            products_page = paginator.page(paginator.num_pages)
+        
+        return render(request, 'shop.html', {
+            'products': products_page,
+            'categories': categories,
+            'paginator': paginator,
+            'current_page': products_page
+        })
+    except Exception as e:
+        # Log the error and return a simple error page
+        print(f"Error in shop_view: {e}")
+        return render(request, 'shop.html', {
+            'products': [],
+            'categories': [],
+            'paginator': None,
+            'current_page': None,
+            'error': str(e)
+        })
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
