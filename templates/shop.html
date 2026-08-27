@@ -205,10 +205,16 @@
                     <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden">
                         <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
                             <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                                {% if product.get_display_image %}
                                 <img src="{% static product.get_display_image %}" 
                                      alt="{{ product.name }}" 
                                      class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                      onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                                {% else %}
+                                <img src="https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}" 
+                                     alt="{{ product.name }}" 
+                                     class="w-full h-40 sm:h-48 object-cover">
+                                {% endif %}
                             </a>
                             
                             <div class="absolute top-2 left-2 flex flex-wrap gap-1">
@@ -233,15 +239,19 @@
                         </div>
                         
                         <div class="space-y-2">
-                            {% if product.category %}
+                            {% if product.category and product.category.name %}
                             <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
                             {% endif %}
                             <h3 class="font-semibold text-gray-200 text-sm sm:text-base line-clamp-2">{{ product.name }}</h3>
                             
                             <div class="flex items-center gap-2 flex-wrap">
-                                <span class="text-lg sm:text-xl font-bold text-red-500">₹{{ product.sale_price|default:product.regular_price }}</span>
                                 {% if product.sale_price %}
+                                <span class="text-lg sm:text-xl font-bold text-red-500">₹{{ product.sale_price }}</span>
+                                {% if product.regular_price %}
                                 <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
+                                {% endif %}
+                                {% elif product.regular_price %}
+                                <span class="text-lg sm:text-xl font-bold text-red-500">₹{{ product.regular_price }}</span>
                                 {% endif %}
                             </div>
                             
