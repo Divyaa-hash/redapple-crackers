@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import JsonResponse
-from pathlib import Path
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -227,74 +225,3 @@ class CouponViewSet(viewsets.ModelViewSet):
             return Response({'valid': False, 'message': 'Coupon is expired or usage limit reached'}, status=400)
         except Coupon.DoesNotExist:
             return Response({'valid': False, 'message': 'Invalid coupon code'}, status=404)
-
-
-def update_cloudinary_urls_view(request):
-    """Temporary view to trigger Cloudinary URL update via URL (no shell needed)"""
-    mapping_file = Path('cloudinary_image_mapping.txt')
-    
-    if not mapping_file.exists():
-        return JsonResponse({
-            'status': 'error',
-            'message': f'Mapping file not found: {mapping_file}'
-        }, status=404)
-    
-    # Read mapping file
-    mappings = {}
-    with open(mapping_file, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if '|' in line and not line.startswith('Product'):
-                parts = line.split('|')
-                if len(parts) == 2:
-                    filename = parts[0].strip()
-                    url = parts[1].strip()
-                    mappings[filename] = url
-    
-    # Update products by matching main_image filename
-    updated_count = 0
-    not_found_count = 0
-    errors = []
-    
-    for filename, cloudinary_url in mappings.items():
-        try:
-            # Try to find product by main_image filename
-            # Extract just the filename without extension for matching
-            base_filename = filename.split('_')[0] if '_' in filename else filename
-            
-            # Try multiple matching strategies
-            product = None
-            
-            # Strategy 1: Match by main_image name (if it's stored as filename)
-            if hasattr(Product, 'main_image'):
-                products = Product.objects.filter(main_image__icontains=base_filename)
-                if products.exists():
-                    product = products.first()
-            
-            # Strategy 2: Match by slug (for products with descriptive slugs)
-            if not product:
-                product = Product.objects.filter(slug__icontains=base_filename).first()
-            
-            # Strategy 3: Match by name (case-insensitive partial match)
-            if not product:
-                # Try to find products that might have this as part of their name
-                product = Product.objects.filter(name__icontains=base_filename).first()
-            
-            if product:
-                product.main_image = cloudinary_url
-                product.save(update_fields=['main_image'])
-                updated_count += 1
-            else:
-                not_found_count += 1
-        except Exception as e:
-            errors.append(f'{filename}: {str(e)}')
-    
-    return JsonResponse({
-        'status': 'success',
-        'message': f'Updated {updated_count} products',
-        'details': {
-            'updated': updated_count,
-            'not_found': not_found_count,
-            'errors': errors[:10]  # Limit errors to avoid huge response
-        }
-    })
