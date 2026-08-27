@@ -239,8 +239,8 @@
                                 {% endif %}
                             </div>
                             
-                            <span class="text-xs {% if product.stock > 10 %}text-green-400{% elif product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
-                                {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                            <span class="text-xs {% if product.stock and product.stock > 10 %}text-green-400{% elif product.stock and product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                                {% if product.stock and product.stock > 10 %}In Stock{% elif product.stock and product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
                             </span>
                             
                             <div class="flex gap-2 pt-2">
