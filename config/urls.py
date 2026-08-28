@@ -39,6 +39,13 @@ def home_view(request):
         featured_products = list(active[:4])
     if not new_products:
         new_products = list(active[4:8])
+    # If still no products, use all active products
+    if not trending_products:
+        trending_products = list(active[:8])
+    if not featured_products:
+        featured_products = list(active[:4])
+    if not new_products:
+        new_products = list(active[4:8])
     return render(request, 'home.html', {
         'trending_products': trending_products,
         'featured_products': featured_products,

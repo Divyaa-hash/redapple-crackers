@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -48,11 +50,12 @@ def shop_view(request):
         if on_sale:
             products = products.filter(sale_price__isnull=False)
         
-        # Apply sorting
+        # Apply sorting - use current price (sale_price if available, else regular_price)
         if sort_by == 'price_low':
-            products = products.order_by('regular_price')
+            # Sort by current price (sale_price takes precedence)
+            products = products.order_by('sale_price', 'regular_price')
         elif sort_by == 'price_high':
-            products = products.order_by('-regular_price')
+            products = products.order_by('-sale_price', '-regular_price')
         elif sort_by == 'newest':
             products = products.order_by('-created_at')
         elif sort_by == 'name':
@@ -70,11 +73,16 @@ def shop_view(request):
         except EmptyPage:
             products_page = paginator.page(paginator.num_pages)
         
+        # Serialize categories for JavaScript
+        categories_data = [{'id': cat.id, 'name': cat.name} for cat in categories]
+        
         return render(request, 'shop.html', {
             'products': products_page,
             'categories': categories,
+            'categories_json': json.dumps(categories_data, cls=DjangoJSONEncoder),
             'paginator': paginator,
-            'current_page': products_page
+            'current_page': products_page,
+            'total_count': paginator.count
         })
     except Exception as e:
         # Log the error and return a simple error page
