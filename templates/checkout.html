@@ -252,7 +252,7 @@
                             <div class="flex items-center">
                                 <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-lg mr-2 sm:mr-3 overflow-hidden flex-shrink-0">
                                     {% if item.product.main_image %}
-                                    <img src="{{ item.product.main_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                                    <img src="/static/{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
                                     {% else %}
                                     <div class="w-full h-full bg-gray-600 flex items-center justify-center">
                                         <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

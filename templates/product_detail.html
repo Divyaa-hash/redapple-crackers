@@ -33,6 +33,23 @@
         .specifications-grid {
             grid-template-columns: 1fr !important;
         }
+        
+        /* Fix button overflow on small screens */
+        .product-detail-buttons {
+            padding-bottom: 2rem;
+        }
+    }
+    
+    @media (max-width: 430px) {
+        .product-detail-buttons {
+            gap: 0.5rem;
+        }
+        
+        .product-detail-buttons .btn-outline,
+        .product-detail-buttons .btn-gold {
+            padding: 0.75rem 0.875rem;
+            font-size: 0.9rem;
+        }
     }
 </style>
 {% endblock %}
@@ -58,7 +75,7 @@
             <div class="space-y-4">
                 <div class="glass-card p-4">
                     <div class="relative overflow-hidden rounded-xl">
-                        <img src="{% static product.get_catalog_image %}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                        <img src="/static/{{ product.get_catalog_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
                         {% if product.sale_price %}
                         <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full font-semibold text-sm sm:text-base">
                             -{{ product.get_discount_percentage }}%
@@ -68,7 +85,7 @@
                 </div>
                 <div class="flex space-x-3 sm:space-x-4 overflow-x-auto pb-4">
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">
-                        <img src="{% static product.get_catalog_image %}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
+                        <img src="/static/{{ product.get_catalog_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
                     </div>
                     {% for image in product.product_images.all %}
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">
@@ -109,7 +126,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
                                 </svg>
                             </button>
-                            <input type="number" value="1" min="1" max="{% if product.stock > 0 %}{{ product.stock }}{% else %}1{% endif %}" class="w-20 text-center input-premium" id="quantity">
+                            <input type="number" value="1" min="1" max="99" class="w-20 text-center input-premium" id="quantity">
                             <button class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-gold-500 transition-colors" onclick="incrementQuantity()">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -141,10 +158,6 @@
                         <div>
                             <p class="text-gray-400 text-sm">Dimensions</p>
                             <p class="text-gray-200">{{ product.dimensions }}</p>
-                        </div>
-                        <div>
-                            <p class="text-gray-400 text-sm">Pieces</p>
-                            <p class="text-gray-200">{{ product.pieces }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400 text-sm">Duration</p>

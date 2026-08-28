@@ -165,6 +165,19 @@
             }
         }
         
+        function handleProfileClick() {
+            const userDropdown = document.getElementById('user-dropdown');
+            if (userDropdown) {
+                // Check if dropdown is currently visible
+                const isVisible = !userDropdown.classList.contains('invisible');
+                if (isVisible) {
+                    toggleUserDropdown();
+                } else {
+                    toggleUserDropdown();
+                }
+            }
+        }
+        
         // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
             const userDropdownContainer = document.getElementById('user-dropdown-container');
@@ -185,6 +198,9 @@
                 if (!searchModal.classList.contains('hidden')) {
                     const searchInput = document.getElementById('search-input');
                     if (searchInput) searchInput.focus();
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
                 }
             }
         }

@@ -23,7 +23,7 @@
                     {% for item in cart_items %}
                     <div class="cart-item flex items-center gap-6 py-6 border-b border-white/10 last:border-0">
                         <div class="w-20 sm:w-24 h-20 sm:h-24 bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src="{% static item.product.get_display_image %}" alt="{{ item.product.name }}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
+                            <img src="/static/{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
                         </div>
                         
                         <div class="flex-1">

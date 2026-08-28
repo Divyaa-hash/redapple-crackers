@@ -29,7 +29,12 @@ def shop_view(request):
         in_stock = request.GET.get('in_stock')
         on_sale = request.GET.get('on_sale')
         sort_by = request.GET.get('sort_by', '-created_at')
+        search_query = request.GET.get('q')
         page = request.GET.get('page', 1)
+        
+        # Apply search filter
+        if search_query:
+            products = products.filter(name__icontains=search_query)
         
         # Apply filters
         if category_id:

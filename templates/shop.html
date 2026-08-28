@@ -200,12 +200,12 @@
                     </form>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 xl:gap-6">
                     {% for product in products %}
                     <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden">
                         <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
                             <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                                <img src="{% static product.get_display_image %}" 
+                                <img src="/static/{{ product.get_display_image }}" 
                                      alt="{{ product.name }}" 
                                      class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                      onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
@@ -316,16 +316,210 @@
 
 {% block extra_js %}
 <script>
+// Mobile filter state
+let currentFilters = {
+    category: '',
+    min_price: '',
+    max_price: '',
+    in_stock: false,
+    sort_by: '-created_at'
+};
+
 function toggleMobileFilter(filterType) {
-    // For now, just scroll to the filter section on desktop
-    // On mobile, this could open a modal/bottom sheet
+    const existingModal = document.getElementById('mobile-filter-modal');
+    if (existingModal) {
+        existingModal.remove();
+        return;
+    }
+    
     const filterSidebar = document.querySelector('.filter-sidebar');
     if (filterSidebar && window.innerWidth >= 1024) {
         filterSidebar.scrollIntoView({ behavior: 'smooth' });
+        return;
+    }
+    
+    // Open mobile filter modal
+    const modal = document.createElement('div');
+    modal.id = 'mobile-filter-modal';
+    modal.className = 'fixed inset-0 z-[200] bg-black/90';
+    modal.innerHTML = `
+        <div class="absolute bottom-0 left-0 right-0 bg-black-100 rounded-t-2xl p-6 max-h-[70vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white capitalize">${filterType} Filter</h3>
+                <button onclick="closeMobileFilterModal()" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="filter-content"></div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="clearMobileFilter('${filterType}')" class="flex-1 py-3 border border-gray-600 text-gray-300 rounded-lg">Clear</button>
+                <button onclick="applyMobileFilter('${filterType}')" class="flex-1 py-3 bg-red-500 text-white rounded-lg">Apply</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    const content = modal.querySelector('#filter-content');
+    
+    if (filterType === 'sort') {
+        content.innerHTML = `
+            <div class="space-y-3">
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="sort" value="-created_at" ${currentFilters.sort_by === '-created_at' ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">Newest</span>
+                </label>
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="sort" value="price_low" ${currentFilters.sort_by === 'price_low' ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">Price: Low to High</span>
+                </label>
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="sort" value="price_high" ${currentFilters.sort_by === 'price_high' ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">Price: High to Low</span>
+                </label>
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="sort" value="name" ${currentFilters.sort_by === 'name' ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">Name: A-Z</span>
+                </label>
+            </div>
+        `;
+    } else if (filterType === 'category') {
+        {% if categories %}
+        const categories = {{ categories|safe }};
+        content.innerHTML = `
+            <div class="space-y-3">
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="category" value="" ${!currentFilters.category ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">All Categories</span>
+                </label>
+                ${categories.map(cat => `
+                    <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                        <input type="radio" name="category" value="${cat.id}" ${currentFilters.category === cat.id.toString() ? 'checked' : ''} class="mr-3 accent-red-500">
+                        <span class="text-gray-300">${cat.name}</span>
+                    </label>
+                `).join('')}
+            </div>
+        `;
+        {% else %}
+        content.innerHTML = '<p class="text-gray-400">No categories available</p>';
+        {% endif %}
+    } else if (filterType === 'price') {
+        content.innerHTML = `
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-300 mb-2">Min Price</label>
+                    <input type="number" id="min-price" value="${currentFilters.min_price}" placeholder="0" class="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg text-white">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-2">Max Price</label>
+                    <input type="number" id="max-price" value="${currentFilters.max_price}" placeholder="Any" class="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg text-white">
+                </div>
+            </div>
+        `;
+    } else if (filterType === 'stock') {
+        content.innerHTML = `
+            <div class="space-y-3">
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="stock" value="all" ${!currentFilters.in_stock ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">All Products</span>
+                </label>
+                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+                    <input type="radio" name="stock" value="in_stock" ${currentFilters.in_stock ? 'checked' : ''} class="mr-3 accent-red-500">
+                    <span class="text-gray-300">In Stock Only</span>
+                </label>
+            </div>
+        `;
     }
 }
 
+function closeMobileFilterModal() {
+    const modal = document.getElementById('mobile-filter-modal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+}
+
+function clearMobileFilter(filterType) {
+    if (filterType === 'sort') {
+        currentFilters.sort_by = '-created_at';
+    } else if (filterType === 'category') {
+        currentFilters.category = '';
+    } else if (filterType === 'price') {
+        currentFilters.min_price = '';
+        currentFilters.max_price = '';
+    } else if (filterType === 'stock') {
+        currentFilters.in_stock = false;
+    }
+    applyMobileFilter(filterType);
+}
+
+function applyMobileFilter(filterType) {
+    if (filterType === 'sort') {
+        const selected = document.querySelector('input[name="sort"]:checked');
+        if (selected) currentFilters.sort_by = selected.value;
+    } else if (filterType === 'category') {
+        const selected = document.querySelector('input[name="category"]:checked');
+        if (selected) currentFilters.category = selected.value;
+    } else if (filterType === 'price') {
+        const minPrice = document.getElementById('min-price');
+        const maxPrice = document.getElementById('max-price');
+        if (minPrice) currentFilters.min_price = minPrice.value;
+        if (maxPrice) currentFilters.max_price = maxPrice.value;
+    } else if (filterType === 'stock') {
+        const selected = document.querySelector('input[name="stock"]:checked');
+        if (selected) currentFilters.in_stock = selected.value === 'in_stock';
+    }
+    
+    closeMobileFilterModal();
+    updateFilterButtons();
+    applyFiltersToURL();
+}
+
+function updateFilterButtons() {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    if (currentFilters.category) {
+        document.querySelector('[onclick="toggleMobileFilter(\'category\')"]')?.classList.add('active');
+    }
+    if (currentFilters.min_price || currentFilters.max_price) {
+        document.querySelector('[onclick="toggleMobileFilter(\'price\')"]')?.classList.add('active');
+    }
+    if (currentFilters.in_stock) {
+        document.querySelector('[onclick="toggleMobileFilter(\'stock\')"]')?.classList.add('active');
+    }
+    if (currentFilters.sort_by !== '-created_at') {
+        document.querySelector('[onclick="toggleMobileFilter(\'sort\')"]')?.classList.add('active');
+    }
+}
+
+function applyFiltersToURL() {
+    const params = new URLSearchParams();
+    if (currentFilters.category) params.set('category', currentFilters.category);
+    if (currentFilters.min_price) params.set('min_price', currentFilters.min_price);
+    if (currentFilters.max_price) params.set('max_price', currentFilters.max_price);
+    if (currentFilters.in_stock) params.set('in_stock', 'true');
+    if (currentFilters.sort_by) params.set('sort_by', currentFilters.sort_by);
+    
+    window.location.href = '/shop/?' + params.toString();
+}
+
+// Initialize filter state from URL
 document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    currentFilters.category = params.get('category') || '';
+    currentFilters.min_price = params.get('min_price') || '';
+    currentFilters.max_price = params.get('max_price') || '';
+    currentFilters.in_stock = params.get('in_stock') === 'true';
+    currentFilters.sort_by = params.get('sort_by') || '-created_at';
+    
+    updateFilterButtons();
+    
     const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
     addToCartBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -349,16 +543,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     alert('Product added to cart successfully!');
-                    // Update cart count
                     const cartCountElements = document.querySelectorAll('.cart-count');
                     cartCountElements.forEach(element => {
                         element.textContent = data.cart_count || 1;
                     });
-                    // Load cart items to refresh cart drawer
                     if (typeof loadCartItems === 'function') {
                         loadCartItems();
                     }
-                    // Open cart drawer
                     const cartDrawer = document.querySelector('.cart-drawer');
                     const cartOverlay = document.querySelector('.cart-overlay');
                     if (cartDrawer && cartOverlay) {
