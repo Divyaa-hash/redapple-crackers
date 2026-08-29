@@ -4,42 +4,148 @@
 {% block title %}Shopping Cart - RedApple crackers Store{% endblock %}
 
 {% block content %}
+<style>
+    /* Mobile cart responsiveness */
+    .cart-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    @media (min-width: 640px) {
+        .cart-item {
+            flex-direction: row;
+            align-items: center;
+            gap: 1.5rem;
+        }
+    }
+    
+    .cart-item-image {
+        width: 100%;
+        max-width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+    
+    @media (min-width: 640px) {
+        .cart-item-image {
+            width: 96px;
+            height: 96px;
+            margin: 0;
+        }
+    }
+    
+    .cart-item-details {
+        text-align: center;
+    }
+    
+    @media (min-width: 640px) {
+        .cart-item-details {
+            text-align: left;
+        }
+    }
+    
+    .cart-item-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    @media (min-width: 640px) {
+        .cart-item-actions {
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 0;
+            border-top: none;
+        }
+    }
+    
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .quantity-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .quantity-btn:hover {
+        background: #ef4444;
+    }
+    
+    .quantity-value {
+        min-width: 40px;
+        text-align: center;
+        font-size: 1rem;
+        color: white;
+    }
+    
+    .delete-btn {
+        padding: 0.5rem;
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    
+    .delete-btn:hover {
+        color: #ef4444;
+    }
+</style>
+
 <!-- Cart Header -->
-<section class="py-16 bg-black-200">
+<section class="py-8 sm:py-16 bg-black-200">
     <div class="max-w-7xl mx-auto px-4">
-        <h1 class="text-4xl font-display font-bold text-center text-gradient">Shopping Cart</h1>
-        <p class="text-gray-400 text-center mt-4">Review your items before checkout</p>
+        <h1 class="text-2xl sm:text-4xl font-display font-bold text-center text-gradient">Shopping Cart</h1>
+        <p class="text-gray-400 text-center mt-2 sm:mt-4 text-sm sm:text-base">Review your items before checkout</p>
     </div>
 </section>
 
 <!-- Cart Content -->
-<section class="py-12 bg-black-100">
+<section class="py-8 sm:py-12 bg-black-100">
     <div class="max-w-7xl mx-auto px-4">
         {% if cart_items %}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             <!-- Cart Items -->
             <div class="lg:col-span-2">
-                <div class="glass-card p-6 rounded-2xl">
+                <div class="glass-card p-4 sm:p-6 rounded-2xl">
                     {% for item in cart_items %}
-                    <div class="cart-item flex items-center gap-6 py-6 border-b border-white/10 last:border-0">
-                        <div class="w-20 sm:w-24 h-20 sm:h-24 bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src="/static/{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
+                    <div class="cart-item py-4 sm:py-6 border-b border-white/10 last:border-0">
+                        <div class="cart-item-image bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
+                            <img src="/static/{{ item.product.main_image|default:item.product.get_display_image }}" alt="{{ item.product.name }}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
                         </div>
                         
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-white text-lg">{{ item.product.name }}</h3>
+                        <div class="cart-item-details flex-1">
+                            <h3 class="font-semibold text-white text-base sm:text-lg">{{ item.product.name }}</h3>
                             <p class="text-gray-400 text-sm">{{ item.product.category.name }}</p>
-                            <p class="text-red-500 font-bold text-xl mt-2">₹{{ item.unit_price }}</p>
+                            <p class="text-red-500 font-bold text-lg sm:text-xl mt-1 sm:mt-2">₹{{ item.unit_price }}</p>
                         </div>
                         
-                        <div class="flex items-center gap-4">
-                            <div class="flex items-center gap-2">
-                                <button onclick="updateCartItem({{ item.id }}, {{ item.quantity }} - 1)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-red-500 text-white transition-colors">-</button>
-                                <span class="w-8 text-center text-white">{{ item.quantity }}</span>
-                                <button onclick="updateCartItem({{ item.id }}, {{ item.quantity }} + 1)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-red-500 text-white transition-colors">+</button>
+                        <div class="cart-item-actions">
+                            <div class="quantity-controls">
+                                <button onclick="updateCartItem({{ item.id }}, {{ item.quantity }} - 1)" class="quantity-btn">−</button>
+                                <span class="quantity-value">{{ item.quantity }}</span>
+                                <button onclick="updateCartItem({{ item.id }}, {{ item.quantity }} + 1)" class="quantity-btn">+</button>
                             </div>
                             
-                            <button onclick="removeCartItem({{ item.id }})" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                            <button onclick="removeCartItem({{ item.id }})" class="delete-btn" aria-label="Remove item">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                 </svg>
@@ -52,32 +158,32 @@
             
             <!-- Cart Summary -->
             <div class="lg:col-span-1">
-                <div class="glass-card p-6 rounded-2xl sticky top-24">
-                    <h2 class="text-2xl font-bold text-white mb-6">Order Summary</h2>
+                <div class="glass-card p-4 sm:p-6 rounded-2xl sticky top-24">
+                    <h2 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Order Summary</h2>
                     
-                    <div class="space-y-4 mb-6">
-                        <div class="flex justify-between text-gray-400">
+                    <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
                             <span>Subtotal</span>
                             <span class="text-white">₹{{ subtotal|floatformat:2 }}</span>
                         </div>
-                        <div class="flex justify-between text-gray-400">
+                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
                             <span>Shipping</span>
                             <span class="text-white">₹{{ shipping|floatformat:2 }}</span>
                         </div>
-                        <div class="flex justify-between text-gray-400">
+                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
                             <span>GST (18%)</span>
                             <span class="text-white">₹{{ gst_amount|floatformat:2 }}</span>
                         </div>
                         <hr class="border-white/10">
-                        <div class="flex justify-between text-xl font-bold">
+                        <div class="flex justify-between text-lg sm:text-xl font-bold">
                             <span class="text-white">Total</span>
                             <span class="text-red-500">₹{{ total|floatformat:2 }}</span>
                         </div>
                     </div>
                     
-                    <a href="/checkout/" class="btn-gold w-full text-center block py-4 rounded-lg text-lg font-bold">Proceed to Checkout</a>
+                    <a href="/checkout/" class="btn-gold w-full text-center block py-3 sm:py-4 rounded-lg text-base sm:text-lg font-bold">Proceed to Checkout</a>
                     
-                    <a href="/shop/" class="block text-center text-gray-400 hover:text-red-500 mt-4 transition-colors">Continue Shopping</a>
+                    <a href="/shop/" class="block text-center text-gray-400 hover:text-red-500 mt-3 sm:mt-4 transition-colors text-sm sm:text-base">Continue Shopping</a>
                 </div>
             </div>
         </div>

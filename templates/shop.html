@@ -191,16 +191,16 @@
                 </div>
                 {% endif %}
                 
-                <div class="flex justify-between items-center mb-4 sm:mb-6">
-                    <p class="text-gray-400 text-sm sm:text-base">{% if paginator %}{{ paginator.count }} products{% else %}0 products{% endif %}</p>
-                    <form method="GET" action="/shop/" class="flex gap-2">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
+                    <p class="text-gray-400 text-sm sm:text-base">{% if total_count %}{{ total_count }} products{% elif paginator %}{{ paginator.count }} products{% else %}0 products{% endif %}</p>
+                    <form method="GET" action="/shop/" class="flex gap-2 w-full sm:w-auto">
                         <input type="hidden" name="q" value="{{ request.GET.q }}">
                         <input type="hidden" name="category" value="{{ request.GET.category }}">
                         <input type="hidden" name="min_price" value="{{ request.GET.min_price }}">
                         <input type="hidden" name="max_price" value="{{ request.GET.max_price }}">
                         <input type="hidden" name="in_stock" value="{{ request.GET.in_stock }}">
                         <input type="hidden" name="on_sale" value="{{ request.GET.on_sale }}">
-                        <select name="sort_by" class="input-premium px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base" onchange="this.form.submit()">
+                        <select name="sort_by" class="input-premium px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base w-full sm:w-auto" onchange="this.form.submit()">
                             <option value="-created_at" {% if request.GET.sort_by == '-created_at' or not request.GET.sort_by %}selected{% endif %}>Sort by: Newest</option>
                             <option value="price_low" {% if request.GET.sort_by == 'price_low' %}selected{% endif %}>Price: Low to High</option>
                             <option value="price_high" {% if request.GET.sort_by == 'price_high' %}selected{% endif %}>Price: High to Low</option>
@@ -211,10 +211,10 @@
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                     {% for product in products %}
-                    <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden flex flex-col">
+                    <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden flex flex-col w-full">
                         <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg flex-shrink-0">
-                            <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                                <img src="/static/{{ product.main_image }}" 
+                            <a href="/products/{{ product.id }}/" class="text-decoration-none block">
+                                <img src="/static/{{ product.main_image|default:product.get_display_image }}" 
                                      alt="{{ product.name }}" 
                                      class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                      onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
@@ -264,8 +264,8 @@
                             
                             <div class="flex flex-col gap-2 pt-2 mt-auto">
                                 <div class="flex gap-2">
-                                    <a href="/products/{{ product.id }}/" class="flex-1 text-center px-3 py-2 border border-red-500 text-red-500 rounded-lg text-sm hover:bg-red-500 hover:text-white transition-colors whitespace-nowrap">View</a>
-                                    <button class="add-to-cart-btn flex-1 px-3 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 transition-colors whitespace-nowrap" data-product-id="{{ product.id }}">
+                                    <a href="/products/{{ product.id }}/" class="flex-1 text-center px-2 sm:px-3 py-2 border border-red-500 text-red-500 rounded-lg text-xs sm:text-sm hover:bg-red-500 hover:text-white transition-colors whitespace-nowrap">View</a>
+                                    <button class="add-to-cart-btn flex-1 px-2 sm:px-3 py-2 bg-red-500 text-white rounded-lg text-xs sm:text-sm hover:bg-red-600 transition-colors whitespace-nowrap" data-product-id="{{ product.id }}">
                                         Add to Cart
                                     </button>
                                 </div>
