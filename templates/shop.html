@@ -63,8 +63,7 @@
     /* Hide vertical filter on mobile */
     @media (max-width: 1023px) {
         .filter-sidebar {
-            display: block;
-            margin-bottom: 1rem;
+            display: none;
         }
     }
     
@@ -124,11 +123,14 @@
 
 <!-- Mobile Horizontal Filter Bar -->
 <div class="mobile-filter-bar">
-    <button class="filter-btn" onclick="toggleMobileFilter('sort')">Sort ▼</button>
-    <button class="filter-btn" onclick="toggleMobileFilter('category')">Type ▼</button>
-    <button class="filter-btn" onclick="toggleMobileFilter('price')">Price ▼</button>
-    <button class="filter-btn" onclick="toggleMobileFilter('stock')">Stock ▼</button>
+    <button class="filter-btn" id="sort-btn" onclick="toggleDropdown('sort')">Sort ▼</button>
+    <button class="filter-btn" id="category-btn" onclick="toggleDropdown('category')">Type ▼</button>
+    <button class="filter-btn" id="price-btn" onclick="toggleDropdown('price')">Price ▼</button>
+    <button class="filter-btn" id="stock-btn" onclick="toggleDropdown('stock')">Stock ▼</button>
 </div>
+
+<!-- Mobile Dropdowns Container -->
+<div id="mobile-dropdowns-container"></div>
 
 <!-- Shop Content -->
 <section class="py-6 sm:py-8 lg:py-12 bg-black-100">
@@ -329,261 +331,272 @@
 
 {% block extra_js %}
 <script>
-// Mobile filter state
-let currentFilters = {
-    category: '',
-    min_price: '',
-    max_price: '',
-    in_stock: false,
-    sort_by: '-created_at'
-};
+// Mobile dropdown state
+let openDropdown = null;
+const categories = {{ categories_json|safe }};
+
+function toggleDropdown(type) {
+    // Close any open dropdown first
+    if (openDropdown && openDropdown !== type) {
+        closeDropdown(openDropdown);
+    }
+    
+    // Toggle the clicked dropdown
+    if (openDropdown === type) {
+        closeDropdown(type);
+    } else {
+        openDropdown(type);
+    }
+}
+
+function openDropdown(type) {
+    const container = document.getElementById('mobile-dropdowns-container');
+    const btn = document.getElementById(`${type}-btn`);
+    
+    if (!container || !btn) return;
+    
+    let content = '';
+    const buttonRect = btn.getBoundingClientRect();
+    
+    if (type === 'sort') {
+        const currentSort = new URLSearchParams(window.location.search).get('sort_by') || '-created_at';
+        content = `
+            <div class="mobile-dropdown" style="top: ${buttonRect.bottom + 5}px;">
+                <div class="dropdown-option" onclick="applySort('-created_at')" ${currentSort === '-created_at' ? 'data-active="true"' : ''}>Newest</div>
+                <div class="dropdown-option" onclick="applySort('price_low')" ${currentSort === 'price_low' ? 'data-active="true"' : ''}>Price: Low to High</div>
+                <div class="dropdown-option" onclick="applySort('price_high')" ${currentSort === 'price_high' ? 'data-active="true"' : ''}>Price: High to Low</div>
+                <div class="dropdown-option" onclick="applySort('name')" ${currentSort === 'name' ? 'data-active="true"' : ''}>Name: A-Z</div>
+            </div>
+        `;
+    } else if (type === 'category') {
+        const currentCategory = new URLSearchParams(window.location.search).get('category') || '';
+        content = `
+            <div class="mobile-dropdown" style="top: ${buttonRect.bottom + 5}px;">
+                <div class="dropdown-option" onclick="applyCategory('')" ${!currentCategory ? 'data-active="true"' : ''}>All Categories</div>
+                ${categories.map(cat => `
+                    <div class="dropdown-option" onclick="applyCategory('${cat.id}')" ${currentCategory === cat.id.toString() ? 'data-active="true"' : ''}>${cat.name}</div>
+                `).join('')}
+            </div>
+        `;
+    } else if (type === 'price') {
+        const minPrice = new URLSearchParams(window.location.search).get('min_price') || '';
+        const maxPrice = new URLSearchParams(window.location.search).get('max_price') || '';
+        content = `
+            <div class="mobile-dropdown" style="top: ${buttonRect.bottom + 5}px;">
+                <div class="price-inputs">
+                    <input type="number" id="min-price-input" placeholder="Min Price" value="${minPrice}" class="price-input">
+                    <input type="number" id="max-price-input" placeholder="Max Price" value="${maxPrice}" class="price-input">
+                </div>
+                <button onclick="applyPrice()" class="apply-btn">Apply</button>
+            </div>
+        `;
+    } else if (type === 'stock') {
+        const inStock = new URLSearchParams(window.location.search).get('in_stock');
+        content = `
+            <div class="mobile-dropdown" style="top: ${buttonRect.bottom + 5}px;">
+                <div class="dropdown-option" onclick="applyStock('')" ${!inStock ? 'data-active="true"' : ''}>All</div>
+                <div class="dropdown-option" onclick="applyStock('true')" ${inStock === 'true' ? 'data-active="true"' : ''}>In Stock</div>
+                <div class="dropdown-option" onclick="applyStock('false')" ${inStock === 'false' ? 'data-active="true"' : ''}>Out of Stock</div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = content;
+    openDropdown = type;
+    
+    // Update button arrow
+    btn.innerHTML = btn.innerHTML.replace('▼', '▲');
+}
+
+function closeDropdown(type) {
+    const container = document.getElementById('mobile-dropdowns-container');
+    const btn = document.getElementById(`${type}-btn`);
+    
+    if (container) {
+        container.innerHTML = '';
+    }
+    if (btn) {
+        btn.innerHTML = btn.innerHTML.replace('▲', '▼');
+    }
+    
+    openDropdown = null;
+}
+
+function applySort(sortBy) {
+    const url = new URL(window.location);
+    url.searchParams.set('sort_by', sortBy);
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+}
+
+function applyCategory(categoryId) {
+    const url = new URL(window.location);
+    if (categoryId) {
+        url.searchParams.set('category', categoryId);
+    } else {
+        url.searchParams.delete('category');
+    }
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+}
+
+function applyPrice() {
+    const minPrice = document.getElementById('min-price-input').value;
+    const maxPrice = document.getElementById('max-price-input').value;
+    const url = new URL(window.location);
+    
+    if (minPrice) {
+        url.searchParams.set('min_price', minPrice);
+    } else {
+        url.searchParams.delete('min_price');
+    }
+    
+    if (maxPrice) {
+        url.searchParams.set('max_price', maxPrice);
+    } else {
+        url.searchParams.delete('max_price');
+    }
+    
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+}
+
+function applyStock(stockValue) {
+    const url = new URL(window.location);
+    
+    if (stockValue === 'true') {
+        url.searchParams.set('in_stock', 'true');
+    } else if (stockValue === 'false') {
+        url.searchParams.set('in_stock', 'false');
+    } else {
+        url.searchParams.delete('in_stock');
+    }
+    
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+}
 
 function clearFilters() {
     window.location.href = '/shop/';
 }
 
-function toggleMobileFilter(filterType) {
-    const existingModal = document.getElementById('mobile-filter-modal');
-    if (existingModal) {
-        existingModal.remove();
-        return;
-    }
-    
-    const filterSidebar = document.querySelector('.filter-sidebar');
-    if (filterSidebar && window.innerWidth >= 1024) {
-        filterSidebar.scrollIntoView({ behavior: 'smooth' });
-        return;
-    }
-    
-    // Open mobile filter modal
-    const modal = document.createElement('div');
-    modal.id = 'mobile-filter-modal';
-    modal.className = 'fixed inset-0 z-[200] bg-black/90';
-    modal.innerHTML = `
-        <div class="absolute bottom-0 left-0 right-0 bg-black-100 rounded-t-2xl p-6 max-h-[70vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-white capitalize">${filterType} Filter</h3>
-                <button onclick="closeMobileFilterModal()" class="text-gray-400 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <div id="filter-content"></div>
-            <div class="flex gap-3 mt-6">
-                <button onclick="clearMobileFilter('${filterType}')" class="flex-1 py-3 border border-gray-600 text-gray-300 rounded-lg">Clear</button>
-                <button onclick="applyMobileFilter('${filterType}')" class="flex-1 py-3 bg-red-500 text-white rounded-lg">Apply</button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
-    
-    const content = modal.querySelector('#filter-content');
-    
-    if (filterType === 'sort') {
-        content.innerHTML = `
-            <div class="space-y-3">
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="sort" value="-created_at" ${currentFilters.sort_by === '-created_at' ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">Newest</span>
-                </label>
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="sort" value="price_low" ${currentFilters.sort_by === 'price_low' ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">Price: Low to High</span>
-                </label>
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="sort" value="price_high" ${currentFilters.sort_by === 'price_high' ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">Price: High to Low</span>
-                </label>
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="sort" value="name" ${currentFilters.sort_by === 'name' ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">Name: A-Z</span>
-                </label>
-            </div>
-        `;
-    } else if (filterType === 'category') {
-        const categories = {{ categories_json|safe }};
-        if (categories && categories.length > 0) {
-            content.innerHTML = `
-            <div class="space-y-3">
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="category" value="" ${!currentFilters.category ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">All Categories</span>
-                </label>
-                ${categories.map(cat => `
-                    <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                        <input type="radio" name="category" value="${cat.id}" ${currentFilters.category === cat.id.toString() ? 'checked' : ''} class="mr-3 accent-red-500">
-                        <span class="text-gray-300">${cat.name}</span>
-                    </label>
-                `).join('')}
-            </div>
-            `;
-        } else {
-            content.innerHTML = '<p class="text-gray-400">No categories available</p>';
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    if (openDropdown) {
+        const container = document.getElementById('mobile-dropdowns-container');
+        const btn = document.getElementById(`${openDropdown}-btn`);
+        
+        if (container && !container.contains(event.target) && btn && !btn.contains(event.target)) {
+            closeDropdown(openDropdown);
         }
-    } else if (filterType === 'price') {
-        content.innerHTML = `
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-gray-300 mb-2">Min Price (₹)</label>
-                    <input type="number" id="min-price" value="${currentFilters.min_price}" placeholder="0" min="0" class="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg text-white">
-                </div>
-                <div>
-                    <label class="block text-gray-300 mb-2">Max Price (₹)</label>
-                    <input type="number" id="max-price" value="${currentFilters.max_price}" placeholder="Any" min="0" class="w-full p-3 bg-gray-800 border border-gray-600 rounded-lg text-white">
-                </div>
-            </div>
-        `;
-    } else if (filterType === 'stock') {
-        content.innerHTML = `
-            <div class="space-y-3">
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="stock" value="all" ${!currentFilters.in_stock ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">All Products</span>
-                </label>
-                <label class="flex items-center p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-                    <input type="radio" name="stock" value="in_stock" ${currentFilters.in_stock ? 'checked' : ''} class="mr-3 accent-red-500">
-                    <span class="text-gray-300">In Stock Only</span>
-                </label>
-            </div>
-        `;
     }
-}
+});
 
-function closeMobileFilterModal() {
-    const modal = document.getElementById('mobile-filter-modal');
-    if (modal) {
-        modal.remove();
-        document.body.style.overflow = '';
-    }
-}
-
-function clearMobileFilter(filterType) {
-    if (filterType === 'sort') {
-        currentFilters.sort_by = '-created_at';
-    } else if (filterType === 'category') {
-        currentFilters.category = '';
-    } else if (filterType === 'price') {
-        currentFilters.min_price = '';
-        currentFilters.max_price = '';
-    } else if (filterType === 'stock') {
-        currentFilters.in_stock = false;
-    }
-    applyMobileFilter(filterType);
-}
-
-function applyMobileFilter(filterType) {
-    if (filterType === 'sort') {
-        const selected = document.querySelector('input[name="sort"]:checked');
-        if (selected) currentFilters.sort_by = selected.value;
-    } else if (filterType === 'category') {
-        const selected = document.querySelector('input[name="category"]:checked');
-        if (selected) currentFilters.category = selected.value;
-    } else if (filterType === 'price') {
-        const minPrice = document.getElementById('min-price');
-        const maxPrice = document.getElementById('max-price');
-        if (minPrice) currentFilters.min_price = minPrice.value;
-        if (maxPrice) currentFilters.max_price = maxPrice.value;
-    } else if (filterType === 'stock') {
-        const selected = document.querySelector('input[name="stock"]:checked');
-        if (selected) currentFilters.in_stock = selected.value === 'in_stock';
-    }
-    
-    closeMobileFilterModal();
-    updateFilterButtons();
-    applyFiltersToURL();
-}
-
-function updateFilterButtons() {
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    if (currentFilters.category) {
-        document.querySelector('[onclick="toggleMobileFilter(\'category\')"]')?.classList.add('active');
-    }
-    if (currentFilters.min_price || currentFilters.max_price) {
-        document.querySelector('[onclick="toggleMobileFilter(\'price\')"]')?.classList.add('active');
-    }
-    if (currentFilters.in_stock) {
-        document.querySelector('[onclick="toggleMobileFilter(\'stock\')"]')?.classList.add('active');
-    }
-    if (currentFilters.sort_by !== '-created_at') {
-        document.querySelector('[onclick="toggleMobileFilter(\'sort\')"]')?.classList.add('active');
-    }
-}
-
-function applyFiltersToURL() {
-    const params = new URLSearchParams();
-    if (currentFilters.category) params.set('category', currentFilters.category);
-    if (currentFilters.min_price) params.set('min_price', currentFilters.min_price);
-    if (currentFilters.max_price) params.set('max_price', currentFilters.max_price);
-    if (currentFilters.in_stock) params.set('in_stock', 'true');
-    if (currentFilters.sort_by) params.set('sort_by', currentFilters.sort_by);
-    
-    window.location.href = '/shop/?' + params.toString();
-}
-
-// Initialize filter state from URL
+// Update button text based on current filters
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
-    currentFilters.category = params.get('category') || '';
-    currentFilters.min_price = params.get('min_price') || '';
-    currentFilters.max_price = params.get('max_price') || '';
-    currentFilters.in_stock = params.get('in_stock') === 'true';
-    currentFilters.sort_by = params.get('sort_by') || '-created_at';
     
-    updateFilterButtons();
-    
-    const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
-    addToCartBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const productId = this.dataset.productId;
-            
-            if (!productId) {
-                alert('Product ID not found');
-                return;
+    // Update Type button if category is selected
+    const categoryId = params.get('category');
+    if (categoryId) {
+        const category = categories.find(c => c.id.toString() === categoryId);
+        if (category) {
+            const categoryBtn = document.getElementById('category-btn');
+            if (categoryBtn) {
+                categoryBtn.innerHTML = `Type: ${category.name} ▼`;
             }
-            
-            fetch('/cart/add/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
-                },
-                body: `product_id=${productId}&quantity=1`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Product added to cart successfully!');
-                    const cartCountElements = document.querySelectorAll('.cart-count');
-                    cartCountElements.forEach(element => {
-                        element.textContent = data.cart_count || 1;
-                    });
-                    if (typeof loadCartItems === 'function') {
-                        loadCartItems();
-                    }
-                    const cartDrawer = document.querySelector('.cart-drawer');
-                    const cartOverlay = document.querySelector('.cart-overlay');
-                    if (cartDrawer && cartOverlay) {
-                        cartDrawer.classList.add('open');
-                        cartOverlay.classList.add('open');
-                        document.body.style.overflow = 'hidden';
-                    }
-                } else {
-                    alert(data.message || 'Error adding to cart');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while adding to cart');
-            });
-        });
-    });
+        }
+    }
+    
+    // Update Sort button
+    const sortBy = params.get('sort_by');
+    if (sortBy) {
+        const sortBtn = document.getElementById('sort-btn');
+        if (sortBtn) {
+            const sortLabels = {
+                '-created_at': 'Newest',
+                'price_low': 'Price Low',
+                'price_high': 'Price High',
+                'name': 'Name A-Z'
+            };
+            sortBtn.innerHTML = `Sort: ${sortLabels[sortBy] || sortBy} ▼`;
+        }
+    }
 });
 </script>
+
+<style>
+.mobile-dropdown {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    background: rgba(30, 30, 30, 0.98);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 150;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-option {
+    padding: 12px 16px;
+    color: #d1d5db;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.dropdown-option[data-active="true"] {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.price-inputs {
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.price-input {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+}
+
+.price-input::placeholder {
+    color: #6b7280;
+}
+
+.apply-btn {
+    width: calc(100% - 32px);
+    margin: 0 16px 16px;
+    padding: 12px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.apply-btn:hover {
+    background: #dc2626;
+}
+</style>
 {% endblock %}

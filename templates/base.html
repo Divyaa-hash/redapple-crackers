@@ -3,7 +3,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="RedApple crackers - Premium crackers for all celebrations. Shop the best quality crackers at unbeatable prices.">
     <meta name="keywords" content="crackers, premium crackers, diwali crackers, festival crackers, redapplecrackers">
     <title>{% block title %}RedApple crackers Store{% endblock %}</title>
@@ -117,6 +117,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     {% block extra_css %}{% endblock %}
+    <style>
+        /* Prevent horizontal scrolling on mobile */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body class="bg-black-100 text-gray-100 antialiased">
     {% csrf_token %}
