@@ -59,6 +59,9 @@ def shop_view(request):
         # Apply filters
         if category_id:
             products = products.filter(category_id=category_id)
+        # Special handling for Gift Box category filter
+        elif category_id and Category.objects.filter(id=category_id, name__icontains='Gift Box').exists():
+            products = products.filter(category_id=category_id)
         if min_price:
             products = products.filter(regular_price__gte=min_price)
         if max_price:

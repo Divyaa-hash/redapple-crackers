@@ -18,6 +18,7 @@
             width: 100%;
             padding: 0.875rem 1rem;
             font-size: 1rem;
+            white-space: nowrap;
         }
         
         .product-detail-buttons button:last-child {
@@ -37,6 +38,12 @@
         /* Fix button overflow on small screens */
         .product-detail-buttons {
             padding-bottom: 2rem;
+        }
+        
+        /* Ensure no horizontal overflow */
+        .glass-card {
+            max-width: 100%;
+            overflow: hidden;
         }
     }
     
@@ -75,7 +82,13 @@
             <div class="space-y-4">
                 <div class="glass-card p-4">
                     <div class="relative overflow-hidden rounded-xl">
-                        <img src="/static/{{ product.main_image|default:product.get_display_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                        {% if product.main_image %}
+                        <img src="/media/{{ product.main_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                        {% elif product.get_display_image %}
+                        <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                        {% else %}
+                        <img src="https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image">
+                        {% endif %}
                         {% if product.sale_price %}
                         <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full font-semibold text-sm sm:text-base">
                             -{{ product.get_discount_percentage }}%
@@ -85,7 +98,13 @@
                 </div>
                 <div class="flex space-x-3 sm:space-x-4 overflow-x-auto pb-4">
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">
-                        <img src="/static/{{ product.main_image|default:product.get_display_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
+                        {% if product.main_image %}
+                        <img src="/media/{{ product.main_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
+                        {% elif product.get_display_image %}
+                        <img src="{{ product.get_display_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
+                        {% else %}
+                        <img src="https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg">
+                        {% endif %}
                     </div>
                     {% for image in product.product_images.all %}
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">

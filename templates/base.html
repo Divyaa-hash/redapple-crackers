@@ -122,10 +122,49 @@
         html, body {
             overflow-x: hidden;
             max-width: 100%;
+            width: 100%;
         }
         * {
             max-width: 100%;
             box-sizing: border-box;
+        }
+        
+        /* Ensure all containers respect viewport width */
+        .max-w-7xl, .max-w-4xl, .max-w-3xl, .max-w-5xl {
+            width: 100%;
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .max-w-7xl, .max-w-4xl, .max-w-3xl, .max-w-5xl {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .max-w-7xl {
+                max-width: 80rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .max-w-4xl {
+                max-width: 56rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .max-w-3xl {
+                max-width: 48rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .max-w-5xl {
+                max-width: 64rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     </style>
 </head>
@@ -418,13 +457,21 @@
             addToCartBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const productId = this.dataset.productId || 1;
+                    const productId = this.dataset.productId;
+                    
+                    if (!productId) {
+                        console.error('No product ID found');
+                        showToast('Error: Product ID missing', 'error');
+                        return;
+                    }
+                    
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
                     
                     fetch('/cart/add/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+                            'X-CSRFToken': csrfToken
                         },
                         body: `product_id=${productId}&quantity=1`
                     })
@@ -435,12 +482,12 @@
                             updateCartCount(data.cart_count || 1);
                             // Load cart items to refresh cart drawer
                             loadCartItems();
-                            toggleCart();
                         } else {
                             showToast(data.message || 'Error adding to cart', 'error');
                         }
                     })
                     .catch(error => {
+                        console.error('Error adding to cart:', error);
                         showToast('Error adding to cart', 'error');
                     });
                 });
