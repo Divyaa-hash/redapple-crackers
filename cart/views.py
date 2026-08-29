@@ -19,6 +19,11 @@ def get_or_create_cart(request):
             request.session.save()
             session_key = request.session.session_key
         cart, created = Cart.objects.get_or_create(session_key=session_key)
+    
+    # Ensure session is saved for non-authenticated users
+    if not request.user.is_authenticated:
+        request.session.save()
+    
     return cart
 
 
@@ -68,10 +73,6 @@ def add_to_cart(request):
         
         cart = get_or_create_cart(request)
         
-        # Ensure session is saved
-        if not request.user.is_authenticated:
-            request.session.save()
-        
         cart_item, created = CartItem.objects.get_or_create(
             cart=cart,
             product=product,
@@ -82,6 +83,10 @@ def add_to_cart(request):
             cart_item.quantity += quantity
             cart_item.unit_price = product.get_current_price()
             cart_item.save()
+        
+        # Ensure session is saved
+        if not request.user.is_authenticated:
+            request.session.save()
         
         return JsonResponse({
             'success': True,
