@@ -128,8 +128,8 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'is_trending': True,
                 'is_bestseller': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822073252.jpg'],
+                'main_image': 'images/crackers/20250822073252.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Colorful Sky Rocket',
@@ -148,8 +148,8 @@ class Command(BaseCommand):
                 'height': '100 meters',
                 'is_featured': True,
                 'is_trending': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822073925.jpeg'],
+                'main_image': 'images/crackers/20250822073925.jpeg',
+                'additional_images': [],
             },
             {
                 'name': 'Rainbow Fountain',
@@ -167,8 +167,8 @@ class Command(BaseCommand):
                 'duration': '120 seconds',
                 'is_featured': True,
                 'is_new': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822074448.jpg'],
+                'main_image': 'images/crackers/20250822074448.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Loud Crackers Box (50 pcs)',
@@ -186,8 +186,8 @@ class Command(BaseCommand):
                 'pieces': 50,
                 'is_bestseller': True,
                 'is_trending': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822074924.jpg'],
+                'main_image': 'images/crackers/20250822074924.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Spinning Chakkar',
@@ -204,8 +204,8 @@ class Command(BaseCommand):
                 'pieces': 1,
                 'duration': '45 seconds',
                 'is_new': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822075102.jpg'],
+                'main_image': 'images/crackers/20250822075102.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Atom Bomb',
@@ -221,8 +221,8 @@ class Command(BaseCommand):
                 'stock': 80,
                 'pieces': 1,
                 'is_bestseller': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822075125.jpg'],
+                'main_image': 'images/crackers/20250822075125.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Red Flower Pot',
@@ -240,8 +240,8 @@ class Command(BaseCommand):
                 'pieces': 1,
                 'duration': '90 seconds',
                 'is_featured': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822081608.jpg'],
+                'main_image': 'images/crackers/20250822081608.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Sky Lantern (Pack of 5)',
@@ -258,8 +258,8 @@ class Command(BaseCommand):
                 'pieces': 5,
                 'is_new': True,
                 'is_featured': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822081917.jpg'],
+                'main_image': 'images/crackers/20250822081917.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Silver Sparklers (Pack of 20)',
@@ -277,8 +277,8 @@ class Command(BaseCommand):
                 'pieces': 20,
                 'duration': '90 seconds',
                 'is_trending': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822081925.jpg'],
+                'main_image': 'images/crackers/20250822081925.jpg',
+                'additional_images': [],
             },
             {
                 'name': 'Multi-Color Rocket Set',
@@ -296,8 +296,8 @@ class Command(BaseCommand):
                 'pieces': 5,
                 'is_featured': True,
                 'is_limited_edition': True,
-                'main_image': None,
-                'additional_images': ['images/crackers/20250822081933.jpg'],
+                'main_image': 'images/crackers/20250822081933.jpg',
+                'additional_images': [],
             },
         ]
         
@@ -511,8 +511,8 @@ class Command(BaseCommand):
                 'is_new': random.random() > 0.7,
                 'is_bestseller': random.random() > 0.8,
                 'is_trending': random.random() > 0.8,
-                'main_image': None,
-                'additional_images': [image_path],
+                'main_image': image_path,
+                'additional_images': [],
             })
         
         for prod_data in products_data:
