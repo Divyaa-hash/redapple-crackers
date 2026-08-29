@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from decimal import Decimal
 from .models import Cart, CartItem
 from products.models import Product
 
@@ -25,7 +26,18 @@ def cart_view(request):
     """Render cart page"""
     cart = get_or_create_cart(request)
     cart_items = cart.items.all()
-    return render(request, 'cart.html', {'cart': cart, 'cart_items': cart_items})
+    subtotal = cart.get_total_price()
+    shipping = Decimal('99')
+    gst_amount = subtotal * Decimal('0.18')
+    total = subtotal + shipping + gst_amount
+    return render(request, 'cart.html', {
+        'cart': cart,
+        'cart_items': cart_items,
+        'subtotal': subtotal,
+        'shipping': shipping,
+        'gst_amount': gst_amount,
+        'total': total
+    })
 
 
 @csrf_exempt

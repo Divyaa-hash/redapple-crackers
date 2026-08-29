@@ -58,20 +58,20 @@
                     <div class="space-y-4 mb-6">
                         <div class="flex justify-between text-gray-400">
                             <span>Subtotal</span>
-                            <span class="text-white">₹{{ cart.get_total_price }}</span>
+                            <span class="text-white">₹{{ subtotal|floatformat:2 }}</span>
                         </div>
                         <div class="flex justify-between text-gray-400">
                             <span>Shipping</span>
-                            <span class="text-white">₹99.00</span>
+                            <span class="text-white">₹{{ shipping|floatformat:2 }}</span>
                         </div>
                         <div class="flex justify-between text-gray-400">
                             <span>GST (18%)</span>
-                            <span class="text-white">₹{{ cart.get_total_price|multiply:0.18|floatformat:2 }}</span>
+                            <span class="text-white">₹{{ gst_amount|floatformat:2 }}</span>
                         </div>
                         <hr class="border-white/10">
                         <div class="flex justify-between text-xl font-bold">
                             <span class="text-white">Total</span>
-                            <span class="text-red-500">₹{{ cart.get_total_price|add:99|multiply:1.18|floatformat:2 }}</span>
+                            <span class="text-red-500">₹{{ total|floatformat:2 }}</span>
                         </div>
                     </div>
                     

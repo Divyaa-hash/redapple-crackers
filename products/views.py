@@ -18,6 +18,24 @@ def product_detail_view(request, product_id):
     return render(request, 'product_detail.html', {'product': product})
 
 
+def festival_offers_view(request):
+    """Festival offers page displaying gift boxes"""
+    try:
+        # Only show the 4 specific gift boxes uploaded
+        gift_box_skus = ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']
+        gift_boxes = Product.objects.filter(sku__in=gift_box_skus, is_active=True)
+        # Add savings calculation to each product
+        for gift_box in gift_boxes:
+            if gift_box.regular_price and gift_box.sale_price:
+                gift_box.savings = gift_box.regular_price - gift_box.sale_price
+            else:
+                gift_box.savings = 0
+        return render(request, 'festival_offers.html', {'gift_boxes': gift_boxes})
+    except Exception as e:
+        print(f"Error in festival_offers_view: {e}")
+        return render(request, 'festival_offers.html', {'gift_boxes': []})
+
+
 def shop_view(request):
     """Shop page view displaying all products with filters"""
     try:
@@ -63,8 +81,13 @@ def shop_view(request):
         else:
             products = products.order_by('-created_at')
         
-        # Pagination - 24 products per page
-        paginator = Paginator(products, 24)
+        # Pagination - show all products on one page
+        paginator = Paginator(products, 200)
+        
+        # Debug: print product count
+        print(f"DEBUG: Total products after filters: {products.count()}")
+        print(f"DEBUG: Category filter: {category_id}")
+        print(f"DEBUG: Search query: {search_query}")
         
         try:
             products_page = paginator.page(page)

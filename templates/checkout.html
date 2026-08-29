@@ -65,6 +65,12 @@
 </style>
 {% endblock %}
 
+{% block extra_js %}
+{% if razorpay_key_id %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% endif %}
+{% endblock %}
+
 <!-- Checkout Header -->
 <section class="py-6 sm:py-8 bg-black-200">
     <div class="max-w-7xl mx-auto px-4">
@@ -305,6 +311,8 @@
 </section>
 
 <script>
+let selectedPaymentMethod = 'upi';
+
 function selectPayment(element) {
     document.querySelectorAll('.payment-method').forEach(el => {
         el.classList.remove('selected');
@@ -316,9 +324,15 @@ function selectPayment(element) {
     document.getElementById('card-form').classList.add('hidden');
     
     if (method === 'UPI Payment') {
+        selectedPaymentMethod = 'upi';
         document.getElementById('upi-form').classList.remove('hidden');
     } else if (method === 'Credit/Debit Card') {
+        selectedPaymentMethod = 'card';
         document.getElementById('card-form').classList.remove('hidden');
+    } else if (method === 'Net Banking') {
+        selectedPaymentMethod = 'netbanking';
+    } else if (method === 'Cash on Delivery') {
+        selectedPaymentMethod = 'cod';
     }
 }
 
@@ -338,7 +352,54 @@ function processPayment() {
         return;
     }
     
-    // Simulate payment processing
+    // If COD, process directly
+    if (selectedPaymentMethod === 'cod') {
+        submitCheckout(shippingName, shippingPhone, shippingAddressLine1, shippingAddressLine2, shippingCity, shippingState, shippingPostalCode, 'cod');
+        return;
+    }
+    
+    // For online payments, use Razorpay
+    {% if razorpay_key_id and razorpay_order %}
+    const options = {
+        'key': '{{ razorpay_key_id }}',
+        'amount': '{{ razorpay_order.amount }}',
+        'currency': '{{ razorpay_order.currency }}',
+        'name': 'RedApple Fireworks',
+        'description': 'Order Payment',
+        'order_id': '{{ razorpay_order.id }}',
+        'handler': function(response) {
+            // Payment successful, submit checkout with payment details
+            submitCheckout(
+                shippingName, shippingPhone, shippingAddressLine1, shippingAddressLine2,
+                shippingCity, shippingState, shippingPostalCode,
+                selectedPaymentMethod,
+                response.razorpay_payment_id,
+                '{{ razorpay_order.id }}',
+                response.razorpay_signature
+            );
+        },
+        'prefill': {
+            'name': shippingName,
+            'contact': shippingPhone,
+        },
+        'theme': {
+            'color': '#ef4444'
+        },
+        'modal': {
+            'ondismiss': function() {
+                console.log('Payment modal closed');
+            }
+        }
+    };
+    
+    const rzp = new Razorpay(options);
+    rzp.open();
+    {% else %}
+    alert('Payment gateway not configured. Please use Cash on Delivery or contact support.');
+    {% endif %}
+}
+
+function submitCheckout(shippingName, shippingPhone, shippingAddressLine1, shippingAddressLine2, shippingCity, shippingState, shippingPostalCode, paymentMethod, razorpayPaymentId = '', razorpayOrderId = '', razorpaySignature = '') {
     const btn = event.target;
     btn.innerHTML = '<span class="animate-pulse">Processing...</span>';
     btn.disabled = true;
@@ -353,7 +414,13 @@ function processPayment() {
     formData.append('shipping_state', shippingState);
     formData.append('shipping_postal_code', shippingPostalCode);
     formData.append('shipping_country', 'India');
-    formData.append('payment_method', 'cod');
+    formData.append('payment_method', paymentMethod);
+    
+    if (razorpayPaymentId) {
+        formData.append('razorpay_payment_id', razorpayPaymentId);
+        formData.append('razorpay_order_id', razorpayOrderId);
+        formData.append('razorpay_signature', razorpaySignature);
+    }
     
     fetch('/checkout/process/', {
         method: 'POST',
@@ -365,7 +432,7 @@ function processPayment() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = `/order/${data.order_number}/`;
+            window.location.href = `/orders/${data.order_number}/`;
         } else {
             alert(data.message || 'Error processing order');
             btn.innerHTML = 'Pay ₹{{ total }}';

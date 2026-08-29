@@ -105,99 +105,96 @@
 </section>
 
 <!-- Tracking Results -->
-<section id="tracking-results" class="py-12 bg-black-100 hidden">
+<section class="py-12 bg-black-100">
     <div class="max-w-4xl mx-auto px-4">
         <!-- Order Info -->
         <div class="order-info-card mb-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                 <div>
-                    <h2 class="text-2xl font-bold text-white">Order #RED-2025-001234</h2>
-                    <p class="text-gray-400">Placed on August 4, 2025</p>
+                    <h2 class="text-2xl font-bold text-white">Order #{{ order.order_number }}</h2>
+                    <p class="text-gray-400">Placed on {{ order.created_at|date:"F d, Y" }}</p>
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <span class="status-badge in-transit">In Transit</span>
+                    <span class="status-badge {% if order.order_status == 'delivered' %}delivered{% elif order.order_status == 'shipped' %}in-transit{% else %}in-transit{% endif %}">
+                        {{ order.get_order_status_display|title }}
+                    </span>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                    <p class="text-gray-400 text-sm mb-1">Estimated Delivery</p>
-                    <p class="text-xl font-bold text-white">August 8-10, 2025</p>
+                    <p class="text-gray-400 text-sm mb-1">Order Status</p>
+                    <p class="text-xl font-bold text-white">{{ order.get_order_status_display|title }}</p>
                 </div>
                 <div>
                     <p class="text-gray-400 text-sm mb-1">Shipping Address</p>
-                    <p class="text-white">Chennai, Tamil Nadu</p>
+                    <p class="text-white">{{ order.shipping_city }}, {{ order.shipping_state }}</p>
                 </div>
                 <div>
                     <p class="text-gray-400 text-sm mb-1">Total Amount</p>
-                    <p class="text-xl font-bold text-red-500">₹1,299</p>
+                    <p class="text-xl font-bold text-red-500">₹{{ order.total_amount }}</p>
                 </div>
             </div>
         </div>
         
         <!-- Tracking Timeline -->
         <div class="order-info-card">
-            <h3 class="text-xl font-bold text-white mb-6">Shipping Progress</h3>
+            <h3 class="text-xl font-bold text-white mb-6">Order Progress</h3>
             
             <div class="tracking-timeline">
-                <div class="timeline-item">
+                <div class="timeline-item {% if order.order_status == 'pending' %}current{% else %}{% endif %}">
                     <div class="flex justify-between items-start">
                         <div>
                             <h4 class="font-bold text-white">Order Placed</h4>
                             <p class="text-gray-400 text-sm">Your order has been successfully placed</p>
                         </div>
-                        <span class="text-gray-400 text-sm">Aug 4, 10:30 AM</span>
+                        <span class="text-gray-400 text-sm">{{ order.created_at|date:"M d, g:i A" }}</span>
                     </div>
                 </div>
                 
-                <div class="timeline-item">
+                <div class="timeline-item {% if order.order_status == 'confirmed' or order.order_status == 'processing' or order.order_status == 'shipped' or order.order_status == 'delivered' %}{% if order.order_status == 'confirmed' %}current{% else %}{% endif %}{% else %}pending{% endif %}">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="font-bold text-white">Order Confirmed</h4>
+                            <h4 class="font-bold {% if order.order_status == 'confirmed' or order.order_status == 'processing' or order.order_status == 'shipped' or order.order_status == 'delivered' %}text-white{% else %}text-gray-400{% endif %}">Order Confirmed</h4>
                             <p class="text-gray-400 text-sm">Payment received and order confirmed</p>
                         </div>
-                        <span class="text-gray-400 text-sm">Aug 4, 10:35 AM</span>
+                        <span class="text-gray-400 text-sm">-</span>
                     </div>
                 </div>
                 
-                <div class="timeline-item">
+                <div class="timeline-item {% if order.order_status == 'processing' %}current{% elif order.order_status == 'shipped' or order.order_status == 'delivered' %}{% else %}pending{% endif %}">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="font-bold text-white">Order Packed</h4>
-                            <p class="text-gray-400 text-sm">Your items have been packed and ready for shipment</p>
+                            <h4 class="font-bold {% if order.order_status == 'processing' or order.order_status == 'shipped' or order.order_status == 'delivered' %}text-white{% else %}text-gray-400{% endif %}">Order Processing</h4>
+                            <p class="text-gray-400 text-sm">Your items are being prepared</p>
                         </div>
-                        <span class="text-gray-400 text-sm">Aug 4, 2:00 PM</span>
+                        <span class="text-gray-400 text-sm">-</span>
                     </div>
                 </div>
                 
-                <div class="timeline-item current">
+                <div class="timeline-item {% if order.order_status == 'shipped' %}current{% elif order.order_status == 'delivered' %}{% else %}pending{% endif %}">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="font-bold text-white">Shipped</h4>
+                            <h4 class="font-bold {% if order.order_status == 'shipped' or order.order_status == 'delivered' %}text-white{% else %}text-gray-400{% endif %}">Shipped</h4>
                             <p class="text-gray-400 text-sm">Order picked up by courier partner</p>
-                            <p class="text-red-500 text-sm mt-1">Tracking ID: BLUEDART-123456789</p>
+                            {% if order.shipped_at %}
+                            <p class="text-red-500 text-sm mt-1">Shipped on: {{ order.shipped_at|date:"M d, g:i A" }}</p>
+                            {% endif %}
                         </div>
-                        <span class="text-gray-400 text-sm">Aug 5, 9:00 AM</span>
+                        <span class="text-gray-400 text-sm">-</span>
                     </div>
                 </div>
                 
-                <div class="timeline-item pending">
+                <div class="timeline-item {% if order.order_status == 'delivered' %}current{% else %}pending{% endif %}">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="font-bold text-gray-400">Out for Delivery</h4>
-                            <p class="text-gray-500 text-sm">Package is out for delivery</p>
+                            <h4 class="font-bold {% if order.order_status == 'delivered' %}text-white{% else %}text-gray-400{% endif %}">Delivered</h4>
+                            <p class="text-gray-400 text-sm">Package delivered successfully</p>
+                            {% if order.delivered_at %}
+                            <p class="text-green-500 text-sm mt-1">Delivered on: {{ order.delivered_at|date:"M d, g:i A" }}</p>
+                            {% endif %}
                         </div>
-                        <span class="text-gray-500 text-sm">Expected: Aug 8</span>
-                    </div>
-                </div>
-                
-                <div class="timeline-item pending">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-gray-400">Delivered</h4>
-                            <p class="text-gray-500 text-sm">Package delivered successfully</p>
-                        </div>
-                        <span class="text-gray-500 text-sm">Expected: Aug 8-10</span>
+                        <span class="text-gray-400 text-sm">-</span>
                     </div>
                 </div>
             </div>

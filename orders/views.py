@@ -4,10 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 from .models import Order, OrderItem, ShippingAddress
 from cart.views import get_or_create_cart
 from products.models import Product
 from decimal import Decimal
+import razorpay
 
 
 def checkout_view(request):
@@ -24,16 +26,40 @@ def checkout_view(request):
     if request.user.is_authenticated:
         saved_addresses = ShippingAddress.objects.filter(user=request.user)
     
+    # Calculate totals
+    subtotal = cart.get_total_price()
+    shipping_charge = Decimal('99.00')
+    gst = round(subtotal * Decimal('0.18'), 2)
+    total = subtotal + shipping_charge + gst
+    
+    # Initialize Razorpay client if credentials are available
+    razorpay_client = None
+    razorpay_order = None
+    if settings.RAZORPAY_KEY_ID and settings.RAZORPAY_KEY_SECRET:
+        try:
+            razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+            # Create Razorpay order
+            razorpay_order_data = {
+                'amount': int(total * 100),  # Amount in paise
+                'currency': settings.RAZORPAY_CURRENCY,
+                'receipt': f'receipt_{int(total)}',
+                'payment_capture': '1'
+            }
+            razorpay_order = razorpay_client.order.create(data=razorpay_order_data)
+        except Exception as e:
+            print(f"Razorpay initialization error: {e}")
+    
     context = {
         'cart': cart,
         'cart_items': cart_items,
         'saved_addresses': saved_addresses,
-        'subtotal': cart.get_total_price(),
-        'shipping_charge': Decimal('99.00'),
-        'gst': round(cart.get_total_price() * Decimal('0.18'), 2),
+        'subtotal': subtotal,
+        'shipping_charge': shipping_charge,
+        'gst': gst,
+        'total': total,
+        'razorpay_key_id': settings.RAZORPAY_KEY_ID,
+        'razorpay_order': razorpay_order,
     }
-    
-    context['total'] = context['subtotal'] + context['shipping_charge'] + context['gst']
     
     return render(request, 'checkout.html', context)
 
@@ -59,12 +85,36 @@ def process_checkout(request):
     shipping_country = request.POST.get('shipping_country', 'India')
     
     payment_method = request.POST.get('payment_method', 'cod')
+    razorpay_payment_id = request.POST.get('razorpay_payment_id', '')
+    razorpay_order_id = request.POST.get('razorpay_order_id', '')
+    razorpay_signature = request.POST.get('razorpay_signature', '')
     
     # Calculate totals
     subtotal = cart.get_total_price()
     shipping_charge = Decimal('99.00')
     gst = round(subtotal * Decimal('0.18'), 2)
     total_amount = subtotal + shipping_charge + gst
+    
+    # Verify Razorpay payment if provided
+    payment_status = 'pending'
+    if payment_method != 'cod' and razorpay_payment_id and razorpay_order_id and razorpay_signature:
+        if settings.RAZORPAY_KEY_ID and settings.RAZORPAY_KEY_SECRET:
+            try:
+                razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+                params = {
+                    'razorpay_order_id': razorpay_order_id,
+                    'razorpay_payment_id': razorpay_payment_id,
+                    'razorpay_signature': razorpay_signature
+                }
+                razorpay_client.utility.verify_payment_signature(params)
+                payment_status = 'completed'
+            except Exception as e:
+                print(f"Razorpay verification error: {e}")
+                return JsonResponse({'success': False, 'message': 'Payment verification failed'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Payment gateway not configured'})
+    elif payment_method == 'cod':
+        payment_status = 'pending'
     
     # Create order (with or without user)
     user = request.user if request.user.is_authenticated else None
@@ -92,8 +142,9 @@ def process_checkout(request):
         gst_amount=gst,
         total_amount=total_amount,
         payment_method=payment_method,
-        order_status='pending',
-        payment_status='pending'
+        payment_status=payment_status,
+        payment_id=razorpay_payment_id if payment_method != 'cod' else '',
+        order_status='confirmed' if payment_status == 'completed' else 'pending'
     )
     
     # Create order items
@@ -106,7 +157,7 @@ def process_checkout(request):
             quantity=cart_item.quantity,
             unit_price=cart_item.unit_price,
             total_price=cart_item.get_total_price(),
-            product_image=cart_item.product.main_image.url if cart_item.product.main_image else ''
+            product_image=cart_item.product.get_display_image()
         )
     
     # Clear cart
