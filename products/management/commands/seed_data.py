@@ -3,6 +3,7 @@ from django.utils import timezone
 from products.models import Category, Brand, Product, Festival
 from decimal import Decimal
 import random
+import pandas as pd
 
 
 class Command(BaseCommand):
@@ -11,68 +12,31 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Seeding database with sample data...')
         
-        # Create categories
-        categories_data = [
-            {
-                'name': 'Sparklers',
-                'slug': 'sparklers',
-                'description': 'Handheld sparklers for celebrations',
-                'order': 1
-            },
-            {
-                'name': 'Rockets',
-                'slug': 'rockets',
-                'description': 'Sky rockets for spectacular displays',
-                'order': 2
-            },
-            {
-                'name': 'Fountains',
-                'slug': 'fountains',
-                'description': 'Ground fountains with colorful effects',
-                'order': 3
-            },
-            {
-                'name': 'Crackers',
-                'slug': 'crackers',
-                'description': 'Traditional crackers for festivals',
-                'order': 4
-            },
-            {
-                'name': 'Chakkar',
-                'slug': 'chakkar',
-                'description': 'Spinning ground wheels',
-                'order': 5
-            },
-            {
-                'name': 'Bombs',
-                'slug': 'bombs',
-                'description': 'Explosive bombs for loud celebrations',
-                'order': 6
-            },
-            {
-                'name': 'Flower Pots',
-                'slug': 'flower-pots',
-                'description': 'Colorful flower pot crackers',
-                'order': 7
-            },
-            {
-                'name': 'Sky Lanterns',
-                'slug': 'sky-lanterns',
-                'description': 'Floating sky lanterns',
-                'order': 8
-            },
-            {
-                'name': 'Gift Boxes',
-                'slug': 'gift-boxes',
-                'description': 'Premium gift box collections',
-                'order': 9
-            },
-        ]
+        # Load Excel data
+        try:
+            excel_path = 'Vamsi_Crackers 2026 diwali.xlsx'
+            df = pd.read_excel(excel_path)
+            self.stdout.write(f'Loaded {len(df)} products from Excel file')
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'Error loading Excel file: {e}'))
+            return
+        
+        # Create categories from Excel
+        excel_categories = df['Category'].unique().tolist()
+        categories_data = []
+        for i, cat_name in enumerate(excel_categories):
+            slug = cat_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '')
+            categories_data.append({
+                'name': cat_name,
+                'slug': slug,
+                'description': f'{cat_name} products',
+                'order': i + 1
+            })
         
         categories = []
         for cat_data in categories_data:
             category, created = Category.objects.get_or_create(
-                name=cat_data['name'],
+                slug=cat_data['slug'],
                 defaults=cat_data
             )
             categories.append(category)
@@ -119,284 +83,10 @@ class Command(BaseCommand):
         else:
             self.stdout.write(f'Festival already exists: {festival.name}')
         
-        # Create products - generate 171 products
-        products_data = []
+        # Create category mapping
+        category_map = {cat.name: cat for cat in categories}
         
-        # Base product templates with actual uploaded images
-        product_templates = [
-            {
-                'name': 'Golden Sparklers (Pack of 10)',
-                'slug': 'golden-sparklers-pack-10',
-                'sku': 'SPK-001',
-                'category': categories[0],
-                'brand': brands[0],
-                'product_type': 'box',
-                'safety_level': 'low',
-                'short_description': 'Premium golden sparklers for celebrations',
-                'description': 'High-quality golden sparklers that burn steadily with bright golden sparks. Perfect for Diwali and other celebrations.',
-                'regular_price': Decimal('150.00'),
-                'sale_price': Decimal('120.00'),
-                'stock': 100,
-                'pieces': 10,
-                'duration': '60 seconds',
-                'is_featured': True,
-                'is_trending': True,
-                'is_bestseller': True,
-                'main_image': 'images/crackers/20250822073252.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Colorful Sky Rocket',
-                'slug': 'colorful-sky-rocket',
-                'sku': 'RKT-001',
-                'category': categories[1],
-                'brand': brands[0],
-                'product_type': 'single',
-                'safety_level': 'high',
-                'short_description': 'Spectacular colorful sky rocket',
-                'description': 'Launches high into the sky and explodes with colorful patterns. A crowd favorite for celebrations.',
-                'regular_price': Decimal('250.00'),
-                'sale_price': Decimal('200.00'),
-                'stock': 50,
-                'pieces': 1,
-                'height': '100 meters',
-                'is_featured': True,
-                'is_trending': True,
-                'main_image': 'images/crackers/20250822073925.jpeg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Rainbow Fountain',
-                'slug': 'rainbow-fountain',
-                'sku': 'FTN-001',
-                'category': categories[2],
-                'brand': brands[1],
-                'product_type': 'single',
-                'safety_level': 'medium',
-                'short_description': 'Colorful rainbow fountain display',
-                'description': 'Ground fountain that shoots up colorful sparks in a rainbow pattern. Lasts for 2 minutes.',
-                'regular_price': Decimal('180.00'),
-                'stock': 75,
-                'pieces': 1,
-                'duration': '120 seconds',
-                'is_featured': True,
-                'is_new': True,
-                'main_image': 'images/crackers/20250822074448.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Loud Crackers Box (50 pcs)',
-                'slug': 'loud-crackers-box-50',
-                'sku': 'CRK-001',
-                'category': categories[3],
-                'brand': brands[0],
-                'product_type': 'box',
-                'safety_level': 'high',
-                'short_description': 'Traditional loud crackers',
-                'description': 'Box of 50 traditional loud crackers. Perfect for creating festive noise during celebrations.',
-                'regular_price': Decimal('300.00'),
-                'sale_price': Decimal('250.00'),
-                'stock': 60,
-                'pieces': 50,
-                'is_bestseller': True,
-                'is_trending': True,
-                'main_image': 'images/crackers/20250822074924.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Spinning Chakkar',
-                'slug': 'spinning-chakkar',
-                'sku': 'CHK-001',
-                'category': categories[4],
-                'brand': brands[2],
-                'product_type': 'single',
-                'safety_level': 'medium',
-                'short_description': 'Colorful spinning ground wheel',
-                'description': 'Spinning chakkar that creates beautiful patterns on the ground while spinning rapidly.',
-                'regular_price': Decimal('80.00'),
-                'stock': 120,
-                'pieces': 1,
-                'duration': '45 seconds',
-                'is_new': True,
-                'main_image': 'images/crackers/20250822075102.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Atom Bomb',
-                'slug': 'atom-bomb',
-                'sku': 'BMB-001',
-                'category': categories[5],
-                'brand': brands[0],
-                'product_type': 'single',
-                'safety_level': 'high',
-                'short_description': 'Powerful atom bomb cracker',
-                'description': 'Loud and powerful atom bomb cracker. Use with caution and follow safety guidelines.',
-                'regular_price': Decimal('100.00'),
-                'stock': 80,
-                'pieces': 1,
-                'is_bestseller': True,
-                'main_image': 'images/crackers/20250822075125.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Red Flower Pot',
-                'slug': 'red-flower-pot',
-                'sku': 'FLP-001',
-                'category': categories[6],
-                'brand': brands[1],
-                'product_type': 'single',
-                'safety_level': 'medium',
-                'short_description': 'Beautiful red flower pot',
-                'description': 'Elegant red flower pot that blooms with colorful sparks. Perfect for home celebrations.',
-                'regular_price': Decimal('120.00'),
-                'sale_price': Decimal('99.00'),
-                'stock': 90,
-                'pieces': 1,
-                'duration': '90 seconds',
-                'is_featured': True,
-                'main_image': 'images/crackers/20250822081608.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Sky Lantern (Pack of 5)',
-                'slug': 'sky-lantern-pack-5',
-                'sku': 'LNT-001',
-                'category': categories[7],
-                'brand': brands[3],
-                'product_type': 'box',
-                'safety_level': 'low',
-                'short_description': 'Floating sky lanterns',
-                'description': 'Pack of 5 beautiful sky lanterns that float up gracefully. Perfect for evening celebrations.',
-                'regular_price': Decimal('400.00'),
-                'stock': 40,
-                'pieces': 5,
-                'is_new': True,
-                'is_featured': True,
-                'main_image': 'images/crackers/20250822081917.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Silver Sparklers (Pack of 20)',
-                'slug': 'silver-sparklers-pack-20',
-                'sku': 'SPK-002',
-                'category': categories[0],
-                'brand': brands[0],
-                'product_type': 'box',
-                'safety_level': 'low',
-                'short_description': 'Premium silver sparklers',
-                'description': 'High-quality silver sparklers with bright silver sparks. Longer burning time.',
-                'regular_price': Decimal('280.00'),
-                'sale_price': Decimal('220.00'),
-                'stock': 85,
-                'pieces': 20,
-                'duration': '90 seconds',
-                'is_trending': True,
-                'main_image': 'images/crackers/20250822081925.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Multi-Color Rocket Set',
-                'slug': 'multi-color-rocket-set',
-                'sku': 'RKT-002',
-                'category': categories[1],
-                'brand': brands[1],
-                'product_type': 'combo',
-                'safety_level': 'high',
-                'short_description': 'Set of 5 multi-color rockets',
-                'description': 'Combo pack of 5 rockets with different color effects. Great value for money.',
-                'regular_price': Decimal('1000.00'),
-                'sale_price': Decimal('800.00'),
-                'stock': 30,
-                'pieces': 5,
-                'is_featured': True,
-                'is_limited_edition': True,
-                'main_image': 'images/crackers/20250822081933.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Love Feast - 20 Item',
-                'slug': 'love-feast-20-item',
-                'sku': 'GB-LF-20',
-                'category': categories[8],
-                'brand': brands[0],
-                'product_type': 'gift_box',
-                'safety_level': 'low',
-                'short_description': 'Premium 20-item gift box for celebrations',
-                'description': 'Love Feast gift box contains 20 premium crackers including sparklers, fountains, and flower pots. Perfect for family celebrations.',
-                'regular_price': Decimal('2499.00'),
-                'sale_price': Decimal('2249.00'),
-                'stock': 50,
-                'pieces': 20,
-                'is_featured': True,
-                'is_trending': True,
-                'is_bestseller': True,
-                'main_image': 'images/crackers/gift_box_1.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Turbo - 30 Item',
-                'slug': 'turbo-30-item',
-                'sku': 'GB-TB-30',
-                'category': categories[8],
-                'brand': brands[0],
-                'product_type': 'gift_box',
-                'safety_level': 'low',
-                'short_description': 'Action-packed 30-item gift box',
-                'description': 'Turbo gift box with 30 exciting crackers including rockets, bombs, and chakkars. For those who love loud celebrations.',
-                'regular_price': Decimal('3499.00'),
-                'sale_price': Decimal('3149.00'),
-                'stock': 40,
-                'pieces': 30,
-                'is_featured': True,
-                'is_trending': True,
-                'main_image': 'images/crackers/gift_box_2.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Fun Special - 40 Item',
-                'slug': 'fun-special-40-item',
-                'sku': 'GB-FS-40',
-                'category': categories[8],
-                'brand': brands[1],
-                'product_type': 'gift_box',
-                'safety_level': 'low',
-                'short_description': 'Ultimate fun 40-item gift box',
-                'description': 'Fun Special gift box with 40 varieties of crackers for a complete celebration experience. Great value for large gatherings.',
-                'regular_price': Decimal('4499.00'),
-                'sale_price': Decimal('4049.00'),
-                'stock': 30,
-                'pieces': 40,
-                'is_featured': True,
-                'is_new': True,
-                'main_image': 'images/crackers/gift_box_3.jpg',
-                'additional_images': [],
-            },
-            {
-                'name': 'Spectra Festive - 50 Item',
-                'slug': 'spectra-festive-50-item',
-                'sku': 'GB-SF-50',
-                'category': categories[8],
-                'brand': brands[0],
-                'product_type': 'gift_box',
-                'safety_level': 'low',
-                'short_description': 'Grand 50-item festive collection',
-                'description': 'Spectra Festive gift box with 50 premium crackers for the grandest celebrations. Includes everything you need for a spectacular Diwali.',
-                'regular_price': Decimal('5499.00'),
-                'sale_price': Decimal('4949.00'),
-                'stock': 25,
-                'pieces': 50,
-                'is_featured': True,
-                'is_limited_edition': True,
-                'main_image': 'images/crackers/gift_box_4.jpg',
-                'additional_images': [],
-            },
-        ]
-        
-        # Add base products
-        products_data.extend(product_templates)
-        
-        # Generate additional products to reach 171 total
-        # Use actual uploaded image filenames from product_list
+        # Get uploaded images list
         uploaded_images = [
             'images/crackers/20250822073252.jpg',
             'images/crackers/20250822073925.jpeg',
@@ -570,41 +260,91 @@ class Command(BaseCommand):
             'images/crackers/20251010060432.jpg',
         ]
         
-        for i in range(11, 172):
-            category = categories[i % len(categories)]
-            brand = brands[i % len(brands)]
-            product_type = random.choice(['single', 'box', 'combo', 'gift_box'])
-            safety_level = random.choice(['low', 'medium', 'high'])
+        # Create products from Excel data
+        products_data = []
+        for index, row in df.iterrows():
+            if row['Status'] != 'Active':
+                continue
+                
+            product_name = row['Product Name']
+            category_name = row['Category']
+            original_price = row['Original Price']
+            offer_price = row['Offer Price']
             
-            base_price = random.randint(50, 2000)
-            has_sale = random.random() > 0.5
-            sale_price = Decimal(str(base_price * 0.8)) if has_sale else None
+            # Skip if no price data
+            if pd.isna(original_price) and pd.isna(offer_price):
+                continue
+                
+            # Use offer price if available, otherwise original price, add 10% markup
+            base_price = offer_price if pd.notna(offer_price) else original_price
+            if pd.isna(base_price):
+                continue
+                
+            # Add 10% markup
+            regular_price = Decimal(str(float(base_price) * 1.1))
+            sale_price = None
             
-            # Assign actual uploaded image
-            image_index = (i - 11) % len(uploaded_images)
+            # If there was an offer price, use it as sale price with 10% markup
+            if pd.notna(offer_price) and pd.notna(original_price):
+                sale_price = regular_price
+                regular_price = Decimal(str(float(original_price) * 1.1))
+            
+            # Get category
+            category = category_map.get(category_name)
+            if not category:
+                self.stdout.write(f'Warning: Category not found: {category_name}')
+                continue
+            
+            # Generate slug
+            slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
+            
+            # Generate SKU
+            sku = f'VMS-{index + 1:03d}'
+            
+            # Assign image
+            image_index = index % len(uploaded_images)
             image_path = uploaded_images[image_index]
             
+            # Determine product type based on category
+            product_type = 'single'
+            if 'GIFT BOXES' in category_name or 'FAMILY PACK' in category_name:
+                product_type = 'gift_box'
+            elif 'PACK' in product_name or 'Pcs' in product_name:
+                product_type = 'box'
+            elif 'SET' in product_name or 'COMBO' in product_name:
+                product_type = 'combo'
+            
+            # Determine safety level
+            safety_level = 'medium'
+            if any(word in category_name for word in ['BOMB', 'CRACKERS', 'ROCKET']):
+                safety_level = 'high'
+            elif any(word in category_name for word in ['SPARKLERS', 'CANDLES', 'TOYS']):
+                safety_level = 'low'
+            
             products_data.append({
-                'name': f'Premium {category.name} #{i}',
-                'slug': f'premium-{category.slug}-{i}',
-                'sku': f'PRD-{i:03d}',
+                'name': product_name,
+                'slug': slug,
+                'sku': sku,
                 'category': category,
-                'brand': brand,
+                'brand': brands[0],
                 'product_type': product_type,
                 'safety_level': safety_level,
-                'short_description': f'High-quality {category.name} for celebrations',
-                'description': f'Premium {category.name} from {brand.name}. Perfect for festivals and special occasions. Safe and reliable.',
-                'regular_price': Decimal(str(base_price)),
+                'short_description': f'{product_name} - {category_name}',
+                'description': f'{product_name} from {category_name}. High quality crackers for celebrations and festivals.',
+                'regular_price': regular_price,
                 'sale_price': sale_price,
-                'stock': random.randint(10, 200),
-                'pieces': random.randint(1, 50),
+                'stock': random.randint(10, 100),
+                'pieces': 1,
+                'is_active': True,
                 'is_featured': random.random() > 0.8,
-                'is_new': random.random() > 0.7,
-                'is_bestseller': random.random() > 0.8,
-                'is_trending': random.random() > 0.8,
+                'is_new': random.random() > 0.9,
+                'is_bestseller': random.random() > 0.85,
+                'is_trending': random.random() > 0.85,
                 'main_image': image_path,
                 'additional_images': [],
             })
+        
+        self.stdout.write(f'Prepared {len(products_data)} products from Excel data')
         
         for prod_data in products_data:
             product, created = Product.objects.get_or_create(
