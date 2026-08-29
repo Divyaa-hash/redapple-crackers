@@ -72,12 +72,18 @@ class Command(BaseCommand):
         categories = []
         for cat_data in categories_data:
             category, created = Category.objects.get_or_create(
-                slug=cat_data['slug'],
+                name=cat_data['name'],
                 defaults=cat_data
             )
             categories.append(category)
             if created:
                 self.stdout.write(f'Created category: {category.name}')
+            else:
+                # Update existing category
+                for key, value in cat_data.items():
+                    setattr(category, key, value)
+                category.save()
+                self.stdout.write(f'Updated category: {category.name}')
         
         # Create brands
         brands_data = [
@@ -99,9 +105,9 @@ class Command(BaseCommand):
         
         # Create festival
         festival, created = Festival.objects.get_or_create(
-            slug='diwali',
+            name='Diwali',
             defaults={
-                'name': 'Diwali',
+                'slug': 'diwali',
                 'description': 'Festival of Lights',
                 'start_date': timezone.now().date(),
                 'end_date': timezone.now().date(),
@@ -110,6 +116,8 @@ class Command(BaseCommand):
         )
         if created:
             self.stdout.write(f'Created festival: {festival.name}')
+        else:
+            self.stdout.write(f'Festival already exists: {festival.name}')
         
         # Create products - generate 171 products
         products_data = []
