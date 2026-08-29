@@ -152,6 +152,12 @@
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu) {
                 mobileMenu.classList.toggle('hidden');
+                // Toggle body scroll when menu is open
+                if (mobileMenu.classList.contains('hidden')) {
+                    document.body.style.overflow = '';
+                } else {
+                    document.body.style.overflow = 'hidden';
+                }
             }
         }
         

@@ -139,7 +139,7 @@
                 <div class="filter-sidebar">
                     <h3 class="text-xl font-bold mb-6 text-red-500">Filters</h3>
                     
-                    <form method="GET" action="/shop/" class="space-y-4">
+                    <form method="GET" action="/shop/" class="space-y-4" id="filter-form">
                         <input type="hidden" name="q" value="{{ request.GET.q }}">
                         <input type="hidden" name="sort_by" value="{{ request.GET.sort_by }}">
                         <!-- Categories -->
@@ -166,16 +166,17 @@
                         <div class="mb-6">
                             <h4 class="font-semibold mb-3">Availability</h4>
                             <label class="filter-checkbox">
-                                <input type="checkbox" name="in_stock" {% if request.GET.in_stock %}checked{% endif %}>
+                                <input type="checkbox" name="in_stock" value="true" {% if request.GET.in_stock %}checked{% endif %}>
                                 <span class="text-gray-300">In Stock</span>
                             </label>
                             <label class="filter-checkbox">
-                                <input type="checkbox" name="on_sale" {% if request.GET.on_sale %}checked{% endif %}>
+                                <input type="checkbox" name="on_sale" value="true" {% if request.GET.on_sale %}checked{% endif %}>
                                 <span class="text-gray-300">On Sale</span>
                             </label>
                         </div>
                         
                         <button type="submit" class="btn-gold w-full py-3 rounded-lg">Apply Filters</button>
+                        <button type="button" onclick="clearFilters()" class="w-full py-2 rounded-lg text-gray-400 hover:text-white mt-2">Clear Filters</button>
                     </form>
                 </div>
             </aside>
@@ -336,6 +337,10 @@ let currentFilters = {
     in_stock: false,
     sort_by: '-created_at'
 };
+
+function clearFilters() {
+    window.location.href = '/shop/';
+}
 
 function toggleMobileFilter(filterType) {
     const existingModal = document.getElementById('mobile-filter-modal');
