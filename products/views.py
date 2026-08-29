@@ -39,7 +39,7 @@ def festival_offers_view(request):
 def shop_view(request):
     """Shop page view displaying all products with filters"""
     try:
-        products = Product.objects.filter(is_active=True)
+        products = Product.objects.filter(is_active=True).select_related('category', 'brand')
         categories = Category.objects.filter(is_active=True)
         
         # Get filter parameters
@@ -91,6 +91,7 @@ def shop_view(request):
         print(f"DEBUG: Total products after filters: {products.count()}")
         print(f"DEBUG: Category filter: {category_id}")
         print(f"DEBUG: Search query: {search_query}")
+        print(f"DEBUG: Sort by: {sort_by}")
         
         try:
             products_page = paginator.page(page)
@@ -112,7 +113,9 @@ def shop_view(request):
         })
     except Exception as e:
         # Log the error and return a simple error page
+        import traceback
         print(f"Error in shop_view: {e}")
+        print(traceback.format_exc())
         return render(request, 'shop.html', {
             'products': [],
             'categories': [],
