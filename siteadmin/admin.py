@@ -12,9 +12,29 @@ class BannerAdmin(admin.ModelAdmin):
 
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ['title', 'notification_type', 'user', 'is_read', 'created_at']
+    list_display = ['title', 'notification_type', 'user', 'is_read', 'created_at', 'view_link', 'order_details']
     list_filter = ['notification_type', 'is_read', 'created_at']
     search_fields = ['title', 'message', 'user__email']
+    readonly_fields = ['created_at']
+    
+    def view_link(self, obj):
+        if obj.link:
+            return f'<a href="{obj.link}" target="_blank">View</a>'
+        return '-'
+    view_link.short_description = 'Link'
+    view_link.allow_tags = True
+    
+    def order_details(self, obj):
+        if obj.notification_type == 'order' and obj.link:
+            # Extract order number from link (e.g., /orders/ORD123/)
+            import re
+            order_match = re.search(r'/orders/([^/]+)/', obj.link)
+            if order_match:
+                order_number = order_match.group(1)
+                return f'<a href="/admin/orders/order/?q={order_number}" target="_blank">{order_number}</a>'
+        return '-'
+    order_details.short_description = 'Order'
+    order_details.allow_tags = True
 
 
 @admin.register(SiteSettings)
