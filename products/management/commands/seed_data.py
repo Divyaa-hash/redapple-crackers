@@ -121,16 +121,22 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('No gift box images found, using first available image'))
             available_gift_box_images = [uploaded_images[0]] if uploaded_images else ['products/placeholder.jpg']
         
-        # Create products from Excel data (limit to 202 products to include gift boxes and family packs)
+        # Create products from Excel data (175 total: 171 regular + 4 gift boxes)
         products_data = []
-        max_products = 202
-        product_count = 0
+        max_regular_products = 171  # First 171 regular products
+        regular_product_count = 0
         
+        # Process regular products first (skip gift boxes and family packs)
         for index, row in df.iterrows():
-            if product_count >= max_products:
+            if regular_product_count >= max_regular_products:
                 break
                 
             if row['Status'] != 'Active':
+                continue
+            
+            # Skip gift boxes and family packs in first pass
+            category_name = row['Category']
+            if 'GIFT BOXES' in str(category_name) or 'FAMILY PACK' in str(category_name):
                 continue
                 
             product_name = row['Product Name']
@@ -200,7 +206,7 @@ class Command(BaseCommand):
                 image_index = index % len(uploaded_images)
                 image_path = uploaded_images[image_index]
             
-            product_count += 1
+            regular_product_count += 1
             
             # Determine product type based on category
             product_type = 'single'
@@ -234,9 +240,104 @@ class Command(BaseCommand):
                 'pieces': 1,
                 'is_active': True,
                 'is_featured': random.random() > 0.8,
-                'is_new': random.random() > 0.9,
+                'is_new': random.random() > 0.7,
                 'is_bestseller': random.random() > 0.85,
-                'is_trending': random.random() > 0.85,
+                'is_trending': random.random() > 0.6,
+                'main_image': image_path,
+                'additional_images': [],
+            })
+        
+        # Add 4 gift box products to make total 175
+        gift_box_products = df[df['Category'].str.contains('GIFT BOX', case=False, na=False)]
+        for index, row in gift_box_products.iterrows():
+            if len(products_data) >= 175:
+                break
+                
+            if row['Status'] != 'Active':
+                continue
+            
+            product_name = row['Product Name']
+            category_name = row['Category']
+            original_price = row['Original Price']
+            offer_price = row['Offer Price']
+            
+            # Skip if no price data
+            if pd.isna(original_price) and pd.isna(offer_price):
+                continue
+                
+            # Use offer price if available, otherwise original price, add 10% markup
+            base_price = offer_price if pd.notna(offer_price) else original_price
+            if pd.isna(base_price):
+                continue
+                
+            # Add 10% markup
+            regular_price = Decimal(str(float(base_price) * 1.1))
+            sale_price = None
+            
+            # If there was an offer price, use it as sale price with 10% markup
+            if pd.notna(offer_price) and pd.notna(original_price):
+                sale_price = regular_price
+                regular_price = Decimal(str(float(original_price) * 1.1))
+            
+            # Get category
+            category = category_map.get(category_name)
+            if not category:
+                self.stdout.write(f'Warning: Category not found: {category_name}')
+                continue
+            
+            # Generate slug
+            slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
+            
+            # Generate SKU
+            if 'Love Feast' in product_name:
+                sku = 'GB-LF-20'
+                slug = 'love-feast-20-item'
+            elif 'Turbo' in product_name:
+                sku = 'GB-TB-30'
+                slug = 'turbo-30-item'
+            elif 'Fun Special' in product_name:
+                sku = 'GB-FS-40'
+                slug = 'fun-special-40-item'
+            elif 'Spectra Festive' in product_name:
+                sku = 'GB-SF-50'
+                slug = 'spectra-festive-50-item'
+            else:
+                sku = f'VMS-{index + 1:03d}'
+            
+            # Assign specific gift box images
+            gift_box_image_map = {
+                'GB-LF-20': available_gift_box_images[0] if len(available_gift_box_images) > 0 else 'products/placeholder.jpg',
+                'GB-TB-30': available_gift_box_images[1] if len(available_gift_box_images) > 1 else 'products/placeholder.jpg',
+                'GB-FS-40': available_gift_box_images[2] if len(available_gift_box_images) > 2 else 'products/placeholder.jpg',
+                'GB-SF-50': available_gift_box_images[3] if len(available_gift_box_images) > 3 else 'products/placeholder.jpg',
+            }
+            image_path = gift_box_image_map.get(sku, 'products/placeholder.jpg')
+            
+            # Determine product type
+            product_type = 'gift_box'
+            
+            # Determine safety level
+            safety_level = 'medium'
+            
+            products_data.append({
+                'name': product_name,
+                'slug': slug,
+                'sku': sku,
+                'category': category,
+                'brand': brands[0],
+                'product_type': product_type,
+                'safety_level': safety_level,
+                'short_description': f'{product_name} - {category_name}',
+                'description': f'{product_name} from {category_name}. High quality crackers for celebrations and festivals.',
+                'regular_price': regular_price,
+                'sale_price': sale_price,
+                'stock': random.randint(10, 100),
+                'pieces': 1,
+                'is_active': True,
+                'is_featured': random.random() > 0.8,
+                'is_new': random.random() > 0.7,
+                'is_bestseller': random.random() > 0.85,
+                'is_trending': random.random() > 0.6,
                 'main_image': image_path,
                 'additional_images': [],
             })
