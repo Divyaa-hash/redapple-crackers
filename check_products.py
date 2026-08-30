@@ -12,10 +12,7 @@ print(f'Total categories: {Category.objects.count()}')
 print(f'Active categories: {Category.objects.filter(is_active=True).count()}')
 print(f'Total brands: {Brand.objects.count()}')
 print(f'Active brands: {Brand.objects.filter(is_active=True).count()}')
-print(f'First 5 brands:')
-for b in Brand.objects.all()[:5]:
-    print(f'  - {b.name} (active={b.is_active})')
-print(f'First 5 products:')
+print(f'First 5 products with image paths:')
 for p in Product.objects.all()[:5]:
-    print(f'  - {p.name} (active={p.is_active}, category={p.category.name}, brand={p.brand.name if p.brand else None}, price={p.regular_price})')
+    print(f'  - {p.name} (active={p.is_active}, category={p.category.name}, brand={p.brand.name if p.brand else None}, price={p.regular_price}, image={p.main_image})')
 
