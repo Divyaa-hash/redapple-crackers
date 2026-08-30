@@ -21,9 +21,10 @@ def product_detail_view(request, product_id):
 def festival_offers_view(request):
     """Festival offers page displaying gift boxes"""
     try:
-        # Only show the 4 specific gift boxes uploaded
+        # Show the 4 specific gift boxes
         gift_box_skus = ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']
         gift_boxes = Product.objects.filter(sku__in=gift_box_skus, is_active=True)
+        
         # Add savings calculation to each product
         for gift_box in gift_boxes:
             if gift_box.regular_price and gift_box.sale_price:

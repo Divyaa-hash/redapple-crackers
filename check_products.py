@@ -6,13 +6,12 @@ django.setup()
 
 from products.models import Product, Category, Brand
 
-print(f'Total products: {Product.objects.count()}')
-print(f'Active products: {Product.objects.filter(is_active=True).count()}')
-print(f'Total categories: {Category.objects.count()}')
-print(f'Active categories: {Category.objects.filter(is_active=True).count()}')
-print(f'Total brands: {Brand.objects.count()}')
-print(f'Active brands: {Brand.objects.filter(is_active=True).count()}')
-print(f'First 5 products with image paths:')
-for p in Product.objects.all()[:5]:
-    print(f'  - {p.name} (active={p.is_active}, category={p.category.name}, brand={p.brand.name if p.brand else None}, price={p.regular_price}, image={p.main_image})')
+print(f'Gift box products with specific SKUs:')
+gift_box_skus = ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']
+for sku in gift_box_skus:
+    product = Product.objects.filter(sku=sku).first()
+    if product:
+        print(f'  {sku}: {product.name} - image={product.main_image}')
+    else:
+        print(f'  {sku}: Not found')
 

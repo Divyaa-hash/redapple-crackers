@@ -139,11 +139,33 @@ class Command(BaseCommand):
             slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
             
             # Generate SKU
-            sku = f'VMS-{index + 1:03d}'
+            if 'GIFT BOXES' in category_name:
+                # Use specific SKUs for gift boxes
+                if 'Love Feast' in product_name:
+                    sku = 'GB-LF-20'
+                    slug = 'love-feast-20-item'
+                elif 'Turbo' in product_name:
+                    sku = 'GB-TB-30'
+                    slug = 'turbo-30-item'
+                elif 'Fun Special' in product_name:
+                    sku = 'GB-FS-40'
+                    slug = 'fun-special-40-item'
+                elif 'Spectra Festive' in product_name:
+                    sku = 'GB-SF-50'
+                    slug = 'spectra-festive-50-item'
+                else:
+                    sku = f'VMS-{index + 1:03d}'
+            else:
+                sku = f'VMS-{index + 1:03d}'
             
-            # Assign image
-            image_index = index % len(uploaded_images)
-            image_path = uploaded_images[image_index]
+            # Assign image - use unique images for gift boxes
+            if sku in ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']:
+                # Assign the same image for all 4 gift boxes
+                image_path = uploaded_images[0] if len(uploaded_images) > 0 else 'products/placeholder.jpg'
+            else:
+                # Assign image using modulo for other products
+                image_index = index % len(uploaded_images)
+                image_path = uploaded_images[image_index]
             
             # Determine product type based on category
             product_type = 'single'
