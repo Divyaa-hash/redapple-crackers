@@ -199,17 +199,30 @@
     <script>
         // Basic JavaScript functions that work immediately
         function toggleMobileMenu() {
+            console.log('toggleMobileMenu called');
             const mobileMenu = document.getElementById('mobile-menu');
+            console.log('Mobile menu element:', mobileMenu);
             if (mobileMenu) {
                 mobileMenu.classList.toggle('hidden');
+                console.log('Mobile menu classes after toggle:', mobileMenu.className);
                 // Toggle body scroll when menu is open
                 if (mobileMenu.classList.contains('hidden')) {
                     document.body.style.overflow = '';
                 } else {
                     document.body.style.overflow = 'hidden';
                 }
+            } else {
+                console.error('Mobile menu element not found');
             }
         }
+        
+        // Ensure mobile menu is properly initialized
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
+            console.log('Mobile menu initialized:', mobileMenu ? 'found' : 'not found');
+            console.log('Mobile menu button:', mobileMenuButton ? 'found' : 'not found');
+        });
         
         function toggleUserDropdown() {
             const userDropdown = document.getElementById('user-dropdown');
