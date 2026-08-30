@@ -25,7 +25,6 @@ from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
 from products.views import shop_view, festival_offers_view
 from users.views import login_view, signup_view, logout_view, account_view
-import openpyxl
 import os
 
 def home_view(request):
