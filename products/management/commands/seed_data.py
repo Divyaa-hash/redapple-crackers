@@ -100,12 +100,12 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('No images found in media/products directory'))
             uploaded_images = ['products/placeholder.jpg']
         
-        # Define the 4 specific gift box images
+        # Define the 4 specific gift box images (WhatsApp images)
         gift_box_images = [
-            'diwali-special-gift-box-367.jpg',
-            'premium-gift-box.jpg',
-            'wedding-gift-box-806.jpg',
-            'family-pack-combo.jpg'
+            'whatsapp-gift-box-1.jpeg',
+            'whatsapp-gift-box-2.jpeg',
+            'whatsapp-gift-box-3.jpeg',
+            'whatsapp-gift-box-4.jpeg'
         ]
         
         # Verify gift box images exist
