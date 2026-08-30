@@ -88,12 +88,6 @@ def shop_view(request):
         # Pagination - show all products on one page
         paginator = Paginator(products, 200)
         
-        # Debug: print product count
-        print(f"DEBUG: Total products after filters: {products.count()}")
-        print(f"DEBUG: Category filter: {category_id}")
-        print(f"DEBUG: Search query: {search_query}")
-        print(f"DEBUG: Sort by: {sort_by}")
-        
         try:
             products_page = paginator.page(page)
         except PageNotAnInteger:

@@ -100,9 +100,36 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('No images found in media/products directory'))
             uploaded_images = ['products/placeholder.jpg']
         
-        # Create products from Excel data
+        # Define the 4 specific gift box images
+        gift_box_images = [
+            'diwali-special-gift-box-367.jpg',
+            'premium-gift-box.jpg',
+            'wedding-gift-box-806.jpg',
+            'family-pack-combo.jpg'
+        ]
+        
+        # Verify gift box images exist
+        available_gift_box_images = []
+        for img in gift_box_images:
+            img_path = os.path.join(settings.BASE_DIR, 'media', 'products', img)
+            if os.path.exists(img_path):
+                available_gift_box_images.append(f'products/{img}')
+            else:
+                self.stdout.write(self.style.WARNING(f'Gift box image not found: {img}'))
+        
+        if not available_gift_box_images:
+            self.stdout.write(self.style.WARNING('No gift box images found, using first available image'))
+            available_gift_box_images = [uploaded_images[0]] if uploaded_images else ['products/placeholder.jpg']
+        
+        # Create products from Excel data (limit to 202 products to include gift boxes and family packs)
         products_data = []
+        max_products = 202
+        product_count = 0
+        
         for index, row in df.iterrows():
+            if product_count >= max_products:
+                break
+                
             if row['Status'] != 'Active':
                 continue
                 
@@ -158,14 +185,22 @@ class Command(BaseCommand):
             else:
                 sku = f'VMS-{index + 1:03d}'
             
-            # Assign image - use unique images for gift boxes
+            # Assign image - use specific gift box images for gift boxes
             if sku in ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']:
-                # Assign the same image for all 4 gift boxes
-                image_path = uploaded_images[0] if len(uploaded_images) > 0 else 'products/placeholder.jpg'
+                # Assign specific gift box images
+                gift_box_image_map = {
+                    'GB-LF-20': available_gift_box_images[0] if len(available_gift_box_images) > 0 else 'products/placeholder.jpg',
+                    'GB-TB-30': available_gift_box_images[1] if len(available_gift_box_images) > 1 else 'products/placeholder.jpg',
+                    'GB-FS-40': available_gift_box_images[2] if len(available_gift_box_images) > 2 else 'products/placeholder.jpg',
+                    'GB-SF-50': available_gift_box_images[3] if len(available_gift_box_images) > 3 else 'products/placeholder.jpg',
+                }
+                image_path = gift_box_image_map[sku]
             else:
                 # Assign image using modulo for other products
                 image_index = index % len(uploaded_images)
                 image_path = uploaded_images[image_index]
+            
+            product_count += 1
             
             # Determine product type based on category
             product_type = 'single'
