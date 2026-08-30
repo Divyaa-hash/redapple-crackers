@@ -22,7 +22,7 @@
             <div class="product-card tilt-card">
                 <div class="relative overflow-hidden">
                     <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">GIFT BOX</div>
-                    <img src="/static/{{ gift_box.main_image }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}';">
+                    <img src="/media/{{ gift_box.main_image }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}';">
                 </div>
                 <div class="p-6">
                     <h3 class="font-semibold text-lg text-gray-200 mb-2">{{ gift_box.name }}</h3>
