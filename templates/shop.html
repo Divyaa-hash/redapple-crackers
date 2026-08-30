@@ -233,10 +233,16 @@
                     <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden flex flex-col">
                         <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg flex-shrink-0">
                             <a href="/products/{{ product.id }}/" class="text-decoration-none block">
+                                {% if product.main_image %}
                                 <img src="{{ product.main_image.url }}" 
                                      alt="{{ product.name }}" 
                                      class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                      onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                                {% else %}
+                                <img src="https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}" 
+                                     alt="{{ product.name }}" 
+                                     class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                                {% endif %}
                             </a>
                             
                             <div class="absolute top-2 left-2 flex flex-wrap gap-1">
