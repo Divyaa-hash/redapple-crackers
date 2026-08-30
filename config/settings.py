@@ -163,6 +163,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Serve media files in production with whitenoise
+if not DEBUG:
+    WHITENOISE_MEDIA = True
+
 # Session configuration - use database-backed sessions for Render
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400  # 24 hours
