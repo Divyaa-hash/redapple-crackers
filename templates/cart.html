@@ -140,7 +140,7 @@
                     <div class="cart-item py-4 sm:py-6 border-b border-white/10 last:border-0">
                         <div class="cart-item-image bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
                             {% if item.product.main_image %}
-                            <img src="/media/{{ item.product.main_image }}" alt="{{ item.product.name }}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
+                            <img src="{{ item.product.main_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
                             {% elif item.product.get_display_image %}
                             <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
                             {% else %}

@@ -118,7 +118,7 @@
                         <tr>
                             <td class="px-4 py-4 whitespace-nowrap">
                                 {% if product.main_image %}
-                                    <img src="/media/{{ product.main_image }}" alt="{{ product.name }}" class="w-12 h-12 object-cover rounded-lg">
+                                    <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="w-12 h-12 object-cover rounded-lg">
                                 {% else %}
                                     <div class="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center">
                                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

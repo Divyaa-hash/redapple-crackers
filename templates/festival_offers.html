@@ -4,17 +4,20 @@
 
 {% block content %}
 <!-- Gift Boxes Section -->
-<section class="py-16 bg-black-100">
+<section class="py-16 bg-black-100 pt-24">
     <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-2xl font-display font-bold text-gradient mb-6">Premium Gift Boxes</h2>
-        <p class="text-gray-400 mb-8">Exclusive gift boxes with 10% special discount</p>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for gift_box in gift_boxes %}
             <div class="product-card tilt-card">
                 <div class="relative overflow-hidden">
                     <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">GIFT BOX</div>
-                    <img src="/media/{{ gift_box.main_image }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}';">
+                    {% if gift_box.main_image %}
+                    <img src="{{ gift_box.main_image.url }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}';">
+                    {% else %}
+                    <img src="https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    {% endif %}
                 </div>
                 <div class="p-6">
                     <h3 class="font-semibold text-lg text-gray-200 mb-2">{{ gift_box.name }}</h3>

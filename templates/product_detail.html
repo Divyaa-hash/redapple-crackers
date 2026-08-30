@@ -83,7 +83,7 @@
                 <div class="glass-card p-4">
                     <div class="relative overflow-hidden rounded-xl">
                         {% if product.main_image %}
-                        <img src="/media/{{ product.main_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
+                        <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
                         {% elif product.get_display_image %}
                         <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-cover" id="main-image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
                         {% else %}
@@ -99,7 +99,7 @@
                 <div class="flex space-x-3 sm:space-x-4 overflow-x-auto pb-4">
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">
                         {% if product.main_image %}
-                        <img src="/media/{{ product.main_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
+                        <img src="{{ product.main_image.url }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
                         {% elif product.get_display_image %}
                         <img src="{{ product.get_display_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-cover rounded-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb';">
                         {% else %}
