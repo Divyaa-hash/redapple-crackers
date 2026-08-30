@@ -8,6 +8,7 @@ from django.conf import settings
 from .models import Order, OrderItem, ShippingAddress
 from cart.views import get_or_create_cart
 from products.models import Product
+from siteadmin.models import Notification
 from decimal import Decimal
 import razorpay
 
@@ -162,6 +163,17 @@ def process_checkout(request):
     
     # Clear cart
     cart_items.delete()
+    
+    # Create notification for the user if authenticated
+    if user:
+        Notification.objects.create(
+            user=user,
+            title=f'Order #{order.order_number} Placed Successfully',
+            message=f'Your order has been placed successfully. Total: ₹{total_amount:.2f}',
+            notification_type='order',
+            link=f'/orders/{order.order_number}/',
+            is_read=False
+        )
     
     return JsonResponse({
         'success': True,

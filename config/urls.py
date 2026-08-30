@@ -150,6 +150,7 @@ urlpatterns = [
     path('order-confirmation/', TemplateView.as_view(template_name='order_confirmation.html'), name='order_confirmation'),
     path('order-tracking/', TemplateView.as_view(template_name='order_tracking.html'), name='order_tracking'),
     path('update-prices/', update_prices_view, name='update_prices'),
+    path('siteadmin/', include('siteadmin.urls')),
     # Auth URLs
     path('login/', login_view, name='login'),
     path('register/', signup_view, name='register'),
