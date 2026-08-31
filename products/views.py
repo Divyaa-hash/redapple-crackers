@@ -37,6 +37,25 @@ def festival_offers_view(request):
         return render(request, 'festival_offers.html', {'gift_boxes': []})
 
 
+def offers_view(request):
+    """Offers page displaying gift boxes and promotional offers"""
+    try:
+        # Show the 4 specific gift boxes
+        gift_box_skus = ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']
+        gift_boxes = Product.objects.filter(sku__in=gift_box_skus, is_active=True)
+        
+        # Add savings calculation to each product
+        for gift_box in gift_boxes:
+            if gift_box.regular_price and gift_box.sale_price:
+                gift_box.savings = gift_box.regular_price - gift_box.sale_price
+            else:
+                gift_box.savings = 0
+        return render(request, 'offers.html', {'gift_boxes': gift_boxes})
+    except Exception as e:
+        print(f"Error in offers_view: {e}")
+        return render(request, 'offers.html', {'gift_boxes': []})
+
+
 def shop_view(request):
     """Shop page view displaying all products with filters"""
     try:

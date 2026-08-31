@@ -33,6 +33,45 @@
 </style>
 {% endblock %}
 
+<!-- Gift Boxes Section -->
+<section class="py-20 bg-black-100 pt-24">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center mb-4">Premium Gift Boxes</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Exclusive gift boxes with special discounts</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for gift_box in gift_boxes %}
+            <div class="product-card tilt-card">
+                <div class="relative overflow-hidden">
+                    <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">GIFT BOX</div>
+                    {% if gift_box.main_image %}
+                    <img src="{{ gift_box.main_image.url }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}';">
+                    {% else %}
+                    <img src="https://via.placeholder.com/400x300/ef4444/ffffff?text={{ gift_box.name|truncatewords:2 }}" alt="{{ gift_box.name }}" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg text-gray-200 mb-2">{{ gift_box.name }}</h3>
+                    <p class="text-gray-400 text-sm mb-4">Premium gift box with assorted crackers</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-gold-500 font-bold text-xl">₹{{ gift_box.sale_price }}</span>
+                            <span class="text-gray-500 line-through ml-2">₹{{ gift_box.regular_price }}</span>
+                        </div>
+                        <span class="text-green-500 text-sm">Save ₹{{ gift_box.savings }}</span>
+                    </div>
+                    <button class="btn-gold w-full add-to-cart-btn" data-product-id="{{ gift_box.id }}">Add to Cart</button>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-8">
+                <p class="text-gray-400">No gift boxes available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 <!-- Offers Grid -->
 <section class="py-20 bg-black-100">
     <div class="max-w-7xl mx-auto px-4">

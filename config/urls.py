@@ -23,7 +23,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
-from products.views import shop_view, festival_offers_view
+from products.views import shop_view, festival_offers_view, offers_view
 from users.views import login_view, signup_view, logout_view
 import os
 
@@ -141,7 +141,7 @@ urlpatterns = [
     path('shop/', shop_view, name='shop'),
     path('categories/', TemplateView.as_view(template_name='categories.html')),
     path('wholesale/', TemplateView.as_view(template_name='wholesale.html')),
-    path('offers/', festival_offers_view, name='offers'),
+    path('offers/', offers_view, name='offers'),
     path('festival-offers/', festival_offers_view, name='festival_offers'),
     path('about/', TemplateView.as_view(template_name='about.html')),
     path('contact/', TemplateView.as_view(template_name='contact.html')),
