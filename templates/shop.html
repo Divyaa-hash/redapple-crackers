@@ -122,10 +122,10 @@
 
 <!-- Mobile Horizontal Filter Bar -->
 <div class="mobile-filter-bar">
-    <button class="filter-btn" id="sort-btn" onclick="toggleDropdown('sort')">Sort <span class="dropdown-arrow">▼</span></button>
-    <button class="filter-btn" id="category-btn" onclick="toggleDropdown('category')">Type <span class="dropdown-arrow">▼</span></button>
-    <button class="filter-btn" id="price-btn" onclick="toggleDropdown('price')">Price <span class="dropdown-arrow">▼</span></button>
-    <button class="filter-btn" id="stock-btn" onclick="toggleDropdown('stock')">Stock <span class="dropdown-arrow">▼</span></button>
+    <button class="filter-btn" id="sort-btn" data-type="sort">Sort <span class="dropdown-arrow">▼</span></button>
+    <button class="filter-btn" id="category-btn" data-type="category">Type <span class="dropdown-arrow">▼</span></button>
+    <button class="filter-btn" id="price-btn" data-type="price">Price <span class="dropdown-arrow">▼</span></button>
+    <button class="filter-btn" id="stock-btn" data-type="stock">Stock <span class="dropdown-arrow">▼</span></button>
 </div>
 
 <!-- Mobile Dropdowns Container -->
@@ -339,6 +339,21 @@
 // Mobile dropdown state
 let openDropdown = null;
 const categories = {{ categories_json|safe }};
+
+// Attach event listeners to filter buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const type = this.getAttribute('data-type');
+            if (type) {
+                toggleDropdown(type);
+            }
+        });
+    });
+});
 
 function toggleDropdown(type) {
     // Close any open dropdown first
