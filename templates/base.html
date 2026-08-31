@@ -216,9 +216,22 @@
         // Ensure mobile menu is properly initialized
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
+            const mobileMenuButton = document.getElementById('mobile-menu-toggle');
             console.log('Mobile menu initialized:', mobileMenu ? 'found' : 'not found');
             console.log('Mobile menu button:', mobileMenuButton ? 'found' : 'not found');
+            
+            // Attach event listener to mobile menu button
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Mobile menu button clicked');
+                    toggleMobileMenu();
+                });
+                console.log('Mobile menu button event listener attached');
+            } else {
+                console.error('Mobile menu button not found');
+            }
         });
         
         function toggleUserDropdown() {
