@@ -192,6 +192,13 @@
     <!-- Footer -->
     {% include 'includes/footer.html' %}
     
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="fixed bottom-8 right-8 bg-red-500 hover:bg-red-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible z-50" onclick="scrollToTop()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+    
     <!-- JavaScript -->
     <script>
         // Basic JavaScript functions that work immediately
@@ -211,6 +218,13 @@
             } else {
                 console.error('Mobile menu element not found');
             }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
         
         // Ensure mobile menu is properly initialized
@@ -555,6 +569,18 @@
                     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                     const progress = (scrollTop / scrollHeight) * 100;
                     scrollProgress.style.width = progress + '%';
+                }
+                
+                // Show/hide scroll to top button
+                const scrollToTopBtn = document.getElementById('scroll-to-top');
+                if (scrollToTopBtn) {
+                    if (window.scrollY > 300) {
+                        scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                        scrollToTopBtn.classList.add('opacity-100', 'visible');
+                    } else {
+                        scrollToTopBtn.classList.add('opacity-0', 'invisible');
+                        scrollToTopBtn.classList.remove('opacity-100', 'visible');
+                    }
                 }
             });
             
