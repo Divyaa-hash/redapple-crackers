@@ -12,6 +12,26 @@ from .serializers import (
 )
 
 
+def catalog_view(request):
+    """Catalog view showing all products in Baby Crackers format"""
+    categories = Category.objects.filter(is_active=True).order_by('order', 'name')
+    
+    catalog_data = []
+    for category in categories:
+        products = Product.objects.filter(
+            category=category,
+            is_active=True
+        ).order_by('order', 'name')
+        
+        if products.exists():
+            catalog_data.append({
+                'category': category,
+                'products': products
+            })
+    
+    return render(request, 'catalog.html', {'catalog_data': catalog_data})
+
+
 def product_detail_view(request, product_id):
     """Product detail page view"""
     product = get_object_or_404(Product, id=product_id, is_active=True)

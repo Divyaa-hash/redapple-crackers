@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Product Catalog - Premium Crackers Store{% endblock %}
+
+{% block content %}
+<style>
+    .catalog-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .category-section {
+        margin-bottom: 3rem;
+        border: 2px solid #d4af37;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .category-header {
+        background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .category-header h2 {
+        color: #1a1a1a;
+        font-size: 1.75rem;
+        font-weight: bold;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #1a1a1a;
+    }
+    
+    .product-table th,
+    .product-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #333;
+    }
+    
+    .product-table th {
+        background: #2a2a2a;
+        color: #d4af37;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+    }
+    
+    .product-table tr:hover {
+        background: #2a2a2a;
+    }
+    
+    .product-table .product-name {
+        color: #fff;
+        font-weight: 600;
+    }
+    
+    .product-table .unit {
+        color: #888;
+    }
+    
+    .product-table .price {
+        color: #d4af37;
+        font-weight: bold;
+    }
+    
+    .product-table .total-price {
+        color: #4ade80;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+    
+    .product-table .total-row {
+        background: #2a2a2a;
+        font-weight: bold;
+    }
+    
+    .product-table .total-row td {
+        color: #d4af37;
+        font-size: 1.1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .catalog-container {
+            padding: 1rem;
+        }
+        
+        .product-table th,
+        .product-table td {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .category-header h2 {
+            font-size: 1.25rem;
+        }
+    }
+</style>
+
+<div class="catalog-container">
+    <h1 class="text-4xl font-display font-bold text-gradient mb-8 text-center">Product Catalog</h1>
+    
+    {% for category_item in catalog_data %}
+    <div class="category-section">
+        <div class="category-header">
+            <h2>{{ category_item.category.name }}</h2>
+        </div>
+        
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Unit</th>
+                    <th>Price (₹)</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in category_item.products %}
+                <tr>
+                    <td class="product-name">{{ product.name }}</td>
+                    <td class="unit">1Pkt</td>
+                    <td class="price">{{ product.get_current_price }}</td>
+                    <td>1</td>
+                    <td class="total-price">₹{{ product.get_current_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% empty %}
+    <div class="text-center text-gray-400 py-12">
+        <p>No products found in catalog.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
