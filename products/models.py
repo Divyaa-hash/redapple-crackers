@@ -145,6 +145,9 @@ class Product(models.Model):
     # Status
     is_active = models.BooleanField(default=True)
     
+    # Order for custom sorting
+    order = models.IntegerField(default=0)
+    
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

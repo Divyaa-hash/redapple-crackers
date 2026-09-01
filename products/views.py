@@ -102,7 +102,8 @@ def shop_view(request):
         elif sort_by == 'name':
             products = products.order_by('name')
         else:
-            products = products.order_by('-created_at')
+            # Default: sort by order field (Baby Crackers website order), then by name
+            products = products.order_by('order', 'name')
         
         # Pagination - show all products on one page
         paginator = Paginator(products, 200)
