@@ -16,11 +16,11 @@ def product_detail_view(request, product_id):
     """Product detail page view"""
     product = get_object_or_404(Product, id=product_id, is_active=True)
     
-    # Get related products from the same category (excluding current product)
+    # Get all related products from the same category (excluding current product)
     related_products = Product.objects.filter(
         category=product.category,
         is_active=True
-    ).exclude(id=product.id).order_by('order', 'name')[:8]
+    ).exclude(id=product.id).order_by('order', 'name')
     
     return render(request, 'product_detail.html', {
         'product': product,
