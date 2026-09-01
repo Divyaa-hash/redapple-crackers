@@ -24,9 +24,20 @@ def catalog_view(request):
         ).order_by('order', 'name')
         
         if products.exists():
+            # Add discounted price (80% discount = 20% of original price)
+            products_with_discount = []
+            for product in products:
+                original_price = product.get_current_price
+                discounted_price = original_price * 0.2  # 80% discount
+                products_with_discount.append({
+                    'product': product,
+                    'original_price': original_price,
+                    'discounted_price': discounted_price
+                })
+            
             catalog_data.append({
                 'category': category,
-                'products': products
+                'products': products_with_discount
             })
     
     return render(request, 'catalog.html', {'catalog_data': catalog_data})

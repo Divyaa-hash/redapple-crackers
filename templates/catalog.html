@@ -6,13 +6,35 @@
 {% block content %}
 <style>
     .catalog-container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 2rem;
+        padding: 1rem;
+    }
+    
+    .catalog-header {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        padding: 1.5rem;
+        border-bottom: 2px solid #d4af37;
+        margin-bottom: 2rem;
+    }
+    
+    .catalog-header h1 {
+        color: #d4af37;
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0;
+        text-align: center;
+    }
+    
+    .contact-info {
+        text-align: center;
+        color: #888;
+        margin-top: 1rem;
+        font-size: 0.875rem;
     }
     
     .category-section {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         border: 2px solid #d4af37;
         border-radius: 8px;
         overflow: hidden;
@@ -20,13 +42,13 @@
     
     .category-header {
         background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
-        padding: 1.5rem;
+        padding: 1.25rem;
         text-align: center;
     }
     
     .category-header h2 {
         color: #1a1a1a;
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         font-weight: bold;
         margin: 0;
         text-transform: uppercase;
@@ -40,7 +62,7 @@
     
     .product-table th,
     .product-table td {
-        padding: 1rem;
+        padding: 0.75rem;
         text-align: left;
         border-bottom: 1px solid #333;
     }
@@ -66,51 +88,128 @@
         color: #888;
     }
     
-    .product-table .price {
-        color: #d4af37;
+    .product-table .original-price {
+        color: #888;
+        text-decoration: line-through;
+    }
+    
+    .product-table .discounted-price {
+        color: #4ade80;
         font-weight: bold;
     }
     
     .product-table .total-price {
-        color: #4ade80;
-        font-weight: bold;
-        font-size: 1.1rem;
-    }
-    
-    .product-table .total-row {
-        background: #2a2a2a;
-        font-weight: bold;
-    }
-    
-    .product-table .total-row td {
         color: #d4af37;
+        font-weight: bold;
+    }
+    
+    .cart-summary {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #1a1a1a;
+        border-top: 2px solid #d4af37;
+        padding: 1rem;
+        z-index: 1000;
+    }
+    
+    .cart-summary-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .cart-summary-item {
+        color: #d4af37;
+        font-weight: bold;
         font-size: 1.1rem;
+    }
+    
+    .catalog-footer {
+        background: #1a1a1a;
+        padding: 3rem 1rem;
+        margin-top: 2rem;
+        border-top: 2px solid #d4af37;
+    }
+    
+    .catalog-footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .catalog-footer h3 {
+        color: #d4af37;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .catalog-footer p {
+        color: #888;
+        margin-bottom: 0.5rem;
+    }
+    
+    .catalog-footer .legal-notice {
+        background: #2a2a2a;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        border-radius: 8px;
+        text-align: left;
+    }
+    
+    .catalog-footer .legal-notice p {
+        color: #aaa;
+        line-height: 1.6;
     }
     
     @media (max-width: 768px) {
         .catalog-container {
-            padding: 1rem;
+            padding: 0.5rem;
         }
         
         .product-table th,
         .product-table td {
-            padding: 0.75rem 0.5rem;
-            font-size: 0.875rem;
+            padding: 0.5rem 0.25rem;
+            font-size: 0.75rem;
         }
         
         .category-header h2 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
+        }
+        
+        .cart-summary-content {
+            flex-direction: column;
+            text-align: center;
         }
     }
 </style>
 
 <div class="catalog-container">
-    <h1 class="text-4xl font-display font-bold text-gradient mb-8 text-center">Product Catalog</h1>
+    <div class="catalog-header">
+        <h1>Baby Crackers</h1>
+        <div class="contact-info">
+            <p>Vembakottai road, Sithurajapuram, Sivakasi, Tamil Nadu - 626 123</p>
+            <p>For Queries & Bulk order: +91 93427 27365 | +91 77086 69032</p>
+        </div>
+    </div>
+    
+    <div class="cart-summary" style="position: static; margin-bottom: 2rem;">
+        <div class="cart-summary-content">
+            <div class="cart-summary-item">Net Total: ₹0.00</div>
+            <div class="cart-summary-item">You Save: ₹0.00</div>
+            <div class="cart-summary-item">Overall Total: ₹0.00</div>
+        </div>
+    </div>
     
     {% for category_item in catalog_data %}
     <div class="category-section">
         <div class="category-header">
-            <h2>{{ category_item.category.name }}</h2>
+            <h2>{{ category_item.category.name }} (80% Discount)</h2>
         </div>
         
         <table class="product-table">
@@ -118,19 +217,22 @@
                 <tr>
                     <th>Product Name</th>
                     <th>Unit</th>
-                    <th>Price (₹)</th>
+                    <th>Price</th>
                     <th>Qty</th>
                     <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                {% for product in category_item.products %}
+                {% for item in category_item.products %}
                 <tr>
-                    <td class="product-name">{{ product.name }}</td>
-                    <td class="unit">1Pkt</td>
-                    <td class="price">{{ product.get_current_price }}</td>
+                    <td class="product-name">{{ item.product.name }}</td>
+                    <td class="unit">1Box</td>
+                    <td>
+                        <span class="original-price">{{ item.original_price|floatformat:0 }}</span>
+                        <span class="discounted-price">{{ item.discounted_price|floatformat:0 }}</span>
+                    </td>
                     <td>1</td>
-                    <td class="total-price">₹{{ product.get_current_price }}</td>
+                    <td class="total-price">₹{{ item.discounted_price|floatformat:0 }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -141,5 +243,35 @@
         <p>No products found in catalog.</p>
     </div>
     {% endfor %}
+    
+    <div class="cart-summary">
+        <div class="cart-summary-content">
+            <div class="cart-summary-item">Net Total: ₹0.00</div>
+            <div class="cart-summary-item">Discount Total: ₹0.00</div>
+            <div class="cart-summary-item">Sub Total: ₹0.00</div>
+            <button class="btn-gold px-6 py-2">Confirm Estimate</button>
+        </div>
+    </div>
+    
+    <div class="catalog-footer">
+        <div class="catalog-footer-content">
+            <h3>Baby Crackers</h3>
+            <p>Premium Sivakasi fireworks for every festival, wedding and celebration, trusted by families across Tamil Nadu.</p>
+            
+            <div style="margin-top: 2rem;">
+                <p><strong>Contact Details</strong></p>
+                <p>+91 93427 27365 | +91 77086 69032</p>
+                <p>Vembakottai road, Sithurajapuram, Sivakasi, Tamil Nadu - 626 123</p>
+            </div>
+            
+            <div class="legal-notice">
+                <p><strong>Important Notice:</strong></p>
+                <p>As per 2018 supreme court order, online sale of firecrackers are not permitted! We value our customers and at the same time, respect jurisdiction. We request you to add your products to the cart and submit the required crackers through the enquiry button. We will contact you within 24 hrs and confirm the order through WhatsApp or phone call. Please add and submit your enquiries and enjoy your Diwali with Baby Crackers.</p>
+                <p style="margin-top: 1rem;">Our License No.----. Baby Crackers as a company following 100% legal & statutory compliances and all our shops, go-downs are maintained as per the explosive acts. We send the parcels through registered and legal transport service providers as like every other major companies in Sivakasi is doing so.</p>
+            </div>
+            
+            <p style="margin-top: 2rem; color: #666;">Copyright © 2026 Baby Crackers. All Rights Reserved.</p>
+        </div>
+    </div>
 </div>
 {% endblock %}
