@@ -102,47 +102,8 @@ def shop_view(request):
     try:
         categories = Category.objects.filter(is_active=True).order_by('order', 'name')
         
-        # Get filter parameters
-        category_id = request.GET.get('category')
-        min_price = request.GET.get('min_price')
-        max_price = request.GET.get('max_price')
-        in_stock = request.GET.get('in_stock')
-        on_sale = request.GET.get('on_sale')
-        sort_by = request.GET.get('sort_by', 'order')
-        search_query = request.GET.get('q', '')
-        
-        # Build product query
-        products = Product.objects.filter(is_active=True)
-        
-        if search_query:
-            products = products.filter(name__icontains=search_query)
-        
-        if category_id:
-            products = products.filter(category_id=category_id)
-        
-        if min_price:
-            products = products.filter(regular_price__gte=min_price)
-        
-        if max_price:
-            products = products.filter(regular_price__lte=max_price)
-        
-        if in_stock:
-            products = products.filter(stock__gt=0)
-        
-        if on_sale:
-            products = products.filter(sale_price__isnull=False)
-        
-        # Apply sorting
-        if sort_by == 'price_low':
-            products = products.order_by('sale_price', 'regular_price')
-        elif sort_by == 'price_high':
-            products = products.order_by('-sale_price', '-regular_price')
-        elif sort_by == 'newest':
-            products = products.order_by('-created_at')
-        elif sort_by == 'name':
-            products = products.order_by('name')
-        else:
-            products = products.order_by('order', 'name')
+        # Get all active products
+        products = Product.objects.filter(is_active=True).order_by('order', 'name')
         
         # Organize by category for Baby Crackers format
         catalog_data = []
