@@ -1,695 +1,260 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Shop - RedApple crackers Store{% endblock %}
+{% block title %}Shop - Baby Crackers{% endblock %}
 
 {% block content %}
-{% block extra_css %}
 <style>
-    /* Mobile horizontal filter bar */
-    .mobile-filter-bar {
+    .catalog-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        min-height: 100vh;
+    }
+    
+    .catalog-header {
+        background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .catalog-header h1 {
+        color: #1a1a2e;
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0;
+    }
+    
+    .cart-summary {
+        background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+        padding: 15px 25px;
+        border-radius: 10px;
+        margin-bottom: 20px;
         display: flex;
-        gap: 0.5rem;
-        overflow-x: auto;
-        padding: 0.75rem 1rem;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .cart-summary-content {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    
+    .cart-summary-item {
+        color: #1a1a2e;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    
+    .category-section {
         background: rgba(255, 255, 255, 0.05);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        width: 100%;
-        max-width: 100vw;
-        box-sizing: border-box;
-        position: sticky;
-        top: 56px;
-        z-index: 50;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
     }
     
-    .mobile-filter-bar::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .filter-btn {
-        flex-shrink: 0;
-        padding: 0.5rem 1rem;
-        border: 2px solid rgba(255, 255, 255, 0.4);
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.15);
-        color: #ffffff;
-        font-size: 0.875rem;
-        font-weight: 500;
-        white-space: nowrap;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    
-    .filter-btn:hover {
-        background: rgba(239, 68, 68, 0.2);
-        border-color: #ef4444;
-        color: #ef4444;
-    }
-    
-    .filter-btn.active {
-        background: #ef4444;
-        border-color: #ef4444;
-        color: white;
-    }
-    
-    /* Hide vertical filter on mobile */
-    @media (max-width: 1023px) {
-        .filter-sidebar {
-            display: none;
-        }
-    }
-    
-    /* Show vertical filter on desktop */
-    @media (min-width: 1024px) {
-        .mobile-filter-bar {
-            display: none;
-        }
-        .filter-sidebar {
-            display: block;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-        }
-    }
-    
-    .filter-checkbox {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-        cursor: pointer;
-    }
-    
-    .filter-checkbox input {
-        accent-color: #ef4444;
-    }
-    
-    .price-range {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
-    
-    .price-range input {
-        flex: 1;
-        padding: 0.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+    .category-header {
+        background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+        padding: 15px 20px;
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        color: white;
-        width: 100%;
-        box-sizing: border-box;
+        margin-bottom: 15px;
     }
     
-    /* Product card fixes */
-    .product-card {
+    .category-title {
+        color: #1a1a2e;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+    }
+    
+    .product-table {
         width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
         overflow: hidden;
     }
     
-    .product-card img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
+    .product-table th {
+        background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+        color: #1a1a2e;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 14px;
     }
     
-    /* Mobile Dropdown Styles */
-    .mobile-dropdown {
-        position: fixed;
-        top: auto;
-        left: 0;
-        right: 0;
-        background: rgba(20, 20, 20, 0.98);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 1rem;
-        margin: 0.5rem;
-        z-index: 1000;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    }
-    
-    .dropdown-option {
-        padding: 0.75rem 1rem;
+    .product-table td {
+        padding: 12px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         color: #ffffff;
-        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    .product-table tr:hover {
+        background: rgba(212, 175, 55, 0.1);
+    }
+    
+    .original-price {
+        text-decoration: line-through;
+        color: #999;
+        margin-right: 10px;
+    }
+    
+    .discounted-price {
+        color: #d4af37;
+        font-weight: bold;
+    }
+    
+    .total-price {
+        color: #d4af37;
+        font-weight: bold;
+    }
+    
+    .catalog-footer {
+        background: rgba(0, 0, 0, 0.3);
+        border-top: 2px solid #d4af37;
+        padding: 30px 20px;
+        margin-top: 30px;
+        border-radius: 10px;
+    }
+    
+    .catalog-footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .catalog-footer h3 {
+        color: #d4af37;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .catalog-footer p {
+        color: #ccc;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    .legal-notice {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #d4af37;
+        padding: 20px;
         border-radius: 8px;
-        transition: all 0.2s ease;
-        font-size: 0.875rem;
+        margin: 20px 0;
+        text-align: left;
     }
     
-    .dropdown-option:hover {
-        background: rgba(239, 68, 68, 0.2);
-        color: #ef4444;
+    .legal-notice p {
+        color: #fff;
+        margin-bottom: 10px;
     }
     
-    .dropdown-option[data-active="true"] {
-        background: #ef4444;
-        color: white;
+    .legal-notice strong {
+        color: #d4af37;
     }
     
-    .price-inputs {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .price-input {
-        flex: 1;
-        padding: 0.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        color: white;
-        font-size: 0.875rem;
-    }
-    
-    .apply-btn {
-        width: 100%;
-        padding: 0.75rem;
-        background: #ef4444;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    
-    .apply-btn:hover {
-        background: #dc2626;
+    @media (max-width: 768px) {
+        .catalog-container {
+            padding: 10px;
+        }
+        
+        .cart-summary-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .product-table {
+            font-size: 12px;
+        }
+        
+        .product-table th,
+        .product-table td {
+            padding: 8px;
+        }
     }
 </style>
-{% endblock %}
 
-<!-- Mobile Horizontal Filter Bar -->
-<div class="mobile-filter-bar">
-    <button class="filter-btn" id="sort-btn" data-type="sort">Sort <span class="dropdown-arrow">▼</span></button>
-    <button class="filter-btn" id="category-btn" data-type="category">Type <span class="dropdown-arrow">▼</span></button>
-    <button class="filter-btn" id="price-btn" data-type="price">Price <span class="dropdown-arrow">▼</span></button>
-    <button class="filter-btn" id="stock-btn" data-type="stock">Stock <span class="dropdown-arrow">▼</span></button>
-</div>
-
-<!-- Mobile Dropdowns Container -->
-<div id="mobile-dropdowns-container"></div>
-
-<!-- Shop Content -->
-<section class="py-12 sm:py-16 lg:py-20 bg-black-100">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
-            <!-- Filters Sidebar -->
-            <aside class="lg:w-64 flex-shrink-0">
-                <div class="filter-sidebar">
-                    <h3 class="text-xl font-bold mb-6 text-red-500">Filters</h3>
-                    
-                    <form method="GET" action="/shop/" class="space-y-4" id="filter-form">
-                        <input type="hidden" name="q" value="{{ request.GET.q }}">
-                        <input type="hidden" name="sort_by" value="{{ request.GET.sort_by }}">
-                        <!-- Categories -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold mb-3">Categories</h4>
-                            {% for category in categories %}
-                            <label class="filter-checkbox">
-                                <input type="radio" name="category" value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}checked{% endif %}>
-                                <span class="text-gray-300">{{ category.name }}</span>
-                            </label>
-                            {% endfor %}
-                        </div>
-                        
-                        <!-- Price Range -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold mb-3">Price Range</h4>
-                            <div class="price-range">
-                                <input type="number" name="min_price" placeholder="Min Price" min="0" value="{{ request.GET.min_price }}">
-                                <input type="number" name="max_price" placeholder="Max Price" min="0" value="{{ request.GET.max_price }}">
-                            </div>
-                        </div>
-                        
-                        <!-- Stock Status -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold mb-3">Availability</h4>
-                            <label class="filter-checkbox">
-                                <input type="checkbox" name="in_stock" value="true" {% if request.GET.in_stock %}checked{% endif %}>
-                                <span class="text-gray-300">In Stock</span>
-                            </label>
-                            <label class="filter-checkbox">
-                                <input type="checkbox" name="on_sale" value="true" {% if request.GET.on_sale %}checked{% endif %}>
-                                <span class="text-gray-300">On Sale</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn-gold w-full py-3 rounded-lg">Apply Filters</button>
-                        <button type="button" onclick="clearFilters()" class="w-full py-2 rounded-lg text-gray-400 hover:text-white mt-2">Clear Filters</button>
-                    </form>
-                </div>
-            </aside>
-            
-            <!-- Products Grid -->
-            <div class="flex-1">
-                {% if error %}
-                <div class="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded-lg mb-6">
-                    Error loading products: {{ error }}
-                </div>
-                {% endif %}
-                
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
-                    <p class="text-gray-400 text-sm sm:text-base">{% if total_count %}{{ total_count }} products{% elif paginator %}{{ paginator.count }} products{% else %}0 products{% endif %}</p>
-                    <form method="GET" action="/shop/" class="flex gap-2 w-full sm:w-auto">
-                        <input type="hidden" name="q" value="{{ request.GET.q }}">
-                        <input type="hidden" name="category" value="{{ request.GET.category }}">
-                        <input type="hidden" name="min_price" value="{{ request.GET.min_price }}">
-                        <input type="hidden" name="max_price" value="{{ request.GET.max_price }}">
-                        <input type="hidden" name="in_stock" value="{{ request.GET.in_stock }}">
-                        <input type="hidden" name="on_sale" value="{{ request.GET.on_sale }}">
-                        <select name="sort_by" class="input-premium px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base w-full sm:w-auto" onchange="this.form.submit()">
-                            <option value="-created_at" {% if request.GET.sort_by == '-created_at' or not request.GET.sort_by %}selected{% endif %}>Sort by: Newest</option>
-                            <option value="price_low" {% if request.GET.sort_by == 'price_low' %}selected{% endif %}>Price: Low to High</option>
-                            <option value="price_high" {% if request.GET.sort_by == 'price_high' %}selected{% endif %}>Price: High to Low</option>
-                            <option value="name" {% if request.GET.sort_by == 'name' %}selected{% endif %}>Name: A-Z</option>
-                        </select>
-                    </form>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 w-full">
-                    {% for product in products %}
-                    <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden flex flex-col">
-                        <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg flex-shrink-0">
-                            <a href="/products/{{ product.id }}/" class="text-decoration-none block">
-                                {% if product.main_image %}
-                                <img src="{{ product.main_image.url }}" 
-                                     alt="{{ product.name }}" 
-                                     class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                                     onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}';">
-                                {% else %}
-                                <img src="https://via.placeholder.com/200x200/ef4444/ffffff?text={{ product.name|truncatewords:2 }}" 
-                                     alt="{{ product.name }}" 
-                                     class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                                {% endif %}
-                            </a>
-                            
-                            <div class="absolute top-2 left-2 flex flex-wrap gap-1">
-                                {% if product.is_new %}
-                                <span class="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">New</span>
-                                {% endif %}
-                                {% if product.is_featured %}
-                                <span class="px-2 py-1 bg-blue-500 text-white text-xs font-bold rounded-full">Featured</span>
-                                {% endif %}
-                                {% if product.sale_price %}
-                                <span class="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Sale</span>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="absolute top-2 right-2">
-                                <button class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors wishlist-btn" data-product-id="{{ product.id }}">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-2 flex-1 flex flex-col">
-                            {% if product.category and product.category.name %}
-                            <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
-                            {% endif %}
-                            <h3 class="font-semibold text-gray-200 text-sm sm:text-base line-clamp-3 flex-1" title="{{ product.name }}">{{ product.name }}</h3>
-                            
-                            <div class="flex items-center gap-2 flex-wrap">
-                                {% if product.sale_price %}
-                                <span class="text-lg sm:text-xl font-bold text-red-500">₹{{ product.sale_price }}</span>
-                                {% if product.regular_price %}
-                                <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
-                                {% endif %}
-                                {% elif product.regular_price %}
-                                <span class="text-lg sm:text-xl font-bold text-red-500">₹{{ product.regular_price }}</span>
-                                {% endif %}
-                            </div>
-                            
-                            <span class="text-xs {% if product.stock and product.stock > 10 %}text-green-400{% elif product.stock and product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
-                                {% if product.stock and product.stock > 10 %}In Stock{% elif product.stock and product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
-                            </span>
-                            
-                            <div class="flex flex-col gap-2 pt-2 mt-auto">
-                                <div class="flex gap-2">
-                                    <a href="/products/{{ product.id }}/" class="flex-1 text-center px-2 sm:px-3 py-2 border border-red-500 text-red-500 rounded-lg text-xs sm:text-sm hover:bg-red-500 hover:text-white transition-colors whitespace-nowrap">View</a>
-                                    <button class="add-to-cart-btn flex-1 px-2 sm:px-3 py-2 bg-red-500 text-white rounded-lg text-xs sm:text-sm hover:bg-red-600 transition-colors whitespace-nowrap" data-product-id="{{ product.id }}">
-                                        Add to Cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <div class="col-span-full text-center py-8">
-                        <p class="text-gray-400">No products available.</p>
-                    </div>
-                    {% endfor %}
-                </div>
-                
-                <!-- Pagination -->
-                {% if paginator and paginator.num_pages > 1 %}
-                <nav aria-label="Page navigation" class="mt-8">
-                    <ul class="flex justify-center gap-1 sm:gap-2 flex-wrap items-center">
-                        {% if current_page and current_page.has_previous %}
-                        <li>
-                            <a class="px-2 sm:px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-xs sm:text-sm" href="?page={{ current_page.previous_page_number }}">Previous</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <span class="px-2 sm:px-4 py-2 bg-gray-900 text-gray-500 rounded-lg cursor-not-allowed text-xs sm:text-sm">Previous</span>
-                        </li>
-                        {% endif %}
-                        
-                        {% if paginator %}
-                        {% for page_num in paginator.page_range %}
-                        {% if current_page and page_num == current_page.number %}
-                        <li>
-                            <span class="px-2 sm:px-4 py-2 bg-red-500 text-white rounded-lg text-xs sm:text-sm">{{ page_num }}</span>
-                        </li>
-                        {% elif page_num <= 3 or page_num > paginator.num_pages|add:'-3' %}
-                        <li>
-                            <a class="px-2 sm:px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-xs sm:text-sm" href="?page={{ page_num }}">{{ page_num }}</a>
-                        </li>
-                        {% elif page_num == 4 or page_num == paginator.num_pages|add:'-2' %}
-                        <li>
-                            <span class="px-2 sm:px-4 py-2 bg-gray-900 text-gray-500 rounded-lg text-xs sm:text-sm">...</span>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                        {% endif %}
-                        
-                        {% if current_page and current_page.has_next %}
-                        <li>
-                            <a class="px-2 sm:px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-xs sm:text-sm" href="?page={{ current_page.next_page_number }}">Next</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <span class="px-2 sm:px-4 py-2 bg-gray-900 text-gray-500 rounded-lg cursor-not-allowed text-xs sm:text-sm">Next</span>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-                {% endif %}
-            </div>
+<div class="catalog-container">
+    <div class="catalog-header">
+        <h1>Baby Crackers</h1>
+    </div>
+    
+    <div class="cart-summary">
+        <div class="cart-summary-content">
+            <div class="cart-summary-item">Net Total: ₹0.00</div>
+            <div class="cart-summary-item">You Save: ₹0.00</div>
+            <div class="cart-summary-item">Overall Total: ₹0.00</div>
         </div>
     </div>
-</section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-// Mobile dropdown state
-let openDropdown = null;
-const categories = {{ categories_json|safe }};
-
-// Attach event listeners to filter buttons
-document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const type = this.getAttribute('data-type');
-            if (type) {
-                toggleDropdown(type);
-            }
-        });
-    });
-});
-
-function toggleDropdown(type) {
-    // Close any open dropdown first
-    if (openDropdown && openDropdown !== type) {
-        closeDropdown(openDropdown);
-    }
     
-    // Toggle the clicked dropdown
-    if (openDropdown === type) {
-        closeDropdown(type);
-    } else {
-        openDropdown(type);
-    }
-}
-
-function openDropdown(type) {
-    const container = document.getElementById('mobile-dropdowns-container');
-    const btn = document.getElementById(`${type}-btn`);
-    
-    if (!container || !btn) return;
-    
-    let content = '';
-    const buttonRect = btn.getBoundingClientRect();
-    
-    if (type === 'sort') {
-        const currentSort = new URLSearchParams(window.location.search).get('sort_by') || '-created_at';
-        content = `
-            <div class="mobile-dropdown">
-                <div class="dropdown-option" onclick="applySort('-created_at')" ${currentSort === '-created_at' ? 'data-active="true"' : ''}>Newest</div>
-                <div class="dropdown-option" onclick="applySort('price_low')" ${currentSort === 'price_low' ? 'data-active="true"' : ''}>Price: Low to High</div>
-                <div class="dropdown-option" onclick="applySort('price_high')" ${currentSort === 'price_high' ? 'data-active="true"' : ''}>Price: High to Low</div>
-                <div class="dropdown-option" onclick="applySort('name')" ${currentSort === 'name' ? 'data-active="true"' : ''}>Name: A-Z</div>
-            </div>
-        `;
-    } else if (type === 'category') {
-        const currentCategory = new URLSearchParams(window.location.search).get('category') || '';
-        content = `
-            <div class="mobile-dropdown">
-                <div class="dropdown-option" onclick="applyCategory('')" ${!currentCategory ? 'data-active="true"' : ''}>All Categories</div>
-                ${categories.map(cat => `
-                    <div class="dropdown-option" onclick="applyCategory('${cat.id}')" ${currentCategory === cat.id.toString() ? 'data-active="true"' : ''}>${cat.name}</div>
-                `).join('')}
-            </div>
-        `;
-    } else if (type === 'price') {
-        const minPrice = new URLSearchParams(window.location.search).get('min_price') || '';
-        const maxPrice = new URLSearchParams(window.location.search).get('max_price') || '';
-        content = `
-            <div class="mobile-dropdown">
-                <div class="price-inputs">
-                    <input type="number" id="min-price-input" placeholder="Min Price" value="${minPrice}" class="price-input">
-                    <input type="number" id="max-price-input" placeholder="Max Price" value="${maxPrice}" class="price-input">
-                </div>
-                <button onclick="applyPrice()" class="apply-btn">Apply</button>
-            </div>
-        `;
-    } else if (type === 'stock') {
-        const inStock = new URLSearchParams(window.location.search).get('in_stock');
-        content = `
-            <div class="mobile-dropdown">
-                <div class="dropdown-option" onclick="applyStock('')" ${!inStock ? 'data-active="true"' : ''}>All</div>
-                <div class="dropdown-option" onclick="applyStock('true')" ${inStock === 'true' ? 'data-active="true"' : ''}>In Stock</div>
-                <div class="dropdown-option" onclick="applyStock('false')" ${inStock === 'false' ? 'data-active="true"' : ''}>Out of Stock</div>
-            </div>
-        `;
-    }
-    
-    container.innerHTML = content;
-    openDropdown = type;
-    
-    // Update button arrow
-    btn.innerHTML = btn.innerHTML.replace('▼', '▲');
-}
-
-function closeDropdown(type) {
-    const container = document.getElementById('mobile-dropdowns-container');
-    const btn = document.getElementById(`${type}-btn`);
-    
-    if (container) {
-        container.innerHTML = '';
-    }
-    if (btn) {
-        btn.innerHTML = btn.innerHTML.replace('▲', '▼');
-    }
-    
-    openDropdown = null;
-}
-
-function applySort(sortBy) {
-    const url = new URL(window.location);
-    url.searchParams.set('sort_by', sortBy);
-    url.searchParams.set('page', '1');
-    window.location.href = url.toString();
-}
-
-function applyCategory(categoryId) {
-    const url = new URL(window.location);
-    if (categoryId) {
-        url.searchParams.set('category', categoryId);
-    } else {
-        url.searchParams.delete('category');
-    }
-    url.searchParams.set('page', '1');
-    window.location.href = url.toString();
-}
-
-function applyPrice() {
-    const minPrice = document.getElementById('min-price-input').value;
-    const maxPrice = document.getElementById('max-price-input').value;
-    const url = new URL(window.location);
-    
-    if (minPrice) {
-        url.searchParams.set('min_price', minPrice);
-    } else {
-        url.searchParams.delete('min_price');
-    }
-    
-    if (maxPrice) {
-        url.searchParams.set('max_price', maxPrice);
-    } else {
-        url.searchParams.delete('max_price');
-    }
-    
-    url.searchParams.set('page', '1');
-    window.location.href = url.toString();
-}
-
-function applyStock(stockValue) {
-    const url = new URL(window.location);
-    
-    if (stockValue === 'true') {
-        url.searchParams.set('in_stock', 'true');
-    } else if (stockValue === 'false') {
-        url.searchParams.set('in_stock', 'false');
-    } else {
-        url.searchParams.delete('in_stock');
-    }
-    
-    url.searchParams.set('page', '1');
-    window.location.href = url.toString();
-}
-
-function clearFilters() {
-    window.location.href = '/shop/';
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-    if (openDropdown) {
-        const container = document.getElementById('mobile-dropdowns-container');
-        const btn = document.getElementById(`${openDropdown}-btn`);
+    {% for category_item in catalog_data %}
+    <div class="category-section">
+        <div class="category-header">
+            <h2 class="category-title">{{ category_item.category.name }} (80% Discount)</h2>
+        </div>
         
-        if (container && !container.contains(event.target) && btn && !btn.contains(event.target)) {
-            closeDropdown(openDropdown);
-        }
-    }
-});
-
-// Update button text based on current filters
-document.addEventListener('DOMContentLoaded', function() {
-    const params = new URLSearchParams(window.location.search);
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in category_item.products %}
+                <tr>
+                    <td class="product-name">{{ item.product.name }}</td>
+                    <td class="unit">1Box</td>
+                    <td>
+                        <span class="original-price">{{ item.original_price|floatformat:0 }}</span>
+                        <span class="discounted-price">{{ item.discounted_price|floatformat:0 }}</span>
+                    </td>
+                    <td>1</td>
+                    <td class="total-price">₹{{ item.discounted_price|floatformat:0 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% empty %}
+    <div class="text-center text-gray-400 py-12">
+        <p>No products found in catalog.</p>
+    </div>
+    {% endfor %}
     
-    // Update Type button if category is selected
-    const categoryId = params.get('category');
-    if (categoryId) {
-        const category = categories.find(c => c.id.toString() === categoryId);
-        if (category) {
-            const categoryBtn = document.getElementById('category-btn');
-            if (categoryBtn) {
-                categoryBtn.innerHTML = `Type: ${category.name} ▼`;
-            }
-        }
-    }
+    <div class="cart-summary">
+        <div class="cart-summary-content">
+            <div class="cart-summary-item">Net Total: ₹0.00</div>
+            <div class="cart-summary-item">You Save: ₹0.00</div>
+            <div class="cart-summary-item">Overall Total: ₹0.00</div>
+        </div>
+    </div>
     
-    // Update Sort button
-    const sortBy = params.get('sort_by');
-    if (sortBy) {
-        const sortBtn = document.getElementById('sort-btn');
-        if (sortBtn) {
-            const sortLabels = {
-                '-created_at': 'Newest',
-                'price_low': 'Price Low',
-                'price_high': 'Price High',
-                'name': 'Name A-Z'
-            };
-            sortBtn.innerHTML = `Sort: ${sortLabels[sortBy] || sortBy} ▼`;
-        }
-    }
-});
-</script>
-
-<style>
-.mobile-dropdown {
-    position: fixed;
-    left: 1rem;
-    right: 1rem;
-    background: rgba(30, 30, 30, 0.98);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    top: auto;
-    margin-top: 0.5rem;
-}
-
-.dropdown-option {
-    padding: 12px 16px;
-    color: #d1d5db;
-    cursor: pointer;
-    transition: background 0.2s;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.dropdown-option:last-child {
-    border-bottom: none;
-}
-
-.dropdown-option:hover {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-}
-
-.dropdown-option[data-active="true"] {
-    background: rgba(239, 68, 68, 0.2);
-    color: #ef4444;
-    font-weight: 600;
-}
-
-.price-inputs {
-    padding: 16px;
-    display: flex;
-    gap: 8px;
-}
-
-.price-input {
-    flex: 1;
-    padding: 10px 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.price-input::placeholder {
-    color: #6b7280;
-}
-
-.apply-btn {
-    width: calc(100% - 32px);
-    margin: 0 16px 16px;
-    padding: 12px;
-    background: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.apply-btn:hover {
-    background: #dc2626;
-}
-</style>
+    <div class="catalog-footer">
+        <div class="catalog-footer-content">
+            <h3>Baby Crackers</h3>
+            <p>Premium Sivakasi fireworks for every festival, wedding and celebration, trusted by families across Tamil Nadu.</p>
+            
+            <div class="legal-notice">
+                <p><strong>Important Notice:</strong></p>
+                <p>As per 2018 supreme court order, online sale of firecrackers are not permitted! We value our customers and at the same time, respect jurisdiction. We request you to add your products to the cart and submit the required crackers through the enquiry button. We will contact you within 24 hrs and confirm the order through WhatsApp or phone call. Please add and submit your enquiries and enjoy your Diwali with Baby Crackers.</p>
+                <p style="margin-top: 1rem;">Our License No.----. Baby Crackers as a company following 100% legal & statutory compliances and all our shops, go-downs are maintained as per the explosive acts. We send the parcels through registered and legal transport service providers as like every other major companies in Sivakasi is doing so.</p>
+            </div>
+            
+            <p style="margin-top: 2rem; color: #666;">Copyright © 2026 Baby Crackers. All Rights Reserved.</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
