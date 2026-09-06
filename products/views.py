@@ -170,12 +170,6 @@ def shop_view(request):
         'categories': categories,
         'total_count': products.count()
     })
-            'products': [],
-            'categories': [],
-            'paginator': None,
-            'current_page': None,
-            'error': str(e)
-        })
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
