@@ -99,77 +99,88 @@ def offers_view(request):
 
 def shop_view(request):
     """Shop page view with Baby Crackers format"""
-    categories = Category.objects.filter(is_active=True).order_by('order', 'name')
-    
-    # Get filter parameters
-    category_id = request.GET.get('category')
-    min_price = request.GET.get('min_price')
-    max_price = request.GET.get('max_price')
-    in_stock = request.GET.get('in_stock')
-    on_sale = request.GET.get('on_sale')
-    sort_by = request.GET.get('sort_by', 'order')
-    search_query = request.GET.get('q', '')
-    
-    # Build product query
-    products = Product.objects.filter(is_active=True)
-    
-    if search_query:
-        products = products.filter(name__icontains=search_query)
-    
-    if category_id:
-        products = products.filter(category_id=category_id)
-    
-    if min_price:
-        products = products.filter(regular_price__gte=min_price)
-    
-    if max_price:
-        products = products.filter(regular_price__lte=max_price)
-    
-    if in_stock:
-        products = products.filter(stock__gt=0)
-    
-    if on_sale:
-        products = products.filter(sale_price__isnull=False)
-    
-    # Apply sorting
-    if sort_by == 'price_low':
-        products = products.order_by('sale_price', 'regular_price')
-    elif sort_by == 'price_high':
-        products = products.order_by('-sale_price', '-regular_price')
-    elif sort_by == 'newest':
-        products = products.order_by('-created_at')
-    elif sort_by == 'name':
-        products = products.order_by('name')
-    else:
-        products = products.order_by('order', 'name')
-    
-    # Organize by category for Baby Crackers format
-    catalog_data = []
-    for category in categories:
-        category_products = products.filter(category=category)
+    try:
+        categories = Category.objects.filter(is_active=True).order_by('order', 'name')
         
-        if category_products.exists():
-            # Add discounted price (80% discount = 20% of original price)
-            products_with_discount = []
-            for product in category_products:
-                original_price = product.get_current_price
-                discounted_price = original_price * 0.2  # 80% discount
-                products_with_discount.append({
-                    'product': product,
-                    'original_price': original_price,
-                    'discounted_price': discounted_price
-                })
+        # Get filter parameters
+        category_id = request.GET.get('category')
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        in_stock = request.GET.get('in_stock')
+        on_sale = request.GET.get('on_sale')
+        sort_by = request.GET.get('sort_by', 'order')
+        search_query = request.GET.get('q', '')
+        
+        # Build product query
+        products = Product.objects.filter(is_active=True)
+        
+        if search_query:
+            products = products.filter(name__icontains=search_query)
+        
+        if category_id:
+            products = products.filter(category_id=category_id)
+        
+        if min_price:
+            products = products.filter(regular_price__gte=min_price)
+        
+        if max_price:
+            products = products.filter(regular_price__lte=max_price)
+        
+        if in_stock:
+            products = products.filter(stock__gt=0)
+        
+        if on_sale:
+            products = products.filter(sale_price__isnull=False)
+        
+        # Apply sorting
+        if sort_by == 'price_low':
+            products = products.order_by('sale_price', 'regular_price')
+        elif sort_by == 'price_high':
+            products = products.order_by('-sale_price', '-regular_price')
+        elif sort_by == 'newest':
+            products = products.order_by('-created_at')
+        elif sort_by == 'name':
+            products = products.order_by('name')
+        else:
+            products = products.order_by('order', 'name')
+        
+        # Organize by category for Baby Crackers format
+        catalog_data = []
+        for category in categories:
+            category_products = products.filter(category=category)
             
-            catalog_data.append({
-                'category': category,
-                'products': products_with_discount
-            })
-    
-    return render(request, 'shop.html', {
-        'catalog_data': catalog_data,
-        'categories': categories,
-        'total_count': products.count()
-    })
+            if category_products.exists():
+                # Add discounted price (80% discount = 20% of original price)
+                products_with_discount = []
+                for product in category_products:
+                    original_price = product.get_current_price
+                    discounted_price = original_price * 0.2  # 80% discount
+                    products_with_discount.append({
+                        'product': product,
+                        'original_price': original_price,
+                        'discounted_price': discounted_price
+                    })
+                
+                catalog_data.append({
+                    'category': category,
+                    'products': products_with_discount
+                })
+        
+        return render(request, 'shop.html', {
+            'catalog_data': catalog_data,
+            'categories': categories,
+            'total_count': products.count()
+        })
+    except Exception as e:
+        print(f"Error in shop_view: {e}")
+        import traceback
+        traceback.print_exc()
+        return render(request, 'shop.html', {
+            'catalog_data': [],
+            'categories': [],
+            'total_count': 0,
+            'error': str(e)
+        })
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
