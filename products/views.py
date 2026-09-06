@@ -114,7 +114,7 @@ def shop_view(request):
                 # Add discounted price (80% discount = 20% of original price)
                 products_with_discount = []
                 for product in category_products:
-                    original_price = product.get_current_price
+                    original_price = product.get_current_price()
                     discounted_price = original_price * 0.2  # 80% discount
                     products_with_discount.append({
                         'product': product,
