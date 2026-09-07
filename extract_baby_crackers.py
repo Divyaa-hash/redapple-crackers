@@ -18,7 +18,7 @@ def extract_product_data_from_html():
     """
     
     products = []
-    
+   
     # Pattern to extract product data from HTML
     # Looking for: <img class="itmImage" alt="product name" src="image url">
     # and: <td class="itemDesc">product name</td>
