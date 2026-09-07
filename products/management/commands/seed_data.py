@@ -4,7 +4,6 @@ from django.conf import settings
 from products.models import Category, Brand, Product, Festival
 from decimal import Decimal
 import random
-import pandas as pd
 import os
 
 
@@ -14,17 +13,64 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Seeding database with sample data...')
         
-        # Load Excel data
+        # Try to import pandas, but handle if not available
         try:
-            excel_path = 'Vamsi_Crackers 2026 diwali.xlsx'
-            df = pd.read_excel(excel_path)
-            self.stdout.write(f'Loaded {len(df)} products from Excel file')
-        except Exception as e:
-            self.stdout.write(self.style.ERROR(f'Error loading Excel file: {e}'))
-            return
+            import pandas as pd
+            has_pandas = True
+        except ImportError:
+            has_pandas = False
+            self.stdout.write(self.style.WARNING('pandas not installed, skipping Excel import'))
+        
+        # Load Excel data if pandas is available
+        df = None
+        if has_pandas:
+            try:
+                excel_path = 'Vamsi_Crackers 2026 diwali.xlsx'
+                df = pd.read_excel(excel_path)
+                self.stdout.write(f'Loaded {len(df)} products from Excel file')
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f'Error loading Excel file: {e}'))
+                df = None
         
         # Create categories from Excel
-        excel_categories = df['Category'].unique().tolist()
+        if df is not None:
+            excel_categories = df['Category'].unique().tolist()
+        else:
+            # Default categories if no Excel data
+            excel_categories = [
+                'SINGLE SOUND CRACKERS',
+                'GROUND CHAKKARS',
+                'FANCY GROUND CHAKKARS',
+                'FLOWER POTS',
+                'FANCY FLOWER POTS',
+                'TWINKLING STARS',
+                'CANDLES',
+                'FANCY CANDLES',
+                'TOYS and SPRINKLERS',
+                'BIJILI CRACKERS',
+                'KIDS SPECIAL FANCY FOUNTAINS',
+                'SPECIAL FANCY FOUNTAINS',
+                'PEACOCK SERIES',
+                'SPECIAL KIDS FOUNTAINS',
+                'MULTISTEP SPL FANCY FOUNTAINS',
+                'NEW ARRIVAL - 2026',
+                'BOMBS',
+                'PAPER BOMB',
+                'GARLAND CRACKERS',
+                'ROCKETS',
+                'MINI AREIAL FANCY',
+                'NIGHT MEGA AREIAL FANCY',
+                'LOVELY SPECIAL FANCY SERIES',
+                'AERIAL REPEATING SHOTS',
+                'FESTIVAL DISPLAY SHOTS',
+                'NEW ARRIVAL FANTASTIC AERIAL SHOTS',
+                'FESTIVAL MEGA DISPLAY SHOTS',
+                'SPARKLERS',
+                'FANCY COLOUR SPARKLERS',
+                'COLOUR MATCHES and ROLL CAPS',
+                'GIFT BOXES',
+                'FESTIVAL FAMILY PACK SPECIAL'
+            ]
         categories_data = []
         for i, cat_name in enumerate(excel_categories):
             slug = cat_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '')
@@ -54,7 +100,7 @@ class Command(BaseCommand):
         # Create brands
         brands_data = [
             {'name': 'RedApple', 'slug': 'redapple', 'is_featured': True},
-            {'name': 'Celebration', 'slug': 'celebration', 'is_featured': True},
+              {'name': 'Celebration', 'slug': 'celebration', 'is_featured': True},
             {'name': 'JoyFest', 'slug': 'joyfest', 'is_featured': False},
             {'name': 'SparkMaster', 'slug': 'sparkmaster', 'is_featured': False},
         ]
@@ -123,57 +169,147 @@ class Command(BaseCommand):
         
         # Create products from Excel data (175 total: 171 regular + 4 gift boxes)
         products_data = []
-        max_regular_products = 171  # First 171 regular products
-        regular_product_count = 0
         
-        # Process regular products first (skip gift boxes and family packs)
-        for index, row in df.iterrows():
-            if regular_product_count >= max_regular_products:
-                break
+        if df is not None:
+            max_regular_products = 171  # First 171 regular products
+            regular_product_count = 0
+            
+            # Process regular products first (skip gift boxes and family packs)
+            for index, row in df.iterrows():
+                if regular_product_count >= max_regular_products:
+                    break
+                    
+                if row['Status'] != 'Active':
+                    continue
                 
-            if row['Status'] != 'Active':
-                continue
-            
-            # Skip gift boxes and family packs in first pass
-            category_name = row['Category']
-            if 'GIFT BOXES' in str(category_name) or 'FAMILY PACK' in str(category_name):
-                continue
+                # Skip gift boxes and family packs in first pass
+                category_name = row['Category']
+                if 'GIFT BOXES' in str(category_name) or 'FAMILY PACK' in str(category_name):
+                    continue
+                    
+                product_name = row['Product Name']
+                category_name = row['Category']
+                original_price = row['Original Price']
+                offer_price = row['Offer Price']
                 
-            product_name = row['Product Name']
-            category_name = row['Category']
-            original_price = row['Original Price']
-            offer_price = row['Offer Price']
-            
-            # Skip if no price data
-            if pd.isna(original_price) and pd.isna(offer_price):
-                continue
+                # Skip if no price data
+                if pd.isna(original_price) and pd.isna(offer_price):
+                    continue
                 
-            # Use offer price if available, otherwise original price, add 10% markup
-            base_price = offer_price if pd.notna(offer_price) else original_price
-            if pd.isna(base_price):
-                continue
+                # Use offer price if available, otherwise original price, add 10% markup
+                base_price = offer_price if pd.notna(offer_price) else original_price
+                if pd.isna(base_price):
+                    continue
+                    
+                # Add 10% markup
+                regular_price = Decimal(str(float(base_price) * 1.1))
+                sale_price = None
                 
-            # Add 10% markup
-            regular_price = Decimal(str(float(base_price) * 1.1))
-            sale_price = None
-            
-            # If there was an offer price, use it as sale price with 10% markup
-            if pd.notna(offer_price) and pd.notna(original_price):
-                sale_price = regular_price
-                regular_price = Decimal(str(float(original_price) * 1.1))
-            
-            # Get category
-            category = category_map.get(category_name)
-            if not category:
-                self.stdout.write(f'Warning: Category not found: {category_name}')
-                continue
-            
-            # Generate slug
-            slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
-            
-            # Generate SKU
-            if 'GIFT BOXES' in category_name:
-                # Use specific SKUs for gift boxes
+                # If there was an offer price, use it as sale price with 10% markup
+                if pd.notna(offer_price) and pd.notna(original_price):
+                    sale_price = regular_price
+                    regular_price = Decimal(str(float(original_price) * 1.1))
+                
+                # Get category
+                category = category_map.get(category_name)
+                if not category:
+                    self.stdout.write(f'Warning: Category not found: {category_name}')
+                    continue
+                
+                # Generate slug
+                slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
+                
+                # Generate SKU
+                sku = f'VMS-{index + 1:03d}'
+                
+                # Assign image using modulo
+                image_index = index % len(uploaded_images)
+                image_path = uploaded_images[image_index]
+                
+                regular_product_count += 1
+                
+                # Determine product type based on category
+                product_type = 'single'
+                if 'GIFT BOXES' in category_name or 'FAMILY PACK' in category_name:
+                    product_type = 'gift_box'
+                elif 'PACK' in product_name or 'Pcs' in product_name:
+                    product_type = 'box'
+                elif 'SET' in product_name or 'COMBO' in product_name:
+                    product_type = 'combo'
+                
+                # Determine safety level
+                safety_level = 'medium'
+                if any(word in category_name for word in ['BOMB', 'CRACKERS', 'ROCKET']):
+                    safety_level = 'high'
+                elif any(word in category_name for word in ['SPARKLERS', 'CANDLES', 'TOYS']):
+                    safety_level = 'low'
+                
+                products_data.append({
+                    'name': product_name,
+                    'slug': slug,
+                    'sku': sku,
+                    'category': category,
+                    'brand': brands[0],
+                    'product_type': product_type,
+                    'safety_level': safety_level,
+                    'short_description': f'{product_name} - {category_name}',
+                    'description': f'{product_name} from {category_name}. High quality crackers for celebrations and festivals.',
+                    'regular_price': regular_price,
+                    'sale_price': sale_price,
+                    'stock': random.randint(10, 100),
+                    'pieces': 1,
+                    'is_active': True,
+                    'is_featured': random.random() > 0.8,
+                    'is_new': random.random() > 0.7,
+                    'is_bestseller': random.random() > 0.85,
+                    'is_trending': random.random() > 0.6,
+                    'main_image': image_path,
+                    'additional_images': [],
+                })
+        
+        # Add 4 gift box products to make total 175
+        if df is not None:
+            gift_box_products = df[df['Category'].str.contains('GIFT BOX', case=False, na=False)]
+            for index, row in gift_box_products.iterrows():
+                if len(products_data) >= 175:
+                    break
+                    
+                if row['Status'] != 'Active':
+                    continue
+                
+                product_name = row['Product Name']
+                category_name = row['Category']
+                original_price = row['Original Price']
+                offer_price = row['Offer Price']
+                
+                # Skip if no price data
+                if pd.isna(original_price) and pd.isna(offer_price):
+                    continue
+                
+                # Use offer price if available, otherwise original price, add 10% markup
+                base_price = offer_price if pd.notna(offer_price) else original_price
+                if pd.isna(base_price):
+                    continue
+                    
+                # Add 10% markup
+                regular_price = Decimal(str(float(base_price) * 1.1))
+                sale_price = None
+                
+                # If there was an offer price, use it as sale price with 10% markup
+                if pd.notna(offer_price) and pd.notna(original_price):
+                    sale_price = regular_price
+                    regular_price = Decimal(str(float(original_price) * 1.1))
+                
+                # Get category
+                category = category_map.get(category_name)
+                if not category:
+                    self.stdout.write(f'Warning: Category not found: {category_name}')
+                    continue
+                
+                # Generate slug
+                slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
+                
+                # Generate SKU
                 if 'Love Feast' in product_name:
                     sku = 'GB-LF-20'
                     slug = 'love-feast-20-item'
@@ -188,11 +324,7 @@ class Command(BaseCommand):
                     slug = 'spectra-festive-50-item'
                 else:
                     sku = f'VMS-{index + 1:03d}'
-            else:
-                sku = f'VMS-{index + 1:03d}'
-            
-            # Assign image - use specific gift box images for gift boxes
-            if sku in ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']:
+                
                 # Assign specific gift box images
                 gift_box_image_map = {
                     'GB-LF-20': available_gift_box_images[0] if len(available_gift_box_images) > 0 else 'products/placeholder.jpg',
@@ -200,147 +332,36 @@ class Command(BaseCommand):
                     'GB-FS-40': available_gift_box_images[2] if len(available_gift_box_images) > 2 else 'products/placeholder.jpg',
                     'GB-SF-50': available_gift_box_images[3] if len(available_gift_box_images) > 3 else 'products/placeholder.jpg',
                 }
-                image_path = gift_box_image_map[sku]
-            else:
-                # Assign image using modulo for other products
-                image_index = index % len(uploaded_images)
-                image_path = uploaded_images[image_index]
-            
-            regular_product_count += 1
-            
-            # Determine product type based on category
-            product_type = 'single'
-            if 'GIFT BOXES' in category_name or 'FAMILY PACK' in category_name:
+                image_path = gift_box_image_map.get(sku, 'products/placeholder.jpg')
+                
+                # Determine product type
                 product_type = 'gift_box'
-            elif 'PACK' in product_name or 'Pcs' in product_name:
-                product_type = 'box'
-            elif 'SET' in product_name or 'COMBO' in product_name:
-                product_type = 'combo'
-            
-            # Determine safety level
-            safety_level = 'medium'
-            if any(word in category_name for word in ['BOMB', 'CRACKERS', 'ROCKET']):
-                safety_level = 'high'
-            elif any(word in category_name for word in ['SPARKLERS', 'CANDLES', 'TOYS']):
-                safety_level = 'low'
-            
-            products_data.append({
-                'name': product_name,
-                'slug': slug,
-                'sku': sku,
-                'category': category,
-                'brand': brands[0],
-                'product_type': product_type,
-                'safety_level': safety_level,
-                'short_description': f'{product_name} - {category_name}',
-                'description': f'{product_name} from {category_name}. High quality crackers for celebrations and festivals.',
-                'regular_price': regular_price,
-                'sale_price': sale_price,
-                'stock': random.randint(10, 100),
-                'pieces': 1,
-                'is_active': True,
-                'is_featured': random.random() > 0.8,
-                'is_new': random.random() > 0.7,
-                'is_bestseller': random.random() > 0.85,
-                'is_trending': random.random() > 0.6,
-                'main_image': image_path,
-                'additional_images': [],
-            })
-        
-        # Add 4 gift box products to make total 175
-        gift_box_products = df[df['Category'].str.contains('GIFT BOX', case=False, na=False)]
-        for index, row in gift_box_products.iterrows():
-            if len(products_data) >= 175:
-                break
                 
-            if row['Status'] != 'Active':
-                continue
-            
-            product_name = row['Product Name']
-            category_name = row['Category']
-            original_price = row['Original Price']
-            offer_price = row['Offer Price']
-            
-            # Skip if no price data
-            if pd.isna(original_price) and pd.isna(offer_price):
-                continue
+                # Determine safety level
+                safety_level = 'medium'
                 
-            # Use offer price if available, otherwise original price, add 10% markup
-            base_price = offer_price if pd.notna(offer_price) else original_price
-            if pd.isna(base_price):
-                continue
-                
-            # Add 10% markup
-            regular_price = Decimal(str(float(base_price) * 1.1))
-            sale_price = None
-            
-            # If there was an offer price, use it as sale price with 10% markup
-            if pd.notna(offer_price) and pd.notna(original_price):
-                sale_price = regular_price
-                regular_price = Decimal(str(float(original_price) * 1.1))
-            
-            # Get category
-            category = category_map.get(category_name)
-            if not category:
-                self.stdout.write(f'Warning: Category not found: {category_name}')
-                continue
-            
-            # Generate slug
-            slug = product_name.lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace('(', '').replace(')', '').replace(',', '').replace('"', '').replace("'", '')
-            
-            # Generate SKU
-            if 'Love Feast' in product_name:
-                sku = 'GB-LF-20'
-                slug = 'love-feast-20-item'
-            elif 'Turbo' in product_name:
-                sku = 'GB-TB-30'
-                slug = 'turbo-30-item'
-            elif 'Fun Special' in product_name:
-                sku = 'GB-FS-40'
-                slug = 'fun-special-40-item'
-            elif 'Spectra Festive' in product_name:
-                sku = 'GB-SF-50'
-                slug = 'spectra-festive-50-item'
-            else:
-                sku = f'VMS-{index + 1:03d}'
-            
-            # Assign specific gift box images
-            gift_box_image_map = {
-                'GB-LF-20': available_gift_box_images[0] if len(available_gift_box_images) > 0 else 'products/placeholder.jpg',
-                'GB-TB-30': available_gift_box_images[1] if len(available_gift_box_images) > 1 else 'products/placeholder.jpg',
-                'GB-FS-40': available_gift_box_images[2] if len(available_gift_box_images) > 2 else 'products/placeholder.jpg',
-                'GB-SF-50': available_gift_box_images[3] if len(available_gift_box_images) > 3 else 'products/placeholder.jpg',
-            }
-            image_path = gift_box_image_map.get(sku, 'products/placeholder.jpg')
-            
-            # Determine product type
-            product_type = 'gift_box'
-            
-            # Determine safety level
-            safety_level = 'medium'
-            
-            products_data.append({
-                'name': product_name,
-                'slug': slug,
-                'sku': sku,
-                'category': category,
-                'brand': brands[0],
-                'product_type': product_type,
-                'safety_level': safety_level,
-                'short_description': f'{product_name} - {category_name}',
-                'description': f'{product_name} from {category_name}. High quality crackers for celebrations and festivals.',
-                'regular_price': regular_price,
-                'sale_price': sale_price,
-                'stock': random.randint(10, 100),
-                'pieces': 1,
-                'is_active': True,
-                'is_featured': random.random() > 0.8,
-                'is_new': random.random() > 0.7,
-                'is_bestseller': random.random() > 0.85,
-                'is_trending': random.random() > 0.6,
-                'main_image': image_path,
-                'additional_images': [],
-            })
+                products_data.append({
+                    'name': product_name,
+                    'slug': slug,
+                    'sku': sku,
+                    'category': category,
+                    'brand': brands[0],
+                    'product_type': product_type,
+                    'safety_level': safety_level,
+                    'short_description': f'{product_name} - {category_name}',
+                    'description': f'{product_name} from {category_name}. High quality crackers for celebrations and festivals.',
+                    'regular_price': regular_price,
+                    'sale_price': sale_price,
+                    'stock': random.randint(10, 100),
+                    'pieces': 1,
+                    'is_active': True,
+                    'is_featured': random.random() > 0.8,
+                    'is_new': random.random() > 0.7,
+                    'is_bestseller': random.random() > 0.85,
+                    'is_trending': random.random() > 0.6,
+                    'main_image': image_path,
+                    'additional_images': [],
+                })
         
         self.stdout.write(f'Prepared {len(products_data)} products from Excel data')
         

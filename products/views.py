@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Q
 import json
+from decimal import Decimal
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -27,8 +29,8 @@ def catalog_view(request):
             # Add discounted price (80% discount = 20% of original price)
             products_with_discount = []
             for product in products:
-                original_price = product.get_current_price
-                discounted_price = original_price * 0.2  # 80% discount
+                original_price = product.get_current_price()
+                discounted_price = original_price * Decimal('0.2')  # 80% discount
                 products_with_discount.append({
                     'product': product,
                     'original_price': original_price,
@@ -115,7 +117,7 @@ def shop_view(request):
                 products_with_discount = []
                 for product in category_products:
                     original_price = product.get_current_price()
-                    discounted_price = original_price * 0.2  # 80% discount
+                    discounted_price = original_price * Decimal('0.2')  # 80% discount
                     products_with_discount.append({
                         'product': product,
                         'original_price': original_price,
