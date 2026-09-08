@@ -118,6 +118,45 @@
         font-weight: bold;
     }
     
+    .qty-input {
+        width: 60px;
+        padding: 5px;
+        border: 1px solid #d4af37;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        text-align: center;
+    }
+    
+    .add-btn {
+        background: #d4af37;
+        color: #1a1a2e;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .add-btn:hover {
+        background: #b8860b;
+    }
+    
+    .remove-btn {
+        background: #dc2626;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .remove-btn:hover {
+        background: #b91c1c;
+    }
+    
     .catalog-footer {
         background: rgba(0, 0, 0, 0.3);
         border-top: 2px solid #d4af37;
@@ -190,9 +229,9 @@
     
     <div class="cart-summary">
         <div class="cart-summary-content">
-            <div class="cart-summary-item">Net Total: ₹0.00</div>
-            <div class="cart-summary-item">You Save: ₹0.00</div>
-            <div class="cart-summary-item">Overall Total: ₹0.00</div>
+            <div class="cart-summary-item">Net Total: ₹<span id="net-total">0.00</span></div>
+            <div class="cart-summary-item">You Save: ₹<span id="you-save">0.00</span></div>
+            <div class="cart-summary-item">Overall Total: ₹<span id="overall-total">0.00</span></div>
         </div>
     </div>
     
@@ -210,19 +249,33 @@
                     <th>Price</th>
                     <th>Qty</th>
                     <th>Total</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in category_item.products %}
-                <tr>
+                <tr data-product-id="{{ item.product.id }}" 
+                    data-original-price="{{ item.original_price }}" 
+                    data-discounted-price="{{ item.discounted_price }}">
                     <td class="product-name">{{ item.product.name }}</td>
                     <td class="unit">1Box</td>
                     <td>
                         <span class="original-price">{{ item.original_price|floatformat:0 }}</span>
                         <span class="discounted-price">{{ item.discounted_price|floatformat:0 }}</span>
                     </td>
-                    <td>1</td>
-                    <td class="total-price">₹{{ item.discounted_price|floatformat:0 }}</td>
+                    <td>
+                        <input type="number" 
+                               class="qty-input" 
+                               value="0" 
+                               min="0" 
+                               max="100"
+                               onchange="updateRowTotal(this)">
+                    </td>
+                    <td class="total-price">₹<span class="row-total">0</span></td>
+                    <td>
+                        <button class="add-btn" onclick="addToCart({{ item.product.id }})">Add</button>
+                        <button class="remove-btn" onclick="removeFromCart({{ item.product.id }})">Remove</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -236,9 +289,9 @@
     
     <div class="cart-summary">
         <div class="cart-summary-content">
-            <div class="cart-summary-item">Net Total: ₹0.00</div>
-            <div class="cart-summary-item">You Save: ₹0.00</div>
-            <div class="cart-summary-item">Overall Total: ₹0.00</div>
+            <div class="cart-summary-item">Net Total: ₹<span id="net-total-bottom">0.00</span></div>
+            <div class="cart-summary-item">You Save: ₹<span id="you-save-bottom">0.00</span></div>
+            <div class="cart-summary-item">Overall Total: ₹<span id="overall-total-bottom">0.00</span></div>
         </div>
     </div>
     
@@ -257,4 +310,101 @@
         </div>
     </div>
 </div>
+
+<script>
+// Cart storage
+let cart = {};
+
+function updateRowTotal(input) {
+    const row = input.closest('tr');
+    const qty = parseInt(input.value) || 0;
+    const discountedPrice = parseFloat(row.dataset.discountedPrice);
+    const total = qty * discountedPrice;
+    row.querySelector('.row-total').textContent = total.toFixed(0);
+    updateCartTotals();
+}
+
+function addToCart(productId) {
+    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+    if (!row) return;
+    
+    const qtyInput = row.querySelector('.qty-input');
+    const qty = parseInt(qtyInput.value) || 0;
+    
+    if (qty <= 0) {
+        alert('Please enter a quantity greater than 0');
+        return;
+    }
+    
+    const discountedPrice = parseFloat(row.dataset.discountedPrice);
+    const originalPrice = parseFloat(row.dataset.originalPrice);
+    
+    cart[productId] = {
+        quantity: qty,
+        discountedPrice: discountedPrice,
+        originalPrice: originalPrice
+    };
+    
+    updateCartTotals();
+    alert('Product added to cart!');
+}
+
+function removeFromCart(productId) {
+    delete cart[productId];
+    
+    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+    if (row) {
+        row.querySelector('.qty-input').value = 0;
+        row.querySelector('.row-total').textContent = '0';
+    }
+    
+    updateCartTotals();
+    alert('Product removed from cart!');
+}
+
+function updateCartTotals() {
+    let netTotal = 0;
+    let originalTotal = 0;
+    
+    for (const productId in cart) {
+        const item = cart[productId];
+        netTotal += item.quantity * item.discountedPrice;
+        originalTotal += item.quantity * item.originalPrice;
+    }
+    
+    const youSave = originalTotal - netTotal;
+    const overallTotal = netTotal;
+    
+    // Update all cart summary displays
+    document.getElementById('net-total').textContent = netTotal.toFixed(0);
+    document.getElementById('you-save').textContent = youSave.toFixed(0);
+    document.getElementById('overall-total').textContent = overallTotal.toFixed(0);
+    document.getElementById('net-total-bottom').textContent = netTotal.toFixed(0);
+    document.getElementById('you-save-bottom').textContent = youSave.toFixed(0);
+    document.getElementById('overall-total-bottom').textContent = overallTotal.toFixed(0);
+}
+
+// Load cart from localStorage on page load
+window.onload = function() {
+    const savedCart = localStorage.getItem('babyCrackersCart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        
+        // Restore quantities and row totals
+        for (const productId in cart) {
+            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+            if (row) {
+                const qtyInput = row.querySelector('.qty-input');
+                qtyInput.value = cart[productId].quantity;
+                updateRowTotal(qtyInput);
+            }
+        }
+    }
+};
+
+// Save cart to localStorage before page unload
+window.onbeforeunload = function() {
+    localStorage.setItem('babyCrackersCart', JSON.stringify(cart));
+};
+</script>
 {% endblock %}
