@@ -365,11 +365,13 @@ function removeFromCart(productId) {
 function updateCartTotals() {
     let netTotal = 0;
     let originalTotal = 0;
+    let totalItems = 0;
     
     for (const productId in cart) {
         const item = cart[productId];
         netTotal += item.quantity * item.discountedPrice;
         originalTotal += item.quantity * item.originalPrice;
+        totalItems += item.quantity;
     }
     
     const youSave = originalTotal - netTotal;
@@ -382,6 +384,12 @@ function updateCartTotals() {
     document.getElementById('net-total-bottom').textContent = netTotal.toFixed(0);
     document.getElementById('you-save-bottom').textContent = youSave.toFixed(0);
     document.getElementById('overall-total-bottom').textContent = overallTotal.toFixed(0);
+    
+    // Update cart count badge in navbar
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    cartCountElements.forEach(element => {
+        element.textContent = totalItems;
+    });
 }
 
 // Load cart from localStorage on page load
@@ -400,6 +408,9 @@ window.onload = function() {
             }
         }
     }
+    
+    // Update cart totals and count on page load
+    updateCartTotals();
 };
 
 // Save cart to localStorage before page unload
