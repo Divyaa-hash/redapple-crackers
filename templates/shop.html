@@ -312,7 +312,7 @@
 </div>
 
 <script>
-// Cart storage
+// Cart storage - sync with backend
 let cart = {};
 
 function updateRowTotal(input) {
@@ -321,10 +321,9 @@ function updateRowTotal(input) {
     const discountedPrice = parseFloat(row.dataset.discountedPrice);
     const total = qty * discountedPrice;
     row.querySelector('.row-total').textContent = total.toFixed(0);
-    updateCartTotals();
 }
 
-function addToCart(productId) {
+async function addToCart(productId) {
     const row = document.querySelector(`tr[data-product-id="${productId}"]`);
     if (!row) return;
     
@@ -336,33 +335,96 @@ function addToCart(productId) {
         return;
     }
     
-    const discountedPrice = parseFloat(row.dataset.discountedPrice);
-    const originalPrice = parseFloat(row.dataset.originalPrice);
-    
-    cart[productId] = {
-        quantity: qty,
-        discountedPrice: discountedPrice,
-        originalPrice: originalPrice
-    };
-    
-    updateCartTotals();
-    alert('Product added to cart!');
-}
-
-function removeFromCart(productId) {
-    delete cart[productId];
-    
-    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-    if (row) {
-        row.querySelector('.qty-input').value = 0;
-        row.querySelector('.row-total').textContent = '0';
+    try {
+        const response = await fetch('/cart/add/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: `product_id=${productId}&quantity=${qty}`
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Update local cart storage
+            const discountedPrice = parseFloat(row.dataset.discountedPrice);
+            const originalPrice = parseFloat(row.dataset.originalPrice);
+            
+            cart[productId] = {
+                quantity: qty,
+                discountedPrice: discountedPrice,
+                originalPrice: originalPrice
+            };
+            
+            updateCartTotals();
+            alert('Product added to cart!');
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+        alert('Error adding product to cart');
     }
-    
-    updateCartTotals();
-    alert('Product removed from cart!');
 }
 
-function updateCartTotals() {
+async function removeFromCart(productId) {
+    try {
+        // First, find the cart item ID by calling cart summary
+        const summaryResponse = await fetch('/cart/summary/');
+        const summaryData = await summaryResponse.json();
+        
+        // Find the item with this product ID
+        const cartItem = summaryData.items.find(item => item.product_id == productId);
+        
+        if (cartItem) {
+            const response = await fetch('/cart/remove/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: `item_id=${cartItem.id}`
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Update local cart storage
+                delete cart[productId];
+                
+                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                if (row) {
+                    row.querySelector('.qty-input').value = 1;
+                    row.querySelector('.row-total').textContent = row.dataset.discountedPrice;
+                }
+                
+                updateCartTotals();
+                alert('Product removed from cart!');
+            } else {
+                alert('Error: ' + data.message);
+            }
+        } else {
+            // Product not in backend cart, just remove from local storage
+            delete cart[productId];
+            
+            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+            if (row) {
+                row.querySelector('.qty-input').value = 1;
+                row.querySelector('.row-total').textContent = row.dataset.discountedPrice;
+            }
+            
+            updateCartTotals();
+            alert('Product removed from cart!');
+        }
+    } catch (error) {
+        console.error('Error removing from cart:', error);
+        alert('Error removing product from cart');
+    }
+}
+
+async function updateCartTotals() {
     let netTotal = 0;
     let originalTotal = 0;
     let totalItems = 0;
@@ -390,6 +452,19 @@ function updateCartTotals() {
     cartCountElements.forEach(element => {
         element.textContent = totalItems;
     });
+    
+    // Sync with backend cart summary
+    try {
+        const response = await fetch('/cart/summary/');
+        const data = await response.json();
+        
+        // Update cart count with backend data
+        cartCountElements.forEach(element => {
+            element.textContent = data.cart_count || 0;
+        });
+    } catch (error) {
+        console.error('Error fetching cart summary:', error);
+    }
 }
 
 // Load cart from localStorage on page load
