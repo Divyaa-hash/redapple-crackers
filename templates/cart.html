@@ -234,13 +234,20 @@ function loadCart() {
 }
 
 function removeFromCart(productId) {
-    const savedCart = localStorage.getItem('redappleCart');
-    if (savedCart) {
-        const cart = JSON.parse(savedCart);
-        delete cart[productId];
-        localStorage.setItem('redappleCart', JSON.stringify(cart));
-        loadCart();
-        alert('Product removed from cart!');
+    try {
+        const savedCart = localStorage.getItem('redappleCart');
+        if (savedCart) {
+            const cart = JSON.parse(savedCart);
+            delete cart[productId];
+            localStorage.setItem('redappleCart', JSON.stringify(cart));
+            loadCart();
+            alert('Product removed from cart!');
+        } else {
+            alert('Cart is empty');
+        }
+    } catch (error) {
+        console.error('Error removing from cart:', error);
+        alert('Error removing product from cart');
     }
 }
 

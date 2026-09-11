@@ -257,7 +257,7 @@
                 <tr data-product-id="{{ item.product.id }}" 
                     data-original-price="{{ item.original_price }}" 
                     data-discounted-price="{{ item.discounted_price }}">
-                    <td class="product-name">{{ item.product.name }}</td>
+                    <td class="product-name"><a href="/products/{{ item.product.id }}/" class="text-white hover:text-red-500">{{ item.product.name }}</a></td>
                     <td class="unit">1Box</td>
                     <td>
                         <span class="original-price">{{ item.original_price|floatformat:0 }}</span>
