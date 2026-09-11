@@ -123,165 +123,130 @@
 <!-- Cart Content -->
 <section class="py-8 sm:py-12 bg-black-100">
     <div class="max-w-7xl mx-auto px-4">
-        {% if cart_items %}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            <!-- Cart Items -->
-            <div class="lg:col-span-2">
-                <div class="glass-card p-4 sm:p-6 rounded-2xl">
-                    {% for item in cart_items %}
-                    <div class="cart-item py-4 sm:py-6 border-b border-white/10 last:border-0">
-                        <div class="cart-item-image bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
-                            {% if item.product.main_image %}
-                            <img src="{{ item.product.main_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
-                            {% elif item.product.get_display_image %}
-                            <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}';">
-                            {% else %}
-                            <img src="https://via.placeholder.com/200x200/ef4444/ffffff?text={{ item.product.name|truncatewords:2 }}" alt="{{ item.product.name }}" class="w-full h-full object-contain">
-                            {% endif %}
-                        </div>
-                        
-                        <div class="cart-item-details flex-1">
-                            <h3 class="font-semibold text-white text-base sm:text-lg">{{ item.product.name }}</h3>
-                            <p class="text-gray-400 text-sm">{{ item.product.category.name }}</p>
-                            <p class="text-red-500 font-bold text-lg sm:text-xl mt-1 sm:mt-2">₹{{ item.unit_price }}</p>
-                        </div>
-                        
-                        <div class="cart-item-actions">
-                            <div class="quantity-controls">
-                                <button onclick="updateCartItem({{ item.id }}, {{ item.quantity }} - 1)" class="quantity-btn">−</button>
-                                <span class="quantity-value">{{ item.quantity }}</span>
-                                <button onclick="updateCartItem({{ item.id }}, {{ item.quantity }} + 1)" class="quantity-btn">+</button>
-                            </div>
-                            
-                            <button onclick="removeCartItem({{ item.id }})" class="delete-btn" aria-label="Remove item">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <!-- Cart Summary -->
-            <div class="lg:col-span-1">
-                <div class="glass-card p-4 sm:p-6 rounded-2xl sticky top-24">
-                    <h2 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Order Summary</h2>
-                    
-                    <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
-                            <span>Subtotal</span>
-                            <span class="text-white">₹{{ subtotal|floatformat:2 }}</span>
-                        </div>
-                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
-                            <span>Shipping</span>
-                            <span class="text-white">₹{{ shipping|floatformat:2 }}</span>
-                        </div>
-                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
-                            <span>GST (18%)</span>
-                            <span class="text-white">₹{{ gst_amount|floatformat:2 }}</span>
-                        </div>
-                        <hr class="border-white/10">
-                        <div class="flex justify-between text-lg sm:text-xl font-bold">
-                            <span class="text-white">Total</span>
-                            <span class="text-red-500">₹{{ total|floatformat:2 }}</span>
-                        </div>
-                    </div>
-                    
-                    <a href="/checkout/" class="btn-gold w-full text-center block py-3 sm:py-4 rounded-lg text-base sm:text-lg font-bold">Proceed to Checkout</a>
-                    
-                    <a href="/shop/" class="block text-center text-gray-400 hover:text-red-500 mt-3 sm:mt-4 transition-colors text-sm sm:text-base">Continue Shopping</a>
-                </div>
-            </div>
+        <div id="cart-content">
+            <!-- Cart will be populated by JavaScript -->
         </div>
-        {% else %}
-        <div class="text-center py-12">
+        <div id="empty-cart" class="text-center py-12 hidden">
             <h2 class="text-2xl font-bold text-white mb-4">Your cart is empty</h2>
             <p class="text-gray-400 mb-6">Add some items to get started!</p>
             <a href="/shop/" class="btn-gold inline-block px-6 py-3 rounded-lg">Continue Shopping</a>
         </div>
-        {% endif %}
     </div>
 </section>
 
 <script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-function removeCartItem(itemId) {
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
+// Load cart from localStorage
+function loadCart() {
+    const savedCart = localStorage.getItem('redappleCart');
+    const cartContent = document.getElementById('cart-content');
+    const emptyCart = document.getElementById('empty-cart');
     
-    fetch('/cart/remove/', {
-        method: 'POST',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': csrfToken
-        },
-        body: `item_id=${itemId}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Update cart count in navbar
-            const cartCountElements = document.querySelectorAll('.cart-count');
-            cartCountElements.forEach(element => {
-                element.textContent = data.cart_count || 0;
-            });
-            // Reload page to show updated cart
-            location.reload();
-        } else {
-            alert(data.message || 'Error removing item');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error removing item');
-    });
-}
-
-function updateCartItem(itemId, newQuantity) {
-    if (newQuantity < 1) {
-        removeCartItem(itemId);
+    if (!savedCart || Object.keys(JSON.parse(savedCart)).length === 0) {
+        cartContent.innerHTML = '';
+        emptyCart.classList.remove('hidden');
         return;
     }
     
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
+    const cart = JSON.parse(savedCart);
+    let netTotal = 0;
+    let originalTotal = 0;
+    let totalItems = 0;
     
-    fetch('/cart/update/', {
-        method: 'POST',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': csrfToken
-        },
-        body: `item_id=${itemId}&quantity=${newQuantity}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-        } else {
-            alert(data.message || 'Error updating cart');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating cart');
+    let itemsHtml = '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">';
+    itemsHtml += '<div class="lg:col-span-2"><div class="glass-card p-4 sm:p-6 rounded-2xl">';
+    
+    for (const productId in cart) {
+        const item = cart[productId];
+        netTotal += item.quantity * item.discountedPrice;
+        originalTotal += item.quantity * item.originalPrice;
+        totalItems += item.quantity;
+        
+        itemsHtml += `
+            <div class="cart-item py-4 sm:py-6 border-b border-white/10 last:border-0">
+                <div class="cart-item-details flex-1">
+                    <h3 class="font-semibold text-white text-base sm:text-lg">${item.productName}</h3>
+                    <p class="text-red-500 font-bold text-lg sm:text-xl mt-1 sm:mt-2">₹${item.unitPrice.toFixed(0)}</p>
+                </div>
+                
+                <div class="cart-item-actions">
+                    <div class="quantity-controls">
+                        <span class="quantity-value">Qty: ${item.quantity}</span>
+                    </div>
+                    
+                    <button onclick="removeFromCart(${productId})" class="delete-btn" aria-label="Remove item">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    itemsHtml += '</div></div>';
+    
+    // Cart Summary
+    const youSave = originalTotal - netTotal;
+    const shipping = 99;
+    const gstAmount = netTotal * 0.18;
+    const total = netTotal + shipping + gstAmount;
+    
+    itemsHtml += `
+        <div class="lg:col-span-1">
+            <div class="glass-card p-4 sm:p-6 rounded-2xl sticky top-24">
+                <h2 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Order Summary</h2>
+                
+                <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                    <div class="flex justify-between text-gray-400 text-sm sm:text-base">
+                        <span>Subtotal</span>
+                        <span class="text-white">₹${netTotal.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400 text-sm sm:text-base">
+                        <span>Shipping</span>
+                        <span class="text-white">₹${shipping.toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400 text-sm sm:text-base">
+                        <span>GST (18%)</span>
+                        <span class="text-white">₹${gstAmount.toFixed(2)}</span>
+                    </div>
+                    <hr class="border-white/10">
+                    <div class="flex justify-between text-lg sm:text-xl font-bold">
+                        <span class="text-white">Total</span>
+                        <span class="text-red-500">₹${total.toFixed(2)}</span>
+                    </div>
+                </div>
+                
+                <a href="/shop/" class="btn-gold w-full text-center block py-3 sm:py-4 rounded-lg text-base sm:text-lg font-bold">Continue Shopping</a>
+            </div>
+        </div>
+    `;
+    
+    itemsHtml += '</div>';
+    
+    cartContent.innerHTML = itemsHtml;
+    emptyCart.classList.add('hidden');
+    
+    // Update navbar cart count
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    cartCountElements.forEach(element => {
+        element.textContent = totalItems;
     });
 }
+
+function removeFromCart(productId) {
+    const savedCart = localStorage.getItem('redappleCart');
+    if (savedCart) {
+        const cart = JSON.parse(savedCart);
+        delete cart[productId];
+        localStorage.setItem('redappleCart', JSON.stringify(cart));
+        loadCart();
+        alert('Product removed from cart!');
+    }
+}
+
+// Load cart on page load
+window.onload = function() {
+    loadCart();
+};
 </script>
 {% endblock %}

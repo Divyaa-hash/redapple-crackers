@@ -312,7 +312,7 @@
 </div>
 
 <script>
-// Cart storage - sync with backend
+// Cart storage - localStorage only for reliability
 let cart = {};
 
 function updateRowTotal(input) {
@@ -323,7 +323,7 @@ function updateRowTotal(input) {
     row.querySelector('.row-total').textContent = total.toFixed(0);
 }
 
-async function addToCart(productId) {
+function addToCart(productId) {
     const row = document.querySelector(`tr[data-product-id="${productId}"]`);
     if (!row) return;
     
@@ -335,96 +335,35 @@ async function addToCart(productId) {
         return;
     }
     
-    try {
-        const response = await fetch('/cart/add/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-            },
-            body: `product_id=${productId}&quantity=${qty}`
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            // Update local cart storage
-            const discountedPrice = parseFloat(row.dataset.discountedPrice);
-            const originalPrice = parseFloat(row.dataset.originalPrice);
-            
-            cart[productId] = {
-                quantity: qty,
-                discountedPrice: discountedPrice,
-                originalPrice: originalPrice
-            };
-            
-            updateCartTotals();
-            alert('Product added to cart!');
-        } else {
-            alert('Error: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error adding to cart:', error);
-        alert('Error adding product to cart');
-    }
+    const discountedPrice = parseFloat(row.dataset.discountedPrice);
+    const originalPrice = parseFloat(row.dataset.originalPrice);
+    
+    cart[productId] = {
+        quantity: qty,
+        discountedPrice: discountedPrice,
+        originalPrice: originalPrice,
+        productName: row.querySelector('.product-name').textContent,
+        unitPrice: discountedPrice
+    };
+    
+    updateCartTotals();
+    alert('Product added to cart!');
 }
 
-async function removeFromCart(productId) {
-    try {
-        // First, find the cart item ID by calling cart summary
-        const summaryResponse = await fetch('/cart/summary/');
-        const summaryData = await summaryResponse.json();
-        
-        // Find the item with this product ID
-        const cartItem = summaryData.items.find(item => item.product_id == productId);
-        
-        if (cartItem) {
-            const response = await fetch('/cart/remove/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                },
-                body: `item_id=${cartItem.id}`
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                // Update local cart storage
-                delete cart[productId];
-                
-                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-                if (row) {
-                    row.querySelector('.qty-input').value = 1;
-                    row.querySelector('.row-total').textContent = row.dataset.discountedPrice;
-                }
-                
-                updateCartTotals();
-                alert('Product removed from cart!');
-            } else {
-                alert('Error: ' + data.message);
-            }
-        } else {
-            // Product not in backend cart, just remove from local storage
-            delete cart[productId];
-            
-            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-            if (row) {
-                row.querySelector('.qty-input').value = 1;
-                row.querySelector('.row-total').textContent = row.dataset.discountedPrice;
-            }
-            
-            updateCartTotals();
-            alert('Product removed from cart!');
-        }
-    } catch (error) {
-        console.error('Error removing from cart:', error);
-        alert('Error removing product from cart');
+function removeFromCart(productId) {
+    delete cart[productId];
+    
+    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+    if (row) {
+        row.querySelector('.qty-input').value = 1;
+        row.querySelector('.row-total').textContent = row.dataset.discountedPrice;
     }
+    
+    updateCartTotals();
+    alert('Product removed from cart!');
 }
 
-async function updateCartTotals() {
+function updateCartTotals() {
     let netTotal = 0;
     let originalTotal = 0;
     let totalItems = 0;
@@ -453,23 +392,13 @@ async function updateCartTotals() {
         element.textContent = totalItems;
     });
     
-    // Sync with backend cart summary
-    try {
-        const response = await fetch('/cart/summary/');
-        const data = await response.json();
-        
-        // Update cart count with backend data
-        cartCountElements.forEach(element => {
-            element.textContent = data.cart_count || 0;
-        });
-    } catch (error) {
-        console.error('Error fetching cart summary:', error);
-    }
+    // Save to localStorage
+    localStorage.setItem('redappleCart', JSON.stringify(cart));
 }
 
 // Load cart from localStorage on page load
 window.onload = function() {
-    const savedCart = localStorage.getItem('babyCrackersCart');
+    const savedCart = localStorage.getItem('redappleCart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
         
@@ -490,7 +419,7 @@ window.onload = function() {
 
 // Save cart to localStorage before page unload
 window.onbeforeunload = function() {
-    localStorage.setItem('babyCrackersCart', JSON.stringify(cart));
+    localStorage.setItem('redappleCart', JSON.stringify(cart));
 };
 </script>
 {% endblock %}
