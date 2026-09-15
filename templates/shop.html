@@ -273,8 +273,8 @@
                     </td>
                     <td class="total-price">₹<span class="row-total">0</span></td>
                     <td>
-                        <button class="add-btn" onclick="addToCart({{ item.product.id }})">Add</button>
-                        <button class="remove-btn" onclick="removeFromCart({{ item.product.id }})">Remove</button>
+                        <button class="add-btn" onclick="addToCart('{{ item.product.id }}')">Add</button>
+                        <button class="remove-btn" onclick="removeFromCart('{{ item.product.id }}')">Remove</button>
                     </td>
                 </tr>
                 {% endfor %}
