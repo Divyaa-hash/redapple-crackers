@@ -98,6 +98,27 @@
         font-size: 14px;
     }
     
+    .product-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .product-thumb-placeholder {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #1a1a2e;
+        font-size: 18px;
+    }
+    
     .product-table tr:hover {
         background: rgba(212, 175, 55, 0.1);
     }
@@ -244,6 +265,7 @@
         <table class="product-table">
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Product Name</th>
                     <th>Unit</th>
                     <th>Price</th>
@@ -257,6 +279,13 @@
                 <tr data-product-id="{{ item.product.id }}" 
                     data-original-price="{{ item.original_price }}" 
                     data-discounted-price="{{ item.discounted_price }}">
+                    <td class="product-image">
+                        {% if item.product.main_image %}
+                        <img src="{{ item.product.main_image.url }}" alt="{{ item.product.name }}" class="product-thumb">
+                        {% else %}
+                        <div class="product-thumb-placeholder">{{ item.product.name|slice:":2" }}</div>
+                        {% endif %}
+                    </td>
                     <td class="product-name"><a href="/products/{{ item.product.id }}/" class="text-white hover:text-red-500">{{ item.product.name }}</a></td>
                     <td class="unit">1Box</td>
                     <td>
