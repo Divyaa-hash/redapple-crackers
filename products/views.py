@@ -26,11 +26,11 @@ def catalog_view(request):
         ).order_by('order', 'name')
         
         if products.exists():
-            # Add discounted price (80% discount = 20% of original price)
+            # Use actual sale_price from database, or calculate 80% discount if no sale_price
             products_with_discount = []
             for product in products:
-                original_price = product.get_current_price()
-                discounted_price = original_price * Decimal('0.2')  # 80% discount
+                original_price = product.regular_price
+                discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
                 products_with_discount.append({
                     'product': product,
                     'original_price': original_price,
@@ -113,11 +113,11 @@ def shop_view(request):
             category_products = products.filter(category=category)
             
             if category_products.exists():
-                # Add discounted price (80% discount = 20% of original price)
+                # Use actual sale_price from database, or calculate 80% discount if no sale_price
                 products_with_discount = []
                 for product in category_products:
-                    original_price = product.get_current_price()
-                    discounted_price = original_price * Decimal('0.2')  # 80% discount
+                    original_price = product.regular_price
+                    discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
                     products_with_discount.append({
                         'product': product,
                         'original_price': original_price,
