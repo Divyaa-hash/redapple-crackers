@@ -403,6 +403,31 @@ function toggleSearch() {
     }
 }
 
+// ===== TOGGLE MOBILE MENU =====
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    
+    if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Prevent body scroll when menu is open
+        if (!mobileMenu.classList.contains('hidden')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+}
+
+// Initialize mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    }
+});
+
 // ===== VOICE SEARCH =====
 const voiceSearchBtn = document.querySelector('.voice-search-btn');
 if (voiceSearchBtn && 'webkitSpeechRecognition' in window) {
