@@ -44,23 +44,37 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
 /* Mobile menu visibility fix */
 #mobile-menu {
     position: fixed;
-    top: 64px;
+    top: 56px;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 49;
+    z-index: 99999;
     background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     overflow-y: auto;
+    visibility: visible;
+    opacity: 1;
 }
 
 #mobile-menu.hidden {
-    display: none;
+    display: none !important;
 }
 
 #mobile-menu:not(.hidden) {
-    display: block;
+    display: block !important;
+}
+
+/* Ensure mobile menu text is visible */
+#mobile-menu a {
+    color: #ffffff !important;
+    text-decoration: none;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#mobile-menu a:hover {
+    color: #f59e0b !important;
 }
 
 /* Ensure hamburger button is visible on mobile */
