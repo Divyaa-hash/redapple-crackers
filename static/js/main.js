@@ -408,15 +408,26 @@ function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     
+    console.log('toggleMobileMenu called');
+    console.log('mobileMenu element:', mobileMenu);
+    
     if (mobileMenu) {
-        mobileMenu.classList.toggle('hidden');
+        const isHidden = mobileMenu.style.display === 'none';
+        console.log('Current display:', mobileMenu.style.display);
+        console.log('Setting display to:', isHidden ? 'block' : 'none');
+        
+        mobileMenu.style.display = isHidden ? 'block' : 'none';
         
         // Prevent body scroll when menu is open
-        if (!mobileMenu.classList.contains('hidden')) {
+        if (isHidden) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
+        
+        console.log('New display:', mobileMenu.style.display);
+    } else {
+        console.error('Mobile menu element not found');
     }
 }
 
@@ -424,7 +435,14 @@ function toggleMobileMenu() {
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+        console.log('Mobile menu button event listener attached');
+    } else {
+        console.error('Mobile menu button not found');
     }
 });
 
