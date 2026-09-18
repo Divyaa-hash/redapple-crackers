@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'cloudinary_storage',
+    'cloudinary',
     
     # Local apps
     'products',
@@ -233,3 +235,13 @@ LOGGING = {
 RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
 RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET', default='')
 RAZORPAY_CURRENCY = 'INR'
+
+# Cloudinary Configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default='agkeucqd'),
+    'API_KEY': config('CLOUDINARY_API_KEY', default='647136372246985'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default='ixaCuXNAQ7-TFJgmXEY2SzwE9bE'),
+    'SECURE': True,
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
