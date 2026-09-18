@@ -53,3 +53,12 @@ Thumbs.db
 
 # Embedded git repositories
 premium-fireworks/
+
+# Image files in project root (source images for upload)
+*.webp
+*.jpeg
+*.jpg
+*.png
+*.gif
+!static/images/
+!media/
