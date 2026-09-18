@@ -406,17 +406,20 @@ function toggleSearch() {
 // ===== TOGGLE MOBILE MENU =====
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     
     console.log('toggleMobileMenu called');
     console.log('mobileMenu element:', mobileMenu);
+    console.log('mobileMenuOverlay element:', mobileMenuOverlay);
     
-    if (mobileMenu) {
-        const isHidden = mobileMenu.style.display === 'none';
-        console.log('Current display:', mobileMenu.style.display);
-        console.log('Setting display to:', isHidden ? 'block' : 'none');
+    if (mobileMenu && mobileMenuOverlay) {
+        const isHidden = mobileMenu.style.left === '-280px' || mobileMenu.style.left === '';
+        console.log('Current left:', mobileMenu.style.left);
+        console.log('Setting left to:', isHidden ? '0px' : '-280px');
         
-        mobileMenu.style.display = isHidden ? 'block' : 'none';
+        mobileMenu.style.display = 'block';
+        mobileMenu.style.left = isHidden ? '0px' : '-280px';
+        mobileMenuOverlay.style.display = isHidden ? 'block' : 'none';
         
         // Prevent body scroll when menu is open
         if (isHidden) {
@@ -425,9 +428,9 @@ function toggleMobileMenu() {
             document.body.style.overflow = '';
         }
         
-        console.log('New display:', mobileMenu.style.display);
+        console.log('New left:', mobileMenu.style.left);
     } else {
-        console.error('Mobile menu element not found');
+        console.error('Mobile menu elements not found');
     }
 }
 
