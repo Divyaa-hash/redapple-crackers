@@ -49,9 +49,7 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     right: 0;
     bottom: 0;
     z-index: 99999;
-    background: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #111827;
     overflow-y: auto;
     visibility: visible;
     opacity: 1;
@@ -71,10 +69,18 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     text-decoration: none;
     opacity: 1 !important;
     visibility: visible !important;
+    display: flex !important;
 }
 
 #mobile-menu a:hover {
-    color: #f59e0b !important;
+    color: #ef4444 !important;
+}
+
+/* Ensure mobile menu content container is visible */
+#mobile-menu .flex-1 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Ensure hamburger button is visible on mobile */
