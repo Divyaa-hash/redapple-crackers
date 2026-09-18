@@ -104,8 +104,17 @@ def shop_view(request):
     try:
         categories = Category.objects.filter(is_active=True).order_by('order', 'name')
         
+        # Get search query
+        search_query = request.GET.get('q', '')
+        
         # Get all active products
         products = Product.objects.filter(is_active=True).order_by('order', 'name')
+        
+        # Filter by search query if provided
+        if search_query:
+            products = products.filter(
+                name__icontains=search_query
+            )
         
         # Organize by category for Baby Crackers format
         catalog_data = []
@@ -132,7 +141,8 @@ def shop_view(request):
         return render(request, 'shop.html', {
             'catalog_data': catalog_data,
             'categories': categories,
-            'total_count': products.count()
+            'total_count': products.count(),
+            'search_query': search_query
         })
     except Exception as e:
         print(f"Error in shop_view: {e}")
