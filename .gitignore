@@ -63,3 +63,6 @@ premium-fireworks/
 !static/images/
 !media/
 !cloudinary_url_mapping.json
+
+# Utility scripts
+export_cloudinary_urls.py
