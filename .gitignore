@@ -62,3 +62,4 @@ premium-fireworks/
 *.gif
 !static/images/
 !media/
+!cloudinary_url_mapping.json
