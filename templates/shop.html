@@ -294,9 +294,10 @@
                                value="1" 
                                min="1" 
                                max="100"
-                               onchange="updateRowTotal(this)">
+                               onchange="updateRowTotal(this)"
+                               oninput="updateRowTotal(this)">
                     </td>
-                    <td class="total-price">₹<span class="row-total">0</span></td>
+                    <td class="total-price">₹<span class="row-total">{{ item.discounted_price|floatformat:0 }}</span></td>
                     <td>
                         <button class="add-btn" onclick="addToCart('{{ item.product.id }}')">Add</button>
                         <button class="remove-btn" onclick="removeFromCart('{{ item.product.id }}')">Remove</button>
@@ -380,16 +381,19 @@ function addToCart(productId) {
 }
 
 function removeFromCart(productId) {
-    delete cart[productId];
-    
-    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-    if (row) {
-        row.querySelector('.qty-input').value = 1;
-        row.querySelector('.row-total').textContent = row.dataset.discountedPrice;
+    if (cart[productId]) {
+        delete cart[productId];
+        
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        if (row) {
+            row.querySelector('.qty-input').value = 1;
+            const discountedPrice = parseFloat(row.dataset.discountedPrice);
+            row.querySelector('.row-total').textContent = discountedPrice.toFixed(0);
+        }
+        
+        updateCartTotals();
+        alert('Product removed from cart!');
     }
-    
-    updateCartTotals();
-    alert('Product removed from cart!');
 }
 
 function updateCartTotals() {
