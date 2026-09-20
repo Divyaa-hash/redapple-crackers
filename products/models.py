@@ -109,6 +109,7 @@ class Product(models.Model):
     
     # Images
     main_image = models.ImageField(upload_to='products/', blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True, help_text='Cloudinary or external image URL')
     additional_images = models.JSONField(default=list, blank=True)
     video_url = models.URLField(blank=True)
     image_360 = models.ImageField(upload_to='products/360/', blank=True, null=True)
@@ -181,7 +182,11 @@ class Product(models.Model):
     
     def get_display_image(self):
         """Get the actual image to display, with fallback to placeholder"""
-        # First try main_image if it exists and has a value
+        # First try image_url if it exists (Cloudinary or external URL)
+        if self.image_url:
+            return self.image_url
+        
+        # Then try main_image if it exists and has a value
         if self.main_image:
             image_path = str(self.main_image)
             
