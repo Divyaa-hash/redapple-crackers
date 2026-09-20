@@ -349,8 +349,8 @@ function updateRowTotal(input) {
     const row = input.closest('tr');
     const qty = parseInt(input.value) || 0;
     const discountedPrice = parseFloat(row.dataset.discountedPrice);
-    const total = qty * discountedPrice;
-    row.querySelector('.row-total').textContent = total.toFixed(0);
+    // Show only the unit price, not multiplied by quantity
+    row.querySelector('.row-total').textContent = discountedPrice.toFixed(0);
 }
 
 function addToCart(productId) {
@@ -381,18 +381,25 @@ function addToCart(productId) {
 }
 
 function removeFromCart(productId) {
-    if (cart[productId]) {
-        delete cart[productId];
-        
-        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-        if (row) {
-            row.querySelector('.qty-input').value = 1;
-            const discountedPrice = parseFloat(row.dataset.discountedPrice);
-            row.querySelector('.row-total').textContent = discountedPrice.toFixed(0);
+    try {
+        if (cart[productId]) {
+            delete cart[productId];
+            
+            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+            if (row) {
+                row.querySelector('.qty-input').value = 1;
+                const discountedPrice = parseFloat(row.dataset.discountedPrice);
+                row.querySelector('.row-total').textContent = discountedPrice.toFixed(0);
+            }
+            
+            updateCartTotals();
+            alert('Product removed from cart!');
+        } else {
+            alert('Product not in cart');
         }
-        
-        updateCartTotals();
-        alert('Product removed from cart!');
+    } catch (error) {
+        console.error('Error removing from cart:', error);
+        alert('Error removing product from cart');
     }
 }
 
