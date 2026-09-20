@@ -382,14 +382,22 @@ function addToCart(productId) {
 
 function removeFromCart(productId) {
     try {
-        if (cart[productId]) {
+        // Check if product exists in cart
+        if (cart && cart[productId]) {
             delete cart[productId];
             
+            // Reset row to initial state
             const row = document.querySelector(`tr[data-product-id="${productId}"]`);
             if (row) {
-                row.querySelector('.qty-input').value = 1;
+                const qtyInput = row.querySelector('.qty-input');
+                if (qtyInput) {
+                    qtyInput.value = 1;
+                }
                 const discountedPrice = parseFloat(row.dataset.discountedPrice);
-                row.querySelector('.row-total').textContent = discountedPrice.toFixed(0);
+                const rowTotal = row.querySelector('.row-total');
+                if (rowTotal) {
+                    rowTotal.textContent = discountedPrice.toFixed(0);
+                }
             }
             
             updateCartTotals();
@@ -399,7 +407,7 @@ function removeFromCart(productId) {
         }
     } catch (error) {
         console.error('Error removing from cart:', error);
-        alert('Error removing product from cart');
+        alert('Error removing product from cart: ' + error.message);
     }
 }
 
