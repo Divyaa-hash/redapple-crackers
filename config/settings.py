@@ -244,6 +244,4 @@ CLOUDINARY_STORAGE = {
     'SECURE': True,
 }
 
-# Use Cloudinary storage only in production (Render)
-if not DEBUG:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
