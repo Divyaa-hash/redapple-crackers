@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from products.models import Product, Category
 import os
+import json
 
 
 class Command(BaseCommand):
@@ -36,8 +37,24 @@ class Command(BaseCommand):
         # Load products using loaddata with --ignorenonexistent
         try:
             self.stdout.write('Loading products from fixture (safe mode)...')
-            call_command('loaddata', 'products_fixture.json', verbosity=2, ignorenonexistent=True)
-            self.stdout.write(self.style.SUCCESS('Products loaded/updated'))
+            # Try with different encoding
+            try:
+                with open(prod_fixture, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                # If successful, proceed with loaddata
+                call_command('loaddata', 'products_fixture.json', verbosity=2, ignorenonexistent=True)
+                self.stdout.write(self.style.SUCCESS('Products loaded/updated'))
+            except UnicodeDecodeError:
+                self.stdout.write(self.style.WARNING('UTF-8 encoding failed, trying latin-1...'))
+                with open(prod_fixture, 'r', encoding='latin-1') as f:
+                    data = json.load(f)
+                # Re-save with UTF-8 encoding
+                with open(prod_fixture, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
+                self.stdout.write(self.style.SUCCESS('Fixture re-encoded to UTF-8'))
+                # Now try loading again
+                call_command('loaddata', 'products_fixture.json', verbosity=2, ignorenonexistent=True)
+                self.stdout.write(self.style.SUCCESS('Products loaded/updated'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error loading products: {e}'))
         
