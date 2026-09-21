@@ -110,6 +110,11 @@ def shop_view(request):
         # Get all active products
         products = Product.objects.filter(is_active=True).order_by('order', 'name')
         
+        # Debug logging
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Shop view: {products.count()} active products, {categories.count()} categories")
+        
         # Filter by search query if provided
         if search_query:
             products = products.filter(
@@ -138,6 +143,8 @@ def shop_view(request):
                     'products': products_with_discount
                 })
         
+        logger.info(f"Shop view returning {len(catalog_data)} categories with products")
+        
         return render(request, 'shop.html', {
             'catalog_data': catalog_data,
             'categories': categories,
@@ -145,6 +152,9 @@ def shop_view(request):
             'search_query': search_query
         })
     except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error in shop_view: {e}")
         print(f"Error in shop_view: {e}")
         import traceback
         traceback.print_exc()

@@ -28,10 +28,9 @@ class Command(BaseCommand):
         self.stdout.write(f'Existing products: {existing_products}')
         self.stdout.write(f'Existing categories: {existing_categories}')
         
-        # If we already have data, skip seeding
-        if existing_products > 0:
-            self.stdout.write(self.style.WARNING(f'Database already has {existing_products} products. Skipping seed.'))
-            return
+        # FORCE LOAD: Always load data to ensure production has the correct data
+        # This will update existing data and add new data
+        self.stdout.write('Force loading data from fixtures (always load)...')
         
         # Use Django's loaddata command which handles foreign keys properly
         try:
