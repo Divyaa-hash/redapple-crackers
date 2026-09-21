@@ -406,6 +406,7 @@ function addToCart(productId) {
 function removeFromCart(productId) {
     console.log('removeFromCart called with productId:', productId);
     console.log('Current cart:', cart);
+    console.log('Cart keys:', Object.keys(cart));
     
     // Ensure cart is initialized
     if (!cart) {
@@ -414,6 +415,7 @@ function removeFromCart(productId) {
     
     // Ensure productId is string for consistent key matching
     const productIdStr = String(productId);
+    console.log('Looking for productIdStr:', productIdStr);
     
     // Check if product exists in cart
     if (cart[productIdStr]) {
@@ -422,6 +424,7 @@ function removeFromCart(productId) {
         
         // Reset row to initial state
         const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        console.log('Found row:', row);
         if (row) {
             const qtyInput = row.querySelector('.qty-input');
             if (qtyInput) {
@@ -437,8 +440,8 @@ function removeFromCart(productId) {
         updateCartTotals();
         alert('Product removed from cart!');
     } else {
-        console.log('Product not in cart');
-        alert('Product not in cart');
+        console.log('Product not in cart. Available keys:', Object.keys(cart));
+        alert('Product not in cart. Please add it first.');
     }
 }
 
@@ -476,25 +479,33 @@ function updateCartTotals() {
 }
 
 // Load cart from localStorage on page load
-window.onload = function() {
+window.addEventListener('DOMContentLoaded', function() {
     const savedCart = localStorage.getItem('redappleCart');
     if (savedCart) {
-        cart = JSON.parse(savedCart);
-        
-        // Restore quantities and row totals
-        for (const productId in cart) {
-            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-            if (row) {
-                const qtyInput = row.querySelector('.qty-input');
-                qtyInput.value = cart[productId].quantity;
-                updateRowTotal(qtyInput);
+        try {
+            cart = JSON.parse(savedCart);
+            console.log('Cart loaded from localStorage:', cart);
+            
+            // Restore quantities and row totals
+            for (const productId in cart) {
+                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                if (row) {
+                    const qtyInput = row.querySelector('.qty-input');
+                    if (qtyInput) {
+                        qtyInput.value = cart[productId].quantity;
+                        updateRowTotal(qtyInput);
+                    }
+                }
             }
+        } catch (e) {
+            console.error('Error parsing saved cart:', e);
+            cart = {};
         }
     }
     
     // Update cart totals and count on page load
     updateCartTotals();
-};
+});
 
 // Save cart to localStorage before page unload
 window.onbeforeunload = function() {
