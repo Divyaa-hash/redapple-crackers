@@ -12,11 +12,27 @@ class Command(BaseCommand):
         self.stdout.write('Direct seeding products from JSON...')
         self.stdout.write('=' * 60)
         
+        # Debug database connection
+        from django.db import connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT 1")
+                self.stdout.write(self.style.SUCCESS('Database connection successful'))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'Database connection failed: {e}'))
+            return
+        
         fixture_file = os.path.join(os.getcwd(), 'products_fixture.json')
         cat_fixture_file = os.path.join(os.getcwd(), 'categories_fixture.json')
         
         self.stdout.write(f'Products fixture: {os.path.exists(fixture_file)}')
         self.stdout.write(f'Categories fixture: {os.path.exists(cat_fixture_file)}')
+        
+        # Check existing data
+        existing_products = Product.objects.count()
+        existing_categories = Category.objects.count()
+        self.stdout.write(f'Existing products: {existing_products}')
+        self.stdout.write(f'Existing categories: {existing_categories}')
         
         # Load categories first
         try:
@@ -35,6 +51,8 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f'Loaded {Category.objects.count()} categories'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error loading categories: {e}'))
+            import traceback
+            traceback.print_exc()
         
         # Load products
         try:
@@ -50,6 +68,7 @@ class Command(BaseCommand):
             )
             
             loaded_count = 0
+            skipped_count = 0
             for prod_data in products_data:
                 if prod_data['model'] == 'products.product':
                     fields = prod_data['fields']
@@ -62,6 +81,7 @@ class Command(BaseCommand):
                             fields['category'] = category
                         except Category.DoesNotExist:
                             self.stdout.write(f'Category {category_id} not found, skipping product')
+                            skipped_count += 1
                             continue
                     
                     # Handle brand foreign key
@@ -85,7 +105,7 @@ class Command(BaseCommand):
                     )
                     loaded_count += 1
             
-            self.stdout.write(self.style.SUCCESS(f'Loaded {loaded_count} products'))
+            self.stdout.write(self.style.SUCCESS(f'Loaded {loaded_count} products, skipped {skipped_count}'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error loading products: {e}'))
             import traceback
