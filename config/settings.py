@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,16 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-j(vxrdrd#b4ayg#*tc8hi
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't', 'yes', 'y')
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com').split(',')
+
+# CSRF Trusted Origins for production
+CSRF_TRUSTED_ORIGINS = []
+if not DEBUG:
+    csrf_origins = os.environ.get('CSRF_TRUSTED_ORIGINS', '')
+    if csrf_origins:
+        CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(',')]
+    else:
+        # Auto-generate from ALLOWED_HOSTS in production
+        CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS if host != '*']
 
 
 # Application definition
@@ -99,19 +110,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', BASE_DIR / 'db.sqlite3'),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-    }
-}
+# Use DATABASE_URL from Render for production
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-# Fallback to SQLite for local development
-if not os.environ.get('DB_NAME'):
+if DATABASE_URL:
+    # Production PostgreSQL on Render
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=60,
+            conn_health_checks=True,
+        )
+    }
+else:
+    # Local development fallback to SQLite
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -169,6 +181,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 if not DEBUG:
     WHITENOISE_MEDIA = True
 
+# Use Cloudinary only for media files, not static files
+if DEBUG:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 # Session configuration - use database-backed sessions for Render
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400  # 24 hours
@@ -198,10 +214,17 @@ REST_FRAMEWORK = {
 }
 
 # CORS Configuration
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-]
+CORS_ALLOWED_ORIGINS = []
+cors_origins = os.environ.get('CORS_ALLOWED_ORIGINS', '')
+if cors_origins:
+    CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins.split(',')]
+
+# Always allow localhost for development
+if DEBUG:
+    localhost_origins = ["http://localhost:8000", "http://127.0.0.1:8000"]
+    for origin in localhost_origins:
+        if origin not in CORS_ALLOWED_ORIGINS:
+            CORS_ALLOWED_ORIGINS.append(origin)
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -209,7 +232,9 @@ CORS_ALLOW_CREDENTIALS = True
 AUTH_USER_MODEL = 'users.User'
 
 # Database Connection Pooling (for production)
-DATABASES['default']['CONN_MAX_AGE'] = 60
+if DATABASE_URL and 'default' in DATABASES:
+    DATABASES['default']['CONN_MAX_AGE'] = 60
+    DATABASES['default']['CONN_HEALTH_CHECKS'] = True
 
 # Logging Configuration
 LOGGING = {
@@ -221,15 +246,29 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'django.log',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
         },
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
     },
 }
+
+# Production-specific logging
+if not DEBUG:
+    LOGGING['handlers']['console']['level'] = 'WARNING'
+    LOGGING['loggers']['django']['level'] = 'WARNING'
 
 # Razorpay Payment Gateway Configuration
 RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
@@ -238,10 +277,12 @@ RAZORPAY_CURRENCY = 'INR'
 
 # Cloudinary Configuration
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default='agkeucqd'),
-    'API_KEY': config('CLOUDINARY_API_KEY', default='647136372246985'),
-    'API_SECRET': config('CLOUDINARY_API_SECRET', default='ixaCuXNAQ7-TFJgmXEY2SzwE9bE'),
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
     'SECURE': True,
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Use Cloudinary for media files in production
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
