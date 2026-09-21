@@ -21,26 +21,6 @@ services:
         value: 647136372246985
       - key: CLOUDINARY_API_SECRET
         generateValue: true
-      - key: DB_NAME
-        fromDatabase:
-          name: redapple-crackers-db
-          property: database
-      - key: DB_USER
-        fromDatabase:
-          name: redapple-crackers-db
-          property: user
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: redapple-crackers-db
-          property: password
-      - key: DB_HOST
-        fromDatabase:
-          name: redapple-crackers-db
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: redapple-crackers-db
-          property: port
 
 databases:
   - name: redapple-crackers-db
