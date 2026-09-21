@@ -365,8 +365,13 @@ function updateRowTotal(input) {
 }
 
 function addToCart(productId) {
+    console.log('addToCart called with productId:', productId);
+    
     const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-    if (!row) return;
+    if (!row) {
+        console.error('Row not found for productId:', productId);
+        return;
+    }
     
     const qtyInput = row.querySelector('.qty-input');
     const qty = parseInt(qtyInput.value) || 0;
@@ -379,7 +384,13 @@ function addToCart(productId) {
     const discountedPrice = parseFloat(row.dataset.discountedPrice);
     const originalPrice = parseFloat(row.dataset.originalPrice);
     
-    cart[productId] = {
+    // Ensure cart is initialized and use string keys
+    if (!cart) {
+        cart = {};
+    }
+    
+    const productIdStr = String(productId);
+    cart[productIdStr] = {
         quantity: qty,
         discountedPrice: discountedPrice,
         originalPrice: originalPrice,
@@ -387,43 +398,47 @@ function addToCart(productId) {
         unitPrice: discountedPrice
     };
     
+    console.log('Product added to cart:', cart[productIdStr]);
     updateCartTotals();
     alert('Product added to cart!');
 }
 
 function removeFromCart(productId) {
-    try {
-        console.log('removeFromCart called with productId:', productId);
-        console.log('Current cart:', cart);
+    console.log('removeFromCart called with productId:', productId);
+    console.log('Current cart:', cart);
+    
+    // Ensure cart is initialized
+    if (!cart) {
+        cart = {};
+    }
+    
+    // Ensure productId is string for consistent key matching
+    const productIdStr = String(productId);
+    
+    // Check if product exists in cart
+    if (cart[productIdStr]) {
+        console.log('Product found in cart, removing...');
+        delete cart[productIdStr];
         
-        // Check if product exists in cart
-        if (cart && cart[productId]) {
-            console.log('Product found in cart, removing...');
-            delete cart[productId];
-            
-            // Reset row to initial state
-            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-            if (row) {
-                const qtyInput = row.querySelector('.qty-input');
-                if (qtyInput) {
-                    qtyInput.value = 1;
-                }
-                const discountedPrice = parseFloat(row.dataset.discountedPrice);
-                const rowTotal = row.querySelector('.row-total');
-                if (rowTotal) {
-                    rowTotal.textContent = discountedPrice.toFixed(0);
-                }
+        // Reset row to initial state
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        if (row) {
+            const qtyInput = row.querySelector('.qty-input');
+            if (qtyInput) {
+                qtyInput.value = 1;
             }
-            
-            updateCartTotals();
-            alert('Product removed from cart!');
-        } else {
-            console.log('Product not in cart');
-            alert('Product not in cart');
+            const discountedPrice = parseFloat(row.dataset.discountedPrice);
+            const rowTotal = row.querySelector('.row-total');
+            if (rowTotal) {
+                rowTotal.textContent = discountedPrice.toFixed(0);
+            }
         }
-    } catch (error) {
-        console.error('Error removing from cart:', error);
-        alert('Error removing product from cart: ' + error.message);
+        
+        updateCartTotals();
+        alert('Product removed from cart!');
+    } else {
+        console.log('Product not in cart');
+        alert('Product not in cart');
     }
 }
 
