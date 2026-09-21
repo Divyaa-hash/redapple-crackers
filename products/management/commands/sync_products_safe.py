@@ -3,13 +3,16 @@ from django.core.management import call_command
 from products.models import Product, Category
 import os
 import json
+import traceback
 
 
 class Command(BaseCommand):
     help = 'Safely sync products from fixtures without deleting existing data'
 
     def handle(self, *args, **options):
+        self.stdout.write('=' * 60)
         self.stdout.write('Starting safe product sync from fixtures...')
+        self.stdout.write('=' * 60)
         
         # Check if fixtures exist
         fixture_dir = os.getcwd()
@@ -33,6 +36,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Categories loaded/updated'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error loading categories: {e}'))
+            self.stdout.write(traceback.format_exc())
         
         # Load products using loaddata with --ignorenonexistent
         try:
@@ -41,6 +45,7 @@ class Command(BaseCommand):
             try:
                 with open(prod_fixture, 'r', encoding='utf-8') as f:
                     data = json.load(f)
+                self.stdout.write(f'Fixture contains {len([x for x in data if x["model"] == "products.product"])} products')
                 # If successful, proceed with loaddata
                 call_command('loaddata', 'products_fixture.json', verbosity=2, ignorenonexistent=True)
                 self.stdout.write(self.style.SUCCESS('Products loaded/updated'))
@@ -57,12 +62,15 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS('Products loaded/updated'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error loading products: {e}'))
+            self.stdout.write(traceback.format_exc())
         
         # Report final counts
         final_product_count = Product.objects.count()
         final_category_count = Category.objects.count()
         
-        self.stdout.write(self.style.SUCCESS(f'\nSafe sync complete!'))
+        self.stdout.write('=' * 60)
+        self.stdout.write(self.style.SUCCESS(f'Safe sync complete!'))
         self.stdout.write(f'Products: {initial_product_count} -> {final_product_count} ({final_product_count - initial_product_count} added)')
         self.stdout.write(f'Categories: {initial_category_count} -> {final_category_count} ({final_category_count - initial_category_count} added)')
         self.stdout.write('No existing data was deleted.')
+        self.stdout.write('=' * 60)
