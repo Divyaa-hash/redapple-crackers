@@ -1,12 +1,12 @@
 [
 {
   "model": "products.product",
-  "pk": 2535,
+  "pk": 2737,
   "fields": {
     "name": "4' Lakshmi",
     "slug": "4-lakshmi",
     "sku": "VAS-001",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -44,20 +44,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.374Z",
-    "updated_at": "2026-09-21T09:18:17.374Z",
+    "created_at": "2026-09-21T09:29:51.156Z",
+    "updated_at": "2026-09-21T09:29:51.156Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2536,
+  "pk": 2738,
   "fields": {
     "name": "3 1/2 Lakshmi",
     "slug": "3-1-2-lakshmi",
     "sku": "VAS-002",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -95,20 +95,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.413Z",
-    "updated_at": "2026-09-21T09:18:17.413Z",
+    "created_at": "2026-09-21T09:29:51.166Z",
+    "updated_at": "2026-09-21T09:29:51.166Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2537,
+  "pk": 2739,
   "fields": {
     "name": "4' Lakshmi Deluxe",
     "slug": "4-lakshmi-deluxe",
     "sku": "VAS-003",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -146,20 +146,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.489Z",
-    "updated_at": "2026-09-21T09:18:17.489Z",
+    "created_at": "2026-09-21T09:29:51.175Z",
+    "updated_at": "2026-09-21T09:29:51.175Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2538,
+  "pk": 2740,
   "fields": {
     "name": "Golden Lakshmi Deluxe",
     "slug": "golden-lakshmi-deluxe",
     "sku": "VAS-004",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -197,20 +197,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.557Z",
-    "updated_at": "2026-09-21T09:18:17.557Z",
+    "created_at": "2026-09-21T09:29:51.181Z",
+    "updated_at": "2026-09-21T09:29:51.181Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2539,
+  "pk": 2741,
   "fields": {
     "name": "5' Kumki Deluxe",
     "slug": "5-kumki-deluxe",
     "sku": "VAS-005",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -248,20 +248,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.715Z",
-    "updated_at": "2026-09-21T09:18:17.715Z",
+    "created_at": "2026-09-21T09:29:51.208Z",
+    "updated_at": "2026-09-21T09:29:51.208Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2540,
+  "pk": 2742,
   "fields": {
     "name": "Deluxe Jallikattu",
     "slug": "deluxe-jallikattu",
     "sku": "VAS-006",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -299,20 +299,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.731Z",
-    "updated_at": "2026-09-21T09:18:17.731Z",
+    "created_at": "2026-09-21T09:29:51.227Z",
+    "updated_at": "2026-09-21T09:29:51.227Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2541,
+  "pk": 2743,
   "fields": {
     "name": "Two Sound Colour",
     "slug": "two-sound-colour",
     "sku": "VAS-007",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -350,20 +350,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.738Z",
-    "updated_at": "2026-09-21T09:18:17.738Z",
+    "created_at": "2026-09-21T09:29:51.243Z",
+    "updated_at": "2026-09-21T09:29:51.243Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2542,
+  "pk": 2744,
   "fields": {
     "name": "2 3/4' Kuruvi",
     "slug": "2-3-4-kuruvi",
     "sku": "VAS-008",
-    "category": 337,
+    "category": 358,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -401,20 +401,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.839Z",
-    "updated_at": "2026-09-21T09:18:17.839Z",
+    "created_at": "2026-09-21T09:29:51.254Z",
+    "updated_at": "2026-09-21T09:29:51.254Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2543,
+  "pk": 2745,
   "fields": {
     "name": "1 1/2' (Sattai) Twingling Star (10 Pcs)",
     "slug": "1-1-2-sattai-twingling-star-10-pcs",
     "sku": "VAS-009",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -452,20 +452,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.877Z",
-    "updated_at": "2026-09-21T09:18:17.877Z",
+    "created_at": "2026-09-21T09:29:51.270Z",
+    "updated_at": "2026-09-21T09:29:51.270Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2544,
+  "pk": 2746,
   "fields": {
     "name": "4' (Sattai) Twingling Star (10 Pcs)",
     "slug": "4-sattai-twingling-star-10-pcs",
     "sku": "VAS-010",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -503,20 +503,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.922Z",
-    "updated_at": "2026-09-21T09:18:17.922Z",
+    "created_at": "2026-09-21T09:29:51.285Z",
+    "updated_at": "2026-09-21T09:29:51.285Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2545,
+  "pk": 2747,
   "fields": {
     "name": "7' Pencil (10 Pcs)",
     "slug": "7-pencil-10-pcs",
     "sku": "VAS-011",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -554,20 +554,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.952Z",
-    "updated_at": "2026-09-21T09:18:17.952Z",
+    "created_at": "2026-09-21T09:29:51.298Z",
+    "updated_at": "2026-09-21T09:29:51.298Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2546,
+  "pk": 2748,
   "fields": {
     "name": "10' Pencil (10 Pcs)",
     "slug": "10-pencil-10-pcs",
     "sku": "VAS-012",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -605,20 +605,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:17.978Z",
-    "updated_at": "2026-09-21T09:18:17.978Z",
+    "created_at": "2026-09-21T09:29:51.312Z",
+    "updated_at": "2026-09-21T09:29:51.312Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2547,
+  "pk": 2749,
   "fields": {
     "name": "Ultra Torch pencil (3 Pcs)",
     "slug": "ultra-torch-pencil-3-pcs",
     "sku": "VAS-013",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -656,20 +656,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.013Z",
-    "updated_at": "2026-09-21T09:18:18.013Z",
+    "created_at": "2026-09-21T09:29:51.325Z",
+    "updated_at": "2026-09-21T09:29:51.325Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2548,
+  "pk": 2750,
   "fields": {
     "name": "Rainbow flash Pencil (5 Pcs)",
     "slug": "rainbow-flash-pencil-5-pcs",
     "sku": "VAS-014",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -707,20 +707,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.051Z",
-    "updated_at": "2026-09-21T09:18:18.051Z",
+    "created_at": "2026-09-21T09:29:51.343Z",
+    "updated_at": "2026-09-21T09:29:51.343Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2549,
+  "pk": 2751,
   "fields": {
     "name": "Sivakasi special Candle Pencil (2 Pcs)",
     "slug": "sivakasi-special-candle-pencil-2-pcs",
     "sku": "VAS-015",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -758,20 +758,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.097Z",
-    "updated_at": "2026-09-21T09:18:18.097Z",
+    "created_at": "2026-09-21T09:29:51.354Z",
+    "updated_at": "2026-09-21T09:29:51.354Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2550,
+  "pk": 2752,
   "fields": {
     "name": "Popcorn Pencil (5 Pcs)",
     "slug": "popcorn-pencil-5-pcs",
     "sku": "VAS-016",
-    "category": 338,
+    "category": 359,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -809,20 +809,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.144Z",
-    "updated_at": "2026-09-21T09:18:18.144Z",
+    "created_at": "2026-09-21T09:29:51.361Z",
+    "updated_at": "2026-09-21T09:29:51.361Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2551,
+  "pk": 2753,
   "fields": {
     "name": "7 Cm Electric Sparklers",
     "slug": "7-cm-electric-sparklers",
     "sku": "VAS-017",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -860,20 +860,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.171Z",
-    "updated_at": "2026-09-21T09:18:18.171Z",
+    "created_at": "2026-09-21T09:29:51.370Z",
+    "updated_at": "2026-09-21T09:29:51.370Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2552,
+  "pk": 2754,
   "fields": {
     "name": "7 Cm Colour Sparklers",
     "slug": "7-cm-colour-sparklers",
     "sku": "VAS-018",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -911,20 +911,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.192Z",
-    "updated_at": "2026-09-21T09:18:18.192Z",
+    "created_at": "2026-09-21T09:29:51.378Z",
+    "updated_at": "2026-09-21T09:29:51.378Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2553,
+  "pk": 2755,
   "fields": {
     "name": "7 Cm Green Sparklers",
     "slug": "7-cm-green-sparklers",
     "sku": "VAS-019",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -962,20 +962,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.213Z",
-    "updated_at": "2026-09-21T09:18:18.213Z",
+    "created_at": "2026-09-21T09:29:51.388Z",
+    "updated_at": "2026-09-21T09:29:51.388Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2554,
+  "pk": 2756,
   "fields": {
     "name": "7 Cm Red Sparklers",
     "slug": "7-cm-red-sparklers",
     "sku": "VAS-020",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1013,20 +1013,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.225Z",
-    "updated_at": "2026-09-21T09:18:18.225Z",
+    "created_at": "2026-09-21T09:29:51.399Z",
+    "updated_at": "2026-09-21T09:29:51.399Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2555,
+  "pk": 2757,
   "fields": {
     "name": "10 Cm Electric Sparklers",
     "slug": "10-cm-electric-sparklers",
     "sku": "VAS-021",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1064,20 +1064,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.240Z",
-    "updated_at": "2026-09-21T09:18:18.240Z",
+    "created_at": "2026-09-21T09:29:51.409Z",
+    "updated_at": "2026-09-21T09:29:51.409Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2556,
+  "pk": 2758,
   "fields": {
     "name": "10 Cm Colour Sparklers",
     "slug": "10-cm-colour-sparklers",
     "sku": "VAS-022",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1115,20 +1115,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.255Z",
-    "updated_at": "2026-09-21T09:18:18.255Z",
+    "created_at": "2026-09-21T09:29:51.420Z",
+    "updated_at": "2026-09-21T09:29:51.420Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2557,
+  "pk": 2759,
   "fields": {
     "name": "10 Cm Green Sparklers",
     "slug": "10-cm-green-sparklers",
     "sku": "VAS-023",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1166,20 +1166,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.268Z",
-    "updated_at": "2026-09-21T09:18:18.268Z",
+    "created_at": "2026-09-21T09:29:51.426Z",
+    "updated_at": "2026-09-21T09:29:51.426Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2558,
+  "pk": 2760,
   "fields": {
     "name": "10 Cm Red Sparklers",
     "slug": "10-cm-red-sparklers",
     "sku": "VAS-024",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1217,20 +1217,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.277Z",
-    "updated_at": "2026-09-21T09:18:18.277Z",
+    "created_at": "2026-09-21T09:29:51.436Z",
+    "updated_at": "2026-09-21T09:29:51.436Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2559,
+  "pk": 2761,
   "fields": {
     "name": "12 Cm Electric Sparklers",
     "slug": "12-cm-electric-sparklers",
     "sku": "VAS-025",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1268,20 +1268,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.291Z",
-    "updated_at": "2026-09-21T09:18:18.291Z",
+    "created_at": "2026-09-21T09:29:51.445Z",
+    "updated_at": "2026-09-21T09:29:51.445Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2560,
+  "pk": 2762,
   "fields": {
     "name": "12 Cm Colour Sparklers",
     "slug": "12-cm-colour-sparklers",
     "sku": "VAS-026",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1319,20 +1319,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.309Z",
-    "updated_at": "2026-09-21T09:18:18.309Z",
+    "created_at": "2026-09-21T09:29:51.451Z",
+    "updated_at": "2026-09-21T09:29:51.451Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2561,
+  "pk": 2763,
   "fields": {
     "name": "12 Cm Green Sparklers",
     "slug": "12-cm-green-sparklers",
     "sku": "VAS-027",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1370,20 +1370,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.319Z",
-    "updated_at": "2026-09-21T09:18:18.319Z",
+    "created_at": "2026-09-21T09:29:51.465Z",
+    "updated_at": "2026-09-21T09:29:51.465Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2562,
+  "pk": 2764,
   "fields": {
     "name": "12 Cm Red Sparklers",
     "slug": "12-cm-red-sparklers",
     "sku": "VAS-028",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1421,20 +1421,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.327Z",
-    "updated_at": "2026-09-21T09:18:18.329Z",
+    "created_at": "2026-09-21T09:29:51.478Z",
+    "updated_at": "2026-09-21T09:29:51.478Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2563,
+  "pk": 2765,
   "fields": {
     "name": "15 Cm Electric Sparklers",
     "slug": "15-cm-electric-sparklers",
     "sku": "VAS-029",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1472,20 +1472,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.339Z",
-    "updated_at": "2026-09-21T09:18:18.339Z",
+    "created_at": "2026-09-21T09:29:51.489Z",
+    "updated_at": "2026-09-21T09:29:51.489Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2564,
+  "pk": 2766,
   "fields": {
     "name": "15 Cm Colour Sparklers",
     "slug": "15-cm-colour-sparklers",
     "sku": "VAS-030",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1523,20 +1523,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.349Z",
-    "updated_at": "2026-09-21T09:18:18.349Z",
+    "created_at": "2026-09-21T09:29:51.497Z",
+    "updated_at": "2026-09-21T09:29:51.497Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2565,
+  "pk": 2767,
   "fields": {
     "name": "15 Cm Green Sparklers",
     "slug": "15-cm-green-sparklers",
     "sku": "VAS-031",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1574,20 +1574,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.358Z",
-    "updated_at": "2026-09-21T09:18:18.358Z",
+    "created_at": "2026-09-21T09:29:51.509Z",
+    "updated_at": "2026-09-21T09:29:51.509Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2566,
+  "pk": 2768,
   "fields": {
     "name": "15 Cm Red Sparklers",
     "slug": "15-cm-red-sparklers",
     "sku": "VAS-032",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1625,20 +1625,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.369Z",
-    "updated_at": "2026-09-21T09:18:18.369Z",
+    "created_at": "2026-09-21T09:29:51.521Z",
+    "updated_at": "2026-09-21T09:29:51.521Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2567,
+  "pk": 2769,
   "fields": {
     "name": "30 Cm Electric Sparklers",
     "slug": "30-cm-electric-sparklers",
     "sku": "VAS-033",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1676,20 +1676,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.379Z",
-    "updated_at": "2026-09-21T09:18:18.379Z",
+    "created_at": "2026-09-21T09:29:51.536Z",
+    "updated_at": "2026-09-21T09:29:51.536Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2568,
+  "pk": 2770,
   "fields": {
     "name": "30 Cm Colour Sparklers",
     "slug": "30-cm-colour-sparklers",
     "sku": "VAS-034",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1727,20 +1727,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.394Z",
-    "updated_at": "2026-09-21T09:18:18.394Z",
+    "created_at": "2026-09-21T09:29:51.545Z",
+    "updated_at": "2026-09-21T09:29:51.545Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2569,
+  "pk": 2771,
   "fields": {
     "name": "30 Cm Green Sparklers",
     "slug": "30-cm-green-sparklers",
     "sku": "VAS-035",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1778,20 +1778,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.404Z",
-    "updated_at": "2026-09-21T09:18:18.404Z",
+    "created_at": "2026-09-21T09:29:51.557Z",
+    "updated_at": "2026-09-21T09:29:51.557Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2570,
+  "pk": 2772,
   "fields": {
     "name": "30 Cm Red Sparklers",
     "slug": "30-cm-red-sparklers",
     "sku": "VAS-036",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1829,20 +1829,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.415Z",
-    "updated_at": "2026-09-21T09:18:18.415Z",
+    "created_at": "2026-09-21T09:29:51.568Z",
+    "updated_at": "2026-09-21T09:29:51.568Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2571,
+  "pk": 2773,
   "fields": {
     "name": "50 Cm Electric Sparklers",
     "slug": "50-cm-electric-sparklers",
     "sku": "VAS-037",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1880,20 +1880,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.420Z",
-    "updated_at": "2026-09-21T09:18:18.420Z",
+    "created_at": "2026-09-21T09:29:51.579Z",
+    "updated_at": "2026-09-21T09:29:51.579Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2572,
+  "pk": 2774,
   "fields": {
     "name": "50 Cm Colour Sparklers",
     "slug": "50-cm-colour-sparklers",
     "sku": "VAS-038",
-    "category": 339,
+    "category": 360,
     "brand": 34,
     "product_type": "box",
     "safety_level": "low",
@@ -1931,20 +1931,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.429Z",
-    "updated_at": "2026-09-21T09:18:18.429Z",
+    "created_at": "2026-09-21T09:29:51.591Z",
+    "updated_at": "2026-09-21T09:29:51.591Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2573,
+  "pk": 2775,
   "fields": {
     "name": "Flower Pots Small (10 Pcs)",
     "slug": "flower-pots-small-10-pcs",
     "sku": "VAS-039",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -1982,20 +1982,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.446Z",
-    "updated_at": "2026-09-21T09:18:18.446Z",
+    "created_at": "2026-09-21T09:29:51.605Z",
+    "updated_at": "2026-09-21T09:29:51.605Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2574,
+  "pk": 2776,
   "fields": {
     "name": "Flower Pots Big (10 Pcs)",
     "slug": "flower-pots-big-10-pcs",
     "sku": "VAS-040",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2033,20 +2033,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.463Z",
-    "updated_at": "2026-09-21T09:18:18.463Z",
+    "created_at": "2026-09-21T09:29:51.613Z",
+    "updated_at": "2026-09-21T09:29:51.613Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2575,
+  "pk": 2777,
   "fields": {
     "name": "Flower Pots Special (10 Pcs)",
     "slug": "flower-pots-special-10-pcs",
     "sku": "VAS-041",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2084,20 +2084,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.479Z",
-    "updated_at": "2026-09-21T09:18:18.479Z",
+    "created_at": "2026-09-21T09:29:51.627Z",
+    "updated_at": "2026-09-21T09:29:51.627Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2576,
+  "pk": 2778,
   "fields": {
     "name": "Flower Pots Ashoka (10 Pcs)",
     "slug": "flower-pots-ashoka-10-pcs",
     "sku": "VAS-042",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2135,20 +2135,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.496Z",
-    "updated_at": "2026-09-21T09:18:18.496Z",
+    "created_at": "2026-09-21T09:29:51.637Z",
+    "updated_at": "2026-09-21T09:29:51.637Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2577,
+  "pk": 2779,
   "fields": {
     "name": "Flower Pots Colour Koti (10 Pcs)",
     "slug": "flower-pots-colour-koti-10-pcs",
     "sku": "VAS-043",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2186,20 +2186,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.511Z",
-    "updated_at": "2026-09-21T09:18:18.511Z",
+    "created_at": "2026-09-21T09:29:51.648Z",
+    "updated_at": "2026-09-21T09:29:51.648Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2578,
+  "pk": 2780,
   "fields": {
     "name": "Special Colour Koti (10 Pcs)",
     "slug": "special-colour-koti-10-pcs",
     "sku": "VAS-044",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2237,20 +2237,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.527Z",
-    "updated_at": "2026-09-21T09:18:18.527Z",
+    "created_at": "2026-09-21T09:29:51.663Z",
+    "updated_at": "2026-09-21T09:29:51.663Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2579,
+  "pk": 2781,
   "fields": {
     "name": "Flower pots Colour Koti Deluxe(10 Pcs)",
     "slug": "flower-pots-colour-koti-deluxe10-pcs",
     "sku": "VAS-045",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2288,20 +2288,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.548Z",
-    "updated_at": "2026-09-21T09:18:18.548Z",
+    "created_at": "2026-09-21T09:29:51.675Z",
+    "updated_at": "2026-09-21T09:29:51.675Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2580,
+  "pk": 2782,
   "fields": {
     "name": "Motu Patlu Tri Colour (5 Pcs)",
     "slug": "motu-patlu-tri-colour-5-pcs",
     "sku": "VAS-046",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2339,20 +2339,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.554Z",
-    "updated_at": "2026-09-21T09:18:18.554Z",
+    "created_at": "2026-09-21T09:29:51.687Z",
+    "updated_at": "2026-09-21T09:29:51.687Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2581,
+  "pk": 2783,
   "fields": {
     "name": "Mega Tri Colour Fountain (5 pcs)",
     "slug": "mega-tri-colour-fountain-5-pcs",
     "sku": "VAS-047",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2390,20 +2390,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.578Z",
-    "updated_at": "2026-09-21T09:18:18.578Z",
+    "created_at": "2026-09-21T09:29:51.701Z",
+    "updated_at": "2026-09-21T09:29:51.701Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2582,
+  "pk": 2784,
   "fields": {
     "name": "Jumbo Super Deluxe (10 pcs)",
     "slug": "jumbo-super-deluxe-10-pcs",
     "sku": "VAS-048",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2441,20 +2441,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.585Z",
-    "updated_at": "2026-09-21T09:18:18.585Z",
+    "created_at": "2026-09-21T09:29:51.715Z",
+    "updated_at": "2026-09-21T09:29:51.715Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2583,
+  "pk": 2785,
   "fields": {
     "name": "Flower pots Multi Colour Giant (10 Pcs)",
     "slug": "flower-pots-multi-colour-giant-10-pcs",
     "sku": "VAS-049",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2492,20 +2492,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.605Z",
-    "updated_at": "2026-09-21T09:18:18.605Z",
+    "created_at": "2026-09-21T09:29:51.725Z",
+    "updated_at": "2026-09-21T09:29:51.725Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2584,
+  "pk": 2786,
   "fields": {
     "name": "Gypsy Colour Flower pots (5Pcs)",
     "slug": "gypsy-colour-flower-pots-5pcs",
     "sku": "VAS-050",
-    "category": 340,
+    "category": 361,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -2543,20 +2543,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.629Z",
-    "updated_at": "2026-09-21T09:18:18.629Z",
+    "created_at": "2026-09-21T09:29:51.737Z",
+    "updated_at": "2026-09-21T09:29:51.737Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2585,
+  "pk": 2787,
   "fields": {
     "name": "Ground Chakkar Small(10 Pcs)",
     "slug": "ground-chakkar-small10-pcs",
     "sku": "VAS-051",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2594,20 +2594,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.636Z",
-    "updated_at": "2026-09-21T09:18:18.636Z",
+    "created_at": "2026-09-21T09:29:51.748Z",
+    "updated_at": "2026-09-21T09:29:51.748Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2586,
+  "pk": 2788,
   "fields": {
     "name": "Ground Chakkar Big (25 Pcs)",
     "slug": "ground-chakkar-big-25-pcs",
     "sku": "VAS-052",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2645,20 +2645,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.646Z",
-    "updated_at": "2026-09-21T09:18:18.646Z",
+    "created_at": "2026-09-21T09:29:51.761Z",
+    "updated_at": "2026-09-21T09:29:51.761Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2587,
+  "pk": 2789,
   "fields": {
     "name": "Ground Chakkar Ashoka (10 Pcs)",
     "slug": "ground-chakkar-ashoka-10-pcs",
     "sku": "VAS-053",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2696,20 +2696,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.663Z",
-    "updated_at": "2026-09-21T09:18:18.663Z",
+    "created_at": "2026-09-21T09:29:51.777Z",
+    "updated_at": "2026-09-21T09:29:51.777Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2588,
+  "pk": 2790,
   "fields": {
     "name": "Ground Chakkar Special (10 Pcs)",
     "slug": "ground-chakkar-special-10-pcs",
     "sku": "VAS-054",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2747,20 +2747,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.685Z",
-    "updated_at": "2026-09-21T09:18:18.685Z",
+    "created_at": "2026-09-21T09:29:51.787Z",
+    "updated_at": "2026-09-21T09:29:51.787Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2589,
+  "pk": 2791,
   "fields": {
     "name": "Ground Chakkar Deluxe (10 Pcs)",
     "slug": "ground-chakkar-deluxe-10-pcs",
     "sku": "VAS-055",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2798,20 +2798,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.700Z",
-    "updated_at": "2026-09-21T09:18:18.700Z",
+    "created_at": "2026-09-21T09:29:51.797Z",
+    "updated_at": "2026-09-21T09:29:51.797Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2590,
+  "pk": 2792,
   "fields": {
     "name": "Disco Wheel (5 Pcs)",
     "slug": "disco-wheel-5-pcs",
     "sku": "VAS-056",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2849,20 +2849,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.713Z",
-    "updated_at": "2026-09-21T09:18:18.713Z",
+    "created_at": "2026-09-21T09:29:51.809Z",
+    "updated_at": "2026-09-21T09:29:51.809Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2591,
+  "pk": 2793,
   "fields": {
     "name": "Whizzling Wheel (5 Pcs)",
     "slug": "whizzling-wheel-5-pcs",
     "sku": "VAS-057",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2900,20 +2900,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.726Z",
-    "updated_at": "2026-09-21T09:18:18.726Z",
+    "created_at": "2026-09-21T09:29:51.818Z",
+    "updated_at": "2026-09-21T09:29:51.818Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2592,
+  "pk": 2794,
   "fields": {
     "name": "Chakkar Spinner Deluxe (10Pcs)",
     "slug": "chakkar-spinner-deluxe-10pcs",
     "sku": "VAS-058",
-    "category": 341,
+    "category": 362,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -2951,20 +2951,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.739Z",
-    "updated_at": "2026-09-21T09:18:18.739Z",
+    "created_at": "2026-09-21T09:29:51.827Z",
+    "updated_at": "2026-09-21T09:29:51.827Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2593,
+  "pk": 2795,
   "fields": {
     "name": "Baby Rocket (10 Pcs)",
     "slug": "baby-rocket-10-pcs",
     "sku": "VAS-059",
-    "category": 342,
+    "category": 363,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3002,20 +3002,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.754Z",
-    "updated_at": "2026-09-21T09:18:18.754Z",
+    "created_at": "2026-09-21T09:29:51.838Z",
+    "updated_at": "2026-09-21T09:29:51.838Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2594,
+  "pk": 2796,
   "fields": {
     "name": "Rocket bomb (10 Pcs)",
     "slug": "rocket-bomb-10-pcs",
     "sku": "VAS-060",
-    "category": 342,
+    "category": 363,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3053,20 +3053,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.771Z",
-    "updated_at": "2026-09-21T09:18:18.771Z",
+    "created_at": "2026-09-21T09:29:51.847Z",
+    "updated_at": "2026-09-21T09:29:51.847Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2595,
+  "pk": 2797,
   "fields": {
     "name": "Lunix /2 Sound Rocket(10 Pcs)",
     "slug": "lunix--2-sound-rocket10-pcs",
     "sku": "VAS-061",
-    "category": 342,
+    "category": 363,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3104,20 +3104,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.784Z",
-    "updated_at": "2026-09-21T09:18:18.784Z",
+    "created_at": "2026-09-21T09:29:51.858Z",
+    "updated_at": "2026-09-21T09:29:51.858Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2596,
+  "pk": 2798,
   "fields": {
     "name": "Whistling Rocket (10 Pcs)",
     "slug": "whistling-rocket-10-pcs",
     "sku": "VAS-062",
-    "category": 342,
+    "category": 363,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3155,20 +3155,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.796Z",
-    "updated_at": "2026-09-21T09:18:18.796Z",
+    "created_at": "2026-09-21T09:29:51.868Z",
+    "updated_at": "2026-09-21T09:29:51.868Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2597,
+  "pk": 2799,
   "fields": {
     "name": "Red Bijili (50 pcs)",
     "slug": "red-bijili-50-pcs",
     "sku": "VAS-063",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -3206,20 +3206,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.830Z",
-    "updated_at": "2026-09-21T09:18:18.830Z",
+    "created_at": "2026-09-21T09:29:51.877Z",
+    "updated_at": "2026-09-21T09:29:51.877Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2598,
+  "pk": 2800,
   "fields": {
     "name": "Red Bijili (100 pcs)",
     "slug": "red-bijili-100-pcs",
     "sku": "VAS-064",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -3257,20 +3257,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.840Z",
-    "updated_at": "2026-09-21T09:18:18.840Z",
+    "created_at": "2026-09-21T09:29:51.886Z",
+    "updated_at": "2026-09-21T09:29:51.886Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2599,
+  "pk": 2801,
   "fields": {
     "name": "Bullet Bomb (10 Pcs)",
     "slug": "bullet-bomb-10-pcs",
     "sku": "VAS-065",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3308,20 +3308,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.855Z",
-    "updated_at": "2026-09-21T09:18:18.855Z",
+    "created_at": "2026-09-21T09:29:51.896Z",
+    "updated_at": "2026-09-21T09:29:51.896Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2600,
+  "pk": 2802,
   "fields": {
     "name": "Atom Bomb (10 Pcs)",
     "slug": "atom-bomb-10-pcs",
     "sku": "VAS-066",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3359,20 +3359,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.871Z",
-    "updated_at": "2026-09-21T09:18:18.871Z",
+    "created_at": "2026-09-21T09:29:51.905Z",
+    "updated_at": "2026-09-21T09:29:51.905Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2601,
+  "pk": 2803,
   "fields": {
     "name": "Hydro Bomb (10 Pcs)",
     "slug": "hydro-bomb-10-pcs",
     "sku": "VAS-067",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3410,20 +3410,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.885Z",
-    "updated_at": "2026-09-21T09:18:18.885Z",
+    "created_at": "2026-09-21T09:29:51.915Z",
+    "updated_at": "2026-09-21T09:29:51.915Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2602,
+  "pk": 2804,
   "fields": {
     "name": "King of King Bomb (10 Pcs)",
     "slug": "king-of-king-bomb-10-pcs",
     "sku": "VAS-068",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3461,20 +3461,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.899Z",
-    "updated_at": "2026-09-21T09:18:18.899Z",
+    "created_at": "2026-09-21T09:29:51.926Z",
+    "updated_at": "2026-09-21T09:29:51.926Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2603,
+  "pk": 2805,
   "fields": {
     "name": "Classic Bomb (10 Pcs)",
     "slug": "classic-bomb-10-pcs",
     "sku": "VAS-069",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3512,20 +3512,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.913Z",
-    "updated_at": "2026-09-21T09:18:18.913Z",
+    "created_at": "2026-09-21T09:29:51.937Z",
+    "updated_at": "2026-09-21T09:29:51.937Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2604,
+  "pk": 2806,
   "fields": {
     "name": "Dinoser Bomb (10 Pcs)",
     "slug": "dinoser-bomb-10-pcs",
     "sku": "VAS-070",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3563,20 +3563,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.923Z",
-    "updated_at": "2026-09-21T09:18:18.923Z",
+    "created_at": "2026-09-21T09:29:51.947Z",
+    "updated_at": "2026-09-21T09:29:51.947Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2605,
+  "pk": 2807,
   "fields": {
     "name": "555 Bomb (10 Pcs)",
     "slug": "555-bomb-10-pcs",
     "sku": "VAS-071",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3614,20 +3614,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.946Z",
-    "updated_at": "2026-09-21T09:18:18.946Z",
+    "created_at": "2026-09-21T09:29:51.958Z",
+    "updated_at": "2026-09-21T09:29:51.958Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2606,
+  "pk": 2808,
   "fields": {
     "name": "Digital Deluxe Bomb (10 Pcs)",
     "slug": "digital-deluxe-bomb-10-pcs",
     "sku": "VAS-072",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3665,20 +3665,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.970Z",
-    "updated_at": "2026-09-21T09:18:18.970Z",
+    "created_at": "2026-09-21T09:29:51.967Z",
+    "updated_at": "2026-09-21T09:29:51.967Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2607,
+  "pk": 2809,
   "fields": {
     "name": "Stripped (vari) Bijili (100 Pcs)",
     "slug": "stripped-vari-bijili-100-pcs",
     "sku": "VAS-073",
-    "category": 343,
+    "category": 364,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -3716,20 +3716,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.983Z",
-    "updated_at": "2026-09-21T09:18:18.983Z",
+    "created_at": "2026-09-21T09:29:51.978Z",
+    "updated_at": "2026-09-21T09:29:51.978Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2608,
+  "pk": 2810,
   "fields": {
     "name": "Adiyal Paper Bomb ¼ Kg",
     "slug": "adiyal-paper-bomb-¼-kg",
     "sku": "VAS-074",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -3767,20 +3767,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:18.995Z",
-    "updated_at": "2026-09-21T09:18:18.995Z",
+    "created_at": "2026-09-21T09:29:51.992Z",
+    "updated_at": "2026-09-21T09:29:51.992Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2609,
+  "pk": 2811,
   "fields": {
     "name": "Adiyal Paper Bomb ½ Kg",
     "slug": "adiyal-paper-bomb-½-kg",
     "sku": "VAS-075",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -3818,20 +3818,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.004Z",
-    "updated_at": "2026-09-21T09:18:19.004Z",
+    "created_at": "2026-09-21T09:29:52.004Z",
+    "updated_at": "2026-09-21T09:29:52.004Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2610,
+  "pk": 2812,
   "fields": {
     "name": "Clolour Paper Vedi (5 Pcs)",
     "slug": "clolour-paper-vedi-5-pcs",
     "sku": "VAS-076",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -3869,20 +3869,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.019Z",
-    "updated_at": "2026-09-21T09:18:19.019Z",
+    "created_at": "2026-09-21T09:29:52.014Z",
+    "updated_at": "2026-09-21T09:29:52.014Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2611,
+  "pk": 2813,
   "fields": {
     "name": "Avadhar Paper Bomb (10 Pcs)",
     "slug": "avadhar-paper-bomb-10-pcs",
     "sku": "VAS-077",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3920,20 +3920,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.033Z",
-    "updated_at": "2026-09-21T09:18:19.033Z",
+    "created_at": "2026-09-21T09:29:52.025Z",
+    "updated_at": "2026-09-21T09:29:52.025Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2612,
+  "pk": 2814,
   "fields": {
     "name": "Crorepathy Paper Bomb (2 Pcs)",
     "slug": "crorepathy-paper-bomb-2-pcs",
     "sku": "VAS-078",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -3971,20 +3971,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.044Z",
-    "updated_at": "2026-09-21T09:18:19.044Z",
+    "created_at": "2026-09-21T09:29:52.037Z",
+    "updated_at": "2026-09-21T09:29:52.037Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2613,
+  "pk": 2815,
   "fields": {
     "name": "Adiyal Paper Bomb 1 Kg",
     "slug": "adiyal-paper-bomb-1-kg",
     "sku": "VAS-079",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "single",
     "safety_level": "high",
@@ -4022,20 +4022,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.054Z",
-    "updated_at": "2026-09-21T09:18:19.054Z",
+    "created_at": "2026-09-21T09:29:52.045Z",
+    "updated_at": "2026-09-21T09:29:52.045Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2614,
+  "pk": 2816,
   "fields": {
     "name": "Money Bank (3 Pcs)",
     "slug": "money-bank-3-pcs",
     "sku": "VAS-080",
-    "category": 344,
+    "category": 365,
     "brand": 34,
     "product_type": "box",
     "safety_level": "high",
@@ -4073,20 +4073,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.069Z",
-    "updated_at": "2026-09-21T09:18:19.069Z",
+    "created_at": "2026-09-21T09:29:52.056Z",
+    "updated_at": "2026-09-21T09:29:52.056Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2615,
+  "pk": 2817,
   "fields": {
     "name": "28 Chorsa",
     "slug": "28-chorsa",
     "sku": "VAS-081",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4124,20 +4124,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.079Z",
-    "updated_at": "2026-09-21T09:18:19.079Z",
+    "created_at": "2026-09-21T09:29:52.066Z",
+    "updated_at": "2026-09-21T09:29:52.066Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2616,
+  "pk": 2818,
   "fields": {
     "name": "28 Giant",
     "slug": "28-giant",
     "sku": "VAS-082",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4175,20 +4175,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.087Z",
-    "updated_at": "2026-09-21T09:18:19.087Z",
+    "created_at": "2026-09-21T09:29:52.081Z",
+    "updated_at": "2026-09-21T09:29:52.081Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2617,
+  "pk": 2819,
   "fields": {
     "name": "56 Giant",
     "slug": "56-giant",
     "sku": "VAS-083",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4226,20 +4226,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.100Z",
-    "updated_at": "2026-09-21T09:18:19.100Z",
+    "created_at": "2026-09-21T09:29:52.090Z",
+    "updated_at": "2026-09-21T09:29:52.090Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2618,
+  "pk": 2820,
   "fields": {
     "name": "24 Deluxe",
     "slug": "24-deluxe",
     "sku": "VAS-084",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -4277,20 +4277,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.110Z",
-    "updated_at": "2026-09-21T09:18:19.110Z",
+    "created_at": "2026-09-21T09:29:52.100Z",
+    "updated_at": "2026-09-21T09:29:52.100Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2619,
+  "pk": 2821,
   "fields": {
     "name": "50 Deluxe",
     "slug": "50-deluxe",
     "sku": "VAS-085",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -4328,20 +4328,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.120Z",
-    "updated_at": "2026-09-21T09:18:19.120Z",
+    "created_at": "2026-09-21T09:29:52.112Z",
+    "updated_at": "2026-09-21T09:29:52.112Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2620,
+  "pk": 2822,
   "fields": {
     "name": "100 Deluxe",
     "slug": "100-deluxe",
     "sku": "VAS-086",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4379,20 +4379,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.131Z",
-    "updated_at": "2026-09-21T09:18:19.131Z",
+    "created_at": "2026-09-21T09:29:52.120Z",
+    "updated_at": "2026-09-21T09:29:52.120Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2621,
+  "pk": 2823,
   "fields": {
     "name": "100 Wala",
     "slug": "100-wala",
     "sku": "VAS-087",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4430,20 +4430,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.143Z",
-    "updated_at": "2026-09-21T09:18:19.143Z",
+    "created_at": "2026-09-21T09:29:52.131Z",
+    "updated_at": "2026-09-21T09:29:52.131Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2622,
+  "pk": 2824,
   "fields": {
     "name": "1000 Wala",
     "slug": "1000-wala",
     "sku": "VAS-088",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4481,20 +4481,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.153Z",
-    "updated_at": "2026-09-21T09:18:19.153Z",
+    "created_at": "2026-09-21T09:29:52.140Z",
+    "updated_at": "2026-09-21T09:29:52.140Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2623,
+  "pk": 2825,
   "fields": {
     "name": "1000 Wala Power",
     "slug": "1000-wala-power",
     "sku": "VAS-089",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4532,20 +4532,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.167Z",
-    "updated_at": "2026-09-21T09:18:19.167Z",
+    "created_at": "2026-09-21T09:29:52.150Z",
+    "updated_at": "2026-09-21T09:29:52.150Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2624,
+  "pk": 2826,
   "fields": {
     "name": "2000 Wala",
     "slug": "2000-wala",
     "sku": "VAS-090",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4583,20 +4583,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.190Z",
-    "updated_at": "2026-09-21T09:18:19.190Z",
+    "created_at": "2026-09-21T09:29:52.162Z",
+    "updated_at": "2026-09-21T09:29:52.162Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2625,
+  "pk": 2827,
   "fields": {
     "name": "2000 Wala Power",
     "slug": "2000-wala-power",
     "sku": "VAS-091",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4634,20 +4634,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.229Z",
-    "updated_at": "2026-09-21T09:18:19.229Z",
+    "created_at": "2026-09-21T09:29:52.171Z",
+    "updated_at": "2026-09-21T09:29:52.171Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2626,
+  "pk": 2828,
   "fields": {
     "name": "5000 Wala",
     "slug": "5000-wala",
     "sku": "VAS-092",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4685,20 +4685,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.257Z",
-    "updated_at": "2026-09-21T09:18:19.257Z",
+    "created_at": "2026-09-21T09:29:52.182Z",
+    "updated_at": "2026-09-21T09:29:52.183Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2627,
+  "pk": 2829,
   "fields": {
     "name": "5000 Wala Power",
     "slug": "5000-wala-power",
     "sku": "VAS-093",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4736,20 +4736,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.277Z",
-    "updated_at": "2026-09-21T09:18:19.277Z",
+    "created_at": "2026-09-21T09:29:52.195Z",
+    "updated_at": "2026-09-21T09:29:52.195Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2628,
+  "pk": 2830,
   "fields": {
     "name": "10000 Wala",
     "slug": "10000-wala",
     "sku": "VAS-094",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4787,20 +4787,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.296Z",
-    "updated_at": "2026-09-21T09:18:19.296Z",
+    "created_at": "2026-09-21T09:29:52.208Z",
+    "updated_at": "2026-09-21T09:29:52.208Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2629,
+  "pk": 2831,
   "fields": {
     "name": "10000 Wala Power",
     "slug": "10000-wala-power",
     "sku": "VAS-095",
-    "category": 345,
+    "category": 366,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4838,20 +4838,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.309Z",
-    "updated_at": "2026-09-21T09:18:19.309Z",
+    "created_at": "2026-09-21T09:29:52.215Z",
+    "updated_at": "2026-09-21T09:29:52.215Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2630,
+  "pk": 2832,
   "fields": {
     "name": "Chotta Pipe Multi Colour out",
     "slug": "chotta-pipe-multi-colour-out",
     "sku": "VAS-096",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -4889,20 +4889,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.338Z",
-    "updated_at": "2026-09-21T09:18:19.338Z",
+    "created_at": "2026-09-21T09:29:52.230Z",
+    "updated_at": "2026-09-21T09:29:52.230Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2631,
+  "pk": 2833,
   "fields": {
     "name": "7 Color Shots (5 Pcs)",
     "slug": "7-color-shots-5-pcs",
     "sku": "VAS-097",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4940,20 +4940,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.356Z",
-    "updated_at": "2026-09-21T09:18:19.356Z",
+    "created_at": "2026-09-21T09:29:52.242Z",
+    "updated_at": "2026-09-21T09:29:52.242Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2632,
+  "pk": 2834,
   "fields": {
     "name": "Sky Shot Out (5 Pcs)",
     "slug": "sky-shot-out-5-pcs",
     "sku": "VAS-098",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -4991,20 +4991,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.372Z",
-    "updated_at": "2026-09-21T09:18:19.372Z",
+    "created_at": "2026-09-21T09:29:52.248Z",
+    "updated_at": "2026-09-21T09:29:52.250Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2633,
+  "pk": 2835,
   "fields": {
     "name": "Colour Celebration (5 pcs)",
     "slug": "colour-celebration-5-pcs",
     "sku": "VAS-099",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5042,20 +5042,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.384Z",
-    "updated_at": "2026-09-21T09:18:19.384Z",
+    "created_at": "2026-09-21T09:29:52.263Z",
+    "updated_at": "2026-09-21T09:29:52.263Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2634,
+  "pk": 2836,
   "fields": {
     "name": "2' Fancy Pipe Out",
     "slug": "2-fancy-pipe-out",
     "sku": "VAS-100",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -5093,20 +5093,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.401Z",
-    "updated_at": "2026-09-21T09:18:19.401Z",
+    "created_at": "2026-09-21T09:29:52.277Z",
+    "updated_at": "2026-09-21T09:29:52.277Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2635,
+  "pk": 2837,
   "fields": {
     "name": "2' Fancy Pipe Out (3 Pcs)",
     "slug": "2-fancy-pipe-out-3-pcs",
     "sku": "VAS-101",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5144,20 +5144,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.413Z",
-    "updated_at": "2026-09-21T09:18:19.413Z",
+    "created_at": "2026-09-21T09:29:52.291Z",
+    "updated_at": "2026-09-21T09:29:52.291Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2636,
+  "pk": 2838,
   "fields": {
     "name": "3' Fancy Pipe Out",
     "slug": "3-fancy-pipe-out",
     "sku": "VAS-102",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -5195,20 +5195,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.432Z",
-    "updated_at": "2026-09-21T09:18:19.432Z",
+    "created_at": "2026-09-21T09:29:52.304Z",
+    "updated_at": "2026-09-21T09:29:52.304Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2637,
+  "pk": 2839,
   "fields": {
     "name": "3½' Fancy Pipe Out",
     "slug": "3½-fancy-pipe-out",
     "sku": "VAS-103",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -5246,20 +5246,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.447Z",
-    "updated_at": "2026-09-21T09:18:19.447Z",
+    "created_at": "2026-09-21T09:29:52.313Z",
+    "updated_at": "2026-09-21T09:29:52.313Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2638,
+  "pk": 2840,
   "fields": {
     "name": "3½' Fancy Pipe Out (2 Pcs)",
     "slug": "3½-fancy-pipe-out-2-pcs",
     "sku": "VAS-104",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5297,20 +5297,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.457Z",
-    "updated_at": "2026-09-21T09:18:19.457Z",
+    "created_at": "2026-09-21T09:29:52.326Z",
+    "updated_at": "2026-09-21T09:29:52.326Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2639,
+  "pk": 2841,
   "fields": {
     "name": "4' Fancy Pipe Out",
     "slug": "4-fancy-pipe-out",
     "sku": "VAS-105",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -5348,20 +5348,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.471Z",
-    "updated_at": "2026-09-21T09:18:19.471Z",
+    "created_at": "2026-09-21T09:29:52.337Z",
+    "updated_at": "2026-09-21T09:29:52.337Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2640,
+  "pk": 2842,
   "fields": {
     "name": "4' Fancy Pipe Out (2 Pcs)",
     "slug": "4-fancy-pipe-out-2-pcs",
     "sku": "VAS-106",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5399,20 +5399,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.484Z",
-    "updated_at": "2026-09-21T09:18:19.484Z",
+    "created_at": "2026-09-21T09:29:52.347Z",
+    "updated_at": "2026-09-21T09:29:52.347Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2641,
+  "pk": 2843,
   "fields": {
     "name": "4½' Fancy Pipe Out (2 Pcs)",
     "slug": "4½-fancy-pipe-out-2-pcs",
     "sku": "VAS-107",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5450,20 +5450,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.496Z",
-    "updated_at": "2026-09-21T09:18:19.496Z",
+    "created_at": "2026-09-21T09:29:52.359Z",
+    "updated_at": "2026-09-21T09:29:52.359Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2642,
+  "pk": 2844,
   "fields": {
     "name": "5' Mega Fancy Pipe Out (2 Pcs)",
     "slug": "5-mega-fancy-pipe-out-2-pcs",
     "sku": "VAS-108",
-    "category": 346,
+    "category": 367,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5501,20 +5501,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.508Z",
-    "updated_at": "2026-09-21T09:18:19.508Z",
+    "created_at": "2026-09-21T09:29:52.369Z",
+    "updated_at": "2026-09-21T09:29:52.369Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2643,
+  "pk": 2845,
   "fields": {
     "name": "12 Rider Fancy Shots",
     "slug": "12-rider-fancy-shots",
     "sku": "VAS-109",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5552,20 +5552,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.522Z",
-    "updated_at": "2026-09-21T09:18:19.522Z",
+    "created_at": "2026-09-21T09:29:52.378Z",
+    "updated_at": "2026-09-21T09:29:52.378Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2644,
+  "pk": 2846,
   "fields": {
     "name": "12 Multi Colour Fancy Shots",
     "slug": "12-multi-colour-fancy-shots",
     "sku": "VAS-110",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5603,20 +5603,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.549Z",
-    "updated_at": "2026-09-21T09:18:19.549Z",
+    "created_at": "2026-09-21T09:29:52.386Z",
+    "updated_at": "2026-09-21T09:29:52.386Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2645,
+  "pk": 2847,
   "fields": {
     "name": "30 Special Multi Colour Fancy Shots",
     "slug": "30-special-multi-colour-fancy-shots",
     "sku": "VAS-111",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5654,20 +5654,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.563Z",
-    "updated_at": "2026-09-21T09:18:19.563Z",
+    "created_at": "2026-09-21T09:29:52.397Z",
+    "updated_at": "2026-09-21T09:29:52.397Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2646,
+  "pk": 2848,
   "fields": {
     "name": "60 Multi Colour Fancy Shots",
     "slug": "60-multi-colour-fancy-shots",
     "sku": "VAS-112",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5705,20 +5705,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.575Z",
-    "updated_at": "2026-09-21T09:18:19.575Z",
+    "created_at": "2026-09-21T09:29:52.410Z",
+    "updated_at": "2026-09-21T09:29:52.410Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2647,
+  "pk": 2849,
   "fields": {
     "name": "120 Multi Colour Fancy Shots",
     "slug": "120-multi-colour-fancy-shots",
     "sku": "VAS-113",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5756,20 +5756,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.583Z",
-    "updated_at": "2026-09-21T09:18:19.583Z",
+    "created_at": "2026-09-21T09:29:52.423Z",
+    "updated_at": "2026-09-21T09:29:52.423Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2648,
+  "pk": 2850,
   "fields": {
     "name": "240 Multi Colour Fancy Shots",
     "slug": "240-multi-colour-fancy-shots",
     "sku": "VAS-114",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5807,20 +5807,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.597Z",
-    "updated_at": "2026-09-21T09:18:19.597Z",
+    "created_at": "2026-09-21T09:29:52.439Z",
+    "updated_at": "2026-09-21T09:29:52.439Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2649,
+  "pk": 2851,
   "fields": {
     "name": "20x 2.5' Set out Grand Fancy",
     "slug": "20x-2.5-set-out-grand-fancy",
     "sku": "VAS-115",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5858,20 +5858,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.612Z",
-    "updated_at": "2026-09-21T09:18:19.612Z",
+    "created_at": "2026-09-21T09:29:52.452Z",
+    "updated_at": "2026-09-21T09:29:52.452Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2650,
+  "pk": 2852,
   "fields": {
     "name": "30x 2.5' Set out Grand Fancy",
     "slug": "30x-2.5-set-out-grand-fancy",
     "sku": "VAS-116",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5909,20 +5909,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.621Z",
-    "updated_at": "2026-09-21T09:18:19.621Z",
+    "created_at": "2026-09-21T09:29:52.462Z",
+    "updated_at": "2026-09-21T09:29:52.462Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2651,
+  "pk": 2853,
   "fields": {
     "name": "10x10 IPL Set out",
     "slug": "10x10-ipl-set-out",
     "sku": "VAS-117",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -5960,20 +5960,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.634Z",
-    "updated_at": "2026-09-21T09:18:19.634Z",
+    "created_at": "2026-09-21T09:29:52.471Z",
+    "updated_at": "2026-09-21T09:29:52.471Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2652,
+  "pk": 2854,
   "fields": {
     "name": "25 Multi Rider fancy Shots",
     "slug": "25-multi-rider-fancy-shots",
     "sku": "VAS-118",
-    "category": 347,
+    "category": 368,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6011,20 +6011,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.644Z",
-    "updated_at": "2026-09-21T09:18:19.644Z",
+    "created_at": "2026-09-21T09:29:52.486Z",
+    "updated_at": "2026-09-21T09:29:52.486Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2653,
+  "pk": 2855,
   "fields": {
     "name": "4' Angry Bird Shower",
     "slug": "4-angry-bird-shower",
     "sku": "VAS-119",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -6062,20 +6062,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.653Z",
-    "updated_at": "2026-09-21T09:18:19.653Z",
+    "created_at": "2026-09-21T09:29:52.495Z",
+    "updated_at": "2026-09-21T09:29:52.495Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2654,
+  "pk": 2856,
   "fields": {
     "name": "Asrafi (5 Pcs)",
     "slug": "asrafi-5-pcs",
     "sku": "VAS-120",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6113,20 +6113,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.666Z",
-    "updated_at": "2026-09-21T09:18:19.666Z",
+    "created_at": "2026-09-21T09:29:52.506Z",
+    "updated_at": "2026-09-21T09:29:52.506Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2655,
+  "pk": 2857,
   "fields": {
     "name": "Ganga Zamuna Shower(5 Pcs)",
     "slug": "ganga-zamuna-shower5-pcs",
     "sku": "VAS-121",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6164,20 +6164,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.675Z",
-    "updated_at": "2026-09-21T09:18:19.675Z",
+    "created_at": "2026-09-21T09:29:52.516Z",
+    "updated_at": "2026-09-21T09:29:52.516Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2656,
+  "pk": 2858,
   "fields": {
     "name": "Colour Rain (5 Pcs)",
     "slug": "colour-rain-5-pcs",
     "sku": "VAS-122",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6215,20 +6215,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.689Z",
-    "updated_at": "2026-09-21T09:18:19.689Z",
+    "created_at": "2026-09-21T09:29:52.531Z",
+    "updated_at": "2026-09-21T09:29:52.531Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2657,
+  "pk": 2859,
   "fields": {
     "name": "Feather pop Shower (5 Pcs)",
     "slug": "feather-pop-shower-5-pcs",
     "sku": "VAS-123",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6266,20 +6266,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.703Z",
-    "updated_at": "2026-09-21T09:18:19.703Z",
+    "created_at": "2026-09-21T09:29:52.542Z",
+    "updated_at": "2026-09-21T09:29:52.542Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2658,
+  "pk": 2860,
   "fields": {
     "name": "Golden Shower (5 Pcs)",
     "slug": "golden-shower-5-pcs",
     "sku": "VAS-124",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6317,20 +6317,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.718Z",
-    "updated_at": "2026-09-21T09:18:19.718Z",
+    "created_at": "2026-09-21T09:29:52.553Z",
+    "updated_at": "2026-09-21T09:29:52.553Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2659,
+  "pk": 2861,
   "fields": {
     "name": "Disco Shower (5 Pcs)",
     "slug": "disco-shower-5-pcs",
     "sku": "VAS-125",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6368,20 +6368,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.730Z",
-    "updated_at": "2026-09-21T09:18:19.730Z",
+    "created_at": "2026-09-21T09:29:52.562Z",
+    "updated_at": "2026-09-21T09:29:52.562Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2660,
+  "pk": 2862,
   "fields": {
     "name": "2' Sun Feast Colour Fountain (5 Pcs)",
     "slug": "2-sun-feast-colour-fountain-5-pcs",
     "sku": "VAS-126",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6419,20 +6419,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.744Z",
-    "updated_at": "2026-09-21T09:18:19.744Z",
+    "created_at": "2026-09-21T09:29:52.574Z",
+    "updated_at": "2026-09-21T09:29:52.574Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2661,
+  "pk": 2863,
   "fields": {
     "name": "Mini Siren(5 pcs)",
     "slug": "mini-siren5-pcs",
     "sku": "VAS-127",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6470,20 +6470,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.753Z",
-    "updated_at": "2026-09-21T09:18:19.755Z",
+    "created_at": "2026-09-21T09:29:52.584Z",
+    "updated_at": "2026-09-21T09:29:52.584Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2662,
+  "pk": 2864,
   "fields": {
     "name": "Mega Siren (3 Pcs)",
     "slug": "mega-siren-3-pcs",
     "sku": "VAS-128",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6521,20 +6521,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.770Z",
-    "updated_at": "2026-09-21T09:18:19.770Z",
+    "created_at": "2026-09-21T09:29:52.597Z",
+    "updated_at": "2026-09-21T09:29:52.597Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2663,
+  "pk": 2865,
   "fields": {
     "name": "3' Red Sun/ ICE MAGIC Fountain",
     "slug": "3-red-sun--ice-magic-fountain",
     "sku": "VAS-129",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6572,20 +6572,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.785Z",
-    "updated_at": "2026-09-21T09:18:19.785Z",
+    "created_at": "2026-09-21T09:29:52.609Z",
+    "updated_at": "2026-09-21T09:29:52.609Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2664,
+  "pk": 2866,
   "fields": {
     "name": "Tin Beer Fountain (1 Pc)",
     "slug": "tin-beer-fountain-1-pc",
     "sku": "VAS-130",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -6623,20 +6623,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.796Z",
-    "updated_at": "2026-09-21T09:18:19.796Z",
+    "created_at": "2026-09-21T09:29:52.622Z",
+    "updated_at": "2026-09-21T09:29:52.622Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2665,
+  "pk": 2867,
   "fields": {
     "name": "Apple / Pogo Shower Boom (5 pcs)",
     "slug": "apple---pogo-shower-boom-5-pcs",
     "sku": "VAS-131",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6674,20 +6674,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.814Z",
-    "updated_at": "2026-09-21T09:18:19.814Z",
+    "created_at": "2026-09-21T09:29:52.631Z",
+    "updated_at": "2026-09-21T09:29:52.631Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2666,
+  "pk": 2868,
   "fields": {
     "name": "Cocktail Dancing WALA EFECT (3 Pcs)",
     "slug": "cocktail-dancing-wala-efect-3-pcs",
     "sku": "VAS-132",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6725,20 +6725,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.830Z",
-    "updated_at": "2026-09-21T09:18:19.830Z",
+    "created_at": "2026-09-21T09:29:52.642Z",
+    "updated_at": "2026-09-21T09:29:52.642Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2667,
+  "pk": 2869,
   "fields": {
     "name": "Water Falls Fountain",
     "slug": "water-falls-fountain",
     "sku": "VAS-133",
-    "category": 348,
+    "category": 369,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -6776,20 +6776,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.852Z",
-    "updated_at": "2026-09-21T09:18:19.852Z",
+    "created_at": "2026-09-21T09:29:52.654Z",
+    "updated_at": "2026-09-21T09:29:52.654Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2668,
+  "pk": 2870,
   "fields": {
     "name": "Photo Flash (5 Pcs)",
     "slug": "photo-flash-5-pcs",
     "sku": "VAS-134",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6827,20 +6827,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.867Z",
-    "updated_at": "2026-09-21T09:18:19.867Z",
+    "created_at": "2026-09-21T09:29:52.664Z",
+    "updated_at": "2026-09-21T09:29:52.664Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2669,
+  "pk": 2871,
   "fields": {
     "name": "Colour Changing Butterfly (10 Pcs)",
     "slug": "colour-changing-butterfly-10-pcs",
     "sku": "VAS-135",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6878,20 +6878,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.877Z",
-    "updated_at": "2026-09-21T09:18:19.877Z",
+    "created_at": "2026-09-21T09:29:52.675Z",
+    "updated_at": "2026-09-21T09:29:52.675Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2670,
+  "pk": 2872,
   "fields": {
     "name": "Colour Smoke Candle Celebration big (3 Pcs)",
     "slug": "colour-smoke-candle-celebration-big-3-pcs",
     "sku": "VAS-136",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6929,20 +6929,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.884Z",
-    "updated_at": "2026-09-21T09:18:19.884Z",
+    "created_at": "2026-09-21T09:29:52.685Z",
+    "updated_at": "2026-09-21T09:29:52.685Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2671,
+  "pk": 2873,
   "fields": {
     "name": "Helicopter (5 pcs)",
     "slug": "helicopter-5-pcs",
     "sku": "VAS-137",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -6980,20 +6980,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.903Z",
-    "updated_at": "2026-09-21T09:18:19.903Z",
+    "created_at": "2026-09-21T09:29:52.696Z",
+    "updated_at": "2026-09-21T09:29:52.696Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2672,
+  "pk": 2874,
   "fields": {
     "name": "Colour Bambaram red/green (10 Pcs)",
     "slug": "colour-bambaram-red-green-10-pcs",
     "sku": "VAS-138",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7031,20 +7031,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.923Z",
-    "updated_at": "2026-09-21T09:18:19.923Z",
+    "created_at": "2026-09-21T09:29:52.709Z",
+    "updated_at": "2026-09-21T09:29:52.709Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2673,
+  "pk": 2875,
   "fields": {
     "name": "Peacock Fancy",
     "slug": "peacock-fancy",
     "sku": "VAS-139",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -7082,20 +7082,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.946Z",
-    "updated_at": "2026-09-21T09:18:19.946Z",
+    "created_at": "2026-09-21T09:29:52.723Z",
+    "updated_at": "2026-09-21T09:29:52.723Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2674,
+  "pk": 2876,
   "fields": {
     "name": "Bada Peacock",
     "slug": "bada-peacock",
     "sku": "VAS-140",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -7133,20 +7133,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:19.980Z",
-    "updated_at": "2026-09-21T09:18:19.980Z",
+    "created_at": "2026-09-21T09:29:52.736Z",
+    "updated_at": "2026-09-21T09:29:52.736Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2675,
+  "pk": 2877,
   "fields": {
     "name": "Lotus Wheel 4x4 (5 Pcs)",
     "slug": "lotus-wheel-4x4-5-pcs",
     "sku": "VAS-141",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -7184,20 +7184,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.004Z",
-    "updated_at": "2026-09-21T09:18:20.004Z",
+    "created_at": "2026-09-21T09:29:52.744Z",
+    "updated_at": "2026-09-21T09:29:52.744Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2676,
+  "pk": 2878,
   "fields": {
     "name": "Old is Gold Colour Olai Vedi (25 Pcs)",
     "slug": "old-is-gold-colour-olai-vedi-25-pcs",
     "sku": "VAS-142",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -7235,20 +7235,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.021Z",
-    "updated_at": "2026-09-21T09:18:20.021Z",
+    "created_at": "2026-09-21T09:29:52.754Z",
+    "updated_at": "2026-09-21T09:29:52.754Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2677,
+  "pk": 2879,
   "fields": {
     "name": "Shooting Gun Crackling (5 Pcs)",
     "slug": "shooting-gun-crackling-5-pcs",
     "sku": "VAS-143",
-    "category": 349,
+    "category": 370,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -7286,20 +7286,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.039Z",
-    "updated_at": "2026-09-21T09:18:20.039Z",
+    "created_at": "2026-09-21T09:29:52.765Z",
+    "updated_at": "2026-09-21T09:29:52.765Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2678,
+  "pk": 2880,
   "fields": {
     "name": "Chun Mun Laddu (5 Pcs)",
     "slug": "chun-mun-laddu-5-pcs",
     "sku": "VAS-144",
-    "category": 350,
+    "category": 371,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7337,20 +7337,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.082Z",
-    "updated_at": "2026-09-21T09:18:20.082Z",
+    "created_at": "2026-09-21T09:29:52.776Z",
+    "updated_at": "2026-09-21T09:29:52.776Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2679,
+  "pk": 2881,
   "fields": {
     "name": "Mega Deluxe Fountain (4 Pcs)",
     "slug": "mega-deluxe-fountain-4-pcs",
     "sku": "VAS-145",
-    "category": 350,
+    "category": 371,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7388,20 +7388,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.112Z",
-    "updated_at": "2026-09-21T09:18:20.112Z",
+    "created_at": "2026-09-21T09:29:52.787Z",
+    "updated_at": "2026-09-21T09:29:52.787Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2680,
+  "pk": 2882,
   "fields": {
     "name": "COLOUR CHANGING MAGIC STAR (5Pcs)",
     "slug": "colour-changing-magic-star-5pcs",
     "sku": "VAS-146",
-    "category": 350,
+    "category": 371,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7439,20 +7439,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.136Z",
-    "updated_at": "2026-09-21T09:18:20.136Z",
+    "created_at": "2026-09-21T09:29:52.796Z",
+    "updated_at": "2026-09-21T09:29:52.796Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2681,
+  "pk": 2883,
   "fields": {
     "name": "3 In 1 Colour fog stick (3 Pcs)",
     "slug": "3-in-1-colour-fog-stick-3-pcs",
     "sku": "VAS-147",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7490,20 +7490,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.150Z",
-    "updated_at": "2026-09-21T09:18:20.150Z",
+    "created_at": "2026-09-21T09:29:52.808Z",
+    "updated_at": "2026-09-21T09:29:52.808Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2682,
+  "pk": 2884,
   "fields": {
     "name": "Zee Boomba (10 Pcs)",
     "slug": "zee-boomba-10-pcs",
     "sku": "VAS-148",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7541,20 +7541,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.177Z",
-    "updated_at": "2026-09-21T09:18:20.177Z",
+    "created_at": "2026-09-21T09:29:52.818Z",
+    "updated_at": "2026-09-21T09:29:52.818Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2683,
+  "pk": 2885,
   "fields": {
     "name": "Electric Stone (10 Pcs)",
     "slug": "electric-stone-10-pcs",
     "sku": "VAS-149",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7592,20 +7592,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.197Z",
-    "updated_at": "2026-09-21T09:18:20.197Z",
+    "created_at": "2026-09-21T09:29:52.828Z",
+    "updated_at": "2026-09-21T09:29:52.828Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2684,
+  "pk": 2886,
   "fields": {
     "name": "Cartoon Pots (10 Pcs)",
     "slug": "cartoon-pots-10-pcs",
     "sku": "VAS-150",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7643,20 +7643,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.212Z",
-    "updated_at": "2026-09-21T09:18:20.212Z",
+    "created_at": "2026-09-21T09:29:52.837Z",
+    "updated_at": "2026-09-21T09:29:52.837Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2685,
+  "pk": 2887,
   "fields": {
     "name": "Snake Cartoon (5 Pcs)",
     "slug": "snake-cartoon-5-pcs",
     "sku": "VAS-151",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7694,20 +7694,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.227Z",
-    "updated_at": "2026-09-21T09:18:20.227Z",
+    "created_at": "2026-09-21T09:29:52.845Z",
+    "updated_at": "2026-09-21T09:29:52.845Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2686,
+  "pk": 2888,
   "fields": {
     "name": "Block Perpant (50 Tablets)",
     "slug": "block-perpant-50-tablets",
     "sku": "VAS-152",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7745,20 +7745,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.246Z",
-    "updated_at": "2026-09-21T09:18:20.246Z",
+    "created_at": "2026-09-21T09:29:52.857Z",
+    "updated_at": "2026-09-21T09:29:52.857Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2687,
+  "pk": 2889,
   "fields": {
     "name": "Kit Kat (10 Pcs)",
     "slug": "kit-kat-10-pcs",
     "sku": "VAS-153",
-    "category": 351,
+    "category": 372,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7796,20 +7796,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.261Z",
-    "updated_at": "2026-09-21T09:18:20.261Z",
+    "created_at": "2026-09-21T09:29:52.866Z",
+    "updated_at": "2026-09-21T09:29:52.866Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2688,
+  "pk": 2890,
   "fields": {
     "name": "Roll Cab",
     "slug": "roll-cab",
     "sku": "VAS-154",
-    "category": 352,
+    "category": 373,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7847,20 +7847,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.318Z",
-    "updated_at": "2026-09-21T09:18:20.318Z",
+    "created_at": "2026-09-21T09:29:52.877Z",
+    "updated_at": "2026-09-21T09:29:52.877Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2689,
+  "pk": 2891,
   "fields": {
     "name": "Small Size Gun",
     "slug": "small-size-gun",
     "sku": "VAS-155",
-    "category": 352,
+    "category": 373,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7898,20 +7898,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.333Z",
-    "updated_at": "2026-09-21T09:18:20.333Z",
+    "created_at": "2026-09-21T09:29:52.888Z",
+    "updated_at": "2026-09-21T09:29:52.888Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2690,
+  "pk": 2892,
   "fields": {
     "name": "Medium Size Gun",
     "slug": "medium-size-gun",
     "sku": "VAS-156",
-    "category": 352,
+    "category": 373,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -7949,20 +7949,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.397Z",
-    "updated_at": "2026-09-21T09:18:20.397Z",
+    "created_at": "2026-09-21T09:29:52.896Z",
+    "updated_at": "2026-09-21T09:29:52.896Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2691,
+  "pk": 2893,
   "fields": {
     "name": "Mega Gun",
     "slug": "mega-gun",
     "sku": "VAS-157",
-    "category": 352,
+    "category": 373,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8000,20 +8000,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.487Z",
-    "updated_at": "2026-09-21T09:18:20.487Z",
+    "created_at": "2026-09-21T09:29:52.909Z",
+    "updated_at": "2026-09-21T09:29:52.909Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2692,
+  "pk": 2894,
   "fields": {
     "name": "Ring Cap Gun",
     "slug": "ring-cap-gun",
     "sku": "VAS-158",
-    "category": 352,
+    "category": 373,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8051,20 +8051,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.543Z",
-    "updated_at": "2026-09-21T09:18:20.543Z",
+    "created_at": "2026-09-21T09:29:52.919Z",
+    "updated_at": "2026-09-21T09:29:52.919Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2693,
+  "pk": 2895,
   "fields": {
     "name": "Deluxe Match (100 Sticks)",
     "slug": "deluxe-match-100-sticks",
     "sku": "VAS-159",
-    "category": 353,
+    "category": 374,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8102,20 +8102,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.560Z",
-    "updated_at": "2026-09-21T09:18:20.560Z",
+    "created_at": "2026-09-21T09:29:52.928Z",
+    "updated_at": "2026-09-21T09:29:52.928Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2694,
+  "pk": 2896,
   "fields": {
     "name": "Hero Match (100 Sticks)",
     "slug": "hero-match-100-sticks",
     "sku": "VAS-160",
-    "category": 353,
+    "category": 374,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8153,20 +8153,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.683Z",
-    "updated_at": "2026-09-21T09:18:20.683Z",
+    "created_at": "2026-09-21T09:29:52.938Z",
+    "updated_at": "2026-09-21T09:29:52.938Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2695,
+  "pk": 2897,
   "fields": {
     "name": "Mega Laptop Match (100 Sticks)",
     "slug": "mega-laptop-match-100-sticks",
     "sku": "VAS-161",
-    "category": 353,
+    "category": 374,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8204,20 +8204,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:20.851Z",
-    "updated_at": "2026-09-21T09:18:20.851Z",
+    "created_at": "2026-09-21T09:29:52.947Z",
+    "updated_at": "2026-09-21T09:29:52.947Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2696,
+  "pk": 2898,
   "fields": {
     "name": "VIP Top 10 Laptop Match (100 Sticks)",
     "slug": "vip-top-10-laptop-match-100-sticks",
     "sku": "VAS-162",
-    "category": 353,
+    "category": 374,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8255,20 +8255,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.018Z",
-    "updated_at": "2026-09-21T09:18:21.018Z",
+    "created_at": "2026-09-21T09:29:52.957Z",
+    "updated_at": "2026-09-21T09:29:52.957Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2697,
+  "pk": 2899,
   "fields": {
     "name": "Jungle Beat Sound (5 Pcs)",
     "slug": "jungle-beat-sound-5-pcs",
     "sku": "VAS-163",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8306,20 +8306,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.031Z",
-    "updated_at": "2026-09-21T09:18:21.031Z",
+    "created_at": "2026-09-21T09:29:52.967Z",
+    "updated_at": "2026-09-21T09:29:52.967Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2698,
+  "pk": 2900,
   "fields": {
     "name": "Shin chan (5 Pcs)",
     "slug": "shin-chan-5-pcs",
     "sku": "VAS-164",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8357,20 +8357,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.038Z",
-    "updated_at": "2026-09-21T09:18:21.038Z",
+    "created_at": "2026-09-21T09:29:52.978Z",
+    "updated_at": "2026-09-21T09:29:52.978Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2699,
+  "pk": 2901,
   "fields": {
     "name": "90 Digital Cracker (3 Pcs)",
     "slug": "90-digital-cracker-3-pcs",
     "sku": "VAS-165",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8408,20 +8408,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.050Z",
-    "updated_at": "2026-09-21T09:18:21.050Z",
+    "created_at": "2026-09-21T09:29:52.990Z",
+    "updated_at": "2026-09-21T09:29:52.990Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2700,
+  "pk": 2902,
   "fields": {
     "name": "Emu Egg (2 Pcs)",
     "slug": "emu-egg-2-pcs",
     "sku": "VAS-166",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8459,20 +8459,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.062Z",
-    "updated_at": "2026-09-21T09:18:21.062Z",
+    "created_at": "2026-09-21T09:29:53.006Z",
+    "updated_at": "2026-09-21T09:29:53.006Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2701,
+  "pk": 2903,
   "fields": {
     "name": "Dancing Umberla",
     "slug": "dancing-umberla",
     "sku": "VAS-167",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -8510,20 +8510,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.081Z",
-    "updated_at": "2026-09-21T09:18:21.081Z",
+    "created_at": "2026-09-21T09:29:53.016Z",
+    "updated_at": "2026-09-21T09:29:53.016Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2702,
+  "pk": 2904,
   "fields": {
     "name": "Lolly Pop Flash Stick (5 Pcs)",
     "slug": "lolly-pop-flash-stick-5-pcs",
     "sku": "VAS-168",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8561,20 +8561,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.122Z",
-    "updated_at": "2026-09-21T09:18:21.122Z",
+    "created_at": "2026-09-21T09:29:53.031Z",
+    "updated_at": "2026-09-21T09:29:53.031Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2703,
+  "pk": 2905,
   "fields": {
     "name": "WIRE CHAKKAR (10 PCS)",
     "slug": "wire-chakkar-10-pcs",
     "sku": "VAS-169",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8612,20 +8612,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.197Z",
-    "updated_at": "2026-09-21T09:18:21.197Z",
+    "created_at": "2026-09-21T09:29:53.044Z",
+    "updated_at": "2026-09-21T09:29:53.044Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2704,
+  "pk": 2906,
   "fields": {
     "name": "AK 47 Machine Gun",
     "slug": "ak-47-machine-gun",
     "sku": "VAS-170",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -8663,20 +8663,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.208Z",
-    "updated_at": "2026-09-21T09:18:21.208Z",
+    "created_at": "2026-09-21T09:29:53.056Z",
+    "updated_at": "2026-09-21T09:29:53.056Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2705,
+  "pk": 2907,
   "fields": {
     "name": "Selfi Stick (5 Pcs)",
     "slug": "selfi-stick-5-pcs",
     "sku": "VAS-171",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8714,20 +8714,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.220Z",
-    "updated_at": "2026-09-21T09:18:21.220Z",
+    "created_at": "2026-09-21T09:29:53.070Z",
+    "updated_at": "2026-09-21T09:29:53.070Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2706,
+  "pk": 2908,
   "fields": {
     "name": "Bat & Smoke Ball",
     "slug": "bat-and-smoke-ball",
     "sku": "VAS-172",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -8765,20 +8765,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.243Z",
-    "updated_at": "2026-09-21T09:18:21.243Z",
+    "created_at": "2026-09-21T09:29:53.085Z",
+    "updated_at": "2026-09-21T09:29:53.085Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2707,
+  "pk": 2909,
   "fields": {
     "name": "Magic Digital Sound Wala",
     "slug": "magic-digital-sound-wala",
     "sku": "VAS-173",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -8816,20 +8816,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.268Z",
-    "updated_at": "2026-09-21T09:18:21.268Z",
+    "created_at": "2026-09-21T09:29:53.094Z",
+    "updated_at": "2026-09-21T09:29:53.094Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2708,
+  "pk": 2910,
   "fields": {
     "name": "Star Show Popcorn Crackling",
     "slug": "star-show-popcorn-crackling",
     "sku": "VAS-174",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -8867,20 +8867,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.301Z",
-    "updated_at": "2026-09-21T09:18:21.301Z",
+    "created_at": "2026-09-21T09:29:53.104Z",
+    "updated_at": "2026-09-21T09:29:53.104Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2709,
+  "pk": 2911,
   "fields": {
     "name": "ICE CONE FALLS (2 Pcs)",
     "slug": "ice-cone-falls-2-pcs",
     "sku": "VAS-175",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -8918,20 +8918,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.319Z",
-    "updated_at": "2026-09-21T09:18:21.319Z",
+    "created_at": "2026-09-21T09:29:53.112Z",
+    "updated_at": "2026-09-21T09:29:53.112Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2710,
+  "pk": 2912,
   "fields": {
     "name": "GenZ Mobile Shower",
     "slug": "genz-mobile-shower",
     "sku": "VAS-176",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -8969,20 +8969,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.334Z",
-    "updated_at": "2026-09-21T09:18:21.334Z",
+    "created_at": "2026-09-21T09:29:53.123Z",
+    "updated_at": "2026-09-21T09:29:53.123Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2711,
+  "pk": 2913,
   "fields": {
     "name": "KADHAYUTHAM FALLS",
     "slug": "kadhayutham-falls",
     "sku": "VAS-177",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -9020,20 +9020,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.392Z",
-    "updated_at": "2026-09-21T09:18:21.392Z",
+    "created_at": "2026-09-21T09:29:53.132Z",
+    "updated_at": "2026-09-21T09:29:53.132Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2712,
+  "pk": 2914,
   "fields": {
     "name": "CYLINDER BOMB",
     "slug": "cylinder-bomb",
     "sku": "VAS-178",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -9071,20 +9071,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.406Z",
-    "updated_at": "2026-09-21T09:18:21.406Z",
+    "created_at": "2026-09-21T09:29:53.142Z",
+    "updated_at": "2026-09-21T09:29:53.142Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2713,
+  "pk": 2915,
   "fields": {
     "name": "SPARKLING SWARD",
     "slug": "sparkling-sward",
     "sku": "VAS-179",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -9122,20 +9122,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.442Z",
-    "updated_at": "2026-09-21T09:18:21.442Z",
+    "created_at": "2026-09-21T09:29:53.152Z",
+    "updated_at": "2026-09-21T09:29:53.152Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2714,
+  "pk": 2916,
   "fields": {
     "name": "INFINITY STAR CRACKLING FOUNTAIN (3 Pcs)",
     "slug": "infinity-star-crackling-fountain-3-pcs",
     "sku": "VAS-180",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -9173,20 +9173,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.452Z",
-    "updated_at": "2026-09-21T09:18:21.452Z",
+    "created_at": "2026-09-21T09:29:53.160Z",
+    "updated_at": "2026-09-21T09:29:53.160Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2715,
+  "pk": 2917,
   "fields": {
     "name": "Popcorn Crackling Star",
     "slug": "popcorn-crackling-star",
     "sku": "VAS-181",
-    "category": 354,
+    "category": 375,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -9224,20 +9224,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.466Z",
-    "updated_at": "2026-09-21T09:18:21.466Z",
+    "created_at": "2026-09-21T09:29:53.170Z",
+    "updated_at": "2026-09-21T09:29:53.170Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2716,
+  "pk": 2918,
   "fields": {
     "name": "Family Gift Box (21 Items)",
     "slug": "family-gift-box-21-items",
     "sku": "VAS-182",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9275,20 +9275,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.477Z",
-    "updated_at": "2026-09-21T09:18:21.477Z",
+    "created_at": "2026-09-21T09:29:53.178Z",
+    "updated_at": "2026-09-21T09:29:53.178Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2717,
+  "pk": 2919,
   "fields": {
     "name": "Premium Gift box",
     "slug": "premium-gift-box",
     "sku": "VAS-183",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9326,20 +9326,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.485Z",
-    "updated_at": "2026-09-21T09:18:21.485Z",
+    "created_at": "2026-09-21T09:29:53.191Z",
+    "updated_at": "2026-09-21T09:29:53.191Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2718,
+  "pk": 2920,
   "fields": {
     "name": "Family Gift Box (25 Items)",
     "slug": "family-gift-box-25-items",
     "sku": "VAS-184",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9377,20 +9377,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.492Z",
-    "updated_at": "2026-09-21T09:18:21.494Z",
+    "created_at": "2026-09-21T09:29:53.202Z",
+    "updated_at": "2026-09-21T09:29:53.202Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2719,
+  "pk": 2921,
   "fields": {
     "name": "Family Gift Box (30 Items)",
     "slug": "family-gift-box-30-items",
     "sku": "VAS-185",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9428,20 +9428,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.502Z",
-    "updated_at": "2026-09-21T09:18:21.502Z",
+    "created_at": "2026-09-21T09:29:53.213Z",
+    "updated_at": "2026-09-21T09:29:53.213Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2720,
+  "pk": 2922,
   "fields": {
     "name": "Family Gift Box (35 Items)",
     "slug": "family-gift-box-35-items",
     "sku": "VAS-186",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9479,20 +9479,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.540Z",
-    "updated_at": "2026-09-21T09:18:21.541Z",
+    "created_at": "2026-09-21T09:29:53.226Z",
+    "updated_at": "2026-09-21T09:29:53.226Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2721,
+  "pk": 2923,
   "fields": {
     "name": "Family Gift Box (40 Items)",
     "slug": "family-gift-box-40-items",
     "sku": "VAS-187",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9530,20 +9530,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.558Z",
-    "updated_at": "2026-09-21T09:18:21.558Z",
+    "created_at": "2026-09-21T09:29:53.237Z",
+    "updated_at": "2026-09-21T09:29:53.238Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2722,
+  "pk": 2924,
   "fields": {
     "name": "Family Gift Box (50 Items)",
     "slug": "family-gift-box-50-items",
     "sku": "VAS-188",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9581,20 +9581,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.572Z",
-    "updated_at": "2026-09-21T09:18:21.572Z",
+    "created_at": "2026-09-21T09:29:53.245Z",
+    "updated_at": "2026-09-21T09:29:53.245Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2723,
+  "pk": 2925,
   "fields": {
     "name": "Family Gift Box (60 Items)",
     "slug": "family-gift-box-60-items",
     "sku": "VAS-189",
-    "category": 355,
+    "category": 376,
     "brand": 34,
     "product_type": "gift_box",
     "safety_level": "medium",
@@ -9632,20 +9632,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.702Z",
-    "updated_at": "2026-09-21T09:18:21.702Z",
+    "created_at": "2026-09-21T09:29:53.254Z",
+    "updated_at": "2026-09-21T09:29:53.254Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2724,
+  "pk": 2926,
   "fields": {
     "name": "3000 Combo Pack",
     "slug": "3000-combo-pack",
     "sku": "VAS-190",
-    "category": 356,
+    "category": 377,
     "brand": 34,
     "product_type": "combo",
     "safety_level": "medium",
@@ -9683,20 +9683,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:21.770Z",
-    "updated_at": "2026-09-21T09:18:21.770Z",
+    "created_at": "2026-09-21T09:29:53.260Z",
+    "updated_at": "2026-09-21T09:29:53.260Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2725,
+  "pk": 2927,
   "fields": {
     "name": "4000 Combo Pack",
     "slug": "4000-combo-pack",
     "sku": "VAS-191",
-    "category": 356,
+    "category": 377,
     "brand": 34,
     "product_type": "combo",
     "safety_level": "medium",
@@ -9734,20 +9734,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.016Z",
-    "updated_at": "2026-09-21T09:18:22.016Z",
+    "created_at": "2026-09-21T09:29:53.271Z",
+    "updated_at": "2026-09-21T09:29:53.271Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2726,
+  "pk": 2928,
   "fields": {
     "name": "5000 Combo Pack",
     "slug": "5000-combo-pack",
     "sku": "VAS-192",
-    "category": 356,
+    "category": 377,
     "brand": 34,
     "product_type": "combo",
     "safety_level": "medium",
@@ -9785,20 +9785,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.042Z",
-    "updated_at": "2026-09-21T09:18:22.042Z",
+    "created_at": "2026-09-21T09:29:53.277Z",
+    "updated_at": "2026-09-21T09:29:53.277Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2727,
+  "pk": 2929,
   "fields": {
     "name": "7000 Combo Pack",
     "slug": "7000-combo-pack",
     "sku": "VAS-193",
-    "category": 356,
+    "category": 377,
     "brand": 34,
     "product_type": "combo",
     "safety_level": "medium",
@@ -9836,20 +9836,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.106Z",
-    "updated_at": "2026-09-21T09:18:22.106Z",
+    "created_at": "2026-09-21T09:29:53.292Z",
+    "updated_at": "2026-09-21T09:29:53.292Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2728,
+  "pk": 2930,
   "fields": {
     "name": "Trible ball Fancy Pipe Out",
     "slug": "trible-ball-fancy-pipe-out",
     "sku": "VAS-194",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -9887,20 +9887,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.137Z",
-    "updated_at": "2026-09-21T09:18:22.137Z",
+    "created_at": "2026-09-21T09:29:53.302Z",
+    "updated_at": "2026-09-21T09:29:53.302Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2729,
+  "pk": 2931,
   "fields": {
     "name": "Nayagara Falls Out",
     "slug": "nayagara-falls-out",
     "sku": "VAS-195",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -9938,20 +9938,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.219Z",
-    "updated_at": "2026-09-21T09:18:22.219Z",
+    "created_at": "2026-09-21T09:29:53.314Z",
+    "updated_at": "2026-09-21T09:29:53.315Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2730,
+  "pk": 2932,
   "fields": {
     "name": "Double Colour Ball Out",
     "slug": "double-colour-ball-out",
     "sku": "VAS-196",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -9989,20 +9989,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.338Z",
-    "updated_at": "2026-09-21T09:18:22.338Z",
+    "created_at": "2026-09-21T09:29:53.324Z",
+    "updated_at": "2026-09-21T09:29:53.324Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2731,
+  "pk": 2933,
   "fields": {
     "name": "Seven Step Fancy Out",
     "slug": "seven-step-fancy-out",
     "sku": "VAS-197",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -10040,20 +10040,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.453Z",
-    "updated_at": "2026-09-21T09:18:22.453Z",
+    "created_at": "2026-09-21T09:29:53.336Z",
+    "updated_at": "2026-09-21T09:29:53.336Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2732,
+  "pk": 2934,
   "fields": {
     "name": "Digital Crackling Star",
     "slug": "digital-crackling-star",
     "sku": "VAS-198",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -10091,20 +10091,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.588Z",
-    "updated_at": "2026-09-21T09:18:22.588Z",
+    "created_at": "2026-09-21T09:29:53.346Z",
+    "updated_at": "2026-09-21T09:29:53.346Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2733,
+  "pk": 2935,
   "fields": {
     "name": "Zumba dance sky out (6Pcs)",
     "slug": "zumba-dance-sky-out-6pcs",
     "sku": "VAS-199",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -10142,20 +10142,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.666Z",
-    "updated_at": "2026-09-21T09:18:22.666Z",
+    "created_at": "2026-09-21T09:29:53.357Z",
+    "updated_at": "2026-09-21T09:29:53.358Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2734,
+  "pk": 2936,
   "fields": {
     "name": "4.5' Wow Series Fancy Pipe Out",
     "slug": "4.5-wow-series-fancy-pipe-out",
     "sku": "VAS-200",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -10193,20 +10193,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.750Z",
-    "updated_at": "2026-09-21T09:18:22.750Z",
+    "created_at": "2026-09-21T09:29:53.369Z",
+    "updated_at": "2026-09-21T09:29:53.369Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2735,
+  "pk": 2937,
   "fields": {
     "name": "MAD MAX",
     "slug": "mad-max",
     "sku": "VAS-201",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "box",
     "safety_level": "medium",
@@ -10244,20 +10244,20 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.853Z",
-    "updated_at": "2026-09-21T09:18:22.853Z",
+    "created_at": "2026-09-21T09:29:53.376Z",
+    "updated_at": "2026-09-21T09:29:53.376Z",
     "viewed_count": 0,
     "purchased_count": 0
   }
 },
 {
   "model": "products.product",
-  "pk": 2736,
+  "pk": 2938,
   "fields": {
     "name": "Grizz colour fountain",
     "slug": "grizz-colour-fountain",
     "sku": "VAS-202",
-    "category": 357,
+    "category": 378,
     "brand": 34,
     "product_type": "single",
     "safety_level": "medium",
@@ -10295,8 +10295,8 @@
     "meta_keywords": "",
     "is_active": true,
     "order": 0,
-    "created_at": "2026-09-21T09:18:22.910Z",
-    "updated_at": "2026-09-21T09:18:22.910Z",
+    "created_at": "2026-09-21T09:29:53.386Z",
+    "updated_at": "2026-09-21T09:29:53.386Z",
     "viewed_count": 0,
     "purchased_count": 0
   }

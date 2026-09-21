@@ -11,9 +11,10 @@ class Command(BaseCommand):
         self.stdout.write('Loading correct Vasantham crackers products...')
         
         # Clear existing data
+        self.stdout.write('Clearing old data...')
         Product.objects.all().delete()
         Category.objects.all().delete()
-        self.stdout.write('Cleared existing data')
+        self.stdout.write('Cleared all old data')
         
         # Define categories from the website
         categories_data = [

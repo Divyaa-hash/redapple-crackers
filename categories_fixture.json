@@ -1,7 +1,7 @@
 [
 {
   "model": "products.category",
-  "pk": 337,
+  "pk": 358,
   "fields": {
     "name": "One sound crackers",
     "slug": "one-sound-crackers",
@@ -13,13 +13,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:16.804Z",
-    "updated_at": "2026-09-21T09:18:16.804Z"
+    "created_at": "2026-09-21T09:29:50.672Z",
+    "updated_at": "2026-09-21T09:29:50.672Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 338,
+  "pk": 359,
   "fields": {
     "name": "PENCIL and (Sattai) TWINGLING STARS",
     "slug": "pencil-sattai-twinkling-stars",
@@ -31,13 +31,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:16.864Z",
-    "updated_at": "2026-09-21T09:18:16.864Z"
+    "created_at": "2026-09-21T09:29:50.687Z",
+    "updated_at": "2026-09-21T09:29:50.687Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 339,
+  "pk": 360,
   "fields": {
     "name": "SPARKLERS",
     "slug": "sparklers",
@@ -49,13 +49,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:16.897Z",
-    "updated_at": "2026-09-21T09:18:16.897Z"
+    "created_at": "2026-09-21T09:29:50.720Z",
+    "updated_at": "2026-09-21T09:29:50.720Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 340,
+  "pk": 361,
   "fields": {
     "name": "FLOWER POTS",
     "slug": "flower-pots",
@@ -67,13 +67,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:16.930Z",
-    "updated_at": "2026-09-21T09:18:16.930Z"
+    "created_at": "2026-09-21T09:29:50.743Z",
+    "updated_at": "2026-09-21T09:29:50.743Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 341,
+  "pk": 362,
   "fields": {
     "name": "GROUND CHAKKARS",
     "slug": "ground-chakkars",
@@ -85,13 +85,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:16.983Z",
-    "updated_at": "2026-09-21T09:18:16.983Z"
+    "created_at": "2026-09-21T09:29:50.784Z",
+    "updated_at": "2026-09-21T09:29:50.784Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 342,
+  "pk": 363,
   "fields": {
     "name": "SKY ROCKETS",
     "slug": "sky-rockets",
@@ -103,13 +103,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.031Z",
-    "updated_at": "2026-09-21T09:18:17.031Z"
+    "created_at": "2026-09-21T09:29:50.822Z",
+    "updated_at": "2026-09-21T09:29:50.822Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 343,
+  "pk": 364,
   "fields": {
     "name": "BIJILI/ BOMB ITEMS",
     "slug": "bijili-bomb-items",
@@ -121,13 +121,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.059Z",
-    "updated_at": "2026-09-21T09:18:17.059Z"
+    "created_at": "2026-09-21T09:29:50.862Z",
+    "updated_at": "2026-09-21T09:29:50.863Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 344,
+  "pk": 365,
   "fields": {
     "name": "PAPER BOMB",
     "slug": "paper-bomb",
@@ -139,13 +139,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.089Z",
-    "updated_at": "2026-09-21T09:18:17.089Z"
+    "created_at": "2026-09-21T09:29:50.883Z",
+    "updated_at": "2026-09-21T09:29:50.883Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 345,
+  "pk": 366,
   "fields": {
     "name": "Wala",
     "slug": "wala",
@@ -157,13 +157,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.112Z",
-    "updated_at": "2026-09-21T09:18:17.112Z"
+    "created_at": "2026-09-21T09:29:50.903Z",
+    "updated_at": "2026-09-21T09:29:50.903Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 346,
+  "pk": 367,
   "fields": {
     "name": "SKY NIGHT FANCY CELEBRATIONS",
     "slug": "sky-night-fancy-celebrations",
@@ -175,13 +175,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.122Z",
-    "updated_at": "2026-09-21T09:18:17.122Z"
+    "created_at": "2026-09-21T09:29:50.932Z",
+    "updated_at": "2026-09-21T09:29:50.932Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 347,
+  "pk": 368,
   "fields": {
     "name": "REPEATING MULTI COLOUR FANCY SHOTS",
     "slug": "repeating-multi-colour-fancy-shots",
@@ -193,13 +193,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.128Z",
-    "updated_at": "2026-09-21T09:18:17.128Z"
+    "created_at": "2026-09-21T09:29:50.950Z",
+    "updated_at": "2026-09-21T09:29:50.950Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 348,
+  "pk": 369,
   "fields": {
     "name": "NIGHT FOUNTAIN CELEBRATIONS",
     "slug": "night-fountain-celebrations",
@@ -211,13 +211,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.135Z",
-    "updated_at": "2026-09-21T09:18:17.135Z"
+    "created_at": "2026-09-21T09:29:50.959Z",
+    "updated_at": "2026-09-21T09:29:50.959Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 349,
+  "pk": 370,
   "fields": {
     "name": "NIGHT FANCY CELEBRATION",
     "slug": "night-fancy-celebration",
@@ -229,13 +229,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.142Z",
-    "updated_at": "2026-09-21T09:18:17.142Z"
+    "created_at": "2026-09-21T09:29:51.016Z",
+    "updated_at": "2026-09-21T09:29:51.016Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 350,
+  "pk": 371,
   "fields": {
     "name": "LADDU FOUNTAIN",
     "slug": "laddu-fountain",
@@ -247,13 +247,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.150Z",
-    "updated_at": "2026-09-21T09:18:17.150Z"
+    "created_at": "2026-09-21T09:29:51.024Z",
+    "updated_at": "2026-09-21T09:29:51.024Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 351,
+  "pk": 372,
   "fields": {
     "name": "SNAKE and CARTOON",
     "slug": "snake-cartoon",
@@ -265,13 +265,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.156Z",
-    "updated_at": "2026-09-21T09:18:17.156Z"
+    "created_at": "2026-09-21T09:29:51.030Z",
+    "updated_at": "2026-09-21T09:29:51.030Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 352,
+  "pk": 373,
   "fields": {
     "name": "CHILDRENS ROLL CAP/GUN",
     "slug": "children-roll-cap-gun",
@@ -283,13 +283,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.178Z",
-    "updated_at": "2026-09-21T09:18:17.178Z"
+    "created_at": "2026-09-21T09:29:51.053Z",
+    "updated_at": "2026-09-21T09:29:51.053Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 353,
+  "pk": 374,
   "fields": {
     "name": "COLOUR MATCHES",
     "slug": "colour-matches",
@@ -301,13 +301,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.201Z",
-    "updated_at": "2026-09-21T09:18:17.201Z"
+    "created_at": "2026-09-21T09:29:51.075Z",
+    "updated_at": "2026-09-21T09:29:51.075Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 354,
+  "pk": 375,
   "fields": {
     "name": "NEW ARRIVALS",
     "slug": "new-arrivals",
@@ -319,13 +319,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.228Z",
-    "updated_at": "2026-09-21T09:18:17.228Z"
+    "created_at": "2026-09-21T09:29:51.093Z",
+    "updated_at": "2026-09-21T09:29:51.093Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 355,
+  "pk": 376,
   "fields": {
     "name": "GIFT BOXES",
     "slug": "gift-boxes",
@@ -337,13 +337,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.245Z",
-    "updated_at": "2026-09-21T09:18:17.245Z"
+    "created_at": "2026-09-21T09:29:51.099Z",
+    "updated_at": "2026-09-21T09:29:51.099Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 356,
+  "pk": 377,
   "fields": {
     "name": "COMBO PACKS",
     "slug": "combo-packs",
@@ -355,13 +355,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.278Z",
-    "updated_at": "2026-09-21T09:18:17.278Z"
+    "created_at": "2026-09-21T09:29:51.108Z",
+    "updated_at": "2026-09-21T09:29:51.108Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 357,
+  "pk": 378,
   "fields": {
     "name": "SPECIAL SERIES FANCY SKY SHOTS",
     "slug": "special-series-fancy-sky-shots",
@@ -373,8 +373,8 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T09:18:17.301Z",
-    "updated_at": "2026-09-21T09:18:17.301Z"
+    "created_at": "2026-09-21T09:29:51.125Z",
+    "updated_at": "2026-09-21T09:29:51.125Z"
   }
 }
 ]
