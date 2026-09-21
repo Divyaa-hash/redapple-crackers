@@ -1,11 +1,11 @@
 [
 {
   "model": "products.category",
-  "pk": 306,
+  "pk": 337,
   "fields": {
-    "name": "AERIAL REPEATING SHOTS",
-    "slug": "aerial-repeating-shots",
-    "description": "AERIAL REPEATING SHOTS products",
+    "name": "One sound crackers",
+    "slug": "one-sound-crackers",
+    "description": "One sound crackers products",
     "image": "",
     "parent": null,
     "is_active": true,
@@ -13,17 +13,17 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:04.984Z",
-    "updated_at": "2026-09-21T08:49:05.556Z"
+    "created_at": "2026-09-21T09:18:16.804Z",
+    "updated_at": "2026-09-21T09:18:16.804Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 307,
+  "pk": 338,
   "fields": {
-    "name": "BIJILI CRACKERS",
-    "slug": "bijili-crackers",
-    "description": "BIJILI CRACKERS products",
+    "name": "PENCIL and (Sattai) TWINGLING STARS",
+    "slug": "pencil-sattai-twinkling-stars",
+    "description": "PENCIL and (Sattai) TWINGLING STARS products",
     "image": "",
     "parent": null,
     "is_active": true,
@@ -31,445 +31,13 @@
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:04.991Z",
-    "updated_at": "2026-09-21T08:49:05.608Z"
+    "created_at": "2026-09-21T09:18:16.864Z",
+    "updated_at": "2026-09-21T09:18:16.864Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 308,
-  "fields": {
-    "name": "BOMBS",
-    "slug": "bombs",
-    "description": "BOMBS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 3,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:04.998Z",
-    "updated_at": "2026-09-21T08:49:05.628Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 309,
-  "fields": {
-    "name": "CANDLES",
-    "slug": "candles",
-    "description": "CANDLES products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 4,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.008Z",
-    "updated_at": "2026-09-21T08:49:05.669Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 310,
-  "fields": {
-    "name": "COLOUR MATCHES & ROLL CAPS",
-    "slug": "colour-matches-and-roll-caps",
-    "description": "COLOUR MATCHES & ROLL CAPS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 5,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.015Z",
-    "updated_at": "2026-09-21T08:49:05.746Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 311,
-  "fields": {
-    "name": "COLOUR SPARKLERS",
-    "slug": "colour-sparklers",
-    "description": "COLOUR SPARKLERS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 6,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.024Z",
-    "updated_at": "2026-09-21T08:49:05.806Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 312,
-  "fields": {
-    "name": "FANCY CANDLES",
-    "slug": "fancy-candles",
-    "description": "FANCY CANDLES products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 7,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.028Z",
-    "updated_at": "2026-09-21T08:49:05.860Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 313,
-  "fields": {
-    "name": "FANCY FLOWER POTS",
-    "slug": "fancy-flower-pots",
-    "description": "FANCY FLOWER POTS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 8,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.039Z",
-    "updated_at": "2026-09-21T08:49:05.936Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 314,
-  "fields": {
-    "name": "FANCY GROUND CHAKKARS",
-    "slug": "fancy-ground-chakkars",
-    "description": "FANCY GROUND CHAKKARS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 9,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.045Z",
-    "updated_at": "2026-09-21T08:49:05.967Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 315,
-  "fields": {
-    "name": "FESTIVAL DISPLAY SHOTS",
-    "slug": "festival-display-shots",
-    "description": "FESTIVAL DISPLAY SHOTS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 10,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.053Z",
-    "updated_at": "2026-09-21T08:49:06.021Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 316,
-  "fields": {
-    "name": "FESTIVAL FAMILY PACK SPECIAL",
-    "slug": "festival-family-pack-special",
-    "description": "FESTIVAL FAMILY PACK SPECIAL products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 11,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.058Z",
-    "updated_at": "2026-09-21T08:49:06.073Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 317,
-  "fields": {
-    "name": "FESTIVAL MEGA DISPLAY SHOTS",
-    "slug": "festival-mega-display-shots",
-    "description": "FESTIVAL MEGA DISPLAY SHOTS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 12,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.067Z",
-    "updated_at": "2026-09-21T08:49:06.100Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 318,
-  "fields": {
-    "name": "FLOWER POTS",
-    "slug": "flower-pots",
-    "description": "FLOWER POTS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 13,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.074Z",
-    "updated_at": "2026-09-21T08:49:06.129Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 319,
-  "fields": {
-    "name": "GARLAND CRACKERS",
-    "slug": "garland-crackers",
-    "description": "GARLAND CRACKERS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 14,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.080Z",
-    "updated_at": "2026-09-21T08:49:06.157Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 320,
-  "fields": {
-    "name": "GIFT BOXES",
-    "slug": "gift-boxes",
-    "description": "GIFT BOXES products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 15,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.091Z",
-    "updated_at": "2026-09-21T08:49:06.192Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 321,
-  "fields": {
-    "name": "GROUND CHAKKARS",
-    "slug": "ground-chakkars",
-    "description": "GROUND CHAKKARS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 16,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.096Z",
-    "updated_at": "2026-09-21T08:49:06.219Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 322,
-  "fields": {
-    "name": "KIDS SPECIAL FANCY FOUNTAINS",
-    "slug": "kids-special-fancy-fountains",
-    "description": "KIDS SPECIAL FANCY FOUNTAINS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 17,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.105Z",
-    "updated_at": "2026-09-21T08:49:06.262Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 323,
-  "fields": {
-    "name": "LOVELY SPECIAL FANCY SERIES (1 Pcs)",
-    "slug": "lovely-special-fancy-series-1-pcs",
-    "description": "LOVELY SPECIAL FANCY SERIES (1 Pcs) products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 18,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.110Z",
-    "updated_at": "2026-09-21T08:49:06.285Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 324,
-  "fields": {
-    "name": "LOVELY SPECIAL FANCY SERIES (2 Pcs)",
-    "slug": "lovely-special-fancy-series-2-pcs",
-    "description": "LOVELY SPECIAL FANCY SERIES (2 Pcs) products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 19,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.119Z",
-    "updated_at": "2026-09-21T08:49:06.309Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 325,
-  "fields": {
-    "name": "MINI AREIAL FANCY",
-    "slug": "mini-areial-fancy",
-    "description": "MINI AREIAL FANCY products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 20,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.125Z",
-    "updated_at": "2026-09-21T08:49:06.335Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 326,
-  "fields": {
-    "name": "NEW ARRIVAL FANTASTIC AERIAL",
-    "slug": "new-arrival-fantastic-aerial",
-    "description": "NEW ARRIVAL FANTASTIC AERIAL products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 21,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.134Z",
-    "updated_at": "2026-09-21T08:49:06.364Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 327,
-  "fields": {
-    "name": "NIGHT MEGA AREIAL FANCY",
-    "slug": "night-mega-areial-fancy",
-    "description": "NIGHT MEGA AREIAL FANCY products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 22,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.141Z",
-    "updated_at": "2026-09-21T08:49:06.386Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 328,
-  "fields": {
-    "name": "PAPER BOMB",
-    "slug": "paper-bomb",
-    "description": "PAPER BOMB products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 23,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.147Z",
-    "updated_at": "2026-09-21T08:49:06.441Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 329,
-  "fields": {
-    "name": "PEACOCK SERIES",
-    "slug": "peacock-series",
-    "description": "PEACOCK SERIES products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 24,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.155Z",
-    "updated_at": "2026-09-21T08:49:06.471Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 330,
-  "fields": {
-    "name": "ROCKETS",
-    "slug": "rockets",
-    "description": "ROCKETS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 25,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.162Z",
-    "updated_at": "2026-09-21T08:49:06.503Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 331,
-  "fields": {
-    "name": "SINGLE SOUND CRACKERS",
-    "slug": "single-sound-crackers",
-    "description": "SINGLE SOUND CRACKERS products",
-    "image": "",
-    "parent": null,
-    "is_active": true,
-    "order": 26,
-    "meta_title": "",
-    "meta_description": "",
-    "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.168Z",
-    "updated_at": "2026-09-21T08:49:06.530Z"
-  }
-},
-{
-  "model": "products.category",
-  "pk": 332,
+  "pk": 339,
   "fields": {
     "name": "SPARKLERS",
     "slug": "sparklers",
@@ -477,84 +45,336 @@
     "image": "",
     "parent": null,
     "is_active": true,
-    "order": 27,
+    "order": 3,
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.176Z",
-    "updated_at": "2026-09-21T08:49:06.551Z"
+    "created_at": "2026-09-21T09:18:16.897Z",
+    "updated_at": "2026-09-21T09:18:16.897Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 333,
+  "pk": 340,
   "fields": {
-    "name": "SPECIAL FANCY FOUNTAINS (5 Pcs)",
-    "slug": "special-fancy-fountains-5-pcs",
-    "description": "SPECIAL FANCY FOUNTAINS (5 Pcs) products",
+    "name": "FLOWER POTS",
+    "slug": "flower-pots",
+    "description": "FLOWER POTS products",
     "image": "",
     "parent": null,
     "is_active": true,
-    "order": 28,
+    "order": 4,
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.182Z",
-    "updated_at": "2026-09-21T08:49:06.585Z"
+    "created_at": "2026-09-21T09:18:16.930Z",
+    "updated_at": "2026-09-21T09:18:16.930Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 334,
+  "pk": 341,
   "fields": {
-    "name": "SPECIAL KIDS FOUNTAIN",
-    "slug": "special-kids-fountain",
-    "description": "SPECIAL KIDS FOUNTAIN products",
+    "name": "GROUND CHAKKARS",
+    "slug": "ground-chakkars",
+    "description": "GROUND CHAKKARS products",
     "image": "",
     "parent": null,
     "is_active": true,
-    "order": 29,
+    "order": 5,
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.188Z",
-    "updated_at": "2026-09-21T08:49:06.620Z"
+    "created_at": "2026-09-21T09:18:16.983Z",
+    "updated_at": "2026-09-21T09:18:16.983Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 335,
+  "pk": 342,
   "fields": {
-    "name": "TOYS & SPRINKLERS",
-    "slug": "toys-and-sprinklers",
-    "description": "TOYS & SPRINKLERS products",
+    "name": "SKY ROCKETS",
+    "slug": "sky-rockets",
+    "description": "SKY ROCKETS products",
     "image": "",
     "parent": null,
     "is_active": true,
-    "order": 30,
+    "order": 6,
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.194Z",
-    "updated_at": "2026-09-21T08:49:06.655Z"
+    "created_at": "2026-09-21T09:18:17.031Z",
+    "updated_at": "2026-09-21T09:18:17.031Z"
   }
 },
 {
   "model": "products.category",
-  "pk": 336,
+  "pk": 343,
   "fields": {
-    "name": "TWINKLING STARS",
-    "slug": "twinkling-stars",
-    "description": "TWINKLING STARS products",
+    "name": "BIJILI/ BOMB ITEMS",
+    "slug": "bijili-bomb-items",
+    "description": "BIJILI/ BOMB ITEMS products",
     "image": "",
     "parent": null,
     "is_active": true,
-    "order": 31,
+    "order": 7,
     "meta_title": "",
     "meta_description": "",
     "meta_keywords": "",
-    "created_at": "2026-09-21T06:36:05.201Z",
-    "updated_at": "2026-09-21T08:49:06.734Z"
+    "created_at": "2026-09-21T09:18:17.059Z",
+    "updated_at": "2026-09-21T09:18:17.059Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 344,
+  "fields": {
+    "name": "PAPER BOMB",
+    "slug": "paper-bomb",
+    "description": "PAPER BOMB products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 8,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.089Z",
+    "updated_at": "2026-09-21T09:18:17.089Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 345,
+  "fields": {
+    "name": "Wala",
+    "slug": "wala",
+    "description": "Wala products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 9,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.112Z",
+    "updated_at": "2026-09-21T09:18:17.112Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 346,
+  "fields": {
+    "name": "SKY NIGHT FANCY CELEBRATIONS",
+    "slug": "sky-night-fancy-celebrations",
+    "description": "SKY NIGHT FANCY CELEBRATIONS products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 10,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.122Z",
+    "updated_at": "2026-09-21T09:18:17.122Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 347,
+  "fields": {
+    "name": "REPEATING MULTI COLOUR FANCY SHOTS",
+    "slug": "repeating-multi-colour-fancy-shots",
+    "description": "REPEATING MULTI COLOUR FANCY SHOTS products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 11,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.128Z",
+    "updated_at": "2026-09-21T09:18:17.128Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 348,
+  "fields": {
+    "name": "NIGHT FOUNTAIN CELEBRATIONS",
+    "slug": "night-fountain-celebrations",
+    "description": "NIGHT FOUNTAIN CELEBRATIONS products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 12,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.135Z",
+    "updated_at": "2026-09-21T09:18:17.135Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 349,
+  "fields": {
+    "name": "NIGHT FANCY CELEBRATION",
+    "slug": "night-fancy-celebration",
+    "description": "NIGHT FANCY CELEBRATION products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 13,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.142Z",
+    "updated_at": "2026-09-21T09:18:17.142Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 350,
+  "fields": {
+    "name": "LADDU FOUNTAIN",
+    "slug": "laddu-fountain",
+    "description": "LADDU FOUNTAIN products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 14,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.150Z",
+    "updated_at": "2026-09-21T09:18:17.150Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 351,
+  "fields": {
+    "name": "SNAKE and CARTOON",
+    "slug": "snake-cartoon",
+    "description": "SNAKE and CARTOON products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 15,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.156Z",
+    "updated_at": "2026-09-21T09:18:17.156Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 352,
+  "fields": {
+    "name": "CHILDRENS ROLL CAP/GUN",
+    "slug": "children-roll-cap-gun",
+    "description": "CHILDRENS ROLL CAP/GUN products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 16,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.178Z",
+    "updated_at": "2026-09-21T09:18:17.178Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 353,
+  "fields": {
+    "name": "COLOUR MATCHES",
+    "slug": "colour-matches",
+    "description": "COLOUR MATCHES products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 17,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.201Z",
+    "updated_at": "2026-09-21T09:18:17.201Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 354,
+  "fields": {
+    "name": "NEW ARRIVALS",
+    "slug": "new-arrivals",
+    "description": "NEW ARRIVALS products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 18,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.228Z",
+    "updated_at": "2026-09-21T09:18:17.228Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 355,
+  "fields": {
+    "name": "GIFT BOXES",
+    "slug": "gift-boxes",
+    "description": "GIFT BOXES products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 19,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.245Z",
+    "updated_at": "2026-09-21T09:18:17.245Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 356,
+  "fields": {
+    "name": "COMBO PACKS",
+    "slug": "combo-packs",
+    "description": "COMBO PACKS products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 20,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.278Z",
+    "updated_at": "2026-09-21T09:18:17.278Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 357,
+  "fields": {
+    "name": "SPECIAL SERIES FANCY SKY SHOTS",
+    "slug": "special-series-fancy-sky-shots",
+    "description": "SPECIAL SERIES FANCY SKY SHOTS products",
+    "image": "",
+    "parent": null,
+    "is_active": true,
+    "order": 21,
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "created_at": "2026-09-21T09:18:17.301Z",
+    "updated_at": "2026-09-21T09:18:17.301Z"
   }
 }
 ]
