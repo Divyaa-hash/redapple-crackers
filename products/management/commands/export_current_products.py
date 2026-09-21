@@ -26,7 +26,7 @@ class Command(BaseCommand):
         # Export products
         try:
             self.stdout.write('Exporting products...')
-            call_command('dumpdata', 'products.Product', indent=2, output='products_fixture.json', use_natural_foreign_keys=True, use_natural_primary_keys=True)
+            call_command('dumpdata', 'products.Product', indent=2, output='products_fixture.json')
             self.stdout.write(self.style.SUCCESS('Products exported to products_fixture.json'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error exporting products: {e}'))
