@@ -299,8 +299,8 @@
                     </td>
                     <td class="total-price">₹<span class="row-total">{{ item.discounted_price|floatformat:0 }}</span></td>
                     <td>
-                        <button class="add-btn" onclick="addToCart('{{ item.product.id }}')">Add</button>
-                        <button class="remove-btn" onclick="removeFromCart('{{ item.product.id }}')">Remove</button>
+                        <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
+                        <button class="remove-btn" onclick="removeFromCart('{{ item.product.id }}'); return false;">Remove</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -345,6 +345,17 @@
 // Cart storage - localStorage only for reliability
 let cart = {};
 
+// Initialize cart from localStorage immediately
+const savedCart = localStorage.getItem('redappleCart');
+if (savedCart) {
+    try {
+        cart = JSON.parse(savedCart);
+    } catch (e) {
+        console.error('Error parsing saved cart:', e);
+        cart = {};
+    }
+}
+
 function updateRowTotal(input) {
     const row = input.closest('tr');
     const qty = parseInt(input.value) || 0;
@@ -382,8 +393,12 @@ function addToCart(productId) {
 
 function removeFromCart(productId) {
     try {
+        console.log('removeFromCart called with productId:', productId);
+        console.log('Current cart:', cart);
+        
         // Check if product exists in cart
         if (cart && cart[productId]) {
+            console.log('Product found in cart, removing...');
             delete cart[productId];
             
             // Reset row to initial state
@@ -403,6 +418,7 @@ function removeFromCart(productId) {
             updateCartTotals();
             alert('Product removed from cart!');
         } else {
+            console.log('Product not in cart');
             alert('Product not in cart');
         }
     } catch (error) {
