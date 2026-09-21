@@ -26,3 +26,8 @@ databases:
   - name: redapple-crackers-db
     databaseName: redapple_crackers_db
     user: redapple_crackers_db_user
+
+databases:
+  - name: redapple-crackers-db
+    databaseName: redapple_crackers_db
+    user: redapple_crackers_db_user
