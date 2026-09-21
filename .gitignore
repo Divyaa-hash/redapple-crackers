@@ -71,3 +71,4 @@ export_cloudinary_urls.py
 # Database fixtures (for syncing with Render)
 !products_fixture.json
 !categories_fixture.json
+!products_export.json
