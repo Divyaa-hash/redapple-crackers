@@ -104,7 +104,7 @@ class Command(BaseCommand):
                 product.video_url = prod_data.get('video_url')
                 product.weight = prod_data.get('weight')
                 product.dimensions = prod_data.get('dimensions')
-                product.pieces = prod_data['pieces', 1)
+                product.pieces = prod_data.get('pieces', 1)
                 product.duration = prod_data.get('duration')
                 product.sound_level = prod_data.get('sound_level')
                 product.height = prod_data.get('height')
@@ -148,7 +148,7 @@ class Command(BaseCommand):
                     video_url=prod_data.get('video_url'),
                     weight=prod_data.get('weight'),
                     dimensions=prod_data.get('dimensions'),
-                    pieces=prod_data['pieces', 1),
+                    pieces=prod_data.get('pieces', 1),
                     duration=prod_data.get('duration'),
                     sound_level=prod_data.get('sound_level'),
                     height=prod_data.get('height'),
