@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from products.models import Product, Category
 from django.db import connection
+import os
 
 class Command(BaseCommand):
     help = 'Clear all products and categories and reload Vasantham catalogue'
@@ -68,6 +69,15 @@ class Command(BaseCommand):
             
             self.stdout.write(f'✓ Loaded products_export.json')
             
+            # Get static images
+            static_path = 'static/images/crackers'
+            image_files = []
+            if os.path.exists(static_path):
+                for filename in os.listdir(static_path):
+                    if filename.endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                        image_files.append(filename)
+                self.stdout.write(f'✓ Found {len(image_files)} static images')
+            
             # Create categories
             categories_data = data.get('categories', [])
             for cat_data in categories_data:
@@ -82,11 +92,15 @@ class Command(BaseCommand):
             
             # Create products
             products_data = data.get('products', [])
-            for prod_data in products_data:
+            created_products = []
+            for i, prod_data in enumerate(products_data):
                 category = Category.objects.get(slug=prod_data['category_slug'])
                 
-                # Only set image_url if it exists in the JSON
+                # Assign static image if available
                 image_url = prod_data.get('image_url')
+                if not image_url and i < len(image_files):
+                    image_url = f'/static/images/crackers/{image_files[i]}'
+                
                 create_kwargs = {
                     'name': prod_data['name'],
                     'slug': prod_data['slug'],
@@ -107,8 +121,9 @@ class Command(BaseCommand):
                 if image_url:
                     create_kwargs['image_url'] = image_url
                 
-                Product.objects.create(**create_kwargs)
-            self.stdout.write(f'✓ Created {len(products_data)} products')
+                product = Product.objects.create(**create_kwargs)
+                created_products.append(product)
+            self.stdout.write(f'✓ Created {len(products_data)} products with images')
             
             self.stdout.write('=' * 50)
             self.stdout.write(self.style.SUCCESS('VASANTHAM RELOAD COMPLETED SUCCESSFULLY'))
