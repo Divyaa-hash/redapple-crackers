@@ -351,6 +351,7 @@ function addToCart(productId) {
         
         const row = document.querySelector(`tr[data-product-id="${productId}"]`);
         if (!row) {
+            alert('Product row not found');
             return;
         }
         
@@ -358,6 +359,7 @@ function addToCart(productId) {
         const qty = parseInt(qtyInput.value) || 0;
         
         if (qty <= 0) {
+            alert('Please enter a quantity greater than 0');
             return;
         }
         
@@ -378,8 +380,12 @@ function addToCart(productId) {
         
         updateCartTotals();
         localStorage.setItem('redappleCart', JSON.stringify(cart));
+        
+        // Visual feedback
+        alert('Added to cart!');
     } catch (error) {
         console.error('Error adding to cart:', error);
+        alert('Error adding to cart: ' + error.message);
     }
 }
 
@@ -391,9 +397,13 @@ function removeFromCart(productId) {
             delete cart[productId];
             updateCartTotals();
             localStorage.setItem('redappleCart', JSON.stringify(cart));
+            alert('Removed from cart!');
+        } else {
+            alert('Item not in cart');
         }
     } catch (error) {
         console.error('Error removing from cart:', error);
+        alert('Error removing from cart: ' + error.message);
     }
 }
 
