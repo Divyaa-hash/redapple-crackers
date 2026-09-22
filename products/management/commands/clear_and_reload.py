@@ -48,21 +48,29 @@ class Command(BaseCommand):
             for prod_data in products_data:
                 category = Category.objects.get(slug=prod_data['category_slug'])
                 
-                Product.objects.create(
-                    name=prod_data['name'],
-                    slug=prod_data['slug'],
-                    sku=prod_data.get('sku', ''),
-                    category=category,
-                    regular_price=prod_data['regular_price'],
-                    sale_price=prod_data.get('sale_price'),
-                    stock=prod_data.get('stock', 0),
-                    low_stock_threshold=prod_data.get('low_stock_threshold', 5),
-                    short_description=prod_data.get('short_description', ''),
-                    description=prod_data.get('description', ''),
-                    safety_instructions=prod_data.get('safety_instructions', ''),
-                    is_active=prod_data.get('is_active', True),
-                    order=prod_data.get('order', 0)
-                )
+                # Only set image_url if it exists in the JSON
+                image_url = prod_data.get('image_url')
+                create_kwargs = {
+                    'name': prod_data['name'],
+                    'slug': prod_data['slug'],
+                    'sku': prod_data.get('sku', ''),
+                    'category': category,
+                    'regular_price': prod_data['regular_price'],
+                    'sale_price': prod_data.get('sale_price'),
+                    'stock': prod_data.get('stock', 0),
+                    'low_stock_threshold': prod_data.get('low_stock_threshold', 5),
+                    'short_description': prod_data.get('short_description', ''),
+                    'description': prod_data.get('description', ''),
+                    'safety_instructions': prod_data.get('safety_instructions', ''),
+                    'is_active': prod_data.get('is_active', True),
+                    'order': prod_data.get('order', 0)
+                }
+                
+                # Only add image_url if it has a value
+                if image_url:
+                    create_kwargs['image_url'] = image_url
+                
+                Product.objects.create(**create_kwargs)
             self.stdout.write(f'✓ Created {len(products_data)} products')
             
             self.stdout.write('=' * 50)
