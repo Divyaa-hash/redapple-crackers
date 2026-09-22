@@ -402,11 +402,19 @@ function removeFromCart(productId) {
     try {
         productId = String(productId);
         
+        // Initialize cart if it doesn't exist
+        if (!cart) {
+            cart = {};
+        }
+        
         if (cart[productId]) {
             delete cart[productId];
             updateCartTotals();
             localStorage.setItem('redappleCart', JSON.stringify(cart));
             alert('Removed from cart!');
+        } else {
+            // Product not in cart, don't show error
+            console.log('Product not in cart');
         }
     } catch (error) {
         console.error('Error removing from cart:', error);
