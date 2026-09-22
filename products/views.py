@@ -2,6 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.admin.views.decorators import staff_member_required
+from products.models import Product, Category
 import json
 from decimal import Decimal
 from rest_framework import viewsets, filters
@@ -336,3 +340,72 @@ class CouponViewSet(viewsets.ModelViewSet):
             return Response({'valid': False, 'message': 'Coupon is expired or usage limit reached'}, status=400)
         except Coupon.DoesNotExist:
             return Response({'valid': False, 'message': 'Invalid coupon code'}, status=404)
+
+
+@staff_member_required
+@csrf_exempt
+def reload_vasantham_products(request):
+    """Admin-only URL to reload Vasantham products"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+    
+    try:
+        # Count before deletion
+        products_before = Product.objects.count()
+        categories_before = Category.objects.count()
+        
+        # Delete all products
+        Product.objects.all().delete()
+        
+        # Delete all categories
+        Category.objects.all().delete()
+        
+        # Load Vasantham products from export file
+        with open('products_export.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Create categories
+        categories_data = data.get('categories', [])
+        for cat_data in categories_data:
+            Category.objects.create(
+                name=cat_data['name'],
+                slug=cat_data['slug'],
+                description=cat_data.get('description', ''),
+                is_active=True,
+                order=cat_data.get('order', 0)
+            )
+        
+        # Create products
+        products_data = data.get('products', [])
+        for prod_data in products_data:
+            category = Category.objects.get(slug=prod_data['category'])
+            Product.objects.create(
+                name=prod_data['name'],
+                slug=prod_data['slug'],
+                sku=prod_data.get('sku', ''),
+                category=category,
+                regular_price=prod_data['regular_price'],
+                sale_price=prod_data.get('sale_price'),
+                stock=prod_data.get('stock', 0),
+                low_stock_threshold=prod_data.get('low_stock_threshold', 5),
+                short_description=prod_data.get('short_description', ''),
+                description=prod_data.get('description', ''),
+                safety_instructions=prod_data.get('safety_instructions', ''),
+                is_active=prod_data.get('is_active', True),
+                order=prod_data.get('order', 0)
+            )
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Vasantham products loaded successfully',
+            'products_before': products_before,
+            'categories_before': categories_before,
+            'products_after': Product.objects.count(),
+            'categories_after': Category.objects.count()
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
