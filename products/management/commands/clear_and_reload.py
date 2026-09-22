@@ -46,7 +46,7 @@ class Command(BaseCommand):
             # Create products
             products_data = data.get('products', [])
             for prod_data in products_data:
-                category = Category.objects.get(slug=prod_data['category'])
+                category = Category.objects.get(slug=prod_data['category_slug'])
                 Product.objects.create(
                     name=prod_data['name'],
                     slug=prod_data['slug'],
