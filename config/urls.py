@@ -134,9 +134,6 @@ def update_prices_view(request):
 @csrf_exempt
 def reload_vasantham_view(request):
     """Reload Vasantham products from JSON export - public for Render deployment"""
-    if request.method != 'POST':
-        return JsonResponse({'error': 'POST required'}, status=405)
-    
     try:
         from django.db import connection
         
@@ -144,12 +141,43 @@ def reload_vasantham_view(request):
         products_before = Product.objects.count()
         categories_before = Category.objects.count()
         
-        # Use raw SQL to delete all related data bypassing Django ORM constraints
+        # Use raw SQL to delete ALL related data in correct order
         with connection.cursor() as cursor:
-            # Delete cart items first (they reference products)
-            cursor.execute("DELETE FROM cart_cartitem")
+            # Delete order items first
+            try:
+                cursor.execute("DELETE FROM orders_orderitem")
+            except:
+                pass
+            # Delete orders
+            try:
+                cursor.execute("DELETE FROM orders_order")
+            except:
+                pass
+            # Delete cart items
+            try:
+                cursor.execute("DELETE FROM cart_cartitem")
+            except:
+                pass
+            # Delete carts
+            try:
+                cursor.execute("DELETE FROM cart_cart")
+            except:
+                pass
             # Delete wishlist items
-            cursor.execute("DELETE FROM wishlist_wishlistitem")
+            try:
+                cursor.execute("DELETE FROM wishlist_wishlistitem")
+            except:
+                pass
+            # Delete wishlists
+            try:
+                cursor.execute("DELETE FROM wishlist_wishlist")
+            except:
+                pass
+            # Delete product reviews
+            try:
+                cursor.execute("DELETE FROM products_productreview")
+            except:
+                pass
             # Delete products
             cursor.execute("DELETE FROM products_product")
             # Delete categories
