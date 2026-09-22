@@ -77,6 +77,7 @@ class Command(BaseCommand):
                     if filename.endswith(('.jpg', '.jpeg', '.png', '.webp')):
                         # Remove extension to get base name
                         base_name = os.path.splitext(filename)[0]
+                        # Use correct static URL format
                         image_mapping[base_name] = f'/static/images/crackers/{filename}'
                 self.stdout.write(f'✓ Found {len(image_mapping)} static images')
             
@@ -131,7 +132,7 @@ class Command(BaseCommand):
                     'order': prod_data.get('order', 0)
                 }
                 
-                # Only add image_url if it has a value
+                # Always set image_url if found
                 if image_url:
                     create_kwargs['image_url'] = image_url
                 
