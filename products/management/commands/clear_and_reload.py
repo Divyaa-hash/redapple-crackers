@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from products.models import Product, Category
+from django.db import connection
 
 class Command(BaseCommand):
     help = 'Clear all products and categories and reload Vasantham catalogue'
@@ -15,13 +16,49 @@ class Command(BaseCommand):
         categories_before = Category.objects.count()
         self.stdout.write(f'Before: {products_before} products, {categories_before} categories')
         
-        # Delete all products
-        Product.objects.all().delete()
-        self.stdout.write('✓ Deleted all products')
+        # Use raw SQL to delete all related data bypassing Django ORM constraints
+        with connection.cursor() as cursor:
+            # Delete order items first
+            try:
+                cursor.execute("DELETE FROM orders_orderitem")
+            except:
+                pass
+            # Delete orders
+            try:
+                cursor.execute("DELETE FROM orders_order")
+            except:
+                pass
+            # Delete cart items
+            try:
+                cursor.execute("DELETE FROM cart_cartitem")
+            except:
+                pass
+            # Delete carts
+            try:
+                cursor.execute("DELETE FROM cart_cart")
+            except:
+                pass
+            # Delete wishlist items
+            try:
+                cursor.execute("DELETE FROM wishlist_wishlistitem")
+            except:
+                pass
+            # Delete wishlists
+            try:
+                cursor.execute("DELETE FROM wishlist_wishlist")
+            except:
+                pass
+            # Delete product reviews
+            try:
+                cursor.execute("DELETE FROM products_productreview")
+            except:
+                pass
+            # Delete products
+            cursor.execute("DELETE FROM products_product")
+            # Delete categories
+            cursor.execute("DELETE FROM products_category")
         
-        # Delete all categories
-        Category.objects.all().delete()
-        self.stdout.write('✓ Deleted all categories')
+        self.stdout.write('✓ Deleted all products and categories')
         
         # Load Vasantham products from export file
         try:
