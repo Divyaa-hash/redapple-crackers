@@ -1,2 +1,1 @@
-web: python manage.py migrate --noinput && python manage.py clear_and_reload && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120
-# Force Vasantham product reload - delete old products, load 202 Vasantham products
+python manage.py migrate --noinput && python manage.py clear_and_reload && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120
