@@ -100,20 +100,50 @@ def offers_view(request):
 
 
 def shop_view(request):
-    """Shop page view with Baby Crackers format"""
+    """Shop page view with Vasantham Crackers World format"""
+    import logging
+    logger = logging.getLogger(__name__)
+    
     try:
-        categories = Category.objects.filter(is_active=True).order_by('order', 'name')
+        # Define category order to match exact database names
+        category_order = [
+            'One sound crackers',
+            'PENCIL and (Sattai) TWINGLING STARS',
+            'SPARKLERS',
+            'FLOWER POTS',
+            'GROUND CHAKKARS',
+            'SKY ROCKETS',
+            'BIJILI/ BOMB ITEMS',
+            'PAPER BOMB',
+            'Wala',
+            'SKY NIGHT FANCY CELEBRATIONS',
+            'REPEATING MULTI COLOUR FANCY SHOTS',
+            'NIGHT FOUNTAIN CELEBRATIONS',
+            'NIGHT FANCY CELEBRATION',
+            'LADDU FOUNTAIN',
+            'SNAKE and CARTOON',
+            'CHILDRENS ROLL CAP/GUN',
+            'COLOUR MATCHES',
+            'NEW ARRIVALS',
+            'GIFT BOXES',
+            'COMBO PACKS',
+            'SPECIAL SERIES FANCY SKY SHOTS'
+        ]
+        
+        # Get categories in specific order
+        ordered_categories = []
+        for cat_name in category_order:
+            try:
+                category = Category.objects.get(name__iexact=cat_name, is_active=True)
+                ordered_categories.append(category)
+            except Category.DoesNotExist:
+                continue
         
         # Get search query
         search_query = request.GET.get('q', '')
         
         # Get all active products
-        products = Product.objects.filter(is_active=True).order_by('order', 'name')
-        
-        # Debug logging
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.info(f"Shop view: {products.count()} active products, {categories.count()} categories")
+        products = Product.objects.filter(is_active=True)
         
         # Filter by search query if provided
         if search_query:
@@ -121,9 +151,9 @@ def shop_view(request):
                 name__icontains=search_query
             )
         
-        # Organize by category for Baby Crackers format
+        # Organize by category in Vasantham order
         catalog_data = []
-        for category in categories:
+        for category in ordered_categories:
             category_products = products.filter(category=category)
             
             if category_products.exists():
@@ -147,13 +177,11 @@ def shop_view(request):
         
         return render(request, 'shop.html', {
             'catalog_data': catalog_data,
-            'categories': categories,
+            'categories': ordered_categories,
             'total_count': products.count(),
             'search_query': search_query
         })
     except Exception as e:
-        import logging
-        logger = logging.getLogger(__name__)
         logger.error(f"Error in shop_view: {e}")
         print(f"Error in shop_view: {e}")
         import traceback

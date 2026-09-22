@@ -320,25 +320,6 @@
             <div class="cart-summary-item">Overall Total: ₹<span id="overall-total-bottom">0.00</span></div>
         </div>
     </div>
-    
-    <div class="catalog-footer">
-        <div class="catalog-footer-content">
-            <h3>VASANTHAM CRACKERS WORLD</h3>
-            <p>Premium Sivakasi fireworks for every festival, wedding and celebration, trusted by families across Tamil Nadu.</p>
-            <p style="margin-top: 1rem; color: #d4af37; font-size: 18px;">
-                +91 95855 93485 &nbsp; +91 90927 80866<br>
-                +91 90430 33485
-            </p>
-            
-            <div class="legal-notice">
-                <p><strong>Important Notice:</strong></p>
-                <p>As per 2018 supreme court order, online sale of firecrackers are not permitted! We value our customers and at the same time, respect jurisdiction. We request you to add your products to the cart and submit the required crackers through the enquiry button. We will contact you within 24 hrs and confirm the order through WhatsApp or phone call. Please add and submit your enquiries and enjoy your Diwali with VASANTHAM CRACKERS WORLD.</p>
-                <p style="margin-top: 1rem;">Our License No.----. VASANTHAM CRACKERS WORLD as a company following 100% legal & statutory compliances and all our shops, go-downs are maintained as per the explosive acts. We send the parcels through registered and legal transport service providers as like every other major companies in Sivakasi is doing so.</p>
-            </div>
-            
-            <p style="margin-top: 2rem; color: #666;">Copyright © 2026 VASANTHAM CRACKERS WORLD. All Rights Reserved.</p>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -365,83 +346,54 @@ function updateRowTotal(input) {
 }
 
 function addToCart(productId) {
-    console.log('addToCart called with productId:', productId);
-    
-    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-    if (!row) {
-        console.error('Row not found for productId:', productId);
-        return;
+    try {
+        productId = String(productId);
+        
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        if (!row) {
+            return;
+        }
+        
+        const qtyInput = row.querySelector('.qty-input');
+        const qty = parseInt(qtyInput.value) || 0;
+        
+        if (qty <= 0) {
+            return;
+        }
+        
+        const discountedPrice = parseFloat(row.dataset.discountedPrice);
+        const originalPrice = parseFloat(row.dataset.originalPrice);
+        
+        if (!cart) {
+            cart = {};
+        }
+        
+        cart[productId] = {
+            quantity: qty,
+            discountedPrice: discountedPrice,
+            originalPrice: originalPrice,
+            productName: row.querySelector('.product-name').textContent,
+            unitPrice: discountedPrice
+        };
+        
+        updateCartTotals();
+        localStorage.setItem('redappleCart', JSON.stringify(cart));
+    } catch (error) {
+        console.error('Error adding to cart:', error);
     }
-    
-    const qtyInput = row.querySelector('.qty-input');
-    const qty = parseInt(qtyInput.value) || 0;
-    
-    if (qty <= 0) {
-        alert('Please enter a quantity greater than 0');
-        return;
-    }
-    
-    const discountedPrice = parseFloat(row.dataset.discountedPrice);
-    const originalPrice = parseFloat(row.dataset.originalPrice);
-    
-    // Ensure cart is initialized and use string keys
-    if (!cart) {
-        cart = {};
-    }
-    
-    const productIdStr = String(productId);
-    cart[productIdStr] = {
-        quantity: qty,
-        discountedPrice: discountedPrice,
-        originalPrice: originalPrice,
-        productName: row.querySelector('.product-name').textContent,
-        unitPrice: discountedPrice
-    };
-    
-    console.log('Product added to cart:', cart[productIdStr]);
-    updateCartTotals();
-    alert('Product added to cart!');
 }
 
 function removeFromCart(productId) {
-    console.log('removeFromCart called with productId:', productId);
-    console.log('Current cart:', cart);
-    console.log('Cart keys:', Object.keys(cart));
-    
-    // Ensure cart is initialized
-    if (!cart) {
-        cart = {};
-    }
-    
-    // Ensure productId is string for consistent key matching
-    const productIdStr = String(productId);
-    console.log('Looking for productIdStr:', productIdStr);
-    
-    // Check if product exists in cart
-    if (cart[productIdStr]) {
-        console.log('Product found in cart, removing...');
-        delete cart[productIdStr];
+    try {
+        productId = String(productId);
         
-        // Reset row to initial state
-        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-        console.log('Found row:', row);
-        if (row) {
-            const qtyInput = row.querySelector('.qty-input');
-            if (qtyInput) {
-                qtyInput.value = 1;
-            }
-            const discountedPrice = parseFloat(row.dataset.discountedPrice);
-            const rowTotal = row.querySelector('.row-total');
-            if (rowTotal) {
-                rowTotal.textContent = discountedPrice.toFixed(0);
-            }
+        if (cart[productId]) {
+            delete cart[productId];
+            updateCartTotals();
+            localStorage.setItem('redappleCart', JSON.stringify(cart));
         }
-        
-        updateCartTotals();
-        alert('Product removed from cart!');
-    } else {
-        console.log('Product not in cart. Available keys:', Object.keys(cart));
-        alert('Product not in cart. Please add it first.');
+    } catch (error) {
+        console.error('Error removing from cart:', error);
     }
 }
 

@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'users',
     'cart',
     'wishlist',
-    'analytics',
     'siteadmin',
 ]
 
