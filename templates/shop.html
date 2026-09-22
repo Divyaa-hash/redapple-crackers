@@ -341,12 +341,12 @@ function updateRowTotal(input) {
     const row = input.closest('tr');
     const qty = parseInt(input.value) || 0;
     const discountedPrice = parseFloat(row.dataset.discountedPrice);
-    const productId = row.dataset.productId;
     
-    // Update row total display
+    // Update row total display (always show quantity * price)
     row.querySelector('.row-total').textContent = (qty * discountedPrice).toFixed(0);
     
     // Update cart if this product is in cart
+    const productId = row.dataset.productId;
     if (cart && cart[productId]) {
         cart[productId].quantity = qty;
         updateCartTotals();
