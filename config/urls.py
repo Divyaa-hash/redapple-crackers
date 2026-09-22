@@ -144,8 +144,12 @@ def reload_vasantham_view(request):
         products_before = Product.objects.count()
         categories_before = Category.objects.count()
         
-        # Use raw SQL to delete products bypassing Django ORM constraints
+        # Use raw SQL to delete all related data bypassing Django ORM constraints
         with connection.cursor() as cursor:
+            # Delete cart items first (they reference products)
+            cursor.execute("DELETE FROM cart_cartitem")
+            # Delete wishlist items
+            cursor.execute("DELETE FROM wishlist_wishlistitem")
             # Delete products
             cursor.execute("DELETE FROM products_product")
             # Delete categories
