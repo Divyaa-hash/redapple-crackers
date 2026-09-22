@@ -60,10 +60,7 @@ premium-fireworks/
 *.jpg
 *.png
 *.gif
-!static/images/crackers/*.webp
-!static/images/crackers/*.jpg
-!static/images/crackers/*.jpeg
-!static/images/crackers/*.png
+!static/images/crackers/
 !media/
 !cloudinary_url_mapping.json
 !local_image_mapping.json
