@@ -80,9 +80,13 @@ class Command(BaseCommand):
                         # Use correct static URL format
                         image_mapping[base_name] = f'/static/images/crackers/{filename}'
                 self.stdout.write(f'✓ Found {len(image_mapping)} static images')
-                # Show some examples
-                for i, (key, val) in enumerate(list(image_mapping.items())[:5]):
-                    self.stdout.write(f'  - {key}: {val}')
+                
+                # Create a secondary mapping with normalized names for fuzzy matching
+                normalized_mapping = {}
+                for base_name, url in image_mapping.items():
+                    normalized = base_name.lower().replace('-', ' ').replace('_', ' ').replace("'", "").replace("¼", "1-4").replace("½", "1-2").replace("¾", "3-4")
+                    normalized_mapping[normalized] = url
+                self.stdout.write(f'✓ Created {len(normalized_mapping)} normalized mappings')
             
             # Create categories
             categories_data = data.get('categories', [])
@@ -99,6 +103,7 @@ class Command(BaseCommand):
             # Create products
             products_data = data.get('products', [])
             created_products = []
+            matched_count = 0
             for prod_data in products_data:
                 category = Category.objects.get(slug=prod_data['category_slug'])
                 
@@ -110,16 +115,20 @@ class Command(BaseCommand):
                     # Try exact match first
                     if product_slug in image_mapping:
                         image_url = image_mapping[product_slug]
+                        matched_count += 1
                     else:
                         # Try fuzzy match - normalize both for comparison
-                        slug_normalized = product_slug.lower().replace('-', ' ').replace('_', ' ').replace("'", '')
-                        for img_name in image_mapping:
-                            img_normalized = img_name.lower().replace('-', ' ').replace('_', ' ').replace("'", '')
-                            # Check if one contains the other
-                            if slug_normalized in img_normalized or img_normalized in slug_normalized:
-                                image_url = image_mapping[img_name]
-                                self.stdout.write(f'  Matched {product_slug} to {img_name}')
-                                break
+                        slug_normalized = product_slug.lower().replace('-', ' ').replace('_', ' ').replace("'", "").replace("¼", "1-4").replace("½", "1-2").replace("¾", "3-4")
+                        if slug_normalized in normalized_mapping:
+                            image_url = normalized_mapping[slug_normalized]
+                            matched_count += 1
+                        else:
+                            # Try partial match
+                            for norm_name, url in normalized_mapping.items():
+                                if slug_normalized in norm_name or norm_name in slug_normalized:
+                                    image_url = url
+                                    matched_count += 1
+                                    break
                 
                 create_kwargs = {
                     'name': prod_data['name'],
@@ -146,7 +155,13 @@ class Command(BaseCommand):
             
             # Count how many products got images
             products_with_images = Product.objects.filter(image_url__isnull=False).count()
-            self.stdout.write(f'✓ Created {len(products_data)} products ({products_with_images} with images)')
+            self.stdout.write(f'✓ Created {len(products_data)} products ({products_with_images} with images, {matched_count} matched)')
+            if products_with_images < len(products_data):
+                self.stdout.write(f'⚠ {len(products_data) - products_with_images} products without images')
+                # List some products without images
+                products_without = Product.objects.filter(image_url__isnull=True)[:10]
+                for p in products_without:
+                    self.stdout.write(f'  - {p.slug}: {p.name}')
             
             self.stdout.write('=' * 50)
             self.stdout.write(self.style.SUCCESS('VASANTHAM RELOAD COMPLETED SUCCESSFULLY'))
