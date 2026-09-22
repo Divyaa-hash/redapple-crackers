@@ -398,12 +398,9 @@ function removeFromCart(productId) {
             updateCartTotals();
             localStorage.setItem('redappleCart', JSON.stringify(cart));
             alert('Removed from cart!');
-        } else {
-            alert('Item not in cart');
         }
     } catch (error) {
         console.error('Error removing from cart:', error);
-        alert('Error removing from cart: ' + error.message);
     }
 }
 
