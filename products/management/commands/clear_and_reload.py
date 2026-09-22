@@ -69,14 +69,16 @@ class Command(BaseCommand):
             
             self.stdout.write(f'✓ Loaded products_export.json')
             
-            # Get static images
+            # Get static images and create mapping by slug
             static_path = 'static/images/crackers'
-            image_files = []
+            image_mapping = {}
             if os.path.exists(static_path):
                 for filename in os.listdir(static_path):
                     if filename.endswith(('.jpg', '.jpeg', '.png', '.webp')):
-                        image_files.append(filename)
-                self.stdout.write(f'✓ Found {len(image_files)} static images')
+                        # Remove extension to get base name
+                        base_name = os.path.splitext(filename)[0]
+                        image_mapping[base_name] = f'/static/images/crackers/{filename}'
+                self.stdout.write(f'✓ Found {len(image_mapping)} static images')
             
             # Create categories
             categories_data = data.get('categories', [])
@@ -93,13 +95,25 @@ class Command(BaseCommand):
             # Create products
             products_data = data.get('products', [])
             created_products = []
-            for i, prod_data in enumerate(products_data):
+            for prod_data in products_data:
                 category = Category.objects.get(slug=prod_data['category_slug'])
                 
-                # Assign static image if available
+                # Try to match image by slug (remove special characters for matching)
+                product_slug = prod_data['slug']
                 image_url = prod_data.get('image_url')
-                if not image_url and i < len(image_files):
-                    image_url = f'/static/images/crackers/{image_files[i]}'
+                
+                if not image_url and image_mapping:
+                    # Try exact match first
+                    if product_slug in image_mapping:
+                        image_url = image_mapping[product_slug]
+                    else:
+                        # Try fuzzy match (case insensitive, remove special chars)
+                        slug_normalized = product_slug.lower().replace('-', ' ').replace('_', ' ')
+                        for img_name in image_mapping:
+                            img_normalized = img_name.lower().replace('-', ' ').replace('_', ' ')
+                            if slug_normalized in img_normalized or img_normalized in slug_normalized:
+                                image_url = image_mapping[img_name]
+                                break
                 
                 create_kwargs = {
                     'name': prod_data['name'],
@@ -123,7 +137,10 @@ class Command(BaseCommand):
                 
                 product = Product.objects.create(**create_kwargs)
                 created_products.append(product)
-            self.stdout.write(f'✓ Created {len(products_data)} products with images')
+            
+            # Count how many products got images
+            products_with_images = Product.objects.filter(image_url__isnull=False).count()
+            self.stdout.write(f'✓ Created {len(products_data)} products ({products_with_images} with images)')
             
             self.stdout.write('=' * 50)
             self.stdout.write(self.style.SUCCESS('VASANTHAM RELOAD COMPLETED SUCCESSFULLY'))

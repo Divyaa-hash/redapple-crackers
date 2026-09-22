@@ -54,17 +54,6 @@ Thumbs.db
 # Embedded git repositories
 premium-fireworks/
 
-# Image files in project root (source images for upload)
-*.webp
-*.jpeg
-*.jpg
-*.png
-*.gif
-!static/images/crackers/
-!media/
-!cloudinary_url_mapping.json
-!local_image_mapping.json
-
 # Utility scripts
 export_cloudinary_urls.py
 
