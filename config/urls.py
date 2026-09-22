@@ -138,15 +138,18 @@ def reload_vasantham_view(request):
         return JsonResponse({'error': 'POST required'}, status=405)
     
     try:
+        from django.db import connection
+        
         # Count before deletion
         products_before = Product.objects.count()
         categories_before = Category.objects.count()
         
-        # Delete all products
-        Product.objects.all().delete()
-        
-        # Delete all categories
-        Category.objects.all().delete()
+        # Use raw SQL to delete products bypassing Django ORM constraints
+        with connection.cursor() as cursor:
+            # Delete products
+            cursor.execute("DELETE FROM products_product")
+            # Delete categories
+            cursor.execute("DELETE FROM products_category")
         
         # Load Vasantham products from export file
         with open('products_export.json', 'r', encoding='utf-8') as f:
