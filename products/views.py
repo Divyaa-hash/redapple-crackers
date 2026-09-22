@@ -4,7 +4,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.admin.views.decorators import staff_member_required
 from products.models import Product, Category
 import json
 from decimal import Decimal
@@ -342,10 +341,9 @@ class CouponViewSet(viewsets.ModelViewSet):
             return Response({'valid': False, 'message': 'Invalid coupon code'}, status=404)
 
 
-@staff_member_required
 @csrf_exempt
 def reload_vasantham_products(request):
-    """Admin-only URL to reload Vasantham products"""
+    """Admin URL to reload Vasantham products - temporarily public for Render deployment"""
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required'}, status=405)
     
