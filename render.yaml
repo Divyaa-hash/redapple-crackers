@@ -22,14 +22,10 @@ services:
         value: 647136372246985
       - key: CLOUDINARY_API_SECRET
         generateValue: true
-      - key: DATABASE_URL
-        fromDatabase:
-          name: dpg-dap6pr142hec7393n330-a
-          property: connectionString
 
 databases:
   - name: dpg-dap6pr142hec7393n330-a
     databaseName: redapple_crackers_db_050f
     user: redapple_crackers_db_user
 
-# Force deployment - connect to existing database
+# DATABASE_URL must be configured manually in Render dashboard
