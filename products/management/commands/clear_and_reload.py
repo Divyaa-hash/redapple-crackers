@@ -5,6 +5,9 @@ class Command(BaseCommand):
     help = 'Clear all products and categories and reload Vasantham catalogue'
 
     def handle(self, *args, **options):
+        self.stdout.write('=' * 50)
+        self.stdout.write('VASANTHAM CRACKERS CLEAR AND RELOAD')
+        self.stdout.write('=' * 50)
         self.stdout.write('WARNING: This will DELETE ALL products and categories from the database!')
         
         # Count before deletion
@@ -14,17 +17,19 @@ class Command(BaseCommand):
         
         # Delete all products
         Product.objects.all().delete()
-        self.stdout.write('Deleting all products...')
+        self.stdout.write('✓ Deleted all products')
         
         # Delete all categories
         Category.objects.all().delete()
-        self.stdout.write('Deleting all categories...')
+        self.stdout.write('✓ Deleted all categories')
         
         # Load Vasantham products from export file
         try:
             import json
             with open('products_export.json', 'r', encoding='utf-8') as f:
                 data = json.load(f)
+            
+            self.stdout.write(f'✓ Loaded products_export.json')
             
             # Create categories
             categories_data = data.get('categories', [])
@@ -36,7 +41,7 @@ class Command(BaseCommand):
                     is_active=True,
                     order=cat_data.get('order', 0)
                 )
-            self.stdout.write(f'Creating categories... ({len(categories_data)} categories)')
+            self.stdout.write(f'✓ Created {len(categories_data)} categories')
             
             # Create products
             products_data = data.get('products', [])
@@ -57,9 +62,11 @@ class Command(BaseCommand):
                     is_active=prod_data.get('is_active', True),
                     order=prod_data.get('order', 0)
                 )
-            self.stdout.write(f'Creating products... ({len(products_data)} products)')
+            self.stdout.write(f'✓ Created {len(products_data)} products')
             
-            self.stdout.write(self.style.SUCCESS('Reload completed successfully'))
+            self.stdout.write('=' * 50)
+            self.stdout.write(self.style.SUCCESS('VASANTHAM RELOAD COMPLETED SUCCESSFULLY'))
+            self.stdout.write('=' * 50)
             
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error during reload: {e}'))
