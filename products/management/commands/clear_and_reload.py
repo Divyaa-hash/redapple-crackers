@@ -80,6 +80,9 @@ class Command(BaseCommand):
                         # Use correct static URL format
                         image_mapping[base_name] = f'/static/images/crackers/{filename}'
                 self.stdout.write(f'✓ Found {len(image_mapping)} static images')
+                # Show some examples
+                for i, (key, val) in enumerate(list(image_mapping.items())[:5]):
+                    self.stdout.write(f'  - {key}: {val}')
             
             # Create categories
             categories_data = data.get('categories', [])
@@ -99,7 +102,7 @@ class Command(BaseCommand):
             for prod_data in products_data:
                 category = Category.objects.get(slug=prod_data['category_slug'])
                 
-                # Try to match image by slug (remove special characters for matching)
+                # Try to match image by slug
                 product_slug = prod_data['slug']
                 image_url = prod_data.get('image_url')
                 
@@ -108,12 +111,14 @@ class Command(BaseCommand):
                     if product_slug in image_mapping:
                         image_url = image_mapping[product_slug]
                     else:
-                        # Try fuzzy match (case insensitive, remove special chars)
-                        slug_normalized = product_slug.lower().replace('-', ' ').replace('_', ' ')
+                        # Try fuzzy match - normalize both for comparison
+                        slug_normalized = product_slug.lower().replace('-', ' ').replace('_', ' ').replace("'", '')
                         for img_name in image_mapping:
-                            img_normalized = img_name.lower().replace('-', ' ').replace('_', ' ')
+                            img_normalized = img_name.lower().replace('-', ' ').replace('_', ' ').replace("'", '')
+                            # Check if one contains the other
                             if slug_normalized in img_normalized or img_normalized in slug_normalized:
                                 image_url = image_mapping[img_name]
+                                self.stdout.write(f'  Matched {product_slug} to {img_name}')
                                 break
                 
                 create_kwargs = {
