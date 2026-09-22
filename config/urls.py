@@ -27,7 +27,6 @@ from products.views import shop_view, festival_offers_view, offers_view
 from users.views import login_view, signup_view, logout_view
 import os
 import json
-import openpyxl
 
 def home_view(request):
     active = Product.objects.filter(is_active=True)
@@ -57,6 +56,7 @@ def home_view(request):
 def update_prices_view(request):
     """Update product names and prices from Excel file with 10% markup"""
     try:
+        import openpyxl
         excel_file = 'Vamsi_Crackers 2026 diwali.xlsx'
         
         if not os.path.exists(excel_file):
@@ -128,6 +128,8 @@ def update_prices_view(request):
             'created': created_count,
             'total': updated_count + created_count
         })
+    except ImportError:
+        return JsonResponse({'success': False, 'message': 'openpyxl not installed'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
 
