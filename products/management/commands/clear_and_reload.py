@@ -11,7 +11,8 @@ class Command(BaseCommand):
         self.stdout.write('VASANTHAM CRACKERS CLEAR AND RELOAD')
         self.stdout.write('=' * 50)
         self.stdout.write('WARNING: This will DELETE ALL products and categories from the database!')
-        
+        self.stdout.write('Applying 80% discount to all products')
+
         # Count before deletion
         products_before = Product.objects.count()
         categories_before = Category.objects.count()
@@ -130,13 +131,17 @@ class Command(BaseCommand):
                                     matched_count += 1
                                     break
                 
+                # Apply 80% discount to all products
+                regular_price = float(prod_data['regular_price'])
+                sale_price = regular_price * 0.2  # 20% of regular price = 80% discount
+
                 create_kwargs = {
                     'name': prod_data['name'],
                     'slug': prod_data['slug'],
                     'sku': prod_data.get('sku', ''),
                     'category': category,
                     'regular_price': prod_data['regular_price'],
-                    'sale_price': prod_data.get('sale_price'),
+                    'sale_price': sale_price,
                     'stock': prod_data.get('stock', 0),
                     'low_stock_threshold': prod_data.get('low_stock_threshold', 5),
                     'short_description': prod_data.get('short_description', ''),
