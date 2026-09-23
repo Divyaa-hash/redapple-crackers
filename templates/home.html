@@ -292,7 +292,7 @@
                         {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
                     </span>
                     
-                    <button class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
+                    <button onclick="addToCart({{ product.id }})" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
                         Add to Cart
                     </button>
                 </div>
@@ -312,53 +312,65 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
-    addToCartBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const productId = this.dataset.productId;
-            
-            if (!productId) {
-                alert('Product ID not found');
-                return;
-            }
-            
-            fetch('/cart/add/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
-                },
-                body: `product_id=${productId}&quantity=1`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Product added to cart successfully!');
-                    const cartCountElements = document.querySelectorAll('.cart-count');
-                    cartCountElements.forEach(element => {
-                        element.textContent = data.cart_count || 1;
-                    });
-                    if (typeof loadCartItems === 'function') {
-                        loadCartItems();
-                    }
-                    const cartDrawer = document.querySelector('.cart-drawer');
-                    const cartOverlay = document.querySelector('.cart-overlay');
-                    if (cartDrawer && cartOverlay) {
-                        cartDrawer.classList.add('open');
-                        cartOverlay.classList.add('open');
-                        document.body.style.overflow = 'hidden';
-                    }
-                } else {
-                    alert(data.message || 'Error adding to cart');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while adding to cart');
-            });
+// Cart storage - localStorage
+let cart = {};
+
+// Initialize cart from localStorage
+const savedCart = localStorage.getItem('redappleCart');
+if (savedCart) {
+    try {
+        cart = JSON.parse(savedCart);
+    } catch (e) {
+        console.error('Error parsing saved cart:', e);
+        cart = {};
+    }
+}
+
+function addToCart(productId) {
+    try {
+        productId = String(productId);
+
+        // Get product info from button parent
+        const button = event.target.closest('button');
+        const card = button.closest('.product-card');
+        const productName = card.querySelector('h3')?.textContent || 'Product';
+        const priceText = card.querySelector('.text-lg.font-bold')?.textContent || '0';
+        const price = parseFloat(priceText.replace('₹', '').replace(',', '')) || 0;
+
+        if (!cart) {
+            cart = {};
+        }
+
+        cart[productId] = {
+            quantity: 1,
+            discountedPrice: price,
+            originalPrice: price * 5, // Assuming 80% discount
+            productName: productName,
+            unitPrice: price
+        };
+
+        localStorage.setItem('redappleCart', JSON.stringify(cart));
+
+        // Update cart badge
+        const cartCount = Object.keys(cart).length;
+        const cartCountElements = document.querySelectorAll('.cart-count');
+        cartCountElements.forEach(element => {
+            element.textContent = cartCount;
         });
+
+        alert('Added to cart!');
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+        alert('Error adding to cart: ' + error.message);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Update cart badge on page load
+    const cartCount = Object.keys(cart).length;
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    cartCountElements.forEach(element => {
+        element.textContent = cartCount;
     });
 });
 </script>
