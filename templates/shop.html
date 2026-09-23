@@ -157,7 +157,6 @@
         border-radius: 4px;
         cursor: pointer;
         font-weight: bold;
-        margin-right: 5px;
     }
     
     .add-btn:hover {
@@ -176,6 +175,29 @@
     
     .remove-btn:hover {
         background: #b91c1c;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 5px;
+        flex-wrap: nowrap;
+    }
+
+    .button-group .add-btn,
+    .button-group .remove-btn {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        .button-group {
+            gap: 3px;
+        }
+
+        .button-group .add-btn,
+        .button-group .remove-btn {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
     }
     
     .catalog-footer {
@@ -299,8 +321,10 @@
                     </td>
                     <td class="total-price">₹<span class="row-total">{{ item.discounted_price|floatformat:0 }}</span></td>
                     <td>
-                        <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
-                        <button class="remove-btn" onclick="removeFromShopCart('{{ item.product.id }}'); return false;">Remove</button>
+                        <div class="button-group">
+                            <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
+                            <button class="remove-btn" onclick="removeFromShopCart('{{ item.product.id }}'); return false;">Remove</button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
