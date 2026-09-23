@@ -300,7 +300,7 @@
                     <td class="total-price">₹<span class="row-total">{{ item.discounted_price|floatformat:0 }}</span></td>
                     <td>
                         <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
-                        <button class="remove-btn" onclick="removeFromCart('{{ item.product.id }}'); return false;">Remove</button>
+                        <button class="remove-btn" onclick="removeFromShopCart('{{ item.product.id }}'); return false;">Remove</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -398,22 +398,31 @@ function addToCart(productId) {
     }
 }
 
-function removeFromCart(productId) {
+function removeFromShopCart(productId) {
     try {
         productId = String(productId);
-        
-        // Ensure cart exists
-        if (!cart) {
+
+        // Get cart from localStorage to ensure we have latest data
+        try {
+            const savedCart = localStorage.getItem('redappleCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            } else {
+                cart = {};
+            }
+        } catch (e) {
             cart = {};
         }
-        
-        // Remove from cart regardless of whether it exists
+
+        // Remove from cart
         delete cart[productId];
-        
-        // Update totals and save
-        updateCartTotals();
+
+        // Save to localStorage
         localStorage.setItem('redappleCart', JSON.stringify(cart));
-        
+
+        // Update totals
+        updateCartTotals();
+
         // Show success message
         alert('Removed from cart!');
     } catch (error) {
