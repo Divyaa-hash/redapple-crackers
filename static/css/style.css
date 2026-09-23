@@ -1098,3 +1098,154 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* ===== PRODUCT DETAIL BUTTONS ===== */
+.btn-cart-glow {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #f59e0b 100%);
+    background-size: 200% 200%;
+    color: #000;
+    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4), 0 0 20px rgba(245, 158, 11, 0.2);
+    animation: goldGlow 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cart-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-cart-glow:hover::before {
+    left: 100%;
+}
+
+.btn-cart-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6), 0 0 30px rgba(245, 158, 11, 0.4);
+    background-position: right center;
+}
+
+.btn-buy-glow {
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #10b981 100%);
+    background-size: 200% 200%;
+    color: #fff;
+    border: 2px solid #10b981;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4), 0 0 20px rgba(16, 185, 129, 0.2);
+    animation: greenGlow 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-buy-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-buy-glow:hover::before {
+    left: 100%;
+}
+
+.btn-buy-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.4);
+    background-position: right center;
+}
+
+.btn-back-glow {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #6366f1 100%);
+    background-size: 200% 200%;
+    color: #fff;
+    border: 2px solid #6366f1;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4), 0 0 20px rgba(99, 102, 241, 0.2);
+    animation: blueGlow 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-back-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-back-glow:hover::before {
+    left: 100%;
+}
+
+.btn-back-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6), 0 0 30px rgba(99, 102, 241, 0.4);
+    background-position: right center;
+    text-decoration: none;
+    color: #fff;
+}
+
+@keyframes goldGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes greenGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes blueGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Mobile responsive buttons */
+@media (max-width: 768px) {
+    .btn-cart-glow,
+    .btn-buy-glow,
+    .btn-back-glow {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .btn-cart-glow svg,
+    .btn-buy-glow svg,
+    .btn-back-glow svg {
+        width: 16px;
+        height: 16px;
+    }
+}
