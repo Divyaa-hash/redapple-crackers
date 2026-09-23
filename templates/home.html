@@ -292,7 +292,7 @@
                         {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
                     </span>
                     
-                    <button onclick="addToCart({{ product.id }})" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
+                    <button onclick="addToCart({{ product.id }}, {{ product.get_current_price }}, '{{ product.name|escapejs }}')" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
                         Add to Cart
                     </button>
                 </div>
@@ -326,16 +326,9 @@ if (savedCart) {
     }
 }
 
-function addToCart(productId) {
+function addToCart(productId, price, productName) {
     try {
         productId = String(productId);
-
-        // Get product info from button parent
-        const button = event.target.closest('button');
-        const card = button.closest('.product-card');
-        const productName = card.querySelector('h3')?.textContent || 'Product';
-        const priceText = card.querySelector('.text-lg.font-bold')?.textContent || '0';
-        const price = parseFloat(priceText.replace('₹', '').replace(',', '')) || 0;
 
         if (!cart) {
             cart = {};
