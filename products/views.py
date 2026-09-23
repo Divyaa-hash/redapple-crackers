@@ -144,10 +144,21 @@ def shop_view(request):
         
         # Get search query
         search_query = request.GET.get('q', '')
-        
+
+        # Get category filter
+        category_filter = request.GET.get('category', '')
+
         # Get all active products
         products = Product.objects.filter(is_active=True)
-        
+
+        # Filter by category if provided
+        if category_filter:
+            try:
+                category = Category.objects.get(slug=category_filter, is_active=True)
+                products = products.filter(category=category)
+            except Category.DoesNotExist:
+                pass
+
         # Filter by search query if provided
         if search_query:
             products = products.filter(
