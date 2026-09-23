@@ -146,9 +146,12 @@ class Command(BaseCommand):
                     'order': prod_data.get('order', 0)
                 }
                 
-                # Always set image_url if found
+                # Always set image_url if found, otherwise use placeholder
                 if image_url:
                     create_kwargs['image_url'] = image_url
+                else:
+                    # Use placeholder image for products without matching images
+                    create_kwargs['image_url'] = 'https://via.placeholder.com/400x400/ef4444/ffffff?text=No+Image'
                 
                 product = Product.objects.create(**create_kwargs)
                 created_products.append(product)
