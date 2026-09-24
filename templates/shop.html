@@ -101,7 +101,7 @@
     .product-thumb {
         width: 60px;
         height: 60px;
-        object-fit: contain;
+        object-fit: cover;
         border-radius: 8px;
         border: 1px solid rgba(212, 175, 55, 0.3);
     }
@@ -302,7 +302,7 @@
                     data-original-price="{{ item.original_price }}" 
                     data-discounted-price="{{ item.discounted_price }}">
                     <td class="product-image">
-                        <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="product-thumb">
+                        <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="product-thumb" onerror="this.onerror=null;this.src='/static/images/crackers/logo.jpg';">
                     </td>
                     <td class="product-name"><a href="/products/{{ item.product.id }}/" class="text-white hover:text-red-500">{{ item.product.name }}</a></td>
                     <td class="unit">1Box</td>

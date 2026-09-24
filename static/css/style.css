@@ -1092,26 +1092,6 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* ===== PRODUCT IMAGE FALLBACK ===== */
-.product-image img,
-.product-thumb,
-.product-card img,
-.product-detail-image img,
-.wishlist-item img {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-}
-
-.product-image,
-.product-thumb {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-}
-
 /* ===== GLASS NAVBAR ===== */
 .glass-navbar {
     background: rgba(10, 10, 10, 0.8);
@@ -1251,6 +1231,28 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
 @keyframes blueGlow {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
+}
+
+/* Product image fallback styling - ensures logo displays properly */
+.product-thumb,
+.product-detail-image,
+.wishlist-product-image,
+.cart-product-image,
+.product-card-image,
+.trending-product-image,
+.related-product-image {
+    object-fit: contain;
+    object-position: center;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+}
+
+/* Ensure all product images have proper fallback behavior */
+img[alt*="RedApple"],
+img[src*="logo.jpg"] {
+    object-fit: contain !important;
+    object-position: center !important;
+    background-color: #1a1a1a !important;
 }
 
 /* Mobile responsive buttons */

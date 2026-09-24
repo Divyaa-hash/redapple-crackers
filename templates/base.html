@@ -341,7 +341,7 @@
                         if (cartItemsList) {
                             cartItemsList.innerHTML = data.items.map(item => `
                                 <div class="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
-                                    <img src="/static/${item.product_image}" alt="${item.product_name}" class="w-16 h-16 object-cover rounded-lg">
+                                    <img src="/static/${item.product_image}" alt="${item.product_name}" class="w-16 h-16 object-contain rounded-lg" onerror="this.onerror=null;this.src='/static/images/crackers/logo.jpg';">
                                     <div class="flex-1">
                                         <h4 class="font-semibold text-white">${item.product_name}</h4>
                                         <p class="text-sm text-gray-400">₹${item.unit_price} x ${item.quantity}</p>
@@ -634,7 +634,37 @@
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
+    <!-- Product image fallback to logo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Replace broken product images with logo
+            const productImages = document.querySelectorAll('img[alt*="product"], img.product-thumb, img.product-image, img.product-detail-image');
+            const logoFallback = '/static/images/crackers/logo.jpg';
+
+            productImages.forEach(function(img) {
+                img.addEventListener('error', function() {
+                    if (this.src !== logoFallback) {
+                        this.src = logoFallback;
+                        this.style.objectFit = 'contain';
+                        this.style.objectPosition = 'center';
+                    }
+                });
+            });
+
+            // Also check images that are already broken on load
+            setTimeout(function() {
+                productImages.forEach(function(img) {
+                    if (!img.complete || img.naturalWidth === 0) {
+                        img.src = logoFallback;
+                        img.style.objectFit = 'contain';
+                        img.style.objectPosition = 'center';
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+
     <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>

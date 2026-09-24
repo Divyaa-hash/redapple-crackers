@@ -189,7 +189,7 @@
             {% for product in trending_products %}
             <div class="product-card p-4 group">
                 <div class="relative mb-4 overflow-hidden rounded-lg">
-                    <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}https://via.placeholder.com/300x250/ef4444/ffffff?text={{ product.name }}{% endif %}" alt="{{ product.name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='/static/images/crackers/logo.jpg';">
                     
                     <div class="absolute top-2 left-2 flex gap-2">
                         {% if product.is_new %}
