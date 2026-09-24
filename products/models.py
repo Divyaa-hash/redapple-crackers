@@ -184,6 +184,9 @@ class Product(models.Model):
         """Get the actual image to display, with fallback to placeholder"""
         # First try image_url if it exists (Cloudinary or external URL)
         if self.image_url:
+            # If it's a static path, add /static prefix
+            if self.image_url.startswith('images/'):
+                return f'/static/{self.image_url}'
             return self.image_url
         
         # Then try main_image if it exists and has a value
@@ -195,22 +198,22 @@ class Product(models.Model):
                 return image_path
             
             # If main_image is a media path, convert to static path
-            # media/products/filename.jpg -> images/crackers/filename.jpg
+            # media/products/filename.jpg -> /static/images/crackers/filename.jpg
             if 'media/products/' in image_path:
                 filename = image_path.replace('media/products/', '')
-                return f'images/crackers/{filename}'
+                return f'/static/images/crackers/{filename}'
             
             # If main_image is just products/filename.jpg
             if image_path.startswith('products/'):
                 filename = image_path.replace('products/', '')
-                return f'images/crackers/{filename}'
+                return f'/static/images/crackers/{filename}'
             
             # If main_image has .url attribute (ImageField)
             if hasattr(self.main_image, 'url'):
                 url = self.main_image.url
                 if 'media/products/' in url:
                     filename = url.replace('media/products/', '')
-                    return f'images/crackers/{filename}'
+                    return f'/static/images/crackers/{filename}'
                 return url
             
             # Otherwise use the string value as-is
@@ -219,8 +222,11 @@ class Product(models.Model):
         # Fall back to catalog image (static files)
         image = self.get_catalog_image()
         if image and not image.endswith('placeholder.jpg'):
+            if image.startswith('images/'):
+                return f'/static/{image}'
             return image
-        return 'images/crackers/placeholder.jpg'
+        # Use logo as fallback for products without images
+        return '/static/images/crackers/logo.jpg'
     
     def get_current_price(self):
         return self.sale_price if self.sale_price else self.regular_price
