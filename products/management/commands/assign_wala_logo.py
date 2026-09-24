@@ -6,9 +6,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         logo_keywords = [
-            'Tin Beer Fountain', 'COLOUR CHANGING MAGIC STAR',
-            'Zee Boomba', 'Electric Stone', 'AK 47 Machine Gun', 'Popcorn Crackling Star',
-            '3000 Combo Pack', '4000 Combo Pack', '5000 Combo Pack', '7000 Combo Pack'
+            'COLOUR CHANGING MAGIC STAR',
+            'Stripped (vari) Bijili (100 Pcs)'
         ]
 
         products = Product.objects.filter(is_active=True)

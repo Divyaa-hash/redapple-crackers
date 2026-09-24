@@ -23,6 +23,16 @@ class Command(BaseCommand):
             '10000 Wala': '10000 Wala.jpg',
             '10000 Wala Power': '10000 Wala Power.jpg',
             '240 Multi Colour Fancy Shots': '240 Multi Colour Fancy Shots.jpg',
+            'Tin Beer Fountain ( 1 Pc)': 'Tin Beer Fountain ( 1 Pc).jpg',
+            'Zee Boomba ( 10 Pcs)': 'Zee Boomba ( 10 Pcs).jpg',
+            'Electric Stone ( 10 Pcs)': 'Electric Stone ( 10 Pcs).jpg',
+            'AK 47 Machine Gun': 'AK 47 Machine Gun.jpg',
+            'Popcorn Crackling Star': 'Popcorn Crackling Star.jpg',
+            'Star Show Popcorn Crackling': 'Star Show Popcorn Crackling.jpg',
+            '3000 Combo Pack': '3000 Combo Pack.jpg',
+            '4000 Combo Pack': '4000 Combo Pack.jpg',
+            '5000 Combo Pack': '5000 Combo Pack.jpg',
+            '7000 Combo Pack': '7000 Combo Pack.jpg',
         }
 
         products = Product.objects.filter(is_active=True)
