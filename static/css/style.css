@@ -1265,12 +1265,18 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
 }
 
 /* Order Modal Styling */
-#orderModal {
+#orderModal,
+#cartOrderModal {
     backdrop-filter: blur(8px);
+    padding-top: 80px;
+    padding-bottom: 80px;
 }
 
-#orderModal .glass-card {
+#orderModal .glass-card,
+#cartOrderModal .glass-card {
     animation: modalSlideIn 0.3s ease-out;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
 }
 
 @keyframes modalSlideIn {
