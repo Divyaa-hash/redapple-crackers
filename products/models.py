@@ -188,26 +188,26 @@ class Product(models.Model):
             if self.image_url.startswith('images/'):
                 return f'/static/{self.image_url}'
             return self.image_url
-        
+
         # Then try main_image if it exists and has a value
         if self.main_image:
             image_path = str(self.main_image)
-            
+
             # If it's a URL (Cloudinary or external), return it
             if image_path.startswith('http'):
                 return image_path
-            
+
             # If main_image is a media path, convert to static path
             # media/products/filename.jpg -> /static/images/crackers/filename.jpg
             if 'media/products/' in image_path:
                 filename = image_path.replace('media/products/', '')
                 return f'/static/images/crackers/{filename}'
-            
+
             # If main_image is just products/filename.jpg
             if image_path.startswith('products/'):
                 filename = image_path.replace('products/', '')
                 return f'/static/images/crackers/{filename}'
-            
+
             # If main_image has .url attribute (ImageField)
             if hasattr(self.main_image, 'url'):
                 url = self.main_image.url
@@ -215,18 +215,18 @@ class Product(models.Model):
                     filename = url.replace('media/products/', '')
                     return f'/static/images/crackers/{filename}'
                 return url
-            
+
             # Otherwise use the string value as-is
             return image_path
-        
+
         # Fall back to catalog image (static files)
         image = self.get_catalog_image()
         if image and not image.endswith('placeholder.jpg'):
             if image.startswith('images/'):
                 return f'/static/{image}'
             return image
-        # Use logo as fallback for products without images
-        return '/static/images/crackers/logo.jpg'
+        # No fallback - let template onerror handle it
+        return f'images/crackers/{self.slug}.jpg'
     
     def get_current_price(self):
         return self.sale_price if self.sale_price else self.regular_price

@@ -1233,7 +1233,7 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     50% { background-position: 100% 50%; }
 }
 
-/* Product image fallback styling - ensures logo displays properly */
+/* Product image styling - proper display for all product images */
 .product-thumb,
 .product-detail-image,
 .wishlist-product-image,
@@ -1245,14 +1245,6 @@ button, .btn-gold, .btn-outline, .btn-view, .btn-add-cart {
     object-position: center;
     background-color: #1a1a1a;
     border-radius: 8px;
-}
-
-/* Ensure all product images have proper fallback behavior */
-img[alt*="RedApple"],
-img[src*="logo.jpg"] {
-    object-fit: contain !important;
-    object-position: center !important;
-    background-color: #1a1a1a !important;
 }
 
 /* Mobile responsive buttons */
