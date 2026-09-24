@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from products.models import Product
 
 class Command(BaseCommand):
-    help = 'Assign actual Wala product images instead of logo'
+    help = 'Assign actual Wala and special product images'
 
     def handle(self, *args, **options):
         # Mapping of product names to their image files
@@ -22,6 +22,7 @@ class Command(BaseCommand):
             '5000 Wala Power': '5000 Wala Power.jpg',
             '10000 Wala': '10000 Wala.jpg',
             '10000 Wala Power': '10000 Wala Power.jpg',
+            '240 Multi Colour Fancy Shots': '240 Multi Colour Fancy Shots.jpg',
         }
 
         products = Product.objects.filter(is_active=True)
