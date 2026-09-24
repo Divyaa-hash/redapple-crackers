@@ -296,6 +296,9 @@ CLOUDINARY_STORAGE = {
     'SECURE': True,
 }
 
+# WhatsApp Configuration
+WHATSAPP_ADMIN_NUMBER = config('WHATSAPP_ADMIN_NUMBER', default='9345980679')
+
 # Use Cloudinary for media files in production
 if not DEBUG:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

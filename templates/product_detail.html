@@ -318,29 +318,86 @@ function addToCart(productId) {
 
 function buyNow(productId) {
     const quantity = document.getElementById('quantity').value;
-    
-    // First add to cart
-    fetch('/cart/add/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: `product_id=${productId}&quantity=${quantity}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Redirect to checkout
-            window.location.href = '/checkout/';
-        } else {
-            alert(data.message || 'Failed to add to cart');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while processing your request');
-    });
+    const productName = '{{ product.name|escapejs }}';
+    const productPrice = '{{ product.sale_price|floatformat:0 }}';
+    const totalPrice = (parseFloat(productPrice) * parseInt(quantity)).toFixed(0);
+
+    // Open order details modal
+    document.getElementById('order-product-name').value = productName;
+    document.getElementById('order-product-price').value = productPrice;
+    document.getElementById('order-quantity').value = quantity;
+    document.getElementById('order-total').value = totalPrice;
+    document.getElementById('order-product-id').value = productId;
+
+    // Show modal
+    document.getElementById('orderModal').classList.remove('hidden');
+    document.getElementById('orderModal').classList.add('flex');
+}
+
+// WhatsApp admin number configuration
+const WHATSAPP_ADMIN_NUMBER = '9345980679';
+
+function submitWhatsAppOrder() {
+    const name = document.getElementById('customer-name').value.trim();
+    const mobile = document.getElementById('customer-mobile').value.trim();
+    const address = document.getElementById('customer-address').value.trim();
+    const pincode = document.getElementById('customer-pincode').value.trim();
+    const productName = document.getElementById('order-product-name').value;
+    const quantity = document.getElementById('order-quantity').value;
+    const price = document.getElementById('order-product-price').value;
+    const total = document.getElementById('order-total').value;
+
+    // Validation
+    if (!name) {
+        alert('Please enter your name');
+        return;
+    }
+    if (!mobile || mobile.length < 10) {
+        alert('Please enter a valid mobile number');
+        return;
+    }
+    if (!address) {
+        alert('Please enter your delivery address');
+        return;
+    }
+    if (!pincode || pincode.length < 6) {
+        alert('Please enter a valid pincode');
+        return;
+    }
+
+    // Create WhatsApp message
+    const message = `🛍️ REDAPPLE CRACKERS - NEW ORDER
+
+Customer Name: ${name}
+Mobile: ${mobile}
+Address: ${address}
+Pincode: ${pincode}
+
+Product: ${productName}
+Quantity: ${quantity}
+Price: ₹${price}
+Total Amount: ₹${total}
+
+Please confirm the order.`;
+
+    // Open WhatsApp
+    const whatsappUrl = `https://wa.me/${WHATSAPP_ADMIN_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
+    // Close modal
+    document.getElementById('orderModal').classList.add('hidden');
+    document.getElementById('orderModal').classList.remove('flex');
+
+    // Clear form
+    document.getElementById('customer-name').value = '';
+    document.getElementById('customer-mobile').value = '';
+    document.getElementById('customer-address').value = '';
+    document.getElementById('customer-pincode').value = '';
+}
+
+function closeOrderModal() {
+    document.getElementById('orderModal').classList.add('hidden');
+    document.getElementById('orderModal').classList.remove('flex');
 }
 
 function addToWishlist(productId) {
@@ -388,4 +445,74 @@ function updateCartCount(count) {
     });
 }
 </script>
+
+<!-- Order Details Modal -->
+<div id="orderModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full max-h-[90vh] overflow-y-auto p-6 rounded-2xl">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gradient">Order Details</h2>
+            <button onclick="closeOrderModal()" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <form id="orderForm" onsubmit="event.preventDefault(); submitWhatsAppOrder();">
+            <!-- Customer Details -->
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Customer Name *</label>
+                    <input type="text" id="customer-name" class="w-full input-premium" placeholder="Enter your name" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Mobile Number *</label>
+                    <input type="tel" id="customer-mobile" class="w-full input-premium" placeholder="Enter mobile number" pattern="[0-9]{10}" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Delivery Address *</label>
+                    <textarea id="customer-address" class="w-full input-premium" rows="3" placeholder="Enter delivery address" required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Pincode *</label>
+                    <input type="text" id="customer-pincode" class="w-full input-premium" placeholder="Enter pincode" pattern="[0-9]{6}" required>
+                </div>
+            </div>
+
+            <!-- Product Details (Read-only) -->
+            <div class="space-y-4 mb-6 p-4 bg-black-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-gold-500 mb-3">Product Details</h3>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Product Name</label>
+                    <input type="text" id="order-product-name" class="w-full input-premium bg-gray-700" readonly>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Price (₹)</label>
+                        <input type="text" id="order-product-price" class="w-full input-premium bg-gray-700" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Quantity</label>
+                        <input type="number" id="order-quantity" class="w-full input-premium bg-gray-700" readonly>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Total Amount (₹)</label>
+                    <input type="text" id="order-total" class="w-full input-premium bg-gray-700 text-gold-500 font-bold text-lg" readonly>
+                </div>
+                <input type="hidden" id="order-product-id">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full btn-buy-glow text-lg font-semibold py-3">
+                <span class="flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Place Order on WhatsApp
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
 {% endblock %}
