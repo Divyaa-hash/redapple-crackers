@@ -93,6 +93,9 @@ def shop_view(request):
     # Get all active products
     products = Product.objects.filter(is_active=True)
 
+    # Exclude specific products from shop display
+    products = products.exclude(name__icontains='Popcorn Crackling Star')
+
     # Filter by category if provided
     if category_slug:
         products = products.filter(category__slug=category_slug)
@@ -102,7 +105,7 @@ def shop_view(request):
 
     catalog_data = []
     for category in categories:
-        category_products = products.filter(category=category)
+        category_products = products.filter(category=category).order_by('order', 'name')
         if category_products.exists():
             products_with_discount = []
             for product in category_products:
