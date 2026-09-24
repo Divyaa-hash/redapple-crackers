@@ -6,8 +6,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         logo_keywords = [
-            'Wala', 'Chorsa', 'Giant', '24 Deluxe', '50 Deluxe', '100 Deluxe',
-            '240 Multi Colour Fancy Shots', 'Tin Beer Fountain', 'COLOUR CHANGING MAGIC STAR',
+            'Tin Beer Fountain', 'COLOUR CHANGING MAGIC STAR',
             'Zee Boomba', 'Electric Stone', 'AK 47 Machine Gun', 'Popcorn Crackling Star',
             '3000 Combo Pack', '4000 Combo Pack', '5000 Combo Pack', '7000 Combo Pack'
         ]
