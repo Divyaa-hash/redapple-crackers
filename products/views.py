@@ -94,7 +94,7 @@ def shop_view(request):
     products = Product.objects.filter(is_active=True)
 
     # Exclude specific products from shop display
-    products = products.exclude(name__icontains='Popcorn Crackling Star')
+    products = products.exclude(name='Popcorn Crackling Star')
 
     # Filter by category if provided
     if category_slug:
