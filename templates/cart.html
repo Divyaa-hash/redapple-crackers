@@ -285,6 +285,13 @@ function openCartOrderModal() {
         return;
     }
 
+    // Update modal content with cart data
+    document.getElementById('cart-items-count').textContent = Object.keys(window.cartData.items).length;
+    document.getElementById('cart-subtotal').textContent = '₹' + window.cartData.netTotal.toFixed(2);
+    document.getElementById('cart-shipping').textContent = '₹' + window.cartData.shipping.toFixed(2);
+    document.getElementById('cart-gst').textContent = '₹' + window.cartData.gstAmount.toFixed(2);
+    document.getElementById('cart-total').textContent = '₹' + window.cartData.total.toFixed(2);
+
     // Show modal
     document.getElementById('cartOrderModal').classList.remove('hidden');
     document.getElementById('cartOrderModal').classList.add('flex');
@@ -401,24 +408,24 @@ function closeCartOrderModal() {
                 <h3 class="text-lg font-semibold text-gold-500 mb-3">Order Summary</h3>
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>Items</span>
-                    <span class="text-white">${Object.keys(window.cartData?.items || {}).length}</span>
+                    <span class="text-white" id="cart-items-count">0</span>
                 </div>
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>Subtotal</span>
-                    <span class="text-white">₹${window.cartData?.netTotal?.toFixed(2) || '0.00'}</span>
+                    <span class="text-white" id="cart-subtotal">₹0.00</span>
                 </div>
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>Shipping</span>
-                    <span class="text-white">₹${window.cartData?.shipping?.toFixed(2) || '0.00'}</span>
+                    <span class="text-white" id="cart-shipping">₹0.00</span>
                 </div>
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>GST (18%)</span>
-                    <span class="text-white">₹${window.cartData?.gstAmount?.toFixed(2) || '0.00'}</span>
+                    <span class="text-white" id="cart-gst">₹0.00</span>
                 </div>
                 <hr class="border-white/10">
                 <div class="flex justify-between text-lg font-bold">
                     <span class="text-white">Total</span>
-                    <span class="text-red-500">₹${window.cartData?.total?.toFixed(2) || '0.00'}</span>
+                    <span class="text-red-500" id="cart-total">₹0.00</span>
                 </div>
             </div>
 
