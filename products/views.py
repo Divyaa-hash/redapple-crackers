@@ -83,26 +83,43 @@ def festival_offers_view(request):
         return render(request, 'festival_offers.html', {'gift_boxes': []})
 
 
-def offers_view(request):
-    """Offers page displaying gift boxes and promotional offers"""
-    try:
-        # Show the 4 specific gift boxes
-        gift_box_skus = ['GB-LF-20', 'GB-TB-30', 'GB-FS-40', 'GB-SF-50']
-        gift_boxes = Product.objects.filter(sku__in=gift_box_skus, is_active=True)
-        
-        # Add savings calculation to each product
-        for gift_box in gift_boxes:
-            if gift_box.regular_price and gift_box.sale_price:
-                gift_box.savings = gift_box.regular_price - gift_box.sale_price
-            else:
-                gift_box.savings = 0
-        return render(request, 'offers.html', {'gift_boxes': gift_boxes})
-    except Exception as e:
-        print(f"Error in offers_view: {e}")
-        return render(request, 'offers.html', {'gift_boxes': []})
-
-
 def shop_view(request):
+    """Shop page with category filtering"""
+    from django.core.paginator import Paginator
+
+    # Get category filter from query parameters
+    category_slug = request.GET.get('category', '').strip()
+
+    # Get all active products
+    products = Product.objects.filter(is_active=True)
+
+    # Filter by category if provided
+    if category_slug:
+        products = products.filter(category__slug=category_slug)
+
+    # Group products by category
+    categories = Category.objects.filter(is_active=True).order_by('order', 'name')
+
+    catalog_data = []
+    for category in categories:
+        category_products = products.filter(category=category)
+        if category_products.exists():
+            products_with_discount = []
+            for product in category_products:
+                original_price = product.regular_price
+                discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
+                products_with_discount.append({
+                    'product': product,
+                    'original_price': original_price,
+                    'discounted_price': discounted_price
+                })
+
+            catalog_data.append({
+                'category': category,
+                'products': products_with_discount
+            })
+
+    return render(request, 'shop.html', {'catalog_data': catalog_data})
     """Shop page view with Vasantham Crackers World format"""
     import logging
     logger = logging.getLogger(__name__)
