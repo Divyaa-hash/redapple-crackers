@@ -272,11 +272,13 @@ class Command(BaseCommand):
                 if products.exists():
                     for product in products:
                         # Update the price
-                        product.regular_price = Decimal(str(price))
-                        product.sale_price = Decimal(str(price * 0.2))  # 80% discount
+                        # Excel price is the SELLING price (after 80% discount)
+                        # So regular_price should be price / 0.2 (to show 80% discount)
+                        product.sale_price = Decimal(str(price))
+                        product.regular_price = Decimal(str(price / 0.2))  # MRP for 80% discount
                         product.save()
                         updated_count += 1
-                        self.stdout.write(f"Updated: {product.name} - {price}")
+                        self.stdout.write(f"Updated: {product.name} - sale={price}, regular={price/0.2}")
                 else:
                     not_found_count += 1
                     self.stdout.write(f"Not found: {product_name}")

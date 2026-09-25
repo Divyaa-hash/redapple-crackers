@@ -203,8 +203,8 @@ class Command(BaseCommand):
                     name=product_data['name'],
                     category=category,
                     sku=sku,
-                    regular_price=Decimal(str(product_data['price'])),
-                    sale_price=Decimal(str(product_data['price'] * 0.2)),  # 80% discount
+                    regular_price=Decimal(str(product_data['price'] / 0.2)),  # MRP for 80% discount
+                    sale_price=Decimal(str(product_data['price'])),  # Excel price is selling price
                     short_description=product_data['description'],
                     description=product_data['description'],
                     pieces=1,  # Default pieces
