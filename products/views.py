@@ -33,7 +33,7 @@ def catalog_view(request):
             products_with_discount = []
             for product in products:
                 original_price = product.regular_price
-                discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.1')
+                discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
                 products_with_discount.append({
                     'product': product,
                     'original_price': original_price,
@@ -84,14 +84,14 @@ def festival_offers_view(request):
 
 
 def shop_view(request):
-    """Shop page with category filtering"""
+    """Shop page with category filtering - Excel order"""
     from django.core.paginator import Paginator
 
     # Get category filter from query parameters
     category_slug = request.GET.get('category', '').strip()
 
-    # Get all active products
-    products = Product.objects.filter(is_active=True)
+    # Get all active products ordered by Excel order
+    products = Product.objects.filter(is_active=True).order_by('order')
 
     # Exclude specific products from shop display
     products = products.exclude(name='Popcorn Crackling Star')
@@ -100,12 +100,12 @@ def shop_view(request):
     if category_slug:
         products = products.filter(category__slug=category_slug)
 
-    # Group products by category
-    categories = Category.objects.filter(is_active=True).order_by('order', 'name')
+    # Group products by category in Excel order
+    categories = Category.objects.filter(is_active=True).order_by('name')
 
     catalog_data = []
     for category in categories:
-        category_products = products.filter(category=category).order_by('order', 'name')
+        category_products = products.filter(category=category)
         if category_products.exists():
             products_with_discount = []
             for product in category_products:
@@ -123,109 +123,27 @@ def shop_view(request):
             })
 
     return render(request, 'shop.html', {'catalog_data': catalog_data})
-    """Shop page view with Vasantham Crackers World format"""
-    import logging
-    logger = logging.getLogger(__name__)
-    
+
+
+def festival_offers_view(request):
+    """Festival offers page displaying gift boxes"""
     try:
-        # Define category order to match exact database names
-        category_order = [
-            'One sound crackers',
-            'PENCIL and (Sattai) TWINGLING STARS',
-            'SPARKLERS',
-            'FLOWER POTS',
-            'GROUND CHAKKARS',
-            'SKY ROCKETS',
-            'BIJILI/ BOMB ITEMS',
-            'PAPER BOMB',
-            'Wala',
-            'SKY NIGHT FANCY CELEBRATIONS',
-            'REPEATING MULTI COLOUR FANCY SHOTS',
-            'NIGHT FOUNTAIN CELEBRATIONS',
-            'NIGHT FANCY CELEBRATION',
-            'LADDU FOUNTAIN',
-            'SNAKE and CARTOON',
-            'CHILDRENS ROLL CAP/GUN',
-            'COLOUR MATCHES',
-            'NEW ARRIVALS',
-            'GIFT BOXES',
-            'COMBO PACKS',
-            'SPECIAL SERIES FANCY SKY SHOTS'
-        ]
-        
-        # Get categories in specific order
-        ordered_categories = []
-        for cat_name in category_order:
-            try:
-                category = Category.objects.get(name__iexact=cat_name, is_active=True)
-                ordered_categories.append(category)
-            except Category.DoesNotExist:
-                continue
-        
-        # Get search query
-        search_query = request.GET.get('q', '')
+        # Show gift boxes from current database
+        gift_boxes = Product.objects.filter(
+            category__name__icontains='GIFT BOX',
+            is_active=True
+        ).order_by('regular_price')
 
-        # Get category filter
-        category_filter = request.GET.get('category', '')
-
-        # Get all active products
-        products = Product.objects.filter(is_active=True)
-
-        # Filter by category if provided
-        if category_filter:
-            try:
-                category = Category.objects.get(slug=category_filter, is_active=True)
-                products = products.filter(category=category)
-            except Category.DoesNotExist:
-                pass
-
-        # Filter by search query if provided
-        if search_query:
-            products = products.filter(
-                name__icontains=search_query
-            )
-        
-        # Organize by category in Vasantham order
-        catalog_data = []
-        for category in ordered_categories:
-            category_products = products.filter(category=category)
-            
-            if category_products.exists():
-                # Use actual sale_price from database, or calculate 90% discount if no sale_price
-                products_with_discount = []
-                for product in category_products:
-                    original_price = product.regular_price
-                    discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.1')
-                    products_with_discount.append({
-                        'product': product,
-                        'original_price': original_price,
-                        'discounted_price': discounted_price
-                    })
-                
-                catalog_data.append({
-                    'category': category,
-                    'products': products_with_discount
-                })
-        
-        logger.info(f"Shop view returning {len(catalog_data)} categories with products")
-        
-        return render(request, 'shop.html', {
-            'catalog_data': catalog_data,
-            'categories': ordered_categories,
-            'total_count': products.count(),
-            'search_query': search_query
-        })
+        # Add savings calculation to each product
+        for gift_box in gift_boxes:
+            if gift_box.regular_price and gift_box.sale_price:
+                gift_box.savings = gift_box.regular_price - gift_box.sale_price
+            else:
+                gift_box.savings = 0
+        return render(request, 'festival_offers.html', {'gift_boxes': gift_boxes})
     except Exception as e:
-        logger.error(f"Error in shop_view: {e}")
-        print(f"Error in shop_view: {e}")
-        import traceback
-        traceback.print_exc()
-        return render(request, 'shop.html', {
-            'catalog_data': [],
-            'categories': [],
-            'total_count': 0,
-            'error': str(e)
-        })
+        print(f"Error in festival_offers_view: {e}")
+        return render(request, 'festival_offers.html', {'gift_boxes': []})
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
