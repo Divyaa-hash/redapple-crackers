@@ -14,7 +14,14 @@ class Command(BaseCommand):
         sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='ignore')
 
         # Read the Excel file
-        df = pd.read_excel('Final_Price_List_RAC_2026.xlsx', header=3)
+        excel_file = 'Final_Price_List_RAC_2026.xlsx'
+        if not os.path.exists(excel_file):
+            self.stdout.write(f"Excel file not found: {excel_file}")
+            self.stdout.write(f"Current directory: {os.getcwd()}")
+            self.stdout.write(f"Files in current directory: {os.listdir('.')}")
+            return
+
+        df = pd.read_excel(excel_file, header=3)
 
         # Filter out category header rows and empty rows
         df = df[df['Category'].notna()]
@@ -26,8 +33,12 @@ class Command(BaseCommand):
         category_mapping = self.create_or_update_categories(df)
 
         # Clear existing products
-        Product.objects.all().delete()
-        self.stdout.write("Cleared all existing products")
+        try:
+            Product.objects.all().delete()
+            self.stdout.write("Cleared all existing products")
+        except Exception as e:
+            self.stdout.write(f"Error clearing products: {e}")
+            return
 
         # Add products from Excel
         added_count = 0
@@ -69,24 +80,30 @@ class Command(BaseCommand):
                     sku_counter += 1
 
                 # Create product
-                product = Product.objects.create(
-                    name=product_name,
-                    category=category,
-                    sku=sku,
-                    regular_price=Decimal(str(price / 0.2)),  # MRP for 80% discount
-                    sale_price=Decimal(str(price)),  # Excel price is selling price
-                    short_description=f"{product_name} - {unit}",
-                    description=f"{product_name} from {category_name}. {unit} pack.",
-                    pieces=1,
-                    stock=100,
-                    is_active=True,
-                    image_url='images/crackers/logo.jpg',  # Will be updated by assign_product_images
-                    slug=slug,
-                    order=idx  # Maintain Excel order
-                )
+                try:
+                    product = Product.objects.create(
+                        name=product_name,
+                        category=category,
+                        sku=sku,
+                        regular_price=Decimal(str(price / 0.2)),  # MRP for 80% discount
+                        sale_price=Decimal(str(price)),  # Excel price is selling price
+                        short_description=f"{product_name} - {unit}",
+                        description=f"{product_name} from {category_name}. {unit} pack.",
+                        pieces=1,
+                        stock=100,
+                        is_active=True,
+                        image_url='images/crackers/logo.jpg',  # Will be updated by assign_product_images
+                        slug=slug,
+                        order=idx  # Maintain Excel order
+                    )
 
-                added_count += 1
-                self.stdout.write(f"Added {idx + 1}: {product_name} - {price}")
+                    added_count += 1
+                    self.stdout.write(f"Added {idx + 1}: {product_name} - {price}")
+
+                except Exception as e:
+                    error_count += 1
+                    self.stdout.write(f"Error creating product {product_name}: {e}")
+                    continue
 
             except Exception as e:
                 error_count += 1

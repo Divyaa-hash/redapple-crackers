@@ -2,7 +2,7 @@ services:
   - type: web
     name: redapple-crackers
     env: python
-    buildCommand: pip install -r requirements.txt && python manage.py migrate --noinput --run-syncdb && python manage.py flush --noinput && python manage.py reload_from_excel && python manage.py assign_product_images && python manage.py collectstatic --noinput --clear
+    buildCommand: pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py reload_from_excel && python manage.py assign_product_images && python manage.py collectstatic --noinput --clear
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120
     plan: free
     envVars:
@@ -29,3 +29,9 @@ databases:
     user: redapple_crackers_db_user
 
 # DATABASE_URL must be configured manually in Render dashboard
+# Add these environment variables in Render dashboard:
+# DB_NAME: redapple_crackers_db_050f
+# DB_USER: redapple_crackers_db_user
+# DB_PASSWORD: [Your database password]
+# DB_HOST: dpg-dap6pr142hec7393n330-a
+# DB_PORT: 5432
