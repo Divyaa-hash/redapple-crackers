@@ -2,7 +2,7 @@ services:
   - type: web
     name: redapple-crackers
     env: python
-    buildCommand: pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py clear_and_reload && python manage.py assign_wala_images && python manage.py assign_wala_logo && python manage.py update_prices_from_excel && python manage.py add_missing_products && python manage.py assign_product_images && python manage.py collectstatic --noinput --clear
+    buildCommand: pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py reload_from_excel && python manage.py assign_product_images && python manage.py collectstatic --noinput --clear
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120
     plan: free
     envVars:
