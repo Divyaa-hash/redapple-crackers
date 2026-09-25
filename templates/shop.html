@@ -102,6 +102,17 @@
             padding: 3px;
             font-size: 12px;
         }
+
+        .add-btn,
+        .remove-btn {
+            padding: 5px 8px;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .button-group {
+            gap: 3px;
+        }
     }
     
     .product-table th {
@@ -348,7 +359,8 @@
                     <td class="total-price">₹<span class="row-total">{{ item.discounted_price|floatformat:0 }}</span></td>
                     <td>
                         <div class="button-group">
-                            <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add to Cart</button>
+                            <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
+                            <button class="remove-btn" onclick="removeFromShopCart('{{ item.product.id }}'); return false;">Remove</button>
                         </div>
                     </td>
                 </tr>
@@ -422,10 +434,10 @@ function addToCart(productId) {
 
 function removeFromShopCart(productId) {
     try {
-        // Remove from Django backend cart
-        // Note: This is a simplified version - in production you'd need the item_id
-        // For now, we'll redirect to cart page to remove there
-        alert('Please go to the cart page to remove items');
+        // Redirect to cart page for removal
+        // This is necessary because Django cart uses item_id, not product_id
+        // and we don't have a direct way to get item_id from the shop page
+        window.location.href = '/cart/';
     } catch (error) {
         console.error('Error removing from cart:', error);
         alert('Error removing from cart: ' + error.message);
