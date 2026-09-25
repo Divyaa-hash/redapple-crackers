@@ -348,8 +348,7 @@
                     <td class="total-price">₹<span class="row-total">{{ item.discounted_price|floatformat:0 }}</span></td>
                     <td>
                         <div class="button-group">
-                            <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
-                            <button class="remove-btn" onclick="removeFromShopCart('{{ item.product.id }}'); return false;">Remove</button>
+                            <button class="add-btn" onclick="addToCart('{{ item.product.id }}'); return false;">Add to Cart</button>
                         </div>
                     </td>
                 </tr>
@@ -362,87 +361,59 @@
         <p>No products found in catalog.</p>
     </div>
     {% endfor %}
-    
-    <div class="cart-summary">
-        <div class="cart-summary-content">
-            <div class="cart-summary-item">Net Total: ₹<span id="net-total-bottom">0.00</span></div>
-            <div class="cart-summary-item">You Save: ₹<span id="you-save-bottom">0.00</span></div>
-            <div class="cart-summary-item">Overall Total: ₹<span id="overall-total-bottom">0.00</span></div>
-        </div>
-    </div>
 </div>
 
 <script>
-// Cart storage - localStorage only for reliability
-let cart = {};
-
-// Initialize cart from localStorage immediately
-const savedCart = localStorage.getItem('redappleCart');
-if (savedCart) {
-    try {
-        cart = JSON.parse(savedCart);
-    } catch (e) {
-        console.error('Error parsing saved cart:', e);
-        cart = {};
-    }
-}
-
 function updateRowTotal(input) {
     const row = input.closest('tr');
     const qty = parseInt(input.value) || 0;
     const discountedPrice = parseFloat(row.dataset.discountedPrice);
-    
+
     // Update row total display (always show quantity * price)
     row.querySelector('.row-total').textContent = (qty * discountedPrice).toFixed(0);
-    
-    // Update cart if this product is in cart
-    const productId = row.dataset.productId;
-    if (cart && cart[productId]) {
-        cart[productId].quantity = qty;
-        updateCartTotals();
-        localStorage.setItem('redappleCart', JSON.stringify(cart));
-    }
 }
 
 function addToCart(productId) {
     try {
-        productId = String(productId);
-        
         const row = document.querySelector(`tr[data-product-id="${productId}"]`);
         if (!row) {
             alert('Product row not found');
             return;
         }
-        
+
         const qtyInput = row.querySelector('.qty-input');
         const qty = parseInt(qtyInput.value) || 0;
-        
+
         if (qty <= 0) {
             alert('Please enter a quantity greater than 0');
             return;
         }
-        
-        const discountedPrice = parseFloat(row.dataset.discountedPrice);
-        const originalPrice = parseFloat(row.dataset.originalPrice);
-        
-        if (!cart) {
-            cart = {};
-        }
-        
-        cart[productId] = {
-            quantity: qty,
-            discountedPrice: discountedPrice,
-            originalPrice: originalPrice,
-            productName: row.querySelector('.product-name').textContent,
-            unitPrice: discountedPrice
-        };
 
-        localStorage.setItem('redappleCart', JSON.stringify(cart));
-        updateCartTotals();
-        updateCartCount();
-
-        // Visual feedback
-        alert('Added to cart!');
+        // Add to Django backend cart
+        fetch('/cart/add/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: `product_id=${productId}&quantity=${qty}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Added to cart!');
+                // Update cart count in navbar
+                if (data.cart_count) {
+                    updateCartCount(data.cart_count);
+                }
+            } else {
+                alert(data.message || 'Failed to add to cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while adding to cart');
+        });
     } catch (error) {
         console.error('Error adding to cart:', error);
         alert('Error adding to cart: ' + error.message);
@@ -451,103 +422,51 @@ function addToCart(productId) {
 
 function removeFromShopCart(productId) {
     try {
-        productId = String(productId);
-
-        // Get cart from localStorage to ensure we have latest data
-        try {
-            const savedCart = localStorage.getItem('redappleCart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-            } else {
-                cart = {};
-            }
-        } catch (e) {
-            cart = {};
-        }
-
-        // Remove from cart
-        delete cart[productId];
-
-        // Save to localStorage
-        localStorage.setItem('redappleCart', JSON.stringify(cart));
-
-        // Update totals
-        updateCartTotals();
-        updateCartCount();
-
-        // Visual feedback
-        alert('Removed from cart!');
+        // Remove from Django backend cart
+        // Note: This is a simplified version - in production you'd need the item_id
+        // For now, we'll redirect to cart page to remove there
+        alert('Please go to the cart page to remove items');
     } catch (error) {
         console.error('Error removing from cart:', error);
         alert('Error removing from cart: ' + error.message);
     }
 }
 
-function updateCartCount() {
-    try {
-        const savedCart = localStorage.getItem('redappleCart');
-        if (savedCart) {
-            const cart = JSON.parse(savedCart);
-            const totalCount = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
-            const cartCountElements = document.querySelectorAll('.cart-count');
-            cartCountElements.forEach(element => {
-                element.textContent = totalCount;
-            });
-        }
-    } catch (e) {
-        console.error('Error updating cart count:', e);
-    }
-}
-
-function updateCartTotals() {
-    let netTotal = 0;
-    let originalTotal = 0;
-    let totalItems = 0;
-    
-    for (const productId in cart) {
-        const item = cart[productId];
-        netTotal += item.quantity * item.discountedPrice;
-        originalTotal += item.quantity * item.originalPrice;
-        totalItems += item.quantity;
-    }
-    
-    const youSave = originalTotal - netTotal;
-    const overallTotal = netTotal;
-    
-    // Update all cart summary displays
-    document.getElementById('net-total').textContent = netTotal.toFixed(0);
-    document.getElementById('you-save').textContent = youSave.toFixed(0);
-    document.getElementById('overall-total').textContent = overallTotal.toFixed(0);
-    document.getElementById('net-total-bottom').textContent = netTotal.toFixed(0);
-    document.getElementById('you-save-bottom').textContent = youSave.toFixed(0);
-    document.getElementById('overall-total-bottom').textContent = overallTotal.toFixed(0);
-    
-    // Update cart count badge in navbar
+function updateCartCount(count) {
     const cartCountElements = document.querySelectorAll('.cart-count');
     cartCountElements.forEach(element => {
-        element.textContent = totalItems;
+        element.textContent = count;
     });
-
-    // Save to localStorage
-    localStorage.setItem('redappleCart', JSON.stringify(cart));
 }
 
-// Load cart from localStorage on page load
-window.addEventListener('DOMContentLoaded', function() {
-    // Update cart count badge from localStorage
-    updateCartCount();
-});
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
-// Load cart from localStorage on page load
+// Load cart count from Django backend on page load
 window.addEventListener('DOMContentLoaded', function() {
-    const savedCart = localStorage.getItem('redappleCart');
-    if (savedCart) {
-        try {
-            cart = JSON.parse(savedCart);
-            console.log('Cart loaded from localStorage:', cart);
-            
-            // Restore quantities and row totals
-            for (const productId in cart) {
+    fetch('/cart/summary/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.cart_count) {
+                updateCartCount(data.cart_count);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading cart count:', error);
+        });
+});
                 const row = document.querySelector(`tr[data-product-id="${productId}"]`);
                 if (row) {
                     const qtyInput = row.querySelector('.qty-input');
