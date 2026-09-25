@@ -31,7 +31,7 @@ class Command(BaseCommand):
         updated_count = 0
         not_found_count = 0
 
-        for product in Product.objects.filter(is_active=True):
+        for product in Product.objects.filter(is_active=True, order__gt=0):
             try:
                 # Try to find matching image for this product
                 matched_image = self.find_matching_image(product.name, image_files)

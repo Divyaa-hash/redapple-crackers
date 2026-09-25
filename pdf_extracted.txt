@@ -1,0 +1,2 @@
+Error: 'charmap' codec can't encode characters in position 235-240: character maps to <undefined>
+--- Page 1 ---
