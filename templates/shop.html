@@ -536,14 +536,14 @@ function addToCart(productId) {
         const mobileTotal = document.getElementById(`shop-total-${productId}`);
         if (mobileDisplay) {
             quantity = parseInt(mobileDisplay.textContent) || 1;
-        } else {
-            // Try desktop input
-            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-            if (row) {
-                const qtyInput = row.querySelector('.qty-input');
-                if (qtyInput) {
-                    quantity = parseInt(qtyInput.value) || 1;
-                }
+        }
+
+        // Always try desktop input as well (it exists on desktop)
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        if (row) {
+            const qtyInput = row.querySelector('.qty-input');
+            if (qtyInput) {
+                quantity = parseInt(qtyInput.value) || 1;
             }
         }
 
@@ -573,7 +573,6 @@ function addToCart(productId) {
                         mobileTotal.textContent = discountedPrice.toFixed(0);
                     }
                 }
-                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
                 if (row) {
                     const qtyInput = row.querySelector('.qty-input');
                     const rowTotal = row.querySelector('.row-total');
@@ -596,6 +595,24 @@ function addToCart(productId) {
     } catch (error) {
         console.error('Error adding to cart:', error);
         alert('Error adding to cart: ' + error.message);
+    }
+}
+
+function updateRowTotal(input) {
+    try {
+        const row = input.closest('tr');
+        if (!row) return;
+
+        const qty = parseInt(input.value) || 1;
+        const discountedPrice = parseFloat(row.dataset.discountedPrice);
+
+        // Update row total display
+        const rowTotal = row.querySelector('.row-total');
+        if (rowTotal) {
+            rowTotal.textContent = (qty * discountedPrice).toFixed(0);
+        }
+    } catch (error) {
+        console.error('Error updating row total:', error);
     }
 }
 
