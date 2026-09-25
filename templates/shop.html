@@ -436,10 +436,11 @@ function addToCart(productId) {
             productName: row.querySelector('.product-name').textContent,
             unitPrice: discountedPrice
         };
-        
-        updateCartTotals();
+
         localStorage.setItem('redappleCart', JSON.stringify(cart));
-        
+        updateCartTotals();
+        updateCartCount();
+
         // Visual feedback
         alert('Added to cart!');
     } catch (error) {
@@ -472,13 +473,29 @@ function removeFromShopCart(productId) {
 
         // Update totals
         updateCartTotals();
+        updateCartCount();
 
-        // Show success message
+        // Visual feedback
         alert('Removed from cart!');
     } catch (error) {
         console.error('Error removing from cart:', error);
-        // Still show success to user even if there was an error
-        alert('Removed from cart!');
+        alert('Error removing from cart: ' + error.message);
+    }
+}
+
+function updateCartCount() {
+    try {
+        const savedCart = localStorage.getItem('redappleCart');
+        if (savedCart) {
+            const cart = JSON.parse(savedCart);
+            const totalCount = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = totalCount;
+            });
+        }
+    } catch (e) {
+        console.error('Error updating cart count:', e);
     }
 }
 
@@ -510,10 +527,16 @@ function updateCartTotals() {
     cartCountElements.forEach(element => {
         element.textContent = totalItems;
     });
-    
+
     // Save to localStorage
     localStorage.setItem('redappleCart', JSON.stringify(cart));
 }
+
+// Load cart from localStorage on page load
+window.addEventListener('DOMContentLoaded', function() {
+    // Update cart count badge from localStorage
+    updateCartCount();
+});
 
 // Load cart from localStorage on page load
 window.addEventListener('DOMContentLoaded', function() {
