@@ -85,33 +85,91 @@
     @media (max-width: 768px) {
         .product-table {
             font-size: 12px;
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
+        .product-table thead,
+        .product-table tbody,
         .product-table th,
-        .product-table td {
-            padding: 8px 4px;
+        .product-table td,
+        .product-table tr {
+            display: block;
         }
+
+        .product-table thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        .product-table tr {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .product-table td {
+            border: none;
+            position: relative;
+            padding-left: 50%;
+            padding: 8px 0;
+            text-align: left;
+        }
+
+        .product-table td:before {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .product-table td:nth-of-type(1):before { content: "Image"; }
+        .product-table td:nth-of-type(2):before { content: "Product"; }
+        .product-table td:nth-of-type(3):before { content: "Unit"; }
+        .product-table td:nth-of-type(4):before { content: "Price"; }
+        .product-table td:nth-of-type(5):before { content: "Quantity"; }
+        .product-table td:nth-of-type(6):before { content: "Total"; }
+        .product-table td:nth-of-type(7):before { content: "Actions"; }
 
         .product-thumb {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
         }
 
         .qty-input {
-            width: 40px;
-            padding: 3px;
-            font-size: 12px;
+            width: 60px;
+            padding: 5px;
+            font-size: 14px;
         }
 
         .add-btn,
         .remove-btn {
-            padding: 5px 8px;
-            font-size: 11px;
+            padding: 8px 12px;
+            font-size: 14px;
             white-space: nowrap;
+            min-width: 60px;
         }
 
         .button-group {
-            gap: 3px;
+            gap: 8px;
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            justify-content: center;
+        }
+
+        .button-group .add-btn,
+        .button-group .remove-btn {
+            flex-shrink: 0 !important;
+            display: block !important;
         }
     }
     
@@ -221,21 +279,7 @@
         flex-shrink: 0;
     }
 
-    @media (max-width: 768px) {
-        .button-group {
-            gap: 3px;
-            display: flex !important;
-            flex-wrap: nowrap !important;
-        }
 
-        .button-group .add-btn,
-        .button-group .remove-btn {
-            padding: 5px 10px;
-            font-size: 14px;
-            flex-shrink: 0 !important;
-            display: block !important;
-        }
-    }
     
     .catalog-footer {
         background: rgba(0, 0, 0, 0.3);
