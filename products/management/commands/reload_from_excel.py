@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import io
+import os
 import re
 from decimal import Decimal
 from django.core.management.base import BaseCommand
