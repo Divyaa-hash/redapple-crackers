@@ -526,39 +526,16 @@
 </div>
 
 <script>
-function updateRowTotal(input) {
-    const row = input.closest('tr');
-    const qty = parseInt(input.value) || 0;
-    const discountedPrice = parseFloat(row.dataset.discountedPrice);
-
-    // Update row total display (always show quantity * price)
-    row.querySelector('.row-total').textContent = (qty * discountedPrice).toFixed(0);
-}
-
 function addToCart(productId) {
     try {
-        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-        if (!row) {
-            alert('Product row not found');
-            return;
-        }
-
-        const qtyInput = row.querySelector('.qty-input');
-        const qty = parseInt(qtyInput.value) || 0;
-
-        if (qty <= 0) {
-            alert('Please enter a quantity greater than 0');
-            return;
-        }
-
-        // Add to Django backend cart
+        // Add to Django backend cart with quantity 1
         fetch('/cart/add/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-            body: `product_id=${productId}&quantity=${qty}`
+            body: `product_id=${productId}&quantity=1`
         })
         .then(response => response.json())
         .then(data => {
