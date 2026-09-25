@@ -84,92 +84,185 @@
 
     @media (max-width: 768px) {
         .product-table {
-            font-size: 12px;
-            display: block;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            display: none;
         }
 
-        .product-table thead,
-        .product-table tbody,
-        .product-table th,
-        .product-table td,
-        .product-table tr {
+        .shop-mobile {
             display: block;
         }
 
-        .product-table thead tr {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }
-
-        .product-table tr {
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            padding: 12px;
+        .shop-mobile-item {
             background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .product-table td {
-            border: none;
-            position: relative;
-            padding-left: 50%;
-            padding: 8px 0;
-            text-align: left;
+        .shop-mobile-card {
+            display: flex;
+            gap: 12px;
         }
 
-        .product-table td:before {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            width: 45%;
-            padding-right: 10px;
-            white-space: nowrap;
-            font-weight: bold;
-            color: #d4af37;
+        .shop-mobile-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .product-table td:nth-of-type(1):before { content: "Image"; }
-        .product-table td:nth-of-type(2):before { content: "Product"; }
-        .product-table td:nth-of-type(3):before { content: "Unit"; }
-        .product-table td:nth-of-type(4):before { content: "Price"; }
-        .product-table td:nth-of-type(5):before { content: "Quantity"; }
-        .product-table td:nth-of-type(6):before { content: "Total"; }
-        .product-table td:nth-of-type(7):before { content: "Actions"; }
-
-        .product-thumb {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto;
+        .shop-mobile-details {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .qty-input {
-            width: 60px;
-            padding: 5px;
-            font-size: 14px;
+        .shop-mobile-name {
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 1.3;
+            word-wrap: break-word;
+            margin-bottom: 2px;
         }
 
-        .add-btn,
-        .remove-btn {
-            padding: 8px 12px;
-            font-size: 14px;
-            white-space: nowrap;
-            min-width: 60px;
+        .shop-mobile-unit {
+            color: #999;
+            font-size: 12px;
         }
 
-        .button-group {
+        .shop-mobile-price-row {
+            display: flex;
+            align-items: baseline;
             gap: 8px;
-            display: flex !important;
-            flex-wrap: nowrap !important;
-            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .button-group .add-btn,
-        .button-group .remove-btn {
-            flex-shrink: 0 !important;
-            display: block !important;
+        .shop-mobile-mrp {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .shop-mobile-price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .shop-mobile-quantity-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        .shop-mobile-qty-label {
+            color: #999;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .shop-mobile-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shop-quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #d4af37;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .shop-quantity-btn:hover {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+
+        .shop-quantity-display {
+            min-width: 30px;
+            text-align: center;
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .shop-mobile-total-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shop-mobile-total-label {
+            color: #999;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .shop-mobile-total {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .shop-mobile-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .shop-mobile-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .shop-mobile-add {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+
+        .shop-mobile-add:hover {
+            background: #b8860b;
+        }
+
+        .shop-mobile-remove {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .shop-mobile-remove:hover {
+            background: #b91c1c;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .shop-mobile {
+            display: none;
+        }
+
+        .product-table {
+            display: table;
         }
     }
     
@@ -325,25 +418,7 @@
         color: #d4af37;
     }
     
-    @media (max-width: 768px) {
-        .catalog-container {
-            padding: 10px;
-        }
-        
-        .cart-summary-content {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .product-table {
-            font-size: 12px;
-        }
-        
-        .product-table th,
-        .product-table td {
-            padding: 8px;
-        }
-    }
+
 </style>
 
 <div class="catalog-container">
@@ -351,13 +426,7 @@
         <h1>Shop</h1>
     </div>
     
-    <div class="cart-summary">
-        <div class="cart-summary-content">
-            <div class="cart-summary-item">Net Total: ₹<span id="net-total">0.00</span></div>
-            <div class="cart-summary-item">You Save: ₹<span id="you-save">0.00</span></div>
-            <div class="cart-summary-item">Overall Total: ₹<span id="overall-total">0.00</span></div>
-        </div>
-    </div>
+
     
     {% for category_item in catalog_data %}
     <div class="category-section">
@@ -374,7 +443,7 @@
                     <th>Price</th>
                     <th>Qty</th>
                     <th>Total</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -411,6 +480,43 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        <!-- Mobile Cards -->
+        <div class="shop-mobile">
+            {% for item in category_item.products %}
+            <div class="shop-mobile-item" data-product-id="{{ item.product.id }}" 
+                 data-original-price="{{ item.original_price }}" 
+                 data-discounted-price="{{ item.discounted_price }}">
+                <div class="shop-mobile-card">
+                    <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="shop-mobile-image">
+                    <div class="shop-mobile-details">
+                        <div class="shop-mobile-name">{{ item.product.name }}</div>
+                        <div class="shop-mobile-unit">{{ item.product.unit }}</div>
+                        <div class="shop-mobile-price-row">
+                            <span class="shop-mobile-mrp">MRP {{ item.original_price|floatformat:0 }}</span>
+                            <span class="shop-mobile-price">{{ item.discounted_price|floatformat:0 }}</span>
+                        </div>
+                        <div class="shop-mobile-quantity-row">
+                            <span class="shop-mobile-qty-label">Qty</span>
+                            <div class="shop-mobile-quantity">
+                                <button class="shop-quantity-btn" onclick="updateQuantity('{{ item.product.id }}', -1)">−</button>
+                                <div class="shop-quantity-display" id="shop-qty-display-{{ item.product.id }}">1</div>
+                                <button class="shop-quantity-btn" onclick="updateQuantity('{{ item.product.id }}', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="shop-mobile-total-row">
+                            <span class="shop-mobile-total-label">Total</span>
+                            <span class="shop-mobile-total">{{ item.discounted_price|floatformat:0 }}</span>
+                        </div>
+                        <div class="shop-mobile-actions">
+                            <button class="shop-mobile-btn shop-mobile-add" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
+                            <button class="shop-mobile-btn shop-mobile-remove" onclick="removeFromShopCart('{{ item.product.id }}'); return false;">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
     {% empty %}
     <div class="text-center text-gray-400 py-12">
@@ -482,6 +588,26 @@ function removeFromShopCart(productId) {
         // This is necessary because Django cart uses item_id, not product_id
         // and we don't have a direct way to get item_id from the shop page
         window.location.href = '/cart/';
+    } catch (error) {
+        console.error('Error removing from cart:', error);
+        alert('Error removing from cart: ' + error.message);
+    }
+}
+
+function updateQuantity(productId, change) {
+    try {
+        // Update quantity display only (for mobile)
+        const display = document.getElementById(`shop-qty-display-${productId}`);
+        if (display) {
+            let newQty = parseInt(display.textContent) + change;
+            if (newQty < 1) newQty = 1;
+            if (newQty > 99) newQty = 99;
+            display.textContent = newQty;
+        }
+    } catch (error) {
+        console.error('Error updating quantity:', error);
+    }
+}
     } catch (error) {
         console.error('Error removing from cart:', error);
         alert('Error removing from cart: ' + error.message);
