@@ -506,7 +506,7 @@
                         </div>
                         <div class="shop-mobile-total-row">
                             <span class="shop-mobile-total-label">Total</span>
-                            <span class="shop-mobile-total">{{ item.discounted_price|floatformat:0 }}</span>
+                            <span class="shop-mobile-total" id="shop-total-{{ item.product.id }}">{{ item.discounted_price|floatformat:0 }}</span>
                         </div>
                         <div class="shop-mobile-actions">
                             <button class="shop-mobile-btn shop-mobile-add" onclick="addToCart('{{ item.product.id }}'); return false;">Add</button>
@@ -528,22 +528,62 @@
 <script>
 function addToCart(productId) {
     try {
-        // Add to Django backend cart with quantity 1
+        // Get current quantity (from mobile display or desktop input)
+        let quantity = 1;
+
+        // Try mobile display first
+        const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
+        const mobileTotal = document.getElementById(`shop-total-${productId}`);
+        if (mobileDisplay) {
+            quantity = parseInt(mobileDisplay.textContent) || 1;
+        } else {
+            // Try desktop input
+            const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+            if (row) {
+                const qtyInput = row.querySelector('.qty-input');
+                if (qtyInput) {
+                    quantity = parseInt(qtyInput.value) || 1;
+                }
+            }
+        }
+
+        // Add to Django backend cart
         fetch('/cart/add/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-            body: `product_id=${productId}&quantity=1`
+            body: `product_id=${productId}&quantity=${quantity}`
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Added to cart!');
+                alert(`Added ${quantity} item(s) to cart!`);
                 // Update cart count in navbar
                 if (data.cart_count) {
                     updateCartCount(data.cart_count);
+                }
+                // Reset quantity to 1 after adding
+                if (mobileDisplay) {
+                    mobileDisplay.textContent = '1';
+                    if (mobileTotal) {
+                        const item = document.querySelector(`.shop-mobile-item[data-product-id="${productId}"]`);
+                        const discountedPrice = parseFloat(item.dataset.discountedPrice);
+                        mobileTotal.textContent = discountedPrice.toFixed(0);
+                    }
+                }
+                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                if (row) {
+                    const qtyInput = row.querySelector('.qty-input');
+                    const rowTotal = row.querySelector('.row-total');
+                    if (qtyInput) {
+                        qtyInput.value = '1';
+                        if (rowTotal) {
+                            const discountedPrice = parseFloat(row.dataset.discountedPrice);
+                            rowTotal.textContent = discountedPrice.toFixed(0);
+                        }
+                    }
                 }
             } else {
                 alert(data.message || 'Failed to add to cart');
@@ -561,10 +601,31 @@ function addToCart(productId) {
 
 function removeFromShopCart(productId) {
     try {
-        // Redirect to cart page for removal
-        // This is necessary because Django cart uses item_id, not product_id
-        // and we don't have a direct way to get item_id from the shop page
-        window.location.href = '/cart/';
+        // Remove from Django backend cart
+        fetch('/cart/remove/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: `product_id=${productId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Removed from cart!');
+                // Update cart count in navbar
+                if (data.cart_count) {
+                    updateCartCount(data.cart_count);
+                }
+            } else {
+                alert(data.message || 'Failed to remove from cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while removing from cart');
+        });
     } catch (error) {
         console.error('Error removing from cart:', error);
         alert('Error removing from cart: ' + error.message);
@@ -573,22 +634,46 @@ function removeFromShopCart(productId) {
 
 function updateQuantity(productId, change) {
     try {
-        // Update quantity display only (for mobile)
-        const display = document.getElementById(`shop-qty-display-${productId}`);
-        if (display) {
-            let newQty = parseInt(display.textContent) + change;
+        // Update quantity display and total
+        const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
+        const mobileTotal = document.getElementById(`shop-total-${productId}`);
+
+        if (mobileDisplay) {
+            let newQty = parseInt(mobileDisplay.textContent) + change;
             if (newQty < 1) newQty = 1;
             if (newQty > 99) newQty = 99;
-            display.textContent = newQty;
+            mobileDisplay.textContent = newQty;
+
+            // Update total display
+            if (mobileTotal) {
+                const item = document.querySelector(`.shop-mobile-item[data-product-id="${productId}"]`);
+                const discountedPrice = parseFloat(item.dataset.discountedPrice);
+                mobileTotal.textContent = (newQty * discountedPrice).toFixed(0);
+            }
+        }
+
+        // Also update desktop if exists
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        if (row) {
+            const qtyInput = row.querySelector('.qty-input');
+            const rowTotal = row.querySelector('.row-total');
+            if (qtyInput) {
+                let newQty = parseInt(qtyInput.value) + change;
+                if (newQty < 1) newQty = 1;
+                if (newQty > 99) newQty = 99;
+                qtyInput.value = newQty;
+
+                // Update row total
+                if (rowTotal) {
+                    const discountedPrice = parseFloat(row.dataset.discountedPrice);
+                    rowTotal.textContent = (newQty * discountedPrice).toFixed(0);
+                }
+            }
         }
     } catch (error) {
         console.error('Error updating quantity:', error);
     }
 }
-    } catch (error) {
-        console.error('Error removing from cart:', error);
-        alert('Error removing from cart: ' + error.message);
-    }
 }
 
 function updateCartCount(count) {

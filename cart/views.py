@@ -126,10 +126,30 @@ def update_cart_item(request):
 def remove_from_cart(request):
     """Remove item from cart"""
     item_id = request.POST.get('item_id')
-    cart_item = get_object_or_404(CartItem, id=item_id)
-    cart = cart_item.cart
-    cart_item.delete()
-    
+    product_id = request.POST.get('product_id')
+
+    cart = get_or_create_cart(request)
+
+    if item_id:
+        # Remove by item_id
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item.delete()
+    elif product_id:
+        # Remove by product_id (for shop page)
+        try:
+            cart_item = CartItem.objects.get(cart=cart, product_id=product_id)
+            cart_item.delete()
+        except CartItem.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'message': 'Item not found in cart'
+            })
+    else:
+        return JsonResponse({
+            'success': False,
+            'message': 'No item_id or product_id provided'
+        })
+
     return JsonResponse({
         'success': True,
         'message': 'Item removed from cart',
