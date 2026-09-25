@@ -110,9 +110,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 # Use DATABASE_URL from Render for production, or construct from individual variables
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 
-if DATABASE_URL:
+if DATABASE_URL and DATABASE_URL.startswith('postgres'):
     # Production PostgreSQL on Render via DATABASE_URL
     DATABASES = {
         'default': dj_database_url.config(
@@ -245,7 +245,7 @@ CORS_ALLOW_CREDENTIALS = True
 AUTH_USER_MODEL = 'users.User'
 
 # Database Connection Pooling (for production)
-if DATABASE_URL and 'default' in DATABASES:
+if DATABASE_URL and DATABASE_URL.startswith('postgres') and 'default' in DATABASES:
     DATABASES['default']['CONN_MAX_AGE'] = 60
     DATABASES['default']['CONN_HEALTH_CHECKS'] = True
 
