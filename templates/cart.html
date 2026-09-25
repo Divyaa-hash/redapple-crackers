@@ -523,8 +523,23 @@ function updateQuantityInput(itemId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Reload page to show updated totals
-            location.reload();
+            // Update item total display without reload
+            if (row) {
+                const totalCell = row.querySelector('.cart-total-price');
+                if (totalCell) {
+                    totalCell.textContent = '₹' + data.item_total;
+                }
+            }
+            if (mobileItem) {
+                const totalDisplay = mobileItem.querySelector('.cart-mobile-total');
+                if (totalDisplay) {
+                    totalDisplay.textContent = '₹' + data.item_total;
+                }
+            }
+            // Update cart totals in summary
+            updateCartTotals();
+            // Update navbar count
+            updateCartCountFromBackend();
         } else {
             alert('Failed to update quantity');
         }
@@ -533,6 +548,36 @@ function updateQuantityInput(itemId) {
         console.error('Error:', error);
         alert('An error occurred while updating quantity');
     });
+}
+
+function updateCartTotals() {
+    fetch('/cart/summary/')
+        .then(response => response.json())
+        .then(data => {
+            const subtotal = document.querySelector('.flex.justify-between span.text-white');
+            const total = document.querySelector('.flex.justify-between.text-lg span.text-red-500');
+            if (subtotal) {
+                subtotal.textContent = '₹' + data.cart_total;
+            }
+            if (total) {
+                // Calculate total with shipping and GST
+                const cartTotal = parseFloat(data.cart_total);
+                const shipping = 99;
+                const gst = cartTotal * 0.18;
+                const grandTotal = cartTotal + shipping + gst;
+                total.textContent = '₹' + grandTotal.toFixed(2);
+            }
+        })
+        .catch(error => console.error('Error updating totals:', error));
+}
+
+function updateCartCountFromBackend() {
+    fetch('/cart/summary/')
+        .then(response => response.json())
+        .then(data => {
+            updateCartCount(data.cart_count || data.total_items || 0);
+        })
+        .catch(error => console.error('Error updating cart count:', error));
 }
 
 function addMore(itemId) {
@@ -552,8 +597,27 @@ function removeItem(itemId) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Reload page to show updated cart
-                location.reload();
+                // Remove the row/item from DOM without reload
+                const row = document.querySelector(`tr[data-item-id="${itemId}"]`);
+                const mobileItem = document.querySelector(`.cart-mobile-item[data-item-id="${itemId}"]`);
+                
+                if (row) {
+                    row.remove();
+                }
+                if (mobileItem) {
+                    mobileItem.remove();
+                }
+                
+                // Check if cart is now empty
+                const remainingItems = document.querySelectorAll('tr[data-item-id]');
+                if (remainingItems.length === 0) {
+                    location.reload(); // Reload to show empty cart message
+                } else {
+                    // Update cart totals
+                    updateCartTotals();
+                    // Update navbar count
+                    updateCartCountFromBackend();
+                }
             } else {
                 alert('Failed to remove item');
             }
