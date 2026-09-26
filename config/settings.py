@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-j(vxrdrd#b4ayg#*tc8hi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't', 'yes', 'y')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com').split(',')
 
 # CSRF Trusted Origins for production
 CSRF_TRUSTED_ORIGINS = []
@@ -39,6 +39,19 @@ if not DEBUG:
     else:
         # Auto-generate from ALLOWED_HOSTS in production
         CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS if host != '*']
+        # Also add HTTP versions for local testing
+        CSRF_TRUSTED_ORIGINS += [f"http://{host}" for host in ALLOWED_HOSTS if host != '*']
+    # Add specific Render domain
+    CSRF_TRUSTED_ORIGINS.append('https://redapple-crackers.onrender.com')
+    CSRF_TRUSTED_ORIGINS.append('http://redapple-crackers.onrender.com')
+else:
+    # For development, allow localhost
+    CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
+
+# CSRF Cookie settings
+CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 
 # Application definition
