@@ -12,6 +12,7 @@
             max-width: 100%;
             overflow: visible;
             padding: 12px;
+            width: 100%;
         }
 
         .grid-cols-1 {
@@ -52,6 +53,8 @@
 
         .max-w-7xl {
             max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
         .product-detail-buttons {
@@ -92,15 +95,19 @@
         /* Ensure no horizontal overflow */
         body {
             overflow-x: hidden;
+            width: 100%;
         }
 
         section {
             overflow-x: hidden;
+            width: 100%;
         }
 
         /* Fix image sizing on mobile */
         #main-image {
             height: 250px !important;
+            width: 100%;
+            object-fit: contain;
         }
 
         /* Fix thumbnail spacing */
@@ -118,6 +125,19 @@
 
         .h-20 {
             height: 70px;
+        }
+
+        /* Fix full page view on mobile */
+        .container, .main-content {
+            width: 100%;
+            max-width: 100%;
+            padding: 0 1rem;
+        }
+
+        /* Ensure content is visible */
+        .product-detail-section {
+            display: block !important;
+            visibility: visible !important;
         }
     }
 

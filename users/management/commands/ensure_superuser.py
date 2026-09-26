@@ -14,11 +14,11 @@ class Command(BaseCommand):
             user = User.objects.create_user(
                 email=email,
                 username='saran_admin',
-                password=password,
                 first_name='Saran',
                 last_name='Admin',
                 phone='9345980679'
             )
+            user.set_password(password)
             user.is_staff = True
             user.is_superuser = True
             user.save()
