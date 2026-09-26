@@ -35,7 +35,7 @@ class OrderAdmin(admin.ModelAdmin):
     actions = ['mark_as_confirmed', 'mark_as_processing', 'mark_as_shipped', 'mark_as_delivered', 'mark_as_cancelled']
     fieldsets = (
         ('Order Information', {
-            'fields': ('order_number', 'user', 'order_status', 'payment_status', 'payment_method', 'payment_id', 'item_count', 'total_items')
+            'fields': ('order_number', 'user', 'order_status', 'payment_status', 'payment_method', 'payment_id')
         }),
         ('Shipping Address', {
             'fields': ('shipping_name', 'shipping_phone', 'shipping_address_line1', 'shipping_address_line2', 'shipping_city', 'shipping_state', 'shipping_postal_code', 'shipping_country')
