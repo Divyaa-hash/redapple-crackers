@@ -1,19 +1,18 @@
 import os
-from django.db.models.signals import post_migrate
-from django.dispatch import receiver
+from django.core.management.base import BaseCommand
 from django.core.serializers import deserialize
 from products.models import Product, Category
 
 
-@receiver(post_migrate)
-def seed_products_and_categories(sender, **kwargs):
-    """Auto-seed products and categories after migrations"""
-    if sender.name == 'products':
+class Command(BaseCommand):
+    help = 'Force reload products from fixture (overwrites existing)'
+
+    def handle(self, *args, **options):
         # Get base directory
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         
         # Load categories
-        categories_file = os.path.join(base_dir, 'categories_fixture.json')
+        categories_file = os.path.join(base_dir, '..', '..', 'categories_fixture.json')
         if os.path.exists(categories_file):
             try:
                 with open(categories_file, 'r', encoding='utf-8') as f:
@@ -23,14 +22,14 @@ def seed_products_and_categories(sender, **kwargs):
                 for obj in deserialize('json', categories_data):
                     obj.save()
                 
-                print(f"Loaded {Category.objects.count()} categories")
+                self.stdout.write(self.style.SUCCESS(f'Loaded {Category.objects.count()} categories'))
             except Exception as e:
-                print(f"Error loading categories: {e}")
+                self.stdout.write(self.style.ERROR(f'Error loading categories: {e}'))
         else:
-            print(f"Categories file not found: {categories_file}")
+            self.stdout.write(self.style.WARNING(f'Categories file not found: {categories_file}'))
 
         # Load products
-        products_file = os.path.join(base_dir, 'products_fixture.json')
+        products_file = os.path.join(base_dir, '..', '..', 'products_fixture.json')
         if os.path.exists(products_file):
             try:
                 with open(products_file, 'r', encoding='utf-8') as f:
@@ -40,8 +39,10 @@ def seed_products_and_categories(sender, **kwargs):
                 for obj in deserialize('json', products_data):
                     obj.save()
                 
-                print(f"Loaded {Product.objects.count()} products")
+                self.stdout.write(self.style.SUCCESS(f'Loaded {Product.objects.count()} products'))
             except Exception as e:
-                print(f"Error loading products: {e}")
+                self.stdout.write(self.style.ERROR(f'Error loading products: {e}'))
         else:
-            print(f"Products file not found: {products_file}")
+            self.stdout.write(self.style.WARNING(f'Products file not found: {products_file}'))
+
+        self.stdout.write(self.style.SUCCESS('Product reload completed successfully!'))
