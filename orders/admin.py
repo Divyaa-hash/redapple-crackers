@@ -6,7 +6,16 @@ from .models import Order, OrderItem, ShippingAddress, OrderTracking
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
-    readonly_fields = ['product_name', 'product_sku', 'unit_price', 'total_price']
+    readonly_fields = ['product', 'product_name', 'product_sku', 'quantity', 'unit_price', 'total_price']
+    fields = ['product', 'product_name', 'product_sku', 'quantity', 'unit_price', 'total_price']
+    
+    def product_name(self, obj):
+        return obj.product.name if obj.product else 'N/A'
+    product_name.short_description = 'Product Name'
+    
+    def product_sku(self, obj):
+        return obj.product.sku if obj.product else 'N/A'
+    product_sku.short_description = 'SKU'
 
 
 class OrderTrackingInline(admin.TabularInline):
@@ -17,16 +26,16 @@ class OrderTrackingInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['order_number', 'user', 'order_status', 'payment_status', 'payment_method', 'total_amount', 'created_at', 'status_badge']
+    list_display = ['order_number', 'user', 'shipping_name', 'shipping_phone', 'order_status', 'payment_status', 'payment_method', 'total_amount', 'created_at', 'status_badge']
     list_filter = ['order_status', 'payment_status', 'payment_method', 'created_at']
-    search_fields = ['order_number', 'shipping_name', 'shipping_phone', 'user__email']
+    search_fields = ['order_number', 'shipping_name', 'shipping_phone', 'user__email', 'user__username']
     readonly_fields = ['order_number', 'created_at', 'updated_at', 'shipped_at', 'delivered_at']
     inlines = [OrderItemInline, OrderTrackingInline]
     ordering = ['-created_at']
     actions = ['mark_as_confirmed', 'mark_as_processing', 'mark_as_shipped', 'mark_as_delivered', 'mark_as_cancelled']
     fieldsets = (
         ('Order Information', {
-            'fields': ('order_number', 'user', 'order_status', 'payment_status', 'payment_method', 'payment_id')
+            'fields': ('order_number', 'user', 'order_status', 'payment_status', 'payment_method', 'payment_id', 'item_count', 'total_items')
         }),
         ('Shipping Address', {
             'fields': ('shipping_name', 'shipping_phone', 'shipping_address_line1', 'shipping_address_line2', 'shipping_city', 'shipping_state', 'shipping_postal_code', 'shipping_country')
@@ -61,6 +70,19 @@ class OrderAdmin(admin.ModelAdmin):
             color, obj.get_order_status_display().upper()
         )
     status_badge.short_description = 'Status'
+    
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # Editing an existing object
+            return self.readonly_fields + ['item_count', 'total_items']
+        return self.readonly_fields
+    
+    def item_count(self, obj):
+        return obj.items.count()
+    item_count.short_description = 'Number of Items'
+    
+    def total_items(self, obj):
+        return sum(item.quantity for item in obj.items.all())
+    total_items.short_description = 'Total Quantity'
     
     def mark_as_confirmed(self, request, queryset):
         queryset.update(order_status='confirmed')
