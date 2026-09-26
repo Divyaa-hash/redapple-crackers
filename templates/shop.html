@@ -528,26 +528,29 @@
 <script>
 function addToCart(productId) {
     try {
+        console.log('addToCart called for product:', productId);
+        
         // Get current quantity (from mobile display or desktop input)
         let quantity = 1;
 
         // Try mobile display first
         const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
-        const mobileTotal = document.getElementById(`shop-total-${productId}`);
         if (mobileDisplay) {
             quantity = parseInt(mobileDisplay.textContent) || 1;
+            console.log('Mobile quantity:', quantity);
         }
 
-        // Always try desktop input as well (it exists on desktop)
+        // Try desktop input
         const row = document.querySelector(`tr[data-product-id="${productId}"]`);
         if (row) {
             const qtyInput = row.querySelector('.qty-input');
             if (qtyInput) {
                 quantity = parseInt(qtyInput.value) || 1;
+                console.log('Desktop quantity:', quantity);
             }
         }
 
-        console.log('Adding to cart:', productId, 'quantity:', quantity);
+        console.log('Final quantity to add:', quantity);
 
         // Add to Django backend cart
         fetch('/cart/add/', {
@@ -570,10 +573,13 @@ function addToCart(productId) {
                 // Reset quantity to 1 after adding
                 if (mobileDisplay) {
                     mobileDisplay.textContent = '1';
+                    const mobileTotal = document.getElementById(`shop-total-${productId}`);
                     if (mobileTotal) {
                         const item = document.querySelector(`.shop-mobile-item[data-product-id="${productId}"]`);
-                        const discountedPrice = parseFloat(item.dataset.discountedPrice);
-                        mobileTotal.textContent = discountedPrice.toFixed(0);
+                        if (item) {
+                            const discountedPrice = parseFloat(item.dataset.discountedPrice);
+                            mobileTotal.textContent = discountedPrice.toFixed(0);
+                        }
                     }
                 }
                 if (row) {
@@ -621,6 +627,8 @@ function updateRowTotal(input) {
 
 function removeFromShopCart(productId) {
     try {
+        console.log('removeFromShopCart called for product:', productId);
+        
         // Remove from Django backend cart
         fetch('/cart/remove/', {
             method: 'POST',
@@ -632,6 +640,7 @@ function removeFromShopCart(productId) {
         })
         .then(response => response.json())
         .then(data => {
+            console.log('Remove from cart response:', data);
             if (data.success) {
                 alert('Removed from cart!');
                 // Update cart count in navbar
@@ -654,6 +663,8 @@ function removeFromShopCart(productId) {
 
 function updateQuantity(productId, change) {
     try {
+        console.log('updateQuantity called for product:', productId, 'change:', change);
+        
         // Update quantity display and total
         const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
         const mobileTotal = document.getElementById(`shop-total-${productId}`);
@@ -663,12 +674,16 @@ function updateQuantity(productId, change) {
             if (newQty < 1) newQty = 1;
             if (newQty > 99) newQty = 99;
             mobileDisplay.textContent = newQty;
+            console.log('Mobile quantity updated to:', newQty);
 
             // Update total display
             if (mobileTotal) {
                 const item = document.querySelector(`.shop-mobile-item[data-product-id="${productId}"]`);
-                const discountedPrice = parseFloat(item.dataset.discountedPrice);
-                mobileTotal.textContent = (newQty * discountedPrice).toFixed(0);
+                if (item) {
+                    const discountedPrice = parseFloat(item.dataset.discountedPrice);
+                    mobileTotal.textContent = (newQty * discountedPrice).toFixed(0);
+                    console.log('Mobile total updated to:', mobileTotal.textContent);
+                }
             }
         }
 
@@ -682,11 +697,13 @@ function updateQuantity(productId, change) {
                 if (newQty < 1) newQty = 1;
                 if (newQty > 99) newQty = 99;
                 qtyInput.value = newQty;
+                console.log('Desktop quantity updated to:', newQty);
 
                 // Update row total
                 if (rowTotal) {
                     const discountedPrice = parseFloat(row.dataset.discountedPrice);
                     rowTotal.textContent = (newQty * discountedPrice).toFixed(0);
+                    console.log('Desktop total updated to:', rowTotal.textContent);
                 }
             }
         }
