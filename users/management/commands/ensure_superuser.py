@@ -1,17 +1,17 @@
-from django.db.models.signals import post_migrate
-from django.dispatch import receiver
+from django.core.management.base import BaseCommand
+from django.contrib.auth import get_user_model
 from users.models import User
 
 
-@receiver(post_migrate)
-def create_default_superuser(sender, **kwargs):
-    """Create default superuser if it does not exist"""
-    if sender.name == 'users':
+class Command(BaseCommand):
+    help = 'Ensure default superuser exists'
+
+    def handle(self, *args, **options):
         email = 'saran450j@gmail.com'
         password = 'Admin@123'
         
         if not User.objects.filter(email=email).exists():
-            user = User.objects.create_superuser(
+            user = User.objects.create_user(
                 email=email,
                 username='saran_admin',
                 password=password,
@@ -22,6 +22,6 @@ def create_default_superuser(sender, **kwargs):
             user.is_staff = True
             user.is_superuser = True
             user.save()
-            print(f"Superuser created: {email}")
+            self.stdout.write(self.style.SUCCESS(f'Superuser created: {email}'))
         else:
-            print(f"Superuser already exists: {email}")
+            self.stdout.write(self.style.WARNING(f'Superuser already exists: {email}'))
