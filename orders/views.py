@@ -9,6 +9,7 @@ from .models import Order, OrderItem, ShippingAddress
 from cart.views import get_or_create_cart
 from products.models import Product
 from siteadmin.models import Notification
+from siteadmin.views import send_whatsapp_notification
 from decimal import Decimal
 import razorpay
 
@@ -174,6 +175,12 @@ def process_checkout(request):
             link=f'/orders/{order.order_number}/',
             is_read=False
         )
+    
+    # Send WhatsApp notification to admin (non-blocking)
+    try:
+        send_whatsapp_notification(order)
+    except Exception as e:
+        print(f"WhatsApp notification failed: {e}")
     
     return JsonResponse({
         'success': True,
