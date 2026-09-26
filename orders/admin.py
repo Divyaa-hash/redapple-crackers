@@ -71,19 +71,6 @@ class OrderAdmin(admin.ModelAdmin):
         )
     status_badge.short_description = 'Status'
     
-    def get_readonly_fields(self, request, obj=None):
-        if obj:  # Editing an existing object
-            return self.readonly_fields + ['item_count', 'total_items']
-        return self.readonly_fields
-    
-    def item_count(self, obj):
-        return obj.items.count()
-    item_count.short_description = 'Number of Items'
-    
-    def total_items(self, obj):
-        return sum(item.quantity for item in obj.items.all())
-    total_items.short_description = 'Total Quantity'
-    
     def mark_as_confirmed(self, request, queryset):
         queryset.update(order_status='confirmed')
         self.message_user(request, f'{queryset.count()} orders marked as confirmed.')
