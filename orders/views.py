@@ -9,7 +9,7 @@ from .models import Order, OrderItem, ShippingAddress
 from cart.views import get_or_create_cart
 from products.models import Product
 from siteadmin.models import Notification
-from siteadmin.views import send_whatsapp_notification
+from siteadmin.utils import send_whatsapp_notification
 from decimal import Decimal
 import razorpay
 
