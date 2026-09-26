@@ -262,7 +262,7 @@
 {% block content %}
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1>🎉 Admin Dashboard</h1>
+        <h1>Admin Dashboard</h1>
         <p>Welcome back! Here's what's happening with your store today.</p>
     </div>
     
@@ -313,14 +313,16 @@
     
     <div class="dashboard-grid">
         <div class="dashboard-card">
-            <h2>📦 Recent Orders</h2>
+            <h2>Recent Orders</h2>
             <table class="order-table">
                 <thead>
                     <tr>
                         <th>Order #</th>
                         <th>Customer</th>
+                        <th>Phone</th>
                         <th>Amount</th>
                         <th>Status</th>
+                        <th>Items</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -329,21 +331,24 @@
                     <tr>
                         <td>{{ order.order_number }}</td>
                         <td>{{ order.shipping_name }}</td>
+                        <td>{{ order.shipping_phone }}</td>
                         <td>₹{{ order.total_amount|floatformat:0 }}</td>
                         <td>
                             <span class="status-badge status-{{ order.order_status }}">
                                 {{ order.get_order_status_display }}
                             </span>
                         </td>
+                        <td>{{ order.items.count }} items</td>
                         <td>
-                            <button class="whatsapp-btn" onclick="sendWhatsAppNotification('{{ order.order_number }}')">
-                                📱 WhatsApp
+                            <a href="/admin/orders/order/{{ order.id }}/change/" target="_blank" style="background: #667eea; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 12px;">View</a>
+                            <button class="whatsapp-btn" onclick="sendWhatsAppOrder('{{ order.order_number }}', '{{ order.shipping_name }}', '{{ order.shipping_phone }}', '{{ order.total_amount }}')">
+                                WhatsApp
                             </button>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" style="text-align: center;">No orders yet</td>
+                        <td colspan="7" style="text-align: center;">No orders yet</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -351,7 +356,7 @@
         </div>
         
         <div class="dashboard-card">
-            <h2>🏆 Top Selling Products</h2>
+            <h2>Top Selling Products</h2>
             <ul class="product-list">
                 {% for product in top_products %}
                 <li class="product-item">
@@ -370,7 +375,7 @@
     
     <div class="dashboard-grid">
         <div class="dashboard-card">
-            <h2>📊 Order Status Breakdown</h2>
+            <h2>Order Status Breakdown</h2>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 120px; background: #ffc107; padding: 15px; border-radius: 10px; text-align: center;">
                     <div style="font-size: 24px; font-weight: 700; color: #333;">{{ pending_orders }}</div>
@@ -425,9 +430,19 @@
 
 <script>
 function sendWhatsAppNotification(orderNumber) {
-    // This would connect to a WhatsApp API service
-    // For now, it's a placeholder
     alert(`WhatsApp notification would be sent for order ${orderNumber}\n\nTo enable WhatsApp notifications, you need to:\n1. Set up a WhatsApp Business API account\n2. Configure the API credentials in settings\n3. Integrate with a service like Twilio or WhatsApp Business API`);
+}
+
+function sendWhatsAppOrder(orderNumber, customerName, customerPhone, amount) {
+    const message = `*NEW ORDER DETAILS*\n\nOrder: ${orderNumber}\nCustomer: ${customerName}\nPhone: ${customerPhone}\nAmount: ${amount}\n\nPlease check the admin panel for full details.`;
+    
+    alert(`WhatsApp Message:\n\n${message}\n\nTo enable actual WhatsApp sending:\n1. Set up WhatsApp Business API\n2. Configure API credentials\n3. Replace this function with actual API call`);
+    
+    navigator.clipboard.writeText(message).then(() => {
+        alert('Message copied to clipboard! You can send it manually via WhatsApp.');
+    }).catch(err => {
+        console.error('Failed to copy message:', err);
+    });
 }
 </script>
 {% endblock %}
