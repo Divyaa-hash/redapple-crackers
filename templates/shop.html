@@ -528,31 +528,26 @@
 <script>
 function addToCart(productId) {
     try {
-        console.log('addToCart called for product:', productId);
+        console.log('Add to cart - Product ID:', productId);
         
-        // Get current quantity (from mobile display or desktop input)
+        // Get quantity from mobile or desktop
         let quantity = 1;
-
-        // Try mobile display first
         const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
         if (mobileDisplay) {
             quantity = parseInt(mobileDisplay.textContent) || 1;
-            console.log('Mobile quantity:', quantity);
         }
-
-        // Try desktop input
+        
         const row = document.querySelector(`tr[data-product-id="${productId}"]`);
         if (row) {
             const qtyInput = row.querySelector('.qty-input');
             if (qtyInput) {
                 quantity = parseInt(qtyInput.value) || 1;
-                console.log('Desktop quantity:', quantity);
             }
         }
-
-        console.log('Final quantity to add:', quantity);
-
-        // Add to Django backend cart
+        
+        console.log('Quantity:', quantity);
+        
+        // Send to backend
         fetch('/cart/add/', {
             method: 'POST',
             headers: {
@@ -563,47 +558,31 @@ function addToCart(productId) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Add to cart response:', data);
+            console.log('Response:', data);
             if (data.success) {
-                alert(`Added ${quantity} item(s) to cart!`);
-                // Update cart count in navbar
-                if (data.cart_count) {
-                    updateCartCount(data.cart_count);
+                alert('Added to cart!');
+                // Update cart count
+                if (data.cart_count !== undefined) {
+                    const cartCountElements = document.querySelectorAll('.cart-count');
+                    cartCountElements.forEach(el => el.textContent = data.cart_count);
                 }
-                // Reset quantity to 1 after adding
-                if (mobileDisplay) {
-                    mobileDisplay.textContent = '1';
-                    const mobileTotal = document.getElementById(`shop-total-${productId}`);
-                    if (mobileTotal) {
-                        const item = document.querySelector(`.shop-mobile-item[data-product-id="${productId}"]`);
-                        if (item) {
-                            const discountedPrice = parseFloat(item.dataset.discountedPrice);
-                            mobileTotal.textContent = discountedPrice.toFixed(0);
-                        }
-                    }
-                }
+                // Reset quantity
+                if (mobileDisplay) mobileDisplay.textContent = '1';
                 if (row) {
                     const qtyInput = row.querySelector('.qty-input');
-                    const rowTotal = row.querySelector('.row-total');
-                    if (qtyInput) {
-                        qtyInput.value = '1';
-                        if (rowTotal) {
-                            const discountedPrice = parseFloat(row.dataset.discountedPrice);
-                            rowTotal.textContent = discountedPrice.toFixed(0);
-                        }
-                    }
+                    if (qtyInput) qtyInput.value = '1';
                 }
             } else {
-                alert(data.message || 'Failed to add to cart');
+                alert('Error: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while adding to cart');
+            alert('Failed to add to cart');
         });
     } catch (error) {
-        console.error('Error adding to cart:', error);
-        alert('Error adding to cart: ' + error.message);
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
     }
 }
 
@@ -627,9 +606,8 @@ function updateRowTotal(input) {
 
 function removeFromShopCart(productId) {
     try {
-        console.log('removeFromShopCart called for product:', productId);
+        console.log('Remove from cart - Product ID:', productId);
         
-        // Remove from Django backend cart
         fetch('/cart/remove/', {
             method: 'POST',
             headers: {
@@ -640,24 +618,25 @@ function removeFromShopCart(productId) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Remove from cart response:', data);
+            console.log('Response:', data);
             if (data.success) {
                 alert('Removed from cart!');
-                // Update cart count in navbar
-                if (data.cart_count) {
-                    updateCartCount(data.cart_count);
+                // Update cart count
+                if (data.cart_count !== undefined) {
+                    const cartCountElements = document.querySelectorAll('.cart-count');
+                    cartCountElements.forEach(el => el.textContent = data.cart_count);
                 }
             } else {
-                alert(data.message || 'Failed to remove from cart');
+                alert('Error: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while removing from cart');
+            alert('Failed to remove from cart');
         });
     } catch (error) {
-        console.error('Error removing from cart:', error);
-        alert('Error removing from cart: ' + error.message);
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
     }
 }
 

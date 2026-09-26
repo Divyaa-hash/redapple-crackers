@@ -154,7 +154,7 @@ def remove_from_cart(request):
         'success': True,
         'message': 'Item removed from cart',
         'cart_count': cart.get_total_items(),
-        'cart_total': cart.get_total_price()
+        'cart_total': str(cart.get_total_price())
     })
 
 
