@@ -8,4 +8,5 @@ urlpatterns = [
     path('remove/', views.remove_from_cart, name='remove_from_cart'),
     path('summary/', views.cart_summary, name='cart_summary'),
     path('whatsapp-order/', views.create_whatsapp_order, name='create_whatsapp_order'),
+    path('order-confirmation/<int:order_id>/', views.order_confirmation, name='order_confirmation'),
 ]

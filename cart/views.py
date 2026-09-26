@@ -271,6 +271,18 @@ def create_whatsapp_order(request):
         # Clear cart
         cart_items.delete()
         
+        # Create notification for admin
+        try:
+            from siteadmin.models import Notification
+            Notification.objects.create(
+                title=f'New Order - {order.order_number}',
+                message=f'New order from {name} for ₹{total_amount}. Status: Pending',
+                notification_type='order',
+                link=f'/admin/orders/order/{order.id}/change/'
+            )
+        except:
+            pass  # Skip notification if siteadmin app not ready
+        
         # Generate WhatsApp message
         message = f"""*NEW ORDER - RED APPLE CRACKERS*
 
@@ -298,8 +310,28 @@ Thank you for your order!"""
         return JsonResponse({
             'success': True,
             'order_number': order.order_number,
+            'order_id': order.id,
             'whatsapp_url': whatsapp_url,
-            'message': message
+            'message': message,
+            'status': 'Order created successfully and pending confirmation',
+            'redirect_url': f'/order-confirmation/{order.id}/'
         })
     
     return JsonResponse({'success': False, 'message': 'Invalid request method'})
+
+
+def order_confirmation(request, order_id):
+    """Order confirmation page"""
+    try:
+        order = Order.objects.get(id=order_id)
+        return render(request, 'order_confirmation.html', {
+            'order_id': order.id,
+            'total_amount': order.total_amount,
+            'order_date': order.created_at.strftime('%Y-%m-%d %H:%M')
+        })
+    except Order.DoesNotExist:
+        return render(request, 'order_confirmation.html', {
+            'order_id': 'Unknown',
+            'total_amount': '0',
+            'order_date': 'Unknown'
+        })

@@ -683,14 +683,21 @@ function submitCartWhatsAppOrder() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Show success message with order details
+            alert(`✅ Order Created Successfully!\n\nOrder Number: ${data.order_number}\nOrder ID: ${data.order_id}\nStatus: Pending Confirmation\n\nWhatsApp will open with order details.\n\nAdmin will confirm your order soon.`);
+            
             // Open WhatsApp with order details
             window.open(data.whatsapp_url, '_blank');
             
             // Close modal
             closeCartOrderModal();
             
-            // Redirect to home
-            window.location.href = '/';
+            // Redirect to order confirmation page
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            } else {
+                window.location.href = '/';
+            }
         } else {
             alert(data.message || 'Failed to create order');
         }
