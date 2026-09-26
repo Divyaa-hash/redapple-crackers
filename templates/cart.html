@@ -666,47 +666,39 @@ function submitCartWhatsAppOrder() {
         return;
     }
 
-    // Create WhatsApp message with all cart items
-    let message = `🛍️ REDAPPLE CRACKERS - NEW ORDER
-
-Customer Name: ${name}
-Mobile: ${mobile}
-Address: ${address}
-Pincode: ${pincode}
-
-Order Items:
-`;
-
-    let index = 1;
-    {% for item in cart_items %}
-    message += `${index}. {{ item.product.name|escapejs }}
-   Quantity: {{ item.quantity }}
-   Price: ₹{{ item.unit_price|floatformat:0 }}
-   Total: ₹{{ item.get_total_price|floatformat:0 }}
-`;
-    index++;
-    {% endfor %}
-
-    message += `
-Order Summary:
-Subtotal: ₹{{ subtotal|floatformat:2 }}
-Shipping: ₹{{ shipping|floatformat:2 }}
-GST (18%): ₹{{ gst_amount|floatformat:2 }}
-Total Amount: ₹{{ total|floatformat:2 }}
-
-Please confirm the order.`;
-
-    // Open WhatsApp
-    const whatsappUrl = `https://wa.me/${WHATSAPP_ADMIN_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-
-    // Close modal
-    closeCartOrderModal();
-
-    // Clear cart after order
-    {% for item in cart_items %}
-    removeItem({{ item.id }});
-    {% endfor %}
+    // Send order to backend
+    fetch('/cart/whatsapp-order/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            name: name,
+            mobile: mobile,
+            address: address,
+            pincode: pincode
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Open WhatsApp with order details
+            window.open(data.whatsapp_url, '_blank');
+            
+            // Close modal
+            closeCartOrderModal();
+            
+            // Redirect to home
+            window.location.href = '/';
+        } else {
+            alert(data.message || 'Failed to create order');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to create order. Please try again.');
+    });
 }
 
 function closeCartOrderModal() {

@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 from .models import Cart, CartItem
 from products.models import Product
+from orders.models import Order, OrderItem
+from users.models import User
 
 
 def get_or_create_cart(request):
@@ -181,3 +183,123 @@ def cart_summary(request):
         'cart_total': str(cart.get_total_price()),
         'items': items_data
     })
+
+
+@csrf_exempt
+def create_whatsapp_order(request):
+    """Create order from WhatsApp checkout and return WhatsApp message"""
+    if request.method == 'POST':
+        import json
+        data = json.loads(request.body)
+        
+        name = data.get('name')
+        mobile = data.get('mobile')
+        address = data.get('address')
+        pincode = data.get('pincode')
+        
+        # Get cart
+        cart = get_or_create_cart(request)
+        cart_items = cart.items.all()
+        
+        if not cart_items.exists():
+            return JsonResponse({'success': False, 'message': 'Cart is empty'})
+        
+        # Calculate totals
+        subtotal = cart.get_total_price()
+        shipping_charge = Decimal('99.00')
+        gst = round(subtotal * Decimal('0.18'), 2)
+        total = subtotal + shipping_charge + gst
+        
+        # Create or get user
+        user = None
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            # Create guest user
+            try:
+                user = User.objects.create_user(
+                    email=f'guest_{mobile}@temp.com',
+                    username=f'guest_{mobile}',
+                    first_name=name,
+                    phone=mobile
+                )
+            except:
+                user = User.objects.filter(phone=mobile).first()
+        
+        # Create order
+        order = Order.objects.create(
+            user=user,
+            shipping_name=name,
+            shipping_phone=mobile,
+            shipping_address_line1=address,
+            shipping_address_line2='',
+            shipping_city='',
+            shipping_state='',
+            shipping_postal_code=pincode,
+            shipping_country='India',
+            billing_name=name,
+            billing_phone=mobile,
+            billing_address_line1=address,
+            billing_address_line2='',
+            billing_city='',
+            billing_state='',
+            billing_postal_code=pincode,
+            billing_country='India',
+            subtotal=subtotal,
+            shipping_charge=shipping_charge,
+            gst_amount=gst,
+            total_amount=total,
+            payment_method='cod',
+            payment_status='pending',
+            payment_id='',
+            order_status='pending'
+        )
+        
+        # Create order items
+        for cart_item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=cart_item.product,
+                product_name=cart_item.product.name,
+                product_sku=cart_item.product.sku,
+                quantity=cart_item.quantity,
+                unit_price=cart_item.unit_price,
+                total_price=cart_item.get_total_price(),
+                product_image=cart_item.product.get_display_image()
+            )
+        
+        # Clear cart
+        cart_items.delete()
+        
+        # Generate WhatsApp message
+        message = f"""*NEW ORDER - RED APPLE CRACKERS*
+
+Order Number: {order.order_number}
+Customer: {name}
+Phone: {mobile}
+Address: {address}, {pincode}
+
+*Items:*
+"""
+        for item in order.items.all():
+            message += f"- {item.product_name} x {item.quantity} = {item.total_price}\n"
+        
+        message += f"""
+*Order Total: {order.total_amount}*
+Payment: Cash on Delivery
+Status: Pending
+
+Thank you for your order!"""
+        
+        # WhatsApp admin number
+        whatsapp_number = '9345980679'
+        whatsapp_url = f"https://wa.me/{whatsapp_number}?text={message.replace(' ', '%20').replace('\n', '%0A')}"
+        
+        return JsonResponse({
+            'success': True,
+            'order_number': order.order_number,
+            'whatsapp_url': whatsapp_url,
+            'message': message
+        })
+    
+    return JsonResponse({'success': False, 'message': 'Invalid request method'})
