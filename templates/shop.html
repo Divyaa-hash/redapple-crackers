@@ -691,50 +691,6 @@ function updateQuantity(productId, change) {
     }
 }
 
-function syncShopQuantityToCart(productId) {
-    try {
-        // Get current quantity from shop page
-        let quantity = 1;
-        const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
-        if (mobileDisplay) {
-            quantity = parseInt(mobileDisplay.textContent) || 1;
-        }
-
-        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-        if (row) {
-            const qtyInput = row.querySelector('.qty-input');
-            if (qtyInput) {
-                quantity = parseInt(qtyInput.value) || 1;
-            }
-        }
-
-        // Add to backend cart with current quantity
-        fetch('/cart/add/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: `product_id=${productId}&quantity=${quantity}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Update cart count
-                if (data.cart_count) {
-                    updateCartCount(data.cart_count);
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Error syncing quantity:', error);
-        });
-    } catch (error) {
-        console.error('Error syncing quantity:', error);
-    }
-}
-}
-
 function updateCartCount(count) {
     const cartCountElements = document.querySelectorAll('.cart-count');
     cartCountElements.forEach(element => {
@@ -770,28 +726,5 @@ window.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading cart count:', error);
         });
 });
-                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
-                if (row) {
-                    const qtyInput = row.querySelector('.qty-input');
-                    if (qtyInput) {
-                        qtyInput.value = cart[productId].quantity;
-                        updateRowTotal(qtyInput);
-                    }
-                }
-            }
-        } catch (e) {
-            console.error('Error parsing saved cart:', e);
-            cart = {};
-        }
-    }
-    
-    // Update cart totals and count on page load
-    updateCartTotals();
-});
-
-// Save cart to localStorage before page unload
-window.onbeforeunload = function() {
-    localStorage.setItem('redappleCart', JSON.stringify(cart));
-};
 </script>
 {% endblock %}
