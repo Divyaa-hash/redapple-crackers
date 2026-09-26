@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, F
 from django.utils import timezone
 from django.conf import settings
@@ -9,10 +8,9 @@ from products.models import Product
 from users.models import User
 from .utils import send_whatsapp_notification
 
-@login_required
 def admin_dashboard(request):
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/dashboard/')
     
     # Get current date and time
     today = timezone.now().date()
@@ -88,8 +86,8 @@ def admin_dashboard(request):
 
 def admin_orders(request):
     """Admin orders view"""
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/admin-orders/')
     
     orders = Order.objects.all().order_by('-created_at')
     return render(request, 'siteadmin/admin_orders.html', {'orders': orders})
@@ -97,8 +95,8 @@ def admin_orders(request):
 
 def admin_products(request):
     """Admin products view"""
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/admin-products/')
     
     products = Product.objects.all().order_by('-created_at')
     return render(request, 'siteadmin/admin_products.html', {'products': products})
@@ -106,8 +104,8 @@ def admin_products(request):
 
 def notification_list(request):
     """Notification list view"""
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/notifications/')
     
     # Placeholder for notification system
     return render(request, 'siteadmin/notification_list.html', {'notifications': []})
@@ -115,8 +113,8 @@ def notification_list(request):
 
 def mark_notification_read(request, notification_id):
     """Mark notification as read"""
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/notifications/')
     
     # Placeholder for notification marking
     return redirect('siteadmin:notification_list')
@@ -124,8 +122,8 @@ def mark_notification_read(request, notification_id):
 
 def mark_all_notifications_read(request):
     """Mark all notifications as read"""
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/notifications/mark-all-read/')
     
     # Placeholder for marking all notifications
     return redirect('siteadmin:notification_list')
@@ -133,8 +131,8 @@ def mark_all_notifications_read(request):
 
 def notification_center(request):
     """Notification center view"""
-    if not request.user.is_staff:
-        return render(request, 'error.html', {'message': 'Access denied'})
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/notification-center/')
     
     # Placeholder for notification center
     return render(request, 'siteadmin/notification_center.html', {'notifications': []})
