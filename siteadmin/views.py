@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, F
 from django.utils import timezone
@@ -7,7 +7,6 @@ from datetime import timedelta
 from orders.models import Order, OrderItem
 from products.models import Product
 from users.models import User
-import requests
 
 @login_required
 def admin_dashboard(request):
@@ -84,6 +83,60 @@ def admin_dashboard(request):
     }
     
     return render(request, 'siteadmin/admin_dashboard.html', context)
+
+
+def admin_orders(request):
+    """Admin orders view"""
+    if not request.user.is_staff:
+        return render(request, 'error.html', {'message': 'Access denied'})
+    
+    orders = Order.objects.all().order_by('-created_at')
+    return render(request, 'siteadmin/admin_orders.html', {'orders': orders})
+
+
+def admin_products(request):
+    """Admin products view"""
+    if not request.user.is_staff:
+        return render(request, 'error.html', {'message': 'Access denied'})
+    
+    products = Product.objects.all().order_by('-created_at')
+    return render(request, 'siteadmin/admin_products.html', {'products': products})
+
+
+def notification_list(request):
+    """Notification list view"""
+    if not request.user.is_staff:
+        return render(request, 'error.html', {'message': 'Access denied'})
+    
+    # Placeholder for notification system
+    return render(request, 'siteadmin/notification_list.html', {'notifications': []})
+
+
+def mark_notification_read(request, notification_id):
+    """Mark notification as read"""
+    if not request.user.is_staff:
+        return render(request, 'error.html', {'message': 'Access denied'})
+    
+    # Placeholder for notification marking
+    return redirect('siteadmin:notification_list')
+
+
+def mark_all_notifications_read(request):
+    """Mark all notifications as read"""
+    if not request.user.is_staff:
+        return render(request, 'error.html', {'message': 'Access denied'})
+    
+    # Placeholder for marking all notifications
+    return redirect('siteadmin:notification_list')
+
+
+def notification_center(request):
+    """Notification center view"""
+    if not request.user.is_staff:
+        return render(request, 'error.html', {'message': 'Access denied'})
+    
+    # Placeholder for notification center
+    return render(request, 'siteadmin/notification_center.html', {'notifications': []})
 
 
 def send_whatsapp_notification(order):
