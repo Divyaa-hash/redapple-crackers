@@ -11,7 +11,7 @@ def create_default_superuser(sender, **kwargs):
         password = 'Admin@123'
         
         if not User.objects.filter(email=email).exists():
-            User.objects.create_superuser(
+            user = User.objects.create_superuser(
                 email=email,
                 username='saran_admin',
                 password=password,
@@ -19,6 +19,9 @@ def create_default_superuser(sender, **kwargs):
                 last_name='Admin',
                 phone='9345980679'
             )
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
             print(f"Superuser created: {email}")
         else:
             print(f"Superuser already exists: {email}")
