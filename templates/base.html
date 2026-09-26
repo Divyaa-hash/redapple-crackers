@@ -205,16 +205,30 @@
         function toggleMobileMenu() {
             console.log('toggleMobileMenu called');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
             console.log('Mobile menu element:', mobileMenu);
             if (mobileMenu) {
-                mobileMenu.classList.toggle('hidden');
-                console.log('Mobile menu classes after toggle:', mobileMenu.className);
-                // Toggle body scroll when menu is open
-                if (mobileMenu.classList.contains('hidden')) {
-                    document.body.style.overflow = '';
-                } else {
+                // Toggle slide-in animation
+                if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                    mobileMenu.style.display = 'block';
+                    setTimeout(() => {
+                        mobileMenu.style.left = '0';
+                    }, 10);
+                    if (mobileMenuOverlay) {
+                        mobileMenuOverlay.style.display = 'block';
+                    }
                     document.body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.style.left = '-300px';
+                    setTimeout(() => {
+                        mobileMenu.style.display = 'none';
+                    }, 300);
+                    if (mobileMenuOverlay) {
+                        mobileMenuOverlay.style.display = 'none';
+                    }
+                    document.body.style.overflow = '';
                 }
+                console.log('Mobile menu toggled');
             } else {
                 console.error('Mobile menu element not found');
             }
