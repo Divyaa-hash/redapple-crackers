@@ -13,6 +13,8 @@
             overflow: visible;
             padding: 12px;
             width: 100%;
+            display: block !important;
+            visibility: visible !important;
         }
 
         .grid-cols-1 {
@@ -101,6 +103,7 @@
         section {
             overflow-x: hidden;
             width: 100%;
+            display: block !important;
         }
 
         /* Fix image sizing on mobile */
@@ -108,6 +111,7 @@
             height: 250px !important;
             width: 100%;
             object-fit: contain;
+            display: block !important;
         }
 
         /* Fix thumbnail spacing */
@@ -138,6 +142,26 @@
         .product-detail-section {
             display: block !important;
             visibility: visible !important;
+        }
+
+        /* Fix grid layout on mobile */
+        .grid {
+            display: grid !important;
+        }
+
+        /* Ensure all sections are visible */
+        section.py-12,
+        section.py-16 {
+            display: block !important;
+        }
+
+        /* Fix spacing issues */
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
         }
     }
 
