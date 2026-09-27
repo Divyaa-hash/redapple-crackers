@@ -363,7 +363,7 @@
                                 </td>
                                 <td>
                                     <div class="cart-actions">
-                                        <button class="cart-add-btn" onclick="addMore({{ item.id }})">Add</button>
+                                        <button class="cart-add-btn" onclick="addMore({{ item.id }})">Add to Cart</button>
                                         <button class="cart-remove-btn" onclick="removeItem({{ item.id }})">Remove</button>
                                     </div>
                                 </td>
@@ -406,7 +406,7 @@
                                         <span class="cart-mobile-total">₹{{ item.get_total_price|floatformat:0 }}</span>
                                     </div>
                                     <div class="cart-mobile-actions">
-                                        <button class="cart-mobile-btn cart-mobile-add" onclick="addMore({{ item.id }})">Add</button>
+                                        <button class="cart-mobile-btn cart-mobile-add" onclick="addMore({{ item.id }})">Add to Cart</button>
                                         <button class="cart-mobile-btn cart-mobile-remove" onclick="removeItem({{ item.id }})">Remove</button>
                                     </div>
                                 </div>
