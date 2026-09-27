@@ -318,24 +318,26 @@ Thank you for your order!"""
             'whatsapp_url': whatsapp_url,
             'message': message,
             'status': 'Order created successfully and pending confirmation',
-            'redirect_url': f'/order-confirmation/{order.id}/'
+            'redirect_url': f'/order-confirmation/{order.order_number}/'
         })
     
     return JsonResponse({'success': False, 'message': 'Invalid request method'})
 
 
-def order_confirmation(request, order_id):
+def order_confirmation(request, order_number):
     """Order confirmation page"""
     try:
-        order = Order.objects.get(id=order_id)
+        order = Order.objects.get(order_number=order_number)
         return render(request, 'order_confirmation.html', {
-            'order_id': order.id,
+            'order': order,
+            'order_number': order.order_number,
             'total_amount': order.total_amount,
             'order_date': order.created_at.strftime('%Y-%m-%d %H:%M')
         })
     except Order.DoesNotExist:
         return render(request, 'order_confirmation.html', {
-            'order_id': 'Unknown',
+            'order': None,
+            'order_number': 'Unknown',
             'total_amount': '0',
             'order_date': 'Unknown'
         })
