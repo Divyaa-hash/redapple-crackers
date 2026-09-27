@@ -845,7 +845,7 @@ function getCookie(name) {
 function performShopSearch() {
     const searchTerm = document.getElementById('shopSearchInput').value.trim();
     if (searchTerm) {
-        window.location.href = `/shop/?search=${encodeURIComponent(searchTerm)}`;
+        window.location.href = `/shop/?q=${encodeURIComponent(searchTerm)}`;
     }
 }
 
@@ -857,6 +857,9 @@ document.getElementById('shopSearchInput').addEventListener('keypress', function
 
 // Load cart count from Django backend on page load
 window.addEventListener('DOMContentLoaded', function() {
+    // Clear any old localStorage cart data
+    localStorage.removeItem('redappleCart');
+    
     fetch('/cart/summary/')
         .then(response => response.json())
         .then(data => {
