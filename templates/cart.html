@@ -546,18 +546,31 @@ function updateCartTotals() {
     fetch('/cart/summary/')
         .then(response => response.json())
         .then(data => {
-            const subtotal = document.querySelector('.flex.justify-between span.text-white');
-            const total = document.querySelector('.flex.justify-between.text-lg span.text-red-500');
-            if (subtotal) {
-                subtotal.textContent = '₹' + data.cart_total;
+            // Update all subtotal elements
+            const subtotalElements = document.querySelectorAll('.flex.justify-between.text-gray-400 span.text-white');
+            subtotalElements.forEach(el => {
+                el.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
+            });
+            
+            // Update all total elements
+            const totalElements = document.querySelectorAll('.flex.justify-between.text-lg span.text-red-500');
+            totalElements.forEach(el => {
+                el.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
+            });
+            
+            // Update mobile cart total
+            const mobileTotal = document.getElementById('cart-total');
+            if (mobileTotal) {
+                mobileTotal.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
             }
-            if (total) {
-                // Calculate total (no shipping or GST)
-                const cartTotal = parseFloat(data.cart_total);
-                total.textContent = '₹' + cartTotal.toFixed(2);
+            
+            // Update mobile cart subtotal
+            const mobileSubtotal = document.getElementById('cart-subtotal');
+            if (mobileSubtotal) {
+                mobileSubtotal.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
             }
         })
-        .catch(error => console.error('Error updating totals:', error));
+        .catch(error => console.error('Error updating cart totals:', error));
 }
 
 function updateCartCountFromBackend() {
