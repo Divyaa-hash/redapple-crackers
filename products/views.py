@@ -111,21 +111,11 @@ def shop_view(request):
         products = products.filter(category__slug=category_slug)
 
     # Group products by category in Excel order
-    if category_slug:
-        # When filtering by category, only show that category
-        categories = Category.objects.filter(slug=category_slug, is_active=True)
-    else:
-        # When no filter, show all categories
-        categories = Category.objects.filter(is_active=True).order_by('name')
-
-    catalog_data = []
-    for category in categories:
-        # Get products for this category
-        category_products = products.filter(category=category)
-        
-        if category_products.exists():
+    if search_term:
+        # When searching, show all matching products in a single "Search Results" category
+        if products.exists():
             products_with_discount = []
-            for product in category_products:
+            for product in products:
                 original_price = product.regular_price
                 discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
                 products_with_discount.append({
@@ -134,10 +124,57 @@ def shop_view(request):
                     'discounted_price': discounted_price
                 })
 
-            catalog_data.append({
-                'category': category,
+            catalog_data = [{
+                'category': {
+                    'name': f'Search Results for "{search_term}"',
+                    'slug': 'search'
+                },
                 'products': products_with_discount
-            })
+            }]
+        else:
+            catalog_data = []
+    elif category_slug:
+        # When filtering by category, only show that category
+        categories = Category.objects.filter(slug=category_slug, is_active=True)
+        catalog_data = []
+        for category in categories:
+            category_products = products.filter(category=category)
+            if category_products.exists():
+                products_with_discount = []
+                for product in category_products:
+                    original_price = product.regular_price
+                    discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
+                    products_with_discount.append({
+                        'product': product,
+                        'original_price': original_price,
+                        'discounted_price': discounted_price
+                    })
+
+                catalog_data.append({
+                    'category': category,
+                    'products': products_with_discount
+                })
+    else:
+        # When no filter, show all categories
+        categories = Category.objects.filter(is_active=True).order_by('name')
+        catalog_data = []
+        for category in categories:
+            category_products = products.filter(category=category)
+            if category_products.exists():
+                products_with_discount = []
+                for product in category_products:
+                    original_price = product.regular_price
+                    discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
+                    products_with_discount.append({
+                        'product': product,
+                        'original_price': original_price,
+                        'discounted_price': discounted_price
+                    })
+
+                catalog_data.append({
+                    'category': category,
+                    'products': products_with_discount
+                })
 
     return render(request, 'shop.html', {'catalog_data': catalog_data})
 
