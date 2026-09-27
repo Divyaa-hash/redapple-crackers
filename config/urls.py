@@ -36,18 +36,18 @@ def home_view(request):
     featured_products = list(active.filter(is_featured=True)[:4])
     new_products = list(active.filter(is_new=True)[:4])
     if not trending_products:
-        trending_products = list(active[:8])
+        trending_products = list(active.distinct()[:8])
     if not featured_products:
-        featured_products = list(active[:4])
+        featured_products = list(active.distinct()[:4])
     if not new_products:
-        new_products = list(active[4:8])
+        new_products = list(active.distinct()[4:8])
     # If still no products, use all active products
     if not trending_products:
-        trending_products = list(active[:8])
+        trending_products = list(active.distinct()[:8])
     if not featured_products:
-        featured_products = list(active[:4])
+        featured_products = list(active.distinct()[:4])
     if not new_products:
-        new_products = list(active[4:8])
+        new_products = list(active.distinct()[4:8])
     return render(request, 'home.html', {
         'trending_products': trending_products,
         'featured_products': featured_products,
