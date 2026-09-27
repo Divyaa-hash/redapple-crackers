@@ -34,15 +34,11 @@ def cart_view(request):
     cart = get_or_create_cart(request)
     cart_items = cart.items.all()
     subtotal = cart.get_total_price()
-    shipping = Decimal('99')
-    gst_amount = subtotal * Decimal('0.18')
-    total = subtotal + shipping + gst_amount
+    total = subtotal
     return render(request, 'cart.html', {
         'cart': cart,
         'cart_items': cart_items,
         'subtotal': subtotal,
-        'shipping': shipping,
-        'gst_amount': gst_amount,
         'total': total
     })
 
@@ -206,9 +202,9 @@ def create_whatsapp_order(request):
         
         # Calculate totals
         subtotal = cart.get_total_price()
-        shipping_charge = Decimal('99.00')
-        gst = round(subtotal * Decimal('0.18'), 2)
-        total = subtotal + shipping_charge + gst
+        shipping_charge = Decimal('0.00')
+        gst = Decimal('0.00')
+        total = subtotal
         
         # Create or get user
         user = None

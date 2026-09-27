@@ -427,14 +427,6 @@
                             <span>Subtotal</span>
                             <span class="text-white">₹{{ subtotal|floatformat:2 }}</span>
                         </div>
-                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
-                            <span>Shipping</span>
-                            <span class="text-white">₹{{ shipping|floatformat:2 }}</span>
-                        </div>
-                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
-                            <span>GST (18%)</span>
-                            <span class="text-white">₹{{ gst_amount|floatformat:2 }}</span>
-                        </div>
                         <hr class="border-white/10">
                         <div class="flex justify-between text-lg sm:text-xl font-bold">
                             <span class="text-white">Total</span>
@@ -560,12 +552,9 @@ function updateCartTotals() {
                 subtotal.textContent = '₹' + data.cart_total;
             }
             if (total) {
-                // Calculate total with shipping and GST
+                // Calculate total (no shipping or GST)
                 const cartTotal = parseFloat(data.cart_total);
-                const shipping = 99;
-                const gst = cartTotal * 0.18;
-                const grandTotal = cartTotal + shipping + gst;
-                total.textContent = '₹' + grandTotal.toFixed(2);
+                total.textContent = '₹' + cartTotal.toFixed(2);
             }
         })
         .catch(error => console.error('Error updating totals:', error));
@@ -772,14 +761,6 @@ function getCookie(name) {
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>Subtotal</span>
                     <span class="text-white" id="cart-subtotal">₹0.00</span>
-                </div>
-                <div class="flex justify-between text-gray-400 text-sm">
-                    <span>Shipping</span>
-                    <span class="text-white" id="cart-shipping">₹0.00</span>
-                </div>
-                <div class="flex justify-between text-gray-400 text-sm">
-                    <span>GST (18%)</span>
-                    <span class="text-white" id="cart-gst">₹0.00</span>
                 </div>
                 <hr class="border-white/10">
                 <div class="flex justify-between text-lg font-bold">

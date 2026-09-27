@@ -24,6 +24,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
 from products.views import shop_view, festival_offers_view
+from orders.views import order_detail
 from users.views import login_view, signup_view, logout_view
 import os
 import json
@@ -249,7 +250,7 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name='about.html')),
     path('contact/', TemplateView.as_view(template_name='contact.html')),
     path('safety/', TemplateView.as_view(template_name='safety_guidelines.html')),
-    path('order-confirmation/', TemplateView.as_view(template_name='order_confirmation.html'), name='order_confirmation'),
+    path('order-confirmation/<str:order_number>/', views.order_detail, name='order_confirmation'),
     path('order-tracking/', TemplateView.as_view(template_name='order_tracking.html'), name='order_tracking'),
     path('update-prices/', update_prices_view, name='update_prices'),
     path('reload-vasantham/', reload_vasantham_view, name='reload_vasantham'),
