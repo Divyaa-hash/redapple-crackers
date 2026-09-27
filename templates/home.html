@@ -274,7 +274,7 @@
                         {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
                     </span>
                     
-                    <button onclick="addToCart('{{ product.id }}')" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
+                    <button class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
                         Add to Cart
                     </button>
                 </div>
@@ -304,7 +304,7 @@ function addToCart(productId) {
             return;
         }
 
-        // Convert to integer if it's a string
+        // Convert to integer
         productId = parseInt(productId);
         if (isNaN(productId)) {
             alert('Invalid Product ID');
@@ -370,7 +370,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear any old localStorage cart data
     localStorage.removeItem('redappleCart');
     
-    // Load cart count from server (don't clear cart)
+    // Add event listeners to all add-to-cart buttons
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.getAttribute('data-product-id');
+            console.log('Button clicked, product ID:', productId);
+            addToCart(productId);
+        });
+    });
+    
+    // Load cart count from server
     fetch('/cart/summary/')
         .then(response => response.json())
         .then(data => {
