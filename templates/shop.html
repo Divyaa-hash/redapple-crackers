@@ -815,6 +815,97 @@ function updateCartCount(count) {
     });
 }
 
+function updateRowTotal(input) {
+    const row = input.closest('tr');
+    const originalPrice = parseFloat(row.dataset.originalPrice);
+    const quantity = parseInt(input.value) || 1;
+    const total = originalPrice * quantity;
+    row.querySelector('.row-total').textContent = total.toFixed(0);
+}
+
+function removeFromShopCart(productId) {
+    try {
+        if (confirm('Remove this item from cart?')) {
+            fetch('/cart/remove/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: `product_id=${productId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Removed from cart');
+                    updateCartCount(data.cart_count);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to remove from cart');
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
+    }
+}
+
+function updateQuantity(productId, change) {
+    try {
+        console.log('updateQuantity called for product:', productId, 'change:', change);
+        
+        // Update quantity display and total
+        const mobileDisplay = document.getElementById(`shop-qty-display-${productId}`);
+        const mobileTotal = document.getElementById(`shop-total-${productId}`);
+        
+        if (mobileDisplay) {
+            let newQty = parseInt(mobileDisplay.textContent) + change;
+            if (newQty < 1) newQty = 1;
+            if (newQty > 99) newQty = 99;
+            mobileDisplay.textContent = newQty;
+            console.log('Mobile quantity updated to:', newQty);
+            
+            // Update total display
+            if (mobileTotal) {
+                const item = document.querySelector(`.shop-mobile-item[data-product-id="${productId}"]`);
+                if (item) {
+                    const discountedPrice = parseFloat(item.dataset.discountedPrice);
+                    mobileTotal.textContent = (newQty * discountedPrice).toFixed(0);
+                    console.log('Mobile total updated to:', mobileTotal.textContent);
+                }
+            }
+        }
+        
+        // Also update desktop if exists
+        const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+        if (row) {
+            const qtyInput = row.querySelector('.qty-input');
+            const rowTotal = row.querySelector('.row-total');
+            
+            if (qtyInput) {
+                let newQty = parseInt(qtyInput.value) + change;
+                if (newQty < 1) newQty = 1;
+                if (newQty > 99) newQty = 99;
+                qtyInput.value = newQty;
+                console.log('Desktop quantity updated to:', newQty);
+                
+                // Update row total
+                if (rowTotal) {
+                    const discountedPrice = parseFloat(row.dataset.discountedPrice);
+                    rowTotal.textContent = (newQty * discountedPrice).toFixed(0);
+                    console.log('Desktop total updated to:', rowTotal.textContent);
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error updating quantity:', error);
+    }
+}
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
