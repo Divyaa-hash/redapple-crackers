@@ -89,7 +89,7 @@ def shop_view(request):
 
     # Get category filter from query parameters
     category_slug = request.GET.get('category', '').strip()
-    search_term = request.GET.get('search', '').strip()
+    search_term = request.GET.get('search', '').strip() or request.GET.get('q', '').strip()
 
     # Get all active products ordered by Excel order
     products = Product.objects.filter(is_active=True).order_by('order')
