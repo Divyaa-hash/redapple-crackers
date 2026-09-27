@@ -101,6 +101,26 @@ def add_to_cart(request):
 
 @csrf_exempt
 @require_POST
+def clear_cart(request):
+    """Clear all items from cart"""
+    try:
+        cart = get_or_create_cart(request)
+        cart.items.all().delete()
+        
+        # Ensure session is saved
+        if not request.user.is_authenticated:
+            request.session.save()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Cart cleared'
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+
+
+@csrf_exempt
+@require_POST
 def update_cart_item(request):
     """Update cart item quantity"""
     item_id = request.POST.get('item_id')

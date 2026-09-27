@@ -303,15 +303,25 @@ function addToCart(productId) {
             return;
         }
 
-        fetch('/cart/add/', {
+        // Clear cart first to ensure clean state
+        fetch('/cart/clear/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                product_id: productId,
-                quantity: 1
-            })
+            }
+        })
+        .then(() => {
+            // Now add the product
+            return fetch('/cart/add/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    quantity: 1
+                })
+            });
         })
         .then(response => response.json())
         .then(data => {
