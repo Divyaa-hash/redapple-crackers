@@ -622,8 +622,6 @@ function openCartOrderModal() {
     // Update modal content with cart data
     document.getElementById('cart-items-count').textContent = {{ cart_items.count }};
     document.getElementById('cart-subtotal').textContent = '₹{{ subtotal|floatformat:2 }}';
-    document.getElementById('cart-shipping').textContent = '₹{{ shipping|floatformat:2 }}';
-    document.getElementById('cart-gst').textContent = '₹{{ gst_amount|floatformat:2 }}';
     document.getElementById('cart-total').textContent = '₹{{ total|floatformat:2 }}';
 
     // Show modal
@@ -636,6 +634,13 @@ function submitCartWhatsAppOrder() {
     const mobile = document.getElementById('cart-customer-mobile').value.trim();
     const address = document.getElementById('cart-customer-address').value.trim();
     const pincode = document.getElementById('cart-customer-pincode').value.trim();
+    const cartTotal = {{ total }};
+
+    // Minimum order validation
+    if (cartTotal < 2500) {
+        alert('Minimum order value is ₹2500. Please add more products to your cart.');
+        return;
+    }
 
     // Validation
     if (!name) {
