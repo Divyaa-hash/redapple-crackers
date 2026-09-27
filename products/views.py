@@ -99,11 +99,13 @@ def shop_view(request):
 
     # Filter by search term if provided
     if search_term:
+        # Case-insensitive search in name, SKU, and descriptions
         products = products.filter(
             Q(name__icontains=search_term) |
             Q(sku__icontains=search_term) |
             Q(short_description__icontains=search_term) |
-            Q(description__icontains=search_term)
+            Q(description__icontains=search_term) |
+            Q(category__name__icontains=search_term)
         )
 
     # Filter by category if provided
