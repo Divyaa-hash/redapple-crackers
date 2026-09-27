@@ -23,6 +23,7 @@ services:
       - key: CLOUDINARY_API_SECRET
         generateValue: true
 
+
 databases:
   - name: dpg-dap6pr142hec7393n330-a
     databaseName: redapple_crackers_db_050f
