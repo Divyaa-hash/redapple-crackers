@@ -30,9 +30,7 @@ def checkout_view(request):
     
     # Calculate totals
     subtotal = cart.get_total_price()
-    shipping_charge = Decimal('99.00')
-    gst = round(subtotal * Decimal('0.18'), 2)
-    total = subtotal + shipping_charge + gst
+    total = subtotal
     
     # Initialize Razorpay client if credentials are available
     razorpay_client = None
@@ -56,8 +54,6 @@ def checkout_view(request):
         'cart_items': cart_items,
         'saved_addresses': saved_addresses,
         'subtotal': subtotal,
-        'shipping_charge': shipping_charge,
-        'gst': gst,
         'total': total,
         'razorpay_key_id': settings.RAZORPAY_KEY_ID,
         'razorpay_order': razorpay_order,
@@ -93,9 +89,7 @@ def process_checkout(request):
     
     # Calculate totals
     subtotal = cart.get_total_price()
-    shipping_charge = Decimal('99.00')
-    gst = round(subtotal * Decimal('0.18'), 2)
-    total_amount = subtotal + shipping_charge + gst
+    total_amount = subtotal
     
     # Verify Razorpay payment if provided
     payment_status = 'pending'
@@ -140,8 +134,8 @@ def process_checkout(request):
         billing_postal_code=shipping_postal_code,
         billing_country=shipping_country,
         subtotal=subtotal,
-        shipping_charge=shipping_charge,
-        gst_amount=gst,
+        shipping_charge=0,
+        gst_amount=0,
         total_amount=total_amount,
         payment_method=payment_method,
         payment_status=payment_status,
