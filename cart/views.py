@@ -253,7 +253,7 @@ def create_whatsapp_order(request):
             shipping_charge=shipping_charge,
             gst_amount=gst,
             total_amount=total,
-            payment_method='cod',
+            payment_method='upi',
             payment_status='pending',
             payment_id='',
             order_status='pending'
@@ -302,7 +302,7 @@ Address: {address}, {pincode}
         
         message += f"""
 *Order Total: {order.total_amount}*
-Payment: Cash on Delivery
+Payment: UPI Payment
 Status: Pending
 
 Thank you for your order!"""
