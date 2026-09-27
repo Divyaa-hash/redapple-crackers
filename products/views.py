@@ -89,6 +89,7 @@ def shop_view(request):
 
     # Get category filter from query parameters
     category_slug = request.GET.get('category', '').strip()
+    search_term = request.GET.get('search', '').strip()
 
     # Get all active products ordered by Excel order
     products = Product.objects.filter(is_active=True).order_by('order')
@@ -96,16 +97,32 @@ def shop_view(request):
     # Exclude specific products from shop display
     products = products.exclude(name='Popcorn Crackling Star')
 
+    # Filter by search term if provided
+    if search_term:
+        products = products.filter(
+            Q(name__icontains=search_term) |
+            Q(sku__icontains=search_term) |
+            Q(short_description__icontains=search_term) |
+            Q(description__icontains=search_term)
+        )
+
     # Filter by category if provided
     if category_slug:
         products = products.filter(category__slug=category_slug)
 
     # Group products by category in Excel order
-    categories = Category.objects.filter(is_active=True).order_by('name')
+    if category_slug:
+        # When filtering by category, only show that category
+        categories = Category.objects.filter(slug=category_slug, is_active=True)
+    else:
+        # When no filter, show all categories
+        categories = Category.objects.filter(is_active=True).order_by('name')
 
     catalog_data = []
     for category in categories:
+        # Get products for this category
         category_products = products.filter(category=category)
+        
         if category_products.exists():
             products_with_discount = []
             for product in category_products:
