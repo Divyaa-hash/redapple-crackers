@@ -533,6 +533,12 @@ function submitWhatsAppOrder() {
         return;
     }
 
+    // Minimum order validation
+    if (parseFloat(total) < 2500) {
+        alert('Minimum order value is ₹2500. Please add more products or increase quantity.');
+        return;
+    }
+
     // Create WhatsApp message
     const message = `🛍️ REDAPPLE CRACKERS - NEW ORDER
 
