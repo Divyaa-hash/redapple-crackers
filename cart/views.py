@@ -226,9 +226,9 @@ def create_whatsapp_order(request):
         # Calculate totals
         subtotal = cart.get_total_price()
         
-        # Minimum order validation
-        if subtotal < Decimal('2500.00'):
-            return JsonResponse({'success': False, 'message': 'Minimum order value is ₹2500. Please add more products to your cart.'})
+        # Removed minimum order validation - allow orders of any value
+        # if subtotal < Decimal('2500.00'):
+        #     return JsonResponse({'success': False, 'message': 'Minimum order value is ₹2500. Please add more products to your cart.'})
         
         shipping_charge = Decimal('0.00')
         gst = Decimal('0.00')
