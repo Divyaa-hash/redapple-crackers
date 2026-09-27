@@ -263,15 +263,6 @@
             background: #b8860b;
         }
 
-        .shop-mobile-buy {
-            background: #25D366;
-            color: #fff;
-        }
-
-        .shop-mobile-buy:hover {
-            background: #128C7E;
-        }
-
         .shop-mobile-remove {
             background: #dc2626;
             color: #fff;
@@ -373,20 +364,6 @@
         background: #b8860b;
     }
     
-    .buy-btn {
-        background: #25D366;
-        color: #fff;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    
-    .buy-btn:hover {
-        background: #128C7E;
-    }
-    
     .remove-btn {
         background: #dc2626;
         color: #fff;
@@ -408,7 +385,6 @@
     }
 
     .button-group .add-btn,
-    .button-group .buy-btn,
     .button-group .remove-btn {
         flex-shrink: 0;
     }
@@ -689,7 +665,7 @@ function removeFromShopCart(productId) {
 }
 
 function closeSingleProductModal() {
-    // Removed - no longer needed after removing Buy Now button
+    // Removed - no longer needed
 }
 
 function updateRowTotal(input) {
