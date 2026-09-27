@@ -272,7 +272,7 @@ def create_whatsapp_order(request):
             from siteadmin.models import Notification
             Notification.objects.create(
                 title=f'New Order - {order.order_number}',
-                message=f'New order from {name} for ₹{total_amount}. Status: Pending',
+                message=f'New order from {name} for ₹{total}. Status: Pending',
                 notification_type='order',
                 link=f'/admin/orders/order/{order.id}/change/'
             )
