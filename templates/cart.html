@@ -738,16 +738,6 @@ function getCookie(name) {
 // Clear any old localStorage cart data on page load
 document.addEventListener('DOMContentLoaded', function() {
     localStorage.removeItem('redappleCart');
-    
-    // Clear the server-side cart on page load to ensure clean state
-    fetch('/cart/clear/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).catch(error => {
-        console.error('Error clearing cart:', error);
-    });
 });
 </script>
 

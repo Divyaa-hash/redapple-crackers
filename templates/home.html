@@ -368,25 +368,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear any old localStorage cart data
     localStorage.removeItem('redappleCart');
     
-    // Clear the server-side cart on page load to ensure clean state
-    fetch('/cart/clear/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(() => {
-        // Load cart count from server after clearing
-        return fetch('/cart/summary/');
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.total_items !== undefined) {
-            updateCartCount(data.total_items);
-        }
-    })
-    .catch(error => {
-        console.error('Error loading cart count:', error);
-    });
+    // Load cart count from server (don't clear cart)
+    fetch('/cart/summary/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.total_items !== undefined) {
+                updateCartCount(data.total_items);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading cart count:', error);
+        });
 });
 </script>
 {% endblock %}
