@@ -274,7 +274,7 @@
                         {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
                     </span>
                     
-                    <button onclick="addToCart({{ product.id }}, {{ product.get_current_price }}, '{{ product.name|escapejs }}')" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
+                    <button onclick="addToCart({{ product.id }})" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
                         Add to Cart
                     </button>
                 </div>
@@ -294,56 +294,70 @@
 
 {% block extra_js %}
 <script>
-// Cart storage - localStorage
-let cart = {};
-
-// Initialize cart from localStorage
-const savedCart = localStorage.getItem('redappleCart');
-if (savedCart) {
+function addToCart(productId) {
     try {
-        cart = JSON.parse(savedCart);
-    } catch (e) {
-        console.error('Error parsing saved cart:', e);
-        cart = {};
+        console.log('Add to cart - Product ID:', productId);
+
+        fetch('/cart/add/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response:', data);
+            if (data.success) {
+                alert('Added to cart!');
+                // Update cart count
+                if (data.cart_count !== undefined) {
+                    updateCartCount(data.cart_count);
+                }
+            } else {
+                alert(data.message || 'Error adding to cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error adding to cart');
+        });
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+        alert('Error adding to cart');
     }
 }
 
-function addToCart(productId, price, productName) {
-    try {
-        productId = String(productId);
-
-        if (!cart) {
-            cart = {};
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
-
-        cart[productId] = {
-            quantity: 1,
-            discountedPrice: price,
-            originalPrice: price * 5, // Assuming 80% discount
-            productName: productName,
-            unitPrice: price
-        };
-
-        localStorage.setItem('redappleCart', JSON.stringify(cart));
-
-        // Update cart badge
-        const cartCount = Object.keys(cart).length;
-        const cartCountElements = document.querySelectorAll('.cart-count');
-        cartCountElements.forEach(element => {
-            element.textContent = cartCount;
-        });
-
-        alert('Added to cart!');
-    } catch (error) {
-        console.error('Error adding to cart:', error);
-        alert('Error adding to cart: ' + error.message);
     }
+    return cookieValue;
+}
+
+function updateCartCount(count) {
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    cartCountElements.forEach(element => {
+        element.textContent = count;
+    });
 }
 
 function performSearch() {
     const searchTerm = document.getElementById('searchInput').value.trim();
     if (searchTerm) {
-        window.location.href = `/shop/?search=${encodeURIComponent(searchTerm)}`;
+        window.location.href = `/shop/?q=${encodeURIComponent(searchTerm)}`;
     }
 }
 
@@ -354,12 +368,17 @@ document.getElementById('searchInput').addEventListener('keypress', function(e) 
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Update cart badge on page load
-    const cartCount = Object.keys(cart).length;
-    const cartCountElements = document.querySelectorAll('.cart-count');
-    cartCountElements.forEach(element => {
-        element.textContent = cartCount;
-    });
+    // Load cart count from server
+    fetch('/cart/summary/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.total_items !== undefined) {
+                updateCartCount(data.total_items);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading cart count:', error);
+        });
 });
 </script>
 {% endblock %}
