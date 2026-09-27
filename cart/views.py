@@ -33,8 +33,11 @@ def cart_view(request):
     """Render cart page"""
     cart = get_or_create_cart(request)
     cart_items = cart.items.all()
-    subtotal = cart.get_total_price()
+    
+    # Recalculate subtotal from items to ensure accuracy
+    subtotal = sum(item.get_total_price() for item in cart_items)
     total = subtotal
+    
     return render(request, 'cart.html', {
         'cart': cart,
         'cart_items': cart_items,
