@@ -274,7 +274,7 @@
                         {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
                     </span>
                     
-                    <button onclick="addToCart({{ product.id }})" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg">
+                    <button onclick="addToCart({{ product.id }})" class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
                         Add to Cart
                     </button>
                 </div>
@@ -297,9 +297,17 @@
 function addToCart(productId) {
     try {
         console.log('Add to cart - Product ID:', productId);
+        console.log('Product ID type:', typeof productId);
 
         if (!productId) {
             alert('Product ID is missing');
+            return;
+        }
+
+        // Convert to integer if it's a string
+        productId = parseInt(productId);
+        if (isNaN(productId)) {
+            alert('Invalid Product ID');
             return;
         }
 
