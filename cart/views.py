@@ -74,16 +74,16 @@ def add_to_cart(request):
         
         cart = get_or_create_cart(request)
         
-        cart_item, created = CartItem.objects.get_or_create(
+        # Delete any existing cart items for this product first
+        CartItem.objects.filter(cart=cart, product=product).delete()
+        
+        # Create new cart item
+        cart_item = CartItem.objects.create(
             cart=cart,
             product=product,
-            defaults={'quantity': quantity, 'unit_price': product.get_current_price()}
+            quantity=quantity,
+            unit_price=product.get_current_price()
         )
-        
-        if not created:
-            cart_item.quantity += quantity
-            cart_item.unit_price = product.get_current_price()
-            cart_item.save()
         
         # Ensure session is saved
         if not request.user.is_authenticated:

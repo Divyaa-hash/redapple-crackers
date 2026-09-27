@@ -31,7 +31,7 @@ import json
 import openpyxl
 
 def home_view(request):
-    active = Product.objects.filter(is_active=True)
+    active = Product.objects.filter(is_active=True).distinct()
     trending_products = list(active.filter(is_trending=True)[:8])
     featured_products = list(active.filter(is_featured=True)[:4])
     new_products = list(active.filter(is_new=True)[:4])
