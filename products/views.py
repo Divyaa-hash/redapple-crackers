@@ -100,13 +100,20 @@ def shop_view(request):
     # Filter by search term if provided
     if search_term:
         # Case-insensitive search in name, SKU, and descriptions
-        products = products.filter(
-            Q(name__icontains=search_term) |
-            Q(sku__icontains=search_term) |
-            Q(short_description__icontains=search_term) |
-            Q(description__icontains=search_term) |
-            Q(category__name__icontains=search_term)
-        )
+        # Also search for variations like "flower pot" -> "flower pots"
+        search_variations = [search_term]
+        if 'pot' in search_term.lower() and not search_term.lower().endswith('s'):
+            search_variations.append(search_term + 's')
+        
+        q_objects = Q()
+        for variation in search_variations:
+            q_objects |= Q(name__icontains=variation)
+            q_objects |= Q(sku__icontains=variation)
+            q_objects |= Q(short_description__icontains=variation)
+            q_objects |= Q(description__icontains=variation)
+            q_objects |= Q(category__name__icontains=variation)
+        
+        products = products.filter(q_objects)
 
     # Filter by category if provided
     if category_slug:
