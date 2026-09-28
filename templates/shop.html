@@ -430,9 +430,11 @@
     }
 
     .product-thumb {
-        max-width: 50px;
-        max-height: 50px;
+        width: 50px;
+        height: 50px;
         object-fit: contain;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.3);
     }
 
 
@@ -516,7 +518,7 @@
                     data-discounted-price="{{ item.discounted_price }}">
                     <td class="product-image">
                         <a href="/products/{{ item.product.id }}/" style="display: block; text-decoration: none;">
-                            <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="product-thumb">
+                            <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="product-thumb" onerror="this.src='/static/images/crackers/logo.jpg'">
                         </a>
                     </td>
                     <td class="product-name"><a href="/products/{{ item.product.id }}/" class="text-white hover:text-red-500" style="display: block; padding: 10px 0; text-decoration: none;">{{ item.product.name }}</a></td>
@@ -554,7 +556,7 @@
                  data-discounted-price="{{ item.discounted_price }}">
                 <div class="shop-mobile-card">
                     <a href="/products/{{ item.product.id }}/" style="text-decoration: none;">
-                        <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="shop-mobile-image">
+                        <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="shop-mobile-image" onerror="this.src='/static/images/crackers/logo.jpg'">
                     </a>
                     <div class="shop-mobile-details">
                         <a href="/products/{{ item.product.id }}/" style="text-decoration: none;">
