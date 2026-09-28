@@ -77,7 +77,7 @@ from config.wsgi import application
    - Click **"Run pip install"**
    - Add your requirements:
      ```
-     Django==6.0.7
+     Django==5.0.7
      djangorestframework==3.15.2
      python-decouple==3.8
      dj-database-url==2.2.0
