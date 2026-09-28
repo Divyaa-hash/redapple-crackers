@@ -26,27 +26,26 @@
         }
     }
     
-    /* Mobile-specific Diwali themed background */
-    @media (max-width: 639px) {
-        .hero-section {
-            background-image: url('/static/images/crackers/diwali-background.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            position: relative;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.3) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
+    /* Diwali themed background - all screen sizes */
+    .hero-section {
+        background-image: url('/static/images/crackers/diwali-background.png');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.3) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
         
         /* Decorative elements - top-left mandala */
         .hero-decoration-tl {
@@ -129,12 +128,8 @@
         }
     }
     
-    /* Desktop - keep original design */
+    /* Desktop - use same background as mobile */
     @media (min-width: 640px) {
-        .hero-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-        
         .hero-section::before,
         .hero-section::after,
         .hero-decoration-tl,
