@@ -3,10 +3,16 @@ from django.db.models import Count, Sum, F
 from django.utils import timezone
 from django.conf import settings
 from datetime import timedelta
+from django.http import HttpResponse
 from orders.models import Order, OrderItem
 from products.models import Product
 from users.models import User
 from .utils import send_whatsapp_notification
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 
 def admin_dashboard(request):
     if not request.user.is_authenticated or not request.user.is_staff:
@@ -88,9 +94,113 @@ def admin_orders(request):
     """Admin orders view"""
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/login/?next=/siteadmin/admin-orders/')
-    
+
     orders = Order.objects.all().order_by('-created_at')
     return render(request, 'siteadmin/admin_orders.html', {'orders': orders})
+
+
+def export_orders_pdf(request):
+    """Export all orders to PDF"""
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/?next=/siteadmin/admin-orders/')
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="redapple_orders.pdf"'
+
+    doc = SimpleDocTemplate(response, pagesize=A4, rightMargin=30, leftMargin=30, topMargin=30, bottomMargin=18)
+    elements = []
+    styles = getSampleStyleSheet()
+
+    # Custom styles
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=24,
+        textColor=colors.darkred,
+        spaceAfter=30,
+        alignment=1  # Center
+    )
+
+    header_style = ParagraphStyle(
+        'CustomHeader',
+        parent=styles['Heading2'],
+        fontSize=14,
+        textColor=colors.darkred,
+        spaceAfter=12
+    )
+
+    # Title
+    elements.append(Paragraph("RedApple Crackers - Order Report", title_style))
+    elements.append(Spacer(1, 0.2*inch))
+
+    # Date
+    elements.append(Paragraph(f"Generated on: {timezone.now().strftime('%Y-%m-%d %H:%M:%S')}", styles['Normal']))
+    elements.append(Spacer(1, 0.3*inch))
+
+    # Orders table header
+    data = [['Order ID', 'Customer', 'Email', 'Phone', 'Total', 'Status', 'Date']]
+
+    # Orders data
+    orders = Order.objects.all().order_by('-created_at')
+    for order in orders:
+        customer_name = order.user.username if order.user else 'Guest'
+        customer_email = order.user.email if order.user else 'N/A'
+        customer_phone = order.phone if hasattr(order, 'phone') else 'N/A'
+        total_amount = f"₹{order.total_amount:.2f}"
+        status = order.order_status.title()
+        date = order.created_at.strftime('%Y-%m-%d %H:%M')
+
+        data.append([
+            order.id,
+            customer_name,
+            customer_email,
+            customer_phone,
+            total_amount,
+            status,
+            date
+        ])
+
+    # Create table
+    table = Table(data, colWidths=[0.8*inch, 1.2*inch, 1.5*inch, 1*inch, 0.8*inch, 1*inch, 1.2*inch])
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkred),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+    ]))
+
+    elements.append(table)
+    elements.append(Spacer(1, 0.3*inch))
+
+    # Summary
+    total_orders_count = orders.count()
+    total_revenue = orders.aggregate(total=Sum('total_amount'))['total'] or 0
+
+    summary_data = [
+        ['Total Orders', total_orders_count],
+        ['Total Revenue', f"₹{total_revenue:.2f}"]
+    ]
+
+    summary_table = Table(summary_data, colWidths=[2*inch, 2*inch])
+    summary_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkred),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ]))
+
+    elements.append(Paragraph("Summary", header_style))
+    elements.append(summary_table)
+
+    doc.build(elements)
+    return response
 
 
 def admin_products(request):
