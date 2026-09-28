@@ -185,19 +185,22 @@ def process_checkout(request):
 
 def order_detail(request, order_number):
     """View order details"""
-    if request.user.is_authenticated:
+    # Allow staff users to view any order
+    if request.user.is_authenticated and request.user.is_staff:
+        order = get_object_or_404(Order, order_number=order_number)
+    elif request.user.is_authenticated:
         order = get_object_or_404(Order, order_number=order_number, user=request.user)
     else:
         # For anonymous users, try to find by order number only
         order = get_object_or_404(Order, order_number=order_number, user__isnull=True)
-    
+
     order_items = order.items.all()
-    
+
     context = {
         'order': order,
         'order_items': order_items,
     }
-    
+
     return render(request, 'order_detail.html', context)
 
 

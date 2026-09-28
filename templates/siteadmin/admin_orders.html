@@ -149,7 +149,7 @@
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-400">{{ order.created_at|date:"M d, Y - g:i A" }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm">
-                                <a href="/orders/{{ order.order_number }}/" class="text-red-500 hover:text-red-400 font-medium">View</a>
+                                <a href="/admin/orders/order/{{ order.id }}/change/" target="_blank" class="text-red-500 hover:text-red-400 font-medium">View</a>
                             </td>
                         </tr>
                         {% empty %}
