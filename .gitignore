@@ -57,6 +57,9 @@ premium-fireworks/
 # Utility scripts
 export_cloudinary_urls.py
 
+# Backup files
+*.backup
+
 # Database fixtures (for syncing with Render)
 !products_fixture.json
 !categories_fixture.json
