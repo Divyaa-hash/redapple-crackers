@@ -143,8 +143,8 @@ is_render = 'RENDER' in os.environ or 'render.com' in os.environ.get('ALLOWED_HO
 # Check if running on Vercel (has Vercel-specific environment variables)
 is_vercel = 'VERCEL' in os.environ or 'vercel.app' in os.environ.get('ALLOWED_HOSTS', '')
 
-if is_vercel and DATABASE_URL and DATABASE_URL.startswith('postgres'):
-    # Production PostgreSQL on Vercel via DATABASE_URL
+if is_vercel and DATABASE_URL and DATABASE_URL.startswith('postgres') and 'hostname' not in DATABASE_URL:
+    # Production PostgreSQL on Vercel via DATABASE_URL (only if valid)
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
