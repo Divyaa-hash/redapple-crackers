@@ -31,16 +31,23 @@ import json
 import openpyxl
 
 def home_view(request):
-    active = Product.objects.filter(is_active=True).distinct()
-    trending_products = list(active.filter(is_trending=True)[:8])
-    featured_products = list(active.filter(is_featured=True)[:4])
-    new_products = list(active.filter(is_new=True)[:4])
-    if not trending_products:
-        trending_products = list(active.distinct()[:8])
-    if not featured_products:
-        featured_products = list(active.distinct()[:4])
-    if not new_products:
-        new_products = list(active.distinct()[4:8])
+    try:
+        active = Product.objects.filter(is_active=True).distinct()
+        trending_products = list(active.filter(is_trending=True)[:8])
+        featured_products = list(active.filter(is_featured=True)[:4])
+        new_products = list(active.filter(is_new=True)[:4])
+        if not trending_products:
+            trending_products = list(active.distinct()[:8])
+        if not featured_products:
+            featured_products = list(active.distinct()[:4])
+        if not new_products:
+            new_products = list(active.distinct()[4:8])
+    except Exception as e:
+        # Fallback if database connection fails
+        print(f"Database error in home_view: {e}")
+        trending_products = []
+        featured_products = []
+        new_products = []
     
     return render(request, 'home.html', {
         'trending_products': trending_products,
