@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-j(vxrdrd#b4ayg#*tc8hi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't', 'yes', 'y')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com,redapplecrackers.com,www.redapplecrackers.com').split(',')
 
 # CSRF Trusted Origins for production
 CSRF_TRUSTED_ORIGINS = []
@@ -44,6 +44,11 @@ if not DEBUG:
     # Add specific Render domain
     CSRF_TRUSTED_ORIGINS.append('https://redapple-crackers.onrender.com')
     CSRF_TRUSTED_ORIGINS.append('http://redapple-crackers.onrender.com')
+    # Add GoDaddy domain
+    CSRF_TRUSTED_ORIGINS.append('https://redapplecrackers.com')
+    CSRF_TRUSTED_ORIGINS.append('http://redapplecrackers.com')
+    CSRF_TRUSTED_ORIGINS.append('https://www.redapplecrackers.com')
+    CSRF_TRUSTED_ORIGINS.append('http://www.redapplecrackers.com')
 else:
     # For development, allow localhost
     CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
@@ -125,7 +130,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Use DATABASE_URL from Render for production, or construct from individual variables
 DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 
-if DATABASE_URL and DATABASE_URL.startswith('postgres'):
+# Check if running on Render (has Render-specific environment variables)
+is_render = 'RENDER' in os.environ or 'render.com' in os.environ.get('ALLOWED_HOSTS', '')
+
+if is_render and DATABASE_URL and DATABASE_URL.startswith('postgres'):
     # Production PostgreSQL on Render via DATABASE_URL
     DATABASES = {
         'default': dj_database_url.config(
@@ -134,7 +142,7 @@ if DATABASE_URL and DATABASE_URL.startswith('postgres'):
             conn_health_checks=True,
         )
     }
-elif os.environ.get('DB_NAME'):
+elif is_render and os.environ.get('DB_NAME'):
     # Production PostgreSQL via individual DB variables (Render fromDatabase)
     DATABASES = {
         'default': {
@@ -149,7 +157,7 @@ elif os.environ.get('DB_NAME'):
         }
     }
 else:
-    # Local development fallback to SQLite
+    # Local development and GoDaddy shared hosting - use SQLite
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
