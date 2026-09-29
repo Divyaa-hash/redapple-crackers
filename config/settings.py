@@ -130,13 +130,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# Use DATABASE_URL from Render for production, or construct from individual variables
+# Use DATABASE_URL from Render/Vercel for production, or construct from individual variables
 DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 
 # Check if running on Render (has Render-specific environment variables)
 is_render = 'RENDER' in os.environ or 'render.com' in os.environ.get('ALLOWED_HOSTS', '')
 
-if is_render and DATABASE_URL and DATABASE_URL.startswith('postgres'):
+# Check if running on Vercel (has Vercel-specific environment variables)
+is_vercel = 'VERCEL' in os.environ or 'vercel.app' in os.environ.get('ALLOWED_HOSTS', '')
+
+if is_vercel and DATABASE_URL and DATABASE_URL.startswith('postgres'):
+    # Production PostgreSQL on Vercel via DATABASE_URL
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=60,
+            conn_health_checks=True,
+        )
+    }
+elif is_render and DATABASE_URL and DATABASE_URL.startswith('postgres'):
     # Production PostgreSQL on Render via DATABASE_URL
     DATABASES = {
         'default': dj_database_url.config(
