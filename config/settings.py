@@ -52,6 +52,9 @@ if not DEBUG:
     CSRF_TRUSTED_ORIGINS.append('https://redapplecrackers.com')
     CSRF_TRUSTED_ORIGINS.append('http://redapplecrackers.com')
     CSRF_TRUSTED_ORIGINS.append('https://www.redapplecrackers.com')
+    # Add Vercel domain
+    CSRF_TRUSTED_ORIGINS.append('https://redapple-crackers.vercel.app')
+    CSRF_TRUSTED_ORIGINS.append('http://redapple-crackers.vercel.app')
     CSRF_TRUSTED_ORIGINS.append('http://www.redapplecrackers.com')
     # Add Vercel domain
     CSRF_TRUSTED_ORIGINS.append('https://redapple-crackers.vercel.app')
