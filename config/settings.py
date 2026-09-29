@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-j(vxrdrd#b4ayg#*tc8hi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't', 'yes', 'y')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com,redapplecrackers.com,www.redapplecrackers.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com,redapplecrackers.com,www.redapplecrackers.com,.vercel.app,redapple-crackers.vercel.app').split(',')
 
 # CSRF Trusted Origins for production
 CSRF_TRUSTED_ORIGINS = []
@@ -49,6 +49,9 @@ if not DEBUG:
     CSRF_TRUSTED_ORIGINS.append('http://redapplecrackers.com')
     CSRF_TRUSTED_ORIGINS.append('https://www.redapplecrackers.com')
     CSRF_TRUSTED_ORIGINS.append('http://www.redapplecrackers.com')
+    # Add Vercel domain
+    CSRF_TRUSTED_ORIGINS.append('https://redapple-crackers.vercel.app')
+    CSRF_TRUSTED_ORIGINS.append('http://redapple-crackers.vercel.app')
 else:
     # For development, allow localhost
     CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
