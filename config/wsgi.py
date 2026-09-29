@@ -8,18 +8,31 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 """
 
 import os
+import logging
+import sys
 
-# Disable Django logging for Vercel completely
-if os.environ.get('VERCEL'):
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
-    import logging
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    # Prevent Django from configuring file logging
-    os.environ['DJANGO_LOG_LEVEL'] = 'INFO'
+# Monkey-patch Django's configure_logging to prevent file handler errors
+original_configure_logging = None
 
-from django.core.wsgi import get_wsgi_application
+def safe_configure_logging(config, settings_dict):
+    """Safe logging configuration that prevents file handlers"""
+    try:
+        # Remove any file handlers from config
+        if 'handlers' in config:
+            config['handlers'] = {
+                k: v for k, v in config['handlers'].items()
+                if v.get('class', '') != 'logging.FileHandler'
+            }
+    except:
+        pass
+
+# Import Django and patch before setup
+import django.utils.log as django_log
+django_log.configure_logging = safe_configure_logging
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+
+from django.core.wsgi import get_wsgi_application
 
 # Run migrations on startup for Vercel
 if os.environ.get('VERCEL'):
