@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load product_images %}
 
 {% block title %}RedApple crackers Store - Celebrate with Style{% endblock %}
 
@@ -286,7 +285,7 @@
             <div class="product-card p-4 group">
                 <div class="relative mb-4 overflow-hidden rounded-lg">
                     <a href="/products/{{ product.id }}/" class="text-decoration-none">
-                        <img src="{% product_image_url product %}" alt="{{ product.name }}" class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300">
+                        <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300">
                     </a>
                     
                     <div class="absolute top-2 left-2 flex gap-2">
@@ -343,6 +342,171 @@
         </div>
     </div>
 </section>
+
+<!-- Featured Products -->
+{% if featured_products %}
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center">Featured Products</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Handpicked for you</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in featured_products %}
+            <div class="product-card p-4 group">
+                <div class="relative mb-4 overflow-hidden rounded-lg">
+                    <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                        <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300">
+                    </a>
+                    
+                    <div class="absolute top-2 left-2 flex gap-2">
+                        {% if product.is_new %}
+                        <span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">New</span>
+                        {% endif %}
+                        {% if product.is_featured %}
+                        <span class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full">Featured</span>
+                        {% endif %}
+                        {% if product.is_bestseller %}
+                        <span class="px-3 py-1 bg-red-700 text-white text-xs font-bold rounded-full">Bestseller</span>
+                        {% endif %}
+                        {% if product.sale_price %}
+                        <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Sale</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
+                    <h3 class="font-semibold text-gray-200">{{ product.name }}</h3>
+                    
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-red-500">₹{{ product.sale_price|default:product.regular_price }}</span>
+                        {% if product.sale_price %}
+                        <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <span class="text-xs {% if product.stock > 10 %}text-green-400{% elif product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                        {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                    </span>
+                    
+                    <button class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-400 col-span-4">No featured products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- New Products -->
+{% if new_products %}
+<section class="py-20 bg-black-200">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center">New Arrivals</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Fresh additions to our catalog</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in new_products %}
+            <div class="product-card p-4 group">
+                <div class="relative mb-4 overflow-hidden rounded-lg">
+                    <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                        <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300">
+                    </a>
+                    
+                    <div class="absolute top-2 left-2 flex gap-2">
+                        {% if product.is_new %}
+                        <span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">New</span>
+                        {% endif %}
+                        {% if product.sale_price %}
+                        <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Sale</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
+                    <h3 class="font-semibold text-gray-200">{{ product.name }}</h3>
+                    
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-red-500">₹{{ product.sale_price|default:product.regular_price }}</span>
+                        {% if product.sale_price %}
+                        <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <span class="text-xs {% if product.stock > 10 %}text-green-400{% elif product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                        {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                    </span>
+                    
+                    <button class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-400 col-span-4">No new products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Festival Pack Section -->
+{% if festival_packs %}
+<section class="py-20 bg-black-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-title text-center">Festival Packs</h2>
+        <p class="text-gray-400 text-center text-lg mb-12">Premium Diwali collections</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in festival_packs %}
+            <div class="product-card p-4 group">
+                <div class="relative mb-4 overflow-hidden rounded-lg">
+                    <a href="/products/{{ product.id }}/" class="text-decoration-none">
+                        <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300">
+                    </a>
+                    
+                    <div class="absolute top-2 left-2 flex gap-2">
+                        {% if product.is_new %}
+                        <span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">New</span>
+                        {% endif %}
+                        {% if product.sale_price %}
+                        <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Sale</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <span class="text-xs text-red-500 font-semibold">{{ product.category.name }}</span>
+                    <h3 class="font-semibold text-gray-200">{{ product.name }}</h3>
+                    
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-red-500">₹{{ product.sale_price|default:product.regular_price }}</span>
+                        {% if product.sale_price %}
+                        <span class="text-sm text-gray-500 line-through">₹{{ product.regular_price }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <span class="text-xs {% if product.stock > 10 %}text-green-400{% elif product.stock > 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                        {% if product.stock > 10 %}In Stock{% elif product.stock > 0 %}Low Stock{% else %}Out of Stock{% endif %}
+                    </span>
+                    
+                    <button class="add-to-cart-btn btn-gold w-full mt-4 py-2 rounded-lg" data-product-id="{{ product.id }}">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-400 col-span-4">No festival packs available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
 
 {% endblock %}
 

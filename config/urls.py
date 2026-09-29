@@ -36,6 +36,11 @@ def home_view(request):
         trending_products = list(active.filter(is_trending=True)[:8])
         featured_products = list(active.filter(is_featured=True)[:4])
         new_products = list(active.filter(is_new=True)[:4])
+        festival_category = Category.objects.filter(name='FESTIVAL FAMILY PACK SPECIAL').first()
+        if festival_category:
+            festival_packs = list(active.filter(category=festival_category)[:4])
+        else:
+            festival_packs = []
         if not trending_products:
             trending_products = list(active.distinct()[:8])
         if not featured_products:
@@ -48,11 +53,13 @@ def home_view(request):
         trending_products = []
         featured_products = []
         new_products = []
+        festival_packs = []
     
     return render(request, 'home.html', {
         'trending_products': trending_products,
         'featured_products': featured_products,
-        'new_products': new_products
+        'new_products': new_products,
+        'festival_packs': festival_packs
     })
 
 @csrf_exempt

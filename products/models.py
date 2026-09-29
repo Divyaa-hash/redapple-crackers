@@ -225,8 +225,8 @@ class Product(models.Model):
             if image.startswith('images/'):
                 return f'/static/{image}'
             return image
-        # No fallback - return empty string to let template handle missing image
-        return ''
+        # Final fallback - use slug-based image
+        return f'/static/images/crackers/{self.slug}.jpg'
     
     def get_current_price(self):
         return self.sale_price if self.sale_price else self.regular_price
