@@ -149,17 +149,8 @@ if is_vercel and DATABASE_URL and DATABASE_URL.startswith('postgres'):
         )
     }
 elif is_vercel:
-    # Vercel with in-memory SQLite (WARNING: Data lost on every request!)
-    # This is not recommended for production - use PostgreSQL instead
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:',  # In-memory database for Vercel
-            'OPTIONS': {
-                'check_same_thread': False,
-            }
-        }
-    }
+    # Vercel requires DATABASE_URL with PostgreSQL
+    raise ValueError("Vercel deployment requires DATABASE_URL environment variable with PostgreSQL connection string. Create a free PostgreSQL database at https://render.com")
 elif is_render and DATABASE_URL and DATABASE_URL.startswith('postgres'):
     # Production PostgreSQL on Render via DATABASE_URL
     DATABASES = {

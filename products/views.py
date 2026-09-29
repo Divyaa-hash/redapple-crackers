@@ -87,46 +87,70 @@ def shop_view(request):
     """Shop page with category filtering - Excel order"""
     from django.core.paginator import Paginator
 
-    # For Vercel in-memory database, handle database errors
-    try:
-        # Get category filter from query parameters
-        category_slug = request.GET.get('category', '').strip()
-        search_term = request.GET.get('search', '').strip() or request.GET.get('q', '').strip()
+    # Get category filter from query parameters
+    category_slug = request.GET.get('category', '').strip()
+    search_term = request.GET.get('search', '').strip() or request.GET.get('q', '').strip()
 
-        # Get all active products ordered by Excel order
-        products = Product.objects.filter(is_active=True).order_by('order')
+    # Get all active products ordered by Excel order
+    products = Product.objects.filter(is_active=True).order_by('order')
 
-        # Exclude specific products from shop display
-        products = products.exclude(name='Popcorn Crackling Star')
+    # Exclude specific products from shop display
+    products = products.exclude(name='Popcorn Crackling Star')
 
-        # Filter by search term if provided
-        if search_term:
-            # Case-insensitive search in name, SKU, and descriptions
-            # Also search for variations like "flower pot" -> "flower pots"
-            search_variations = [search_term]
-            if 'pot' in search_term.lower() and not search_term.lower().endswith('s'):
-                search_variations.append(search_term + 's')
-            
-            q_objects = Q()
-            for variation in search_variations:
-                q_objects |= Q(name__icontains=variation)
-                q_objects |= Q(sku__icontains=variation)
-                q_objects |= Q(short_description__icontains=variation)
-                q_objects |= Q(description__icontains=variation)
-                q_objects |= Q(category__name__icontains=variation)
-            
-            products = products.filter(q_objects)
+    # Filter by search term if provided
+    if search_term:
+        # Case-insensitive search in name, SKU, and descriptions
+        # Also search for variations like "flower pot" -> "flower pots"
+        search_variations = [search_term]
+        if 'pot' in search_term.lower() and not search_term.lower().endswith('s'):
+            search_variations.append(search_term + 's')
+        
+        q_objects = Q()
+        for variation in search_variations:
+            q_objects |= Q(name__icontains=variation)
+            q_objects |= Q(sku__icontains=variation)
+            q_objects |= Q(short_description__icontains=variation)
+            q_objects |= Q(description__icontains=variation)
+            q_objects |= Q(category__name__icontains=variation)
+        
+        products = products.filter(q_objects)
 
-        # Filter by category if provided
-        if category_slug:
-            products = products.filter(category__slug=category_slug)
+    # Filter by category if provided
+    if category_slug:
+        products = products.filter(category__slug=category_slug)
 
-        # Group products by category in Excel order
-        if search_term:
-            # When searching, show all matching products in a single "Search Results" category
-            if products.exists():
+    # Group products by category in Excel order
+    if search_term:
+        # When searching, show all matching products in a single "Search Results" category
+        if products.exists():
+            products_with_discount = []
+            for product in products:
+                original_price = product.regular_price
+                discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
+                products_with_discount.append({
+                    'product': product,
+                    'original_price': original_price,
+                    'discounted_price': discounted_price
+                })
+
+            catalog_data = [{
+                'category': {
+                    'name': f'Search Results for "{search_term}"',
+                    'slug': 'search'
+                },
+                'products': products_with_discount
+            }]
+        else:
+            catalog_data = []
+    elif category_slug:
+        # When filtering by category, only show that category
+        categories = Category.objects.filter(slug=category_slug, is_active=True)
+        catalog_data = []
+        for category in categories:
+            category_products = products.filter(category=category)
+            if category_products.exists():
                 products_with_discount = []
-                for product in products:
+                for product in category_products:
                     original_price = product.regular_price
                     discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
                     products_with_discount.append({
@@ -135,61 +159,31 @@ def shop_view(request):
                         'discounted_price': discounted_price
                     })
 
-                catalog_data = [{
-                    'category': {
-                        'name': f'Search Results for "{search_term}"',
-                        'slug': 'search'
-                    },
+                catalog_data.append({
+                    'category': category,
                     'products': products_with_discount
-                }]
-            else:
-                catalog_data = []
-        elif category_slug:
-            # When filtering by category, only show that category
-            categories = Category.objects.filter(slug=category_slug, is_active=True)
-            catalog_data = []
-            for category in categories:
-                category_products = products.filter(category=category)
-                if category_products.exists():
-                    products_with_discount = []
-                    for product in category_products:
-                        original_price = product.regular_price
-                        discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
-                        products_with_discount.append({
-                            'product': product,
-                            'original_price': original_price,
-                            'discounted_price': discounted_price
-                        })
-
-                    catalog_data.append({
-                        'category': category,
-                        'products': products_with_discount
-                    })
-        else:
-            # When no filter, show all categories
-            categories = Category.objects.filter(is_active=True).order_by('name')
-            catalog_data = []
-            for category in categories:
-                category_products = products.filter(category=category)
-                if category_products.exists():
-                    products_with_discount = []
-                    for product in category_products:
-                        original_price = product.regular_price
-                        discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
-                        products_with_discount.append({
-                            'product': product,
-                            'original_price': original_price,
-                            'discounted_price': discounted_price
-                        })
-
-                    catalog_data.append({
-                        'category': category,
-                        'products': products_with_discount
-                    })
-    except Exception as e:
-        # Fallback for Vercel in-memory database
-        print(f"Database error in shop_view: {e}")
+                })
+    else:
+        # When no filter, show all categories
+        categories = Category.objects.filter(is_active=True).order_by('name')
         catalog_data = []
+        for category in categories:
+            category_products = products.filter(category=category)
+            if category_products.exists():
+                products_with_discount = []
+                for product in category_products:
+                    original_price = product.regular_price
+                    discounted_price = product.sale_price if product.sale_price else original_price * Decimal('0.2')
+                    products_with_discount.append({
+                        'product': product,
+                        'original_price': original_price,
+                        'discounted_price': discounted_price
+                    })
+
+                catalog_data.append({
+                    'category': category,
+                    'products': products_with_discount
+                })
 
     return render(request, 'shop.html', {'catalog_data': catalog_data})
 
