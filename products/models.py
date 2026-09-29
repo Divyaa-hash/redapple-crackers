@@ -181,7 +181,7 @@ class Product(models.Model):
         return f'images/crackers/{self.slug}.jpg'
     
     def get_display_image(self):
-        """Get the actual image to display, with fallback to placeholder"""
+        """Get the actual image to display, with safe fallback"""
         # First try image_url if it exists (Cloudinary or external URL)
         if self.image_url:
             # If it's a static path, add /static prefix
@@ -225,8 +225,8 @@ class Product(models.Model):
             if image.startswith('images/'):
                 return f'/static/{image}'
             return image
-        # Final fallback - use slug-based image
-        return f'/static/images/crackers/{self.slug}.jpg'
+        # Final fallback - use logo.jpg (always exists)
+        return '/static/images/crackers/logo.jpg'
     
     def get_current_price(self):
         return self.sale_price if self.sale_price else self.regular_price
