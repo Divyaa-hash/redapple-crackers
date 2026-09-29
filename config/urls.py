@@ -44,30 +44,19 @@ def home_view(request):
             if category_product:
                 trending_products.append(category_product)
         
-        featured_products = list(active.filter(is_featured=True)[:4])
-        new_products = list(active.filter(is_new=True)[:4])
         festival_category = Category.objects.filter(name='FESTIVAL FAMILY PACK SPECIAL').first()
         if festival_category:
             festival_packs = list(active.filter(category=festival_category)[:4])
         else:
             festival_packs = []
-        
-        if not featured_products:
-            featured_products = list(active.distinct()[:4])
-        if not new_products:
-            new_products = list(active.distinct()[4:8])
     except Exception as e:
         # Fallback if database connection fails
         print(f"Database error in home_view: {e}")
         trending_products = []
-        featured_products = []
-        new_products = []
         festival_packs = []
     
     return render(request, 'home.html', {
         'trending_products': trending_products,
-        'featured_products': featured_products,
-        'new_products': new_products,
         'festival_packs': festival_packs
     })
 
