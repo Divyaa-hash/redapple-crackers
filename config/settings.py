@@ -289,9 +289,12 @@ if DATABASE_URL and DATABASE_URL.startswith('postgres') and 'default' in DATABAS
     DATABASES['default']['CONN_HEALTH_CHECKS'] = True
 
 # Disable logging configuration for Vercel (read-only file system)
+LOGGING_CONFIG = None
+LOGGING = {}
+
+# Override logging completely for serverless platforms
 if os.environ.get('VERCEL'):
-    LOGGING_CONFIG = None
-    LOGGING = {}
+    pass
 else:
     # Logging Configuration for local development
     LOGGING = {
