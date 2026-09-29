@@ -19,9 +19,16 @@ if os.environ.get('VERCEL'):
     django.setup()
     from django.core.management import call_command
     try:
-        call_command('migrate', '--run-syncdb', verbosity=0)
+        # Run migrations with --run-syncdb to create tables
+        call_command('migrate', '--run-syncdb', verbosity=1)
         print("Migrations run successfully for Vercel in-memory database")
     except Exception as e:
         print(f"Migration error: {e}")
+        # Try syncdb as fallback
+        try:
+            call_command('syncdb', verbosity=0, interactive=False)
+            print("Syncdb completed as fallback")
+        except Exception as e2:
+            print(f"Syncdb error: {e2}")
 
 application = get_wsgi_application()
