@@ -13,4 +13,15 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
+# Run migrations on startup for Vercel
+if os.environ.get('VERCEL'):
+    import django
+    django.setup()
+    from django.core.management import call_command
+    try:
+        call_command('migrate', verbosity=0, interactive=False)
+        print("Migrations completed successfully")
+    except Exception as e:
+        print(f"Migration error: {e}")
+
 application = get_wsgi_application()
