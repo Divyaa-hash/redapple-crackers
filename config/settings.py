@@ -288,47 +288,7 @@ if DATABASE_URL and DATABASE_URL.startswith('postgres') and 'default' in DATABAS
     DATABASES['default']['CONN_MAX_AGE'] = 60
     DATABASES['default']['CONN_HEALTH_CHECKS'] = True
 
-# Disable logging configuration for Vercel (read-only file system)
-LOGGING_CONFIG = None
-LOGGING = {}
-
-# Override logging completely for serverless platforms
-if os.environ.get('VERCEL'):
-    pass
-else:
-    # Logging Configuration for local development
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': True,
-        'formatters': {
-            'simple': {
-                'format': '%(levelname)s %(message)s'
-            }
-        },
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-                'formatter': 'simple',
-                'level': 'INFO',
-            },
-        },
-        'root': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        },
-        'loggers': {
-            'django': {
-                'handlers': ['console'],
-                'level': 'INFO',
-                'propagate': False,
-            },
-            'django.db.backends': {
-                'handlers': ['console'],
-                'level': 'WARNING',
-                'propagate': False,
-            },
-        },
-    }
+# No logging configuration - use Python defaults
 
 # Razorpay Payment Gateway Configuration
 RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
