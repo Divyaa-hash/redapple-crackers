@@ -32,7 +32,13 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-j(vxrdrd#b4ayg#*tc8hi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 't', 'yes', 'y')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com,redapplecrackers.com,www.redapplecrackers.com,.vercel.app,redapple-crackers.vercel.app,*.vercel.app').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,.onrender.com,redapple-crackers.onrender.com,redapplecrackers.com,www.redapplecrackers.com,.vercel.app,redapple-crackers.vercel.app').split(',')
+
+# Allow all Vercel subdomains dynamically
+if 'VERCEL' in os.environ:
+    ALLOWED_HOSTS.append('*.vercel.app')
+    # Also add wildcard for safety
+    ALLOWED_HOSTS.append('*')
 
 # CSRF Trusted Origins for production
 CSRF_TRUSTED_ORIGINS = []
