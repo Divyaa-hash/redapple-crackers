@@ -330,7 +330,8 @@ Thank you for your order!"""
         
         # WhatsApp admin number
         whatsapp_number = '9345980679'
-        whatsapp_url = f"https://wa.me/{whatsapp_number}?text={message.replace(' ', '%20').replace('\n', '%0A')}"
+        message_encoded = message.replace(' ', '%20').replace('\n', '%0A')
+        whatsapp_url = f"https://wa.me/{whatsapp_number}?text={message_encoded}"
         
         return JsonResponse({
             'success': True,
