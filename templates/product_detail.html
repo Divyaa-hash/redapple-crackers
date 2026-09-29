@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load product_images %}
 
 {% block title %}{{ product.name }} - Premium crackers Store{% endblock %}
 
@@ -251,11 +250,7 @@
             <div class="space-y-4">
                 <div class="glass-card p-4">
                     <div class="relative overflow-hidden rounded-xl">
-                        {% if product.main_image %}
-                        <img src="{% product_image_url product %}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-contain" id="main-image">
-                        {% else %}
-                        <img src="https://via.placeholder.com/400x400/ef4444/ffffff?text={{ product.name|truncatewords:2 }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-contain" id="main-image">
-                        {% endif %}
+                        <img src="{{ product.get_display_image }}" alt="{{ product.name }}" class="w-full h-64 sm:h-80 lg:h-96 object-contain" id="main-image">
                         {% if product.sale_price %}
                         <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full font-semibold text-sm sm:text-base">
                             -{{ product.get_discount_percentage }}%
@@ -265,11 +260,7 @@
                 </div>
                 <div class="flex space-x-3 sm:space-x-4 overflow-x-auto pb-4">
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">
-                        {% if product.main_image %}
-                        <img src="{% product_image_url product %}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-contain rounded-lg">
-                        {% else %}
-                        <img src="https://via.placeholder.com/100x100/ef4444/ffffff?text=Thumb" alt="Thumbnail" class="w-full h-16 sm:h-20 object-contain rounded-lg">
-                        {% endif %}
+                        <img src="{{ product.get_display_image }}" alt="Thumbnail" class="w-full h-16 sm:h-20 object-contain rounded-lg">
                     </div>
                     {% for image in product.product_images.all %}
                     <div class="glass-card p-2 min-w-20 sm:min-w-24 cursor-pointer hover:border-gold-500 transition-colors">
@@ -398,7 +389,7 @@
             <div class="product-card p-3 sm:p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden flex flex-col">
                 <div class="relative mb-3 sm:mb-4 overflow-hidden rounded-lg flex-shrink-0">
                     <a href="/products/{{ related_product.id }}/" class="text-decoration-none block">
-                        <img src="{% product_image_url related_product %}"
+                        <img src="{{ related_product.get_display_image }}"
                              alt="{{ related_product.name }}"
                              class="w-full h-40 sm:h-48 object-contain group-hover:scale-105 transition-transform duration-300">
                     </a>

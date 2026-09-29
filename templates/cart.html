@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load product_images %}
 
 {% block title %}Shopping Cart - RedApple crackers Store{% endblock %}
 
@@ -332,11 +331,7 @@
                             {% for item in cart_items %}
                             <tr data-item-id="{{ item.id }}" data-product-id="{{ item.product.id }}">
                                 <td>
-                                    {% if item.product.main_image %}
-                                    <img src="{% product_image_url item.product %}" alt="{{ item.product.name }}" class="cart-product-image">
-                                    {% else %}
-                                    <img src="https://via.placeholder.com/80x80/ef4444/ffffff?text={{ item.product.name|truncatewords:1 }}" alt="{{ item.product.name }}" class="cart-product-image">
-                                    {% endif %}
+                                    <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="cart-product-image">
                                 </td>
                                 <td>
                                     <div class="cart-product-name">{{ item.product.name }}</div>
@@ -376,11 +371,7 @@
                         {% for item in cart_items %}
                         <div class="cart-mobile-item" data-item-id="{{ item.id }}" data-product-id="{{ item.product.id }}">
                             <div class="cart-mobile-card">
-                                {% if item.product.main_image %}
-                                <img src="{% product_image_url item.product %}" alt="{{ item.product.name }}" class="cart-mobile-image">
-                                {% else %}
-                                <img src="https://via.placeholder.com/90x90/ef4444/ffffff?text={{ item.product.name|truncatewords:1 }}" alt="{{ item.product.name }}" class="cart-mobile-image">
-                                {% endif %}
+                                <img src="{{ item.product.get_display_image }}" alt="{{ item.product.name }}" class="cart-mobile-image">
                                 <div class="cart-mobile-details">
                                     <div class="cart-mobile-name">{{ item.product.name }}</div>
                                     <div class="cart-mobile-unit">{{ item.product.unit }}</div>
