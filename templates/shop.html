@@ -519,7 +519,7 @@
                     data-discounted-price="{{ item.discounted_price }}">
                     <td class="product-image">
                         <a href="/products/{{ item.product.id }}/" style="display: block; text-decoration: none;">
-                            <img src="{% product_image_url item.product %}" alt="{{ item.product.name }}" class="product-thumb" onerror="this.src='/static/images/crackers/logo.jpg'">
+                            <img src="{% product_image_url item.product %}" alt="{{ item.product.name }}" class="product-thumb">
                         </a>
                     </td>
                     <td class="product-name"><a href="/products/{{ item.product.id }}/" class="text-white hover:text-red-500" style="display: block; padding: 10px 0; text-decoration: none;">{{ item.product.name }}</a></td>
@@ -557,7 +557,7 @@
                  data-discounted-price="{{ item.discounted_price }}">
                 <div class="shop-mobile-card">
                     <a href="/products/{{ item.product.id }}/" style="text-decoration: none;">
-                        <img src="{% product_image_url item.product %}" alt="{{ item.product.name }}" class="shop-mobile-image" onerror="this.src='/static/images/crackers/logo.jpg'">
+                        <img src="{% product_image_url item.product %}" alt="{{ item.product.name }}" class="shop-mobile-image">
                     </a>
                     <div class="shop-mobile-details">
                         <a href="/products/{{ item.product.id }}/" style="text-decoration: none;">
