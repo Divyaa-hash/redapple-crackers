@@ -291,6 +291,7 @@ if DATABASE_URL and DATABASE_URL.startswith('postgres') and 'default' in DATABAS
 # Disable logging configuration for Vercel (read-only file system)
 if os.environ.get('VERCEL'):
     LOGGING_CONFIG = None
+    LOGGING = {}
 else:
     # Logging Configuration for local development
     LOGGING = {
