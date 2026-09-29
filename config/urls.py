@@ -39,23 +39,17 @@ def home_view(request):
         new_products = list(active.filter(is_new=True)[:4])
         if not trending_products:
             trending_products = list(active.distinct()[:8])
+        if not featured_products:
+            featured_products = list(active.distinct()[:4])
+        if not new_products:
+            new_products = list(active.distinct()[4:8])
     except Exception as e:
         # Fallback for Vercel in-memory database
         print(f"Database error in home_view: {e}")
         trending_products = []
         featured_products = []
         new_products = []
-    if not featured_products:
-        featured_products = list(active.distinct()[:4])
-    if not new_products:
-        new_products = list(active.distinct()[4:8])
-    # If still no products, use all active products
-    if not trending_products:
-        trending_products = list(active.distinct()[:8])
-    if not featured_products:
-        featured_products = list(active.distinct()[:4])
-    if not new_products:
-        new_products = list(active.distinct()[4:8])
+    
     return render(request, 'home.html', {
         'trending_products': trending_products,
         'featured_products': featured_products,
