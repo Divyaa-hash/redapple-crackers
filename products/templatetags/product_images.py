@@ -65,3 +65,16 @@ def product_image_url(product):
     
     # Final fallback - use slug-based image
     return static(f'images/crackers/{product.slug}.jpg')
+
+
+@register.simple_tag
+def product_image_url_debug(product):
+    """
+    Debug version that returns the actual values for inspection.
+    """
+    debug_info = {
+        'main_image': str(product.main_image) if product.main_image else None,
+        'image_url': str(product.image_url) if product.image_url else None,
+        'slug': product.slug,
+    }
+    return f"DEBUG: {debug_info}"
