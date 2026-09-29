@@ -33,7 +33,17 @@ import openpyxl
 def home_view(request):
     try:
         active = Product.objects.filter(is_active=True).distinct()
-        trending_products = list(active.filter(is_trending=True)[:8])
+        
+        # Trending Products: One product from each category (max 8)
+        categories = Category.objects.filter(is_active=True).order_by('order')[:8]
+        trending_products = []
+        for category in categories:
+            category_product = active.filter(category=category, is_trending=True).first()
+            if not category_product:
+                category_product = active.filter(category=category).first()
+            if category_product:
+                trending_products.append(category_product)
+        
         featured_products = list(active.filter(is_featured=True)[:4])
         new_products = list(active.filter(is_new=True)[:4])
         festival_category = Category.objects.filter(name='FESTIVAL FAMILY PACK SPECIAL').first()
@@ -41,8 +51,7 @@ def home_view(request):
             festival_packs = list(active.filter(category=festival_category)[:4])
         else:
             festival_packs = []
-        if not trending_products:
-            trending_products = list(active.distinct()[:8])
+        
         if not featured_products:
             featured_products = list(active.distinct()[:4])
         if not new_products:
