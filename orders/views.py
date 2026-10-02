@@ -30,7 +30,8 @@ def checkout_view(request):
     
     # Calculate totals
     subtotal = cart.get_total_price()
-    total = subtotal
+    shipping_charge = Decimal('350.00')
+    total = subtotal + shipping_charge
     
     # Initialize Razorpay client if credentials are available
     razorpay_client = None
@@ -40,7 +41,7 @@ def checkout_view(request):
             razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
             # Create Razorpay order
             razorpay_order_data = {
-                'amount': int(total * 100),  # Amount in paise
+                'amount': int(total * 100),  # Amount in paise (includes shipping)
                 'currency': settings.RAZORPAY_CURRENCY,
                 'receipt': f'receipt_{int(total)}',
                 'payment_capture': '1'
@@ -54,6 +55,8 @@ def checkout_view(request):
         'cart_items': cart_items,
         'saved_addresses': saved_addresses,
         'subtotal': subtotal,
+        'shipping_charge': shipping_charge,
+        'gst': 0,
         'total': total,
         'razorpay_key_id': settings.RAZORPAY_KEY_ID,
         'razorpay_order': razorpay_order,
@@ -89,7 +92,8 @@ def process_checkout(request):
     
     # Calculate totals
     subtotal = cart.get_total_price()
-    total_amount = subtotal
+    shipping_charge = Decimal('350.00')
+    total_amount = subtotal + shipping_charge
     
     # Verify Razorpay payment if provided
     payment_status = 'pending'
@@ -134,7 +138,7 @@ def process_checkout(request):
         billing_postal_code=shipping_postal_code,
         billing_country=shipping_country,
         subtotal=subtotal,
-        shipping_charge=0,
+        shipping_charge=shipping_charge,
         gst_amount=0,
         total_amount=total_amount,
         payment_method=payment_method,
