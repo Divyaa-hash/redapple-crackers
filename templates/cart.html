@@ -624,14 +624,29 @@ function removeItem(itemId) {
 }
 
 function openCartOrderModal() {
-    // Update modal content with cart data
-    document.getElementById('cart-items-count').textContent = {{ cart_items.count }};
-    document.getElementById('cart-subtotal').textContent = '₹{{ subtotal|floatformat:2 }}';
-    document.getElementById('cart-total').textContent = '₹{{ total|floatformat:2 }}';
+    // Fetch current cart data before opening modal
+    fetch('/cart/summary/')
+        .then(response => response.json())
+        .then(data => {
+            // Update modal content with current cart data
+            document.getElementById('cart-items-count').textContent = data.total_items || data.cart_count || 0;
+            document.getElementById('cart-subtotal').textContent = '₹' + parseFloat(data.subtotal).toFixed(2);
+            document.getElementById('modal-shipping').textContent = '₹' + parseFloat(data.shipping_charge).toFixed(2);
+            document.getElementById('cart-total').textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
 
-    // Show modal
-    document.getElementById('cartOrderModal').classList.remove('hidden');
-    document.getElementById('cartOrderModal').classList.add('flex');
+            // Show modal
+            document.getElementById('cartOrderModal').classList.remove('hidden');
+            document.getElementById('cartOrderModal').classList.add('flex');
+        })
+        .catch(error => {
+            console.error('Error fetching cart data:', error);
+            // Fallback to page load values if fetch fails
+            document.getElementById('cart-items-count').textContent = {{ cart_items.count }};
+            document.getElementById('cart-subtotal').textContent = '₹{{ subtotal|floatformat:2 }}';
+            document.getElementById('cart-total').textContent = '₹{{ total|floatformat:2 }}';
+            document.getElementById('cartOrderModal').classList.remove('hidden');
+            document.getElementById('cartOrderModal').classList.add('flex');
+        });
 }
 
 function submitCartWhatsAppOrder() {
@@ -639,7 +654,10 @@ function submitCartWhatsAppOrder() {
     const mobile = document.getElementById('cart-customer-mobile').value.trim();
     const address = document.getElementById('cart-customer-address').value.trim();
     const pincode = document.getElementById('cart-customer-pincode').value.trim();
-    const cartSubtotal = {{ subtotal }};
+    
+    // Get current subtotal from modal
+    const cartSubtotalText = document.getElementById('cart-subtotal').textContent.replace('₹', '');
+    const cartSubtotal = parseFloat(cartSubtotalText);
 
     // Minimum order validation (based on subtotal, not total with shipping)
     if (cartSubtotal < 2500) {
@@ -779,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>Shipping</span>
-                    <span class="text-green-500">₹{{ shipping_charge|floatformat:2 }}</span>
+                    <span class="text-green-500" id="modal-shipping">₹{{ shipping_charge|floatformat:2 }}</span>
                 </div>
                 <hr class="border-white/10">
                 <div class="flex justify-between text-lg font-bold">
