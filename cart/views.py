@@ -36,12 +36,14 @@ def cart_view(request):
     
     # Recalculate subtotal from items to ensure accuracy
     subtotal = sum(item.get_total_price() for item in cart_items)
-    total = subtotal
+    shipping_charge = Decimal('350.00')
+    total = subtotal + shipping_charge
     
     return render(request, 'cart.html', {
         'cart': cart,
         'cart_items': cart_items,
         'subtotal': subtotal,
+        'shipping_charge': shipping_charge,
         'total': total
     })
 
@@ -197,10 +199,16 @@ def cart_summary(request):
             'total_price': str(item.get_total_price())
         })
     
+    subtotal = cart.get_total_price()
+    shipping_charge = Decimal('350.00')
+    total = subtotal + shipping_charge
+    
     return JsonResponse({
         'total_items': cart.get_total_items(),
         'cart_count': cart.get_total_items(),
-        'cart_total': str(cart.get_total_price()),
+        'cart_total': str(total),
+        'subtotal': str(subtotal),
+        'shipping_charge': str(shipping_charge),
         'items': items_data
     })
 
@@ -231,9 +239,9 @@ def create_whatsapp_order(request):
         if subtotal < Decimal('2500.00'):
             return JsonResponse({'success': False, 'message': 'Minimum order value is ₹2500. Please add more products to your cart.'})
         
-        shipping_charge = Decimal('0.00')
+        shipping_charge = Decimal('350.00')
         gst = Decimal('0.00')
-        total = subtotal
+        total = subtotal + shipping_charge
         
         # Create or get user
         user = None
@@ -323,6 +331,7 @@ Address: {address}, {pincode}
         
         message += f"""
 *Order Total: {order.total_amount}*
+Shipping: ₹{order.shipping_charge}
 Payment: UPI Payment
 Status: Pending
 

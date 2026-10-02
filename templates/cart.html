@@ -415,6 +415,10 @@
                             <span>Subtotal</span>
                             <span class="text-white">₹{{ subtotal|floatformat:2 }}</span>
                         </div>
+                        <div class="flex justify-between text-gray-400 text-sm sm:text-base">
+                            <span>Shipping</span>
+                            <span class="text-green-500">₹{{ shipping_charge|floatformat:2 }}</span>
+                        </div>
                         <hr class="border-white/10">
                         <div class="flex justify-between text-lg sm:text-xl font-bold">
                             <span class="text-white">Total</span>
@@ -534,13 +538,16 @@ function updateCartTotals() {
     fetch('/cart/summary/')
         .then(response => response.json())
         .then(data => {
-            // Update all subtotal elements
+            // Update subtotal elements
             const subtotalElements = document.querySelectorAll('.flex.justify-between.text-gray-400 span.text-white');
             subtotalElements.forEach(el => {
-                el.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
+                // Check if this is the subtotal element (not shipping)
+                if (el.previousElementSibling && el.previousElementSibling.textContent === 'Subtotal') {
+                    el.textContent = '₹' + parseFloat(data.subtotal).toFixed(2);
+                }
             });
             
-            // Update all total elements
+            // Update total elements
             const totalElements = document.querySelectorAll('.flex.justify-between.text-lg span.text-red-500');
             totalElements.forEach(el => {
                 el.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
@@ -555,7 +562,7 @@ function updateCartTotals() {
             // Update mobile cart subtotal
             const mobileSubtotal = document.getElementById('cart-subtotal');
             if (mobileSubtotal) {
-                mobileSubtotal.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
+                mobileSubtotal.textContent = '₹' + parseFloat(data.subtotal).toFixed(2);
             }
         })
         .catch(error => console.error('Error updating cart totals:', error));
@@ -635,10 +642,10 @@ function submitCartWhatsAppOrder() {
     const mobile = document.getElementById('cart-customer-mobile').value.trim();
     const address = document.getElementById('cart-customer-address').value.trim();
     const pincode = document.getElementById('cart-customer-pincode').value.trim();
-    const cartTotal = {{ total }};
+    const cartSubtotal = {{ subtotal }};
 
-    // Minimum order validation
-    if (cartTotal < 2500) {
+    // Minimum order validation (based on subtotal, not total with shipping)
+    if (cartSubtotal < 2500) {
         alert('Minimum order value is ₹2500. Please add more products to your cart.');
         return;
     }
@@ -772,6 +779,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="flex justify-between text-gray-400 text-sm">
                     <span>Subtotal</span>
                     <span class="text-white" id="cart-subtotal">₹0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400 text-sm">
+                    <span>Shipping</span>
+                    <span class="text-green-500">₹{{ shipping_charge|floatformat:2 }}</span>
                 </div>
                 <hr class="border-white/10">
                 <div class="flex justify-between text-lg font-bold">
