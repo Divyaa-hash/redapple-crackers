@@ -413,16 +413,16 @@
                     <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                         <div class="flex justify-between text-gray-400 text-sm sm:text-base">
                             <span>Subtotal</span>
-                            <span class="text-white">₹{{ subtotal|floatformat:2 }}</span>
+                            <span class="text-white" id="order-subtotal">₹{{ subtotal|floatformat:2 }}</span>
                         </div>
                         <div class="flex justify-between text-gray-400 text-sm sm:text-base">
                             <span>Shipping</span>
-                            <span class="text-green-500">₹{{ shipping_charge|floatformat:2 }}</span>
+                            <span class="text-green-500" id="order-shipping">₹{{ shipping_charge|floatformat:2 }}</span>
                         </div>
                         <hr class="border-white/10">
                         <div class="flex justify-between text-lg sm:text-xl font-bold">
                             <span class="text-white">Total</span>
-                            <span class="text-red-500">₹{{ total|floatformat:2 }}</span>
+                            <span class="text-red-500" id="order-total">₹{{ total|floatformat:2 }}</span>
                         </div>
                     </div>
 
@@ -538,20 +538,17 @@ function updateCartTotals() {
     fetch('/cart/summary/')
         .then(response => response.json())
         .then(data => {
-            // Update subtotal elements
-            const subtotalElements = document.querySelectorAll('.flex.justify-between.text-gray-400 span.text-white');
-            subtotalElements.forEach(el => {
-                // Check if this is the subtotal element (not shipping)
-                if (el.previousElementSibling && el.previousElementSibling.textContent === 'Subtotal') {
-                    el.textContent = '₹' + parseFloat(data.subtotal).toFixed(2);
-                }
-            });
+            // Update order summary subtotal
+            const orderSubtotal = document.getElementById('order-subtotal');
+            if (orderSubtotal) {
+                orderSubtotal.textContent = '₹' + parseFloat(data.subtotal).toFixed(2);
+            }
             
-            // Update total elements
-            const totalElements = document.querySelectorAll('.flex.justify-between.text-lg span.text-red-500');
-            totalElements.forEach(el => {
-                el.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
-            });
+            // Update order summary total
+            const orderTotal = document.getElementById('order-total');
+            if (orderTotal) {
+                orderTotal.textContent = '₹' + parseFloat(data.cart_total).toFixed(2);
+            }
             
             // Update mobile cart total
             const mobileTotal = document.getElementById('cart-total');
