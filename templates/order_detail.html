@@ -107,6 +107,12 @@
                             <span>Subtotal</span>
                             <span>₹{{ order.subtotal }}</span>
                         </div>
+                        {% if order.shipping_charge %}
+                        <div class="flex justify-between text-gray-400">
+                            <span>Shipping</span>
+                            <span>₹{{ order.shipping_charge }}</span>
+                        </div>
+                        {% endif %}
                         {% if order.discount_amount %}
                         <div class="flex justify-between text-green-500">
                             <span>Discount</span>
