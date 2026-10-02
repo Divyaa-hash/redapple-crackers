@@ -56,7 +56,6 @@ def checkout_view(request):
         'saved_addresses': saved_addresses,
         'subtotal': subtotal,
         'shipping_charge': shipping_charge,
-        'gst': 0,
         'total': total,
         'razorpay_key_id': settings.RAZORPAY_KEY_ID,
         'razorpay_order': razorpay_order,
